@@ -5,10 +5,9 @@ on:
     inputs:
       resolution_km:
         description: "Resolução do domínio"
-        required: true
+        required: false
         default: '4'
-        type: choice
-        options: ['4', '5']
+        type: string
       model_variant:
         description: "Tipo de execução WRF"
         required: false
