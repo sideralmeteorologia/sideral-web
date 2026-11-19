@@ -1,0 +1,83 @@
+name: SIDERAL | Runner WRF2
+run-name: "WRF2 | ${{ inputs.domain }}"
+
+on:
+  workflow_dispatch:
+    inputs:
+      domain:
+        description: Domínio WRF a executar
+        required: true
+        type: choice
+        options: [cbr, cim5, metbr, sudeste, tarc]
+      source_model:
+        description: Fonte global de condições iniciais e de contorno
+        required: true
+        default: icon
+        type: choice
+        options: [icon, ecmwf, gfs]
+      resolution_km:
+        description: Resolução quando o domínio selecionado for Sudeste
+        required: false
+        default: '4'
+        type: choice
+        options: ['4', '5']
+      run_date:
+        description: Data UTC YYYYMMDD para domínios que aceitam data manual
+        required: false
+        type: string
+      run_cycle:
+        description: Ciclo UTC para domínios que aceitam ciclo manual
+        required: false
+        type: string
+
+permissions:
+  contents: write
+  actions: read
+
+jobs:
+  cbr:
+    name: CBR 4 km
+    if: inputs.domain == 'cbr'
+    uses: ./.github/workflows/cbr-wrf.yml
+    with:
+      model_variant: wrf2
+      source_model: ${{ inputs.source_model }}
+    secrets: inherit
+
+  cim5:
+    name: CIM 5 km
+    if: inputs.domain == 'cim5'
+    uses: ./.github/workflows/cim-wrf-5km.yml
+    with:
+      model_variant: wrf2
+      source_model: ${{ inputs.source_model }}
+      scheduled_cycle: ${{ inputs.run_cycle }}
+    secrets: inherit
+
+  metbr:
+    name: METBR 4 km
+    if: inputs.domain == 'metbr'
+    uses: ./.github/workflows/metbr-wrf.yml
+    with:
+      model_variant: wrf2
+      source_model: ${{ inputs.source_model }}
+    secrets: inherit
+
+  sudeste:
+    name: Sudeste 4/5 km
+    if: inputs.domain == 'sudeste'
+    uses: ./.github/workflows/sideral-sudeste-wrf.yml
+    with:
+      model_variant: wrf2
+      source_model: ${{ inputs.source_model }}
+      resolution_km: ${{ inputs.resolution_km }}
+    secrets: inherit
+
+  tarc:
+    name: TARC 3 km
+    if: inputs.domain == 'tarc'
+    uses: ./.github/workflows/tarc-wrf.yml
+    with:
+      model_variant: wrf2
+      source_model: ${{ inputs.source_model }}
+    secrets: inherit
