@@ -8,10 +8,6 @@ on:
         required: false
         default: "all"
         type: string
-  schedule:
-    - cron: '37 8 * * *'
-    - cron: '17 9 * * *'
-    - cron: '57 9 * * *'
 permissions:
   contents: write
 
@@ -26,7 +22,7 @@ env:
   FAMILY: cim
   RESOLUTION_KM: '8'
   MODEL_VARIANT: wrf
-  SOURCE_MODEL: ${{ github.event.schedule == '37 8 * * *' && 'icon' || github.event.schedule == '17 9 * * *' && 'ecmwf' || github.event.schedule == '57 9 * * *' && 'gfs' || inputs.source_model || 'all' }}
+  SOURCE_MODEL: ${{ inputs.source_model || 'icon' }}
 
 
 jobs:

@@ -13,13 +13,6 @@ on:
         required: false
         default: "icon"
         type: string
-  schedule:
-    - cron: '15 10 * * *'
-    - cron: '35 10 * * *'
-    - cron: '55 10 * * *'
-    - cron: '0 11 * * *'
-    - cron: '45 11 * * *'
-    - cron: '5 12 * * *'
 
 permissions:
   contents: write
@@ -29,9 +22,9 @@ env:
   TARC_CHECKPOINT_PREFIX: tarc-wrf-3km-checkpoint
   FAMILY: tarc
   RESOLUTION_KM: '3'
-  MODEL_VARIANT: ${{ (github.event.schedule == '0 11 * * *' || github.event.schedule == '45 11 * * *' || github.event.schedule == '5 12 * * *') && 'wrf2' || inputs.model_variant || 'wrf' }}
-  SOURCE_MODEL: ${{ (github.event.schedule == '35 10 * * *' || github.event.schedule == '45 11 * * *') && 'ecmwf' || (github.event.schedule == '55 10 * * *' || github.event.schedule == '5 12 * * *') && 'gfs' || inputs.source_model || 'icon' }}
-  WRF2_TOMORROW: ${{ (github.event.schedule == '0 11 * * *' || github.event.schedule == '45 11 * * *' || github.event.schedule == '5 12 * * *' || inputs.model_variant == 'wrf2') && '1' || '0' }}
+  MODEL_VARIANT: ${{ inputs.model_variant || 'wrf' }}
+  SOURCE_MODEL: ${{ inputs.source_model || 'icon' }}
+  WRF2_TOMORROW: ${{ inputs.model_variant == 'wrf2' && '1' || '0' }}
 
 
 jobs:

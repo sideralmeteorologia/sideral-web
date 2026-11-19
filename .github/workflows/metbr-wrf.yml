@@ -13,13 +13,6 @@ on:
         required: false
         default: "icon"
         type: string
-  schedule:
-    - cron: '0 6 * * *'
-    - cron: '0 8 * * *'
-    - cron: '0 7 * * *'
-    - cron: '30 10 * * *'
-    - cron: '30 12 * * *'
-    - cron: '30 11 * * *'
 
 permissions:
   contents: write
@@ -32,9 +25,9 @@ concurrency:
 env:
   METBR_SOURCE_MODEL: icon
   CHECKPOINT_PREFIX: metbr-wrf-4km-checkpoint
-  SOURCE_MODEL: ${{ (github.event.schedule == '0 8 * * *' || github.event.schedule == '30 12 * * *') && 'ecmwf' || (github.event.schedule == '0 7 * * *' || github.event.schedule == '30 11 * * *') && 'gfs' || inputs.source_model || 'icon' }}
-  MODEL_VARIANT: ${{ (github.event.schedule == '30 10 * * *' || github.event.schedule == '30 12 * * *' || github.event.schedule == '30 11 * * *') && 'wrf2' || inputs.model_variant || 'wrf' }}
-  WRF2_TOMORROW: ${{ (github.event.schedule == '30 10 * * *' || github.event.schedule == '30 12 * * *' || github.event.schedule == '30 11 * * *' || inputs.model_variant == 'wrf2') && '1' || '0' }}
+  SOURCE_MODEL: ${{ inputs.source_model || 'icon' }}
+  MODEL_VARIANT: ${{ inputs.model_variant || 'wrf' }}
+  WRF2_TOMORROW: ${{ inputs.model_variant == 'wrf2' && '1' || '0' }}
 
 
 jobs:

@@ -18,13 +18,6 @@ on:
         required: false
         default: ""
         type: string
-  schedule:
-    - cron: '37 10 * * *'
-    - cron: '0 11 * * *'
-    - cron: '30 11 * * *'
-    - cron: '17 19 * * *'
-    - cron: '0 20 * * *'
-    - cron: '30 20 * * *'
 permissions:
   contents: write
   actions: read
@@ -33,10 +26,10 @@ env:
   PYTHON_VERSION: '3.12'
   FAMILY: cim
   RESOLUTION_KM: '5'
-  MODEL_VARIANT: ${{ (github.event.schedule == '17 19 * * *' || github.event.schedule == '0 20 * * *' || github.event.schedule == '30 20 * * *') && 'wrf2' || inputs.model_variant || 'wrf' }}
-  SOURCE_MODEL: ${{ (github.event.schedule == '0 11 * * *' || github.event.schedule == '0 20 * * *') && 'ecmwf' || (github.event.schedule == '30 11 * * *' || github.event.schedule == '30 20 * * *') && 'gfs' || inputs.source_model || 'icon' }}
-  WRF2_TOMORROW: ${{ (github.event.schedule == '17 19 * * *' || github.event.schedule == '0 20 * * *' || github.event.schedule == '30 20 * * *' || inputs.model_variant == 'wrf2') && '1' || '0' }}
-  SCHEDULED_CYCLE: ${{ (github.event.schedule == '17 19 * * *' || github.event.schedule == '0 20 * * *' || github.event.schedule == '30 20 * * *') && '12' || inputs.scheduled_cycle || '' }}
+  MODEL_VARIANT: ${{ inputs.model_variant || 'wrf' }}
+  SOURCE_MODEL: ${{ inputs.source_model || 'icon' }}
+  WRF2_TOMORROW: ${{ inputs.model_variant == 'wrf2' && '1' || '0' }}
+  SCHEDULED_CYCLE: ${{ inputs.scheduled_cycle || '' }}
   ICON_SOURCE_XSIZE: '113'
   ICON_SOURCE_YSIZE: '89'
   ICON_SOURCE_XFIRST: '-67.0'

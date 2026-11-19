@@ -1,5 +1,5 @@
 name: SIDERAL | Runner ICON
-run-name: "ICON | ${{ inputs.domain }}"
+run-name: "ICON | ${{ inputs.domain || 'scheduled' }} | ${{ github.event.schedule || 'manual' }}"
 
 on:
   workflow_dispatch:
@@ -23,15 +23,27 @@ on:
         description: Ciclo UTC para domínios que aceitam ciclo manual
         required: false
         type: string
+  schedule:
+    - cron: '15 10 * * *'
+    - cron: '37 10 * * *'
+    - cron: '37 8 * * *'
+    - cron: '0 6 * * *'
+    - cron: '0 16 * * *'
+    - cron: '30 16 * * *'
+    - cron: '25 5 * * *'
 
 permissions:
   contents: write
   actions: read
 
+concurrency:
+  group: sideral-icon-runner-${{ inputs.domain || github.event.schedule || github.run_id }}
+  cancel-in-progress: false
+
 jobs:
   cbr:
     name: CBR 4 km
-    if: inputs.domain == 'cbr'
+    if: inputs.domain == 'cbr' || github.event.schedule == '15 10 * * *'
     uses: ./.github/workflows/cbr-wrf.yml
     with:
       model_variant: wrf
@@ -40,17 +52,17 @@ jobs:
 
   cim5:
     name: CIM 5 km
-    if: inputs.domain == 'cim5'
+    if: inputs.domain == 'cim5' || github.event.schedule == '37 10 * * *'
     uses: ./.github/workflows/cim-wrf-5km.yml
     with:
       model_variant: wrf
       source_model: icon
-      scheduled_cycle: ${{ inputs.run_cycle }}
+      scheduled_cycle: ${{ (github.event.schedule == '17 19 * * *' || github.event.schedule == '0 20 * * *' || github.event.schedule == '30 20 * * *') && '12' || inputs.run_cycle || '' }}
     secrets: inherit
 
   cim8:
     name: CIM 8 km
-    if: inputs.domain == 'cim8'
+    if: inputs.domain == 'cim8' || github.event.schedule == '37 8 * * *'
     uses: ./.github/workflows/cim-wrf-8km.yml
     with:
       source_model: icon
@@ -58,7 +70,7 @@ jobs:
 
   metbr:
     name: METBR 4 km
-    if: inputs.domain == 'metbr'
+    if: inputs.domain == 'metbr' || github.event.schedule == '0 6 * * *'
     uses: ./.github/workflows/metbr-wrf.yml
     with:
       model_variant: wrf
@@ -67,17 +79,18 @@ jobs:
 
   sudeste:
     name: Sudeste 4/5 km
-    if: inputs.domain == 'sudeste'
+    if: inputs.domain == 'sudeste' || github.event.schedule == '0 16 * * *' || github.event.schedule == '30 16 * * *'
     uses: ./.github/workflows/sideral-sudeste-wrf.yml
     with:
       model_variant: wrf
       source_model: icon
-      resolution_km: ${{ inputs.resolution_km }}
+      scheduled_cycle: ${{ (github.event.schedule == '0 7 * * *' || github.event.schedule == '20 7 * * *' || github.event.schedule == '40 7 * * *') && '00' || (github.event.schedule == '0 16 * * *' || github.event.schedule == '20 16 * * *' || github.event.schedule == '40 16 * * *' || github.event.schedule == '30 16 * * *' || github.event.schedule == '0 17 * * *' || github.event.schedule == '20 17 * * *' || github.event.schedule == '0 19 * * *' || github.event.schedule == '20 19 * * *' || github.event.schedule == '40 19 * * *') && '12' || inputs.run_cycle || '' }}
+      resolution_km: ${{ (github.event.schedule == '30 16 * * *' || github.event.schedule == '0 17 * * *' || github.event.schedule == '20 17 * * *' || github.event.schedule == '0 19 * * *' || github.event.schedule == '20 19 * * *' || github.event.schedule == '40 19 * * *') && '5' || inputs.resolution_km || '4' }}
     secrets: inherit
 
   tarc:
     name: TARC 3 km
-    if: inputs.domain == 'tarc'
+    if: inputs.domain == 'tarc' || github.event.schedule == '15 10 * * *'
     uses: ./.github/workflows/tarc-wrf.yml
     with:
       model_variant: wrf
@@ -86,7 +99,7 @@ jobs:
 
   brasil:
     name: Brasil 21 km
-    if: inputs.domain == 'brasil'
+    if: inputs.domain == 'brasil' || github.event.schedule == '25 5 * * *'
     uses: ./.github/workflows/sideral-brasil-wrf.yml
     with:
       source_model: icon
