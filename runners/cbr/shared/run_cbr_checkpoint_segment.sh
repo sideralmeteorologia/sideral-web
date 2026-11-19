@@ -27,13 +27,13 @@ done
 
 chmod +x wrf/run_cbr_checkpoint_segment.sh wrf/run_cbr_icon_wrf.sh wrf/run_cbr_ecmwf_wrf.sh wrf/run_cbr_gfs_wrf.sh wrf/run_cbr_wrf_with_source.sh wrf/run_cbr_restart_segment.sh
 
-export WRF_TARGET_RESOLUTION_KM=4
-export WRF_DX_METERS=4000 WRF_DY_METERS=4000
-export WRF_E_WE=401 WRF_E_SN=501
-export WRF_HISTORY_INTERVAL_MINUTES=60
-export WRF_TIME_STEP=20
-export WRF_MPI_PROCS=8
-export WRF_REF_LAT=-10.5 WRF_REF_LON=-40.0 WRF_STAND_LON=-40.0
+export WRF_TARGET_RESOLUTION_KM="${WRF_TARGET_RESOLUTION_KM:-4}"
+export WRF_DX_METERS="${WRF_DX_METERS:-4000}" WRF_DY_METERS="${WRF_DY_METERS:-4000}"
+export WRF_E_WE="${WRF_E_WE:-401}" WRF_E_SN="${WRF_E_SN:-501}"
+export WRF_HISTORY_INTERVAL_MINUTES="${WRF_HISTORY_INTERVAL_MINUTES:-60}"
+export WRF_TIME_STEP="${WRF_TIME_STEP:-20}"
+export WRF_MPI_PROCS="${WRF_MPI_PROCS:-8}"
+export WRF_REF_LAT="${WRF_REF_LAT:--10.5}" WRF_REF_LON="${WRF_REF_LON:--40.0}" WRF_STAND_LON="${WRF_STAND_LON:--40.0}"
 export WRF_RUN_HOURS=$((END_HOUR-START_HOUR))
 export WRF_START_HOUR="$START_HOUR" WRF_END_HOUR="$END_HOUR"
 
@@ -80,12 +80,12 @@ if [[ "$COLD_START" == "0" ]]; then
   # Rebuild the lateral boundary conditions for the exact restart interval.
   export RUN_DATE RUN_CYCLE
   export FORCE_RUN_DATE="$RUN_DATE" FORCE_RUN_CYCLE="$RUN_CYCLE"
-  export WRF_TARGET_RESOLUTION_KM=4
-  export WRF_DX_METERS=4000 WRF_DY_METERS=4000
-  export WRF_E_WE=401 WRF_E_SN=501
-  export WRF_HISTORY_INTERVAL_MINUTES=60
-  export WRF_TIME_STEP=20
-  export WRF_MPI_PROCS=8
+  export WRF_TARGET_RESOLUTION_KM="${WRF_TARGET_RESOLUTION_KM:-4}"
+  export WRF_DX_METERS="${WRF_DX_METERS:-4000}" WRF_DY_METERS="${WRF_DY_METERS:-4000}"
+  export WRF_E_WE="${WRF_E_WE:-401}" WRF_E_SN="${WRF_E_SN:-501}"
+  export WRF_HISTORY_INTERVAL_MINUTES="${WRF_HISTORY_INTERVAL_MINUTES:-60}"
+  export WRF_TIME_STEP="${WRF_TIME_STEP:-20}"
+  export WRF_MPI_PROCS="${WRF_MPI_PROCS:-8}"
   export WRF_START_HOUR="$START_HOUR" WRF_END_HOUR="$END_HOUR"
   export WRF_BOUNDARY_END_HOUR="$END_HOUR" WRF_BOUNDARY_ONLY=1
   echo "CBR: preparando LBC exclusivamente com a fonte selecionada F$START_HOUR-F$END_HOUR"
