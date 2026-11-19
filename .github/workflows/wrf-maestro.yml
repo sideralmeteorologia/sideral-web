@@ -1,0 +1,36 @@
+name: SIDERAL | WRF Artifact Maestro
+
+on:
+  workflow_dispatch:
+    inputs:
+      retention_days:
+        description: Dias de retenção dos artifacts WRF
+        required: true
+        default: '7'
+        type: string
+  schedule:
+    - cron: '15 * * * *'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: sideral-wrf-artifact-maestro
+  cancel-in-progress: false
+
+jobs:
+  report:
+    name: Confirmar retenção de artifacts
+    runs-on: ubuntu-22.04
+    timeout-minutes: 5
+    steps:
+      - name: Registrar política de retenção
+        shell: bash
+        env:
+          RETENTION_DAYS: ${{ inputs.retention_days || '7' }}
+        run: |
+          set -euo pipefail
+          [[ "$RETENTION_DAYS" =~ ^[0-9]+$ ]] || { echo "retention_days inválido" >&2; exit 2; }
+          (( RETENTION_DAYS >= 1 && RETENTION_DAYS <= 90 )) || { echo "retention_days deve estar entre 1 e 90" >&2; exit 2; }
+          echo "Artifacts são publicados pelos workflows WRF com retenção de ${RETENTION_DAYS} dias."
+          echo "Não há catálogo ou cópia entre execuções no modo artifacts." >> "$GITHUB_STEP_SUMMARY"
