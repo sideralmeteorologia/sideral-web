@@ -302,20 +302,8 @@ jobs:
           ECMWF_CYCLE: ${{ needs.resolve_runs.outputs.ecmwf_cycle }}
           GFS_DATE: ${{ needs.resolve_runs.outputs.gfs_date }}
           GFS_CYCLE: ${{ needs.resolve_runs.outputs.gfs_cycle }}
-          WRF_DX_METERS: '8000'
-          WRF_DY_METERS: '8000'
-          WRF_E_WE: '280'
-          WRF_E_SN: '235'
-          WRF_TIME_STEP: '30'
-          WRF_REF_LAT: '-27.50'
-          WRF_REF_LON: '-52.75'
-          WRF_STAND_LON: '-52.75'
           # A fonte global chega de 3 em 3 h. Integramos ate F042 para manter
           # a fronteira completa e publicamos exatamente F000..F040.
-          WRF_RUN_HOURS: '42'
-          WRF_START_HOUR: '0'
-          WRF_END_HOUR: '42'
-          WRF_HISTORY_INTERVAL_MINUTES: '60'
           CIM_RESOLUTION_KM: '8'
           CIM_OUTPUT_INTERVAL_HOURS: '1'
           CIM_MAX_PUBLISHED_HOUR: '40'

@@ -1061,7 +1061,6 @@ jobs:
           cp -f "$CATALOG_PATH" tarc_products/variable_catalog.json
       - name: Gerar diagnósticos severos
         env:
-          WRF_DX_METERS: ${{ (inputs.resolution_km || '4') == '5' && '5000' || '4000' }}
           WRF_PRODUCT_LABEL: ${{ format('WRF SIDERAL {0} KM{1} SUDESTE {2}', (inputs.resolution_km || '4'), (inputs.model_variant || 'wrf') == 'wrf2' && ' 2' || '', (inputs.source_model || 'icon')) }}
         run: |
           python wrf/extract_wrf_severe.py --run-dir tarc_all_wrfout --run-env tarc-run.env --output-dir tarc_severe --grid-x "$WRF_E_WE" --grid-y "$WRF_E_SN" --model "${SOURCE_MODEL:-icon}" --interval-hours 3 --expected-start 0 --expected-end 48

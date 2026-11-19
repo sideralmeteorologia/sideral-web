@@ -146,21 +146,6 @@ jobs:
           FORCE_RUN_DATE: ${{ steps.run.outputs.run_date }}
           FORCE_RUN_CYCLE: ${{ steps.run.outputs.run_cycle }}
           SOURCE_MODEL: ${{ env.SOURCE_MODEL }}
-          WRF_REF_LAT: '-13.50'
-          WRF_REF_LON: '-54.00'
-          WRF_STAND_LON: '-54.00'
-          WRF_E_WE: '216'
-          WRF_E_SN: '216'
-          WRF_GRID_X: '215'
-          WRF_GRID_Y: '215'
-          WRF_HISTORY_INTERVAL_MINUTES: '60'
-          WRF_TARGET_RESOLUTION_KM: '21'
-          WRF_DX_METERS: '21000'
-          WRF_DY_METERS: '21000'
-          WRF_TIME_STEP: '45'
-          WRF_RUN_HOURS: '48'
-          WRF_START_HOUR: '0'
-          WRF_END_HOUR: '48'
           ICON_SOURCE_XSIZE: '261'
           ICON_SOURCE_YSIZE: '241'
           ICON_SOURCE_XFIRST: '-85.0'
