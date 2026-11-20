@@ -19,6 +19,7 @@ on:
 
 permissions:
   contents: write
+  actions: read
 
 # Cada fonte tem sua própria execução e seu próprio checkpoint; nunca cancelar
 # uma rodada ECMWF/GFS porque outra fonte começou.
