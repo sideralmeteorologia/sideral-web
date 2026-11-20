@@ -3,12 +3,6 @@ name: SIDERAL | WRF Brasil 21 km | ICON | WRF
 on:
   workflow_dispatch:
     inputs:
-      source_model:
-        description: Modelo global de inicialização
-        required: true
-        default: icon
-        type: choice
-        options: [icon, ecmwf]
       run_date:
         description: "Rodada da fonte selecionada em YYYYMMDD (vazio = mais recente com F048)"
         required: false

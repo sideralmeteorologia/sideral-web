@@ -2,13 +2,6 @@ name: SIDERAL | CIM WRF 8 km | ICON | WRF
 
 on:
   workflow_dispatch:
-    inputs:
-      source_model:
-        description: "Fonte da rodada CIM 8 km"
-        required: true
-        default: all
-        type: choice
-        options: [all, icon, ecmwf, gfs]
   workflow_call:
     inputs:
       source_model:

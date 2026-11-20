@@ -2,22 +2,6 @@ name: SIDERAL | CBR WRF 4 km | ICON | WRF
 
 on:
   workflow_dispatch:
-    inputs:
-      model_variant:
-        description: WRF ou WRF2
-        required: true
-        default: wrf
-        type: choice
-        options: [wrf, wrf2]
-      source_model:
-        description: "Modelo global usado nas condições iniciais e de contorno"
-        required: true
-        default: icon
-        type: choice
-        options:
-          - icon
-          - ecmwf
-          - gfs
   schedule:
     - cron: '15 10 * * *'
 

@@ -2,19 +2,6 @@ name: SIDERAL | TARC WRF 3 km | GFS | WRF2
 
 on:
   workflow_dispatch:
-    inputs:
-      model_variant:
-        description: WRF ou WRF2
-        required: true
-        default: wrf
-        type: choice
-        options: [wrf, wrf2]
-      source_model:
-        description: Modelo global
-        required: true
-        default: icon
-        type: choice
-        options: [icon, ecmwf, gfs]
 permissions:
   contents: write
   actions: read

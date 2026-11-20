@@ -3,18 +3,6 @@ name: SIDERAL | CIM WRF 5 km | GFS | WRF
 on:
   workflow_dispatch:
     inputs:
-      model_variant:
-        description: WRF ou WRF2
-        required: true
-        default: wrf
-        type: choice
-        options: [wrf, wrf2]
-      source_model:
-        description: Fonte de condições iniciais e de contorno
-        required: true
-        default: icon
-        type: choice
-        options: [icon, ecmwf, gfs]
       scheduled_cycle:
         description: Ciclo UTC opcional
         required: false

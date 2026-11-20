@@ -2,20 +2,6 @@ name: SIDERAL | METBR WRF 4 km | ICON | WRF2
 
 on:
   workflow_dispatch:
-    inputs:
-      model_variant:
-        description: Modelo principal ou previsão válida amanhã
-        required: true
-        default: wrf
-        type: choice
-        options: [wrf, wrf2]
-      source_model:
-        description: Condições iniciais e de contorno
-        required: true
-        default: icon
-        type: choice
-        options: [icon, ecmwf, gfs]
-  # Uma única execução programada por dia, após a janela de publicação do ICON.
   schedule:
     - cron: '30 10 * * *'
 

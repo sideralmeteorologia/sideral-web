@@ -3,12 +3,6 @@ name: SIDERAL | WRF Brasil 21 km | ECMWF | WRF
 on:
   workflow_dispatch:
     inputs:
-      source_model:
-        description: Modelo global de inicialização
-        required: true
-        default: icon
-        type: choice
-        options: [icon, ecmwf]
       run_date:
         description: "Rodada da fonte selecionada em YYYYMMDD (vazio = mais recente com F048)"
         required: false
@@ -24,7 +18,7 @@ permissions:
   contents: write
 
 concurrency:
-  group: sideral-wrf-brasil-21km-icon
+  group: sideral-wrf-brasil-21km-ecmwf
   cancel-in-progress: false
 
 env:
@@ -49,7 +43,7 @@ env:
 
 jobs:
   brasil:
-    name: ICON -> WRF Brasil 21 km F000-F048 horario
+    name: ECMWF -> WRF Brasil 21 km F000-F048 horario
     runs-on: ubuntu-22.04
     timeout-minutes: 480
     steps:
