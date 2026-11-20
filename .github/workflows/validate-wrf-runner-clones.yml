@@ -82,7 +82,8 @@ jobs:
               )
 
               for job_name, job in cfg["jobs"].items():
-                  for step in job.get("steps", []) or []:
+                  steps = job.get("steps", []) or []
+                  for step_index, step in enumerate(steps):
                       uses = step.get("uses", "")
                       if uses.startswith("actions/upload-artifact@"):
                           artifact_name = (step.get("with") or {}).get("name", "")
@@ -91,6 +92,67 @@ jobs:
                           bad = sorted(set(artifact_name) & forbidden)
                           assert not bad, (
                               f"{filename}/{job_name}: invalid artifact-name characters {bad}: {artifact_name}"
+                          )
+
+                          upload_with = step.get("with") or {}
+                          upload_paths = upload_with.get("path", "")
+                          upload_paths = upload_paths if isinstance(upload_paths, list) else str(upload_paths).splitlines()
+                          upload_paths = [item.strip() for item in upload_paths if str(item).strip()]
+                          assert len(upload_paths) == 1 and upload_paths[0].startswith(
+                              ".wrf-artifact-safe/wrf-payload-"
+                          ) and upload_paths[0].endswith(".tar"), (
+                              f"{filename}/{job_name}: WRF artifact must upload only a colon-safe TAR, got {upload_paths}"
+                          )
+                          assert step_index > 0, f"{filename}/{job_name}: WRF TAR bundler step is missing"
+                          pack_step = steps[step_index - 1]
+                          pack_env = pack_step.get("env") or {}
+                          assert (pack_step.get("name") or "").startswith("Bundle WRF artifact safely"), (
+                              f"{filename}/{job_name}: upload is not preceded by the WRF artifact bundler"
+                          )
+                          assert "wrf_artifact_bundle.py pack" in (pack_step.get("run") or ""), (
+                              f"{filename}/{job_name}: upload bundler does not invoke wrf_artifact_bundle.py"
+                          )
+                          assert pack_env.get("WRF_ARTIFACT_OUTPUT") == upload_paths[0], (
+                              f"{filename}/{job_name}: TAR output path does not match upload path"
+                          )
+                          assert pack_env.get("WRF_ARTIFACT_PATTERNS"), (
+                              f"{filename}/{job_name}: original WRF files are not selected for TAR packaging"
+                          )
+
+                      elif uses.startswith("actions/download-artifact@"):
+                          download_with = step.get("with") or {}
+                          download_path = str(download_with.get("path", ""))
+                          assert "/wrf-downloads/" in download_path, (
+                              f"{filename}/{job_name}: WRF artifact download must use a temporary staging directory"
+                          )
+                          assert step_index + 1 < len(steps), (
+                              f"{filename}/{job_name}: WRF artifact restore registration step is missing"
+                          )
+                          restore_step = steps[step_index + 1]
+                          restore_env = restore_step.get("env") or {}
+                          assert (restore_step.get("name") or "").startswith("Register WRF artifact restore target"), (
+                              f"{filename}/{job_name}: downloaded WRF artifact is not registered for restoration"
+                          )
+                          assert restore_env.get("WRF_ARTIFACT_DOWNLOAD_DIR") == download_path, (
+                              f"{filename}/{job_name}: restore directory differs from the download directory"
+                          )
+                          assert restore_env.get("WRF_ARTIFACT_RESTORE_TO") is not None, (
+                              f"{filename}/{job_name}: restored artifact destination is not declared"
+                          )
+                          assert "unpack-downloads" in (restore_step.get("run") or ""), (
+                              f"{filename}/{job_name}: restore step does not unpack the safe WRF TAR"
+                          )
+
+                      elif uses.startswith("actions/checkout@"):
+                          assert step_index + 1 < len(steps), (
+                              f"{filename}/{job_name}: post-checkout WRF artifact restoration step is missing"
+                          )
+                          restore_step = steps[step_index + 1]
+                          assert (restore_step.get("name") or "").startswith("Restore WRF artifacts after checkout"), (
+                              f"{filename}/{job_name}: artifacts downloaded before checkout would be lost"
+                          )
+                          assert "unpack-downloads" in (restore_step.get("run") or ""), (
+                              f"{filename}/{job_name}: post-checkout step does not restore WRF TAR bundles"
                           )
 
               if filename in base_files:
