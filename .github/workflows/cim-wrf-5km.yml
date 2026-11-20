@@ -1,4 +1,4 @@
-name: SIDERAL | CIM WRF 5 km unificado
+name: CIM WRF 5 km | manual
 
 on:
   workflow_dispatch:
@@ -20,18 +20,12 @@ on:
         required: false
         default: ''
         type: string
-  schedule:
-    - cron: '37 10 * * *'
-    - cron: '0 11 * * *'
-    - cron: '30 11 * * *'
-    - cron: '17 19 * * *'
-    - cron: '0 20 * * *'
-    - cron: '30 20 * * *'
 permissions:
   contents: write
   actions: read
 
 env:
+  GH_TOKEN: ${{ github.token }}
   PYTHON_VERSION: '3.12'
   WRF_TARGET_RESOLUTION_KM: '5'
   FAMILY: cim
@@ -118,6 +112,9 @@ jobs:
           printf '%s' 'IyEvdXNyL2Jpbi9lbnYgYmFzaApzZXQgLWV1byBwaXBlZmFpbAppZiBbWyAiJHsxOi19IiAhPSAicmVsZWFzZSIgXV07IHRoZW4KICBbWyAiJHsxOi19IiA9PSAiYXBpIiBdXSAmJiBleGl0IDAKICBlY2hvICJnaCBSMiBhZGFwdGVyOiB1bnN1cHBvcnRlZCBjb21tYW5kOiAkKiIgPiYyOyBleGl0IDIKZmkKc3ViPSIkezI6LX0iOyB0YWc9IiR7MzotfSI7IHNoaWZ0ICQoKCAkIyA+PSAzID8gMyA6ICQjICkpCiA6ICMgZXh0ZXJuYWwgb2JqZWN0IHN0b3JhZ2UgcmVtb3ZlZAogOiAjIGV4dGVybmFsIG9iamVjdCBzdG9yYWdlIHJlbW92ZWQKIDogIyBleHRlcm5hbCBvYmplY3Qgc3RvcmFnZSByZW1vdmVkCmFyZ3M9KC0tZW5kcG9pbnQtdXJsICIkZW5kcG9pbnQiIC0tcmVnaW9uIGF1dG8pCmNhc2UgIiRzdWIiIGluCiA6ICMgZXh0ZXJuYWwgb2JqZWN0IHN0b3JhZ2UgcmVtb3ZlZAogOiAjIGV4dGVybmFsIG9iamVjdCBzdG9yYWdlIHJlbW92ZWQKIGRvd25sb2FkKQogIHBhdHRlcm49JyonOyBkZXN0PScuJwogIHdoaWxlICgoJCMpKTsgZG8gY2FzZSAiJDEiIGluIC0tcGF0dGVybikgcGF0dGVybj0iJDIiOyBzaGlmdCAyOzsgLS1kaXIpIGRlc3Q9IiQyIjsgc2hpZnQgMjs7IC0tcmVwbykgc2hpZnQgMjs7IC0tY2xvYmJlcikgc2hpZnQ7OyAqKSBzaGlmdDs7IGVzYWM7IGRvbmUKICBta2RpciAtcCAiJGRlc3QiCiA6ICMgZXh0ZXJuYWwgb2JqZWN0IHN0b3JhZ2UgcmVtb3ZlZAogIGZvdW5kPTAKIDogIyBleHRlcm5hbCBvYmplY3Qgc3RvcmFnZSByZW1vdmVkCiAgKCggZm91bmQgPiAwICkpIHx8IHsgZWNobyAiUjIgb2JqZWN0IHBhdHRlcm4gbm90IGZvdW5kOiAkcGF0dGVybiBpbiAkYmFzZSIgPiYyOyBleGl0IDM7IH0KICA7OwogdXBsb2FkKQogOiAjIGV4dGVybmFsIG9iamVjdCBzdG9yYWdlIHJlbW92ZWQKICA7OwogKikgZWNobyAidW5zdXBwb3J0ZWQgZ2ggcmVsZWFzZSBzdWJjb21tYW5kOiAkc3ViIiA+JjI7IGV4aXQgMiA7Owplc2FjCg==' | base64 -d > wrf/bin/gh
           chmod +x wrf/bin/gh
           for script in wrf/*.sh; do [[ -f "$script" ]] && chmod +x "$script"; done
+      - name: Garantir executabilidade dos scripts WRF
+        shell: bash
+        run: chmod +x wrf/*.sh
       - name: Validar scripts incorporados
         shell: bash
         run: |
@@ -206,7 +203,7 @@ jobs:
       - name: Salvar checkpoint e produtos desta etapa
         uses: actions/upload-artifact@v4
         with:
-          name: wrf-${{ github.workflow }}-${{ github.job }}-${{ github.run_id }}
+          name: wrf-cim5-manual-${{ github.job }}-${{ github.run_id }}
           path: |
             **/*restart*/**
             **/*products*/**
@@ -227,7 +224,7 @@ jobs:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
         with:
-          name: wrf-${{ github.workflow }}-seg00-${{ github.run_id }}
+          name: wrf-cim5-manual-seg00-${{ github.run_id }}
           path: .
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -310,7 +307,7 @@ jobs:
       - name: Salvar checkpoint e produtos desta etapa
         uses: actions/upload-artifact@v4
         with:
-          name: wrf-${{ github.workflow }}-${{ github.job }}-${{ github.run_id }}
+          name: wrf-cim5-manual-${{ github.job }}-${{ github.run_id }}
           path: |
             **/*restart*/**
             **/*products*/**
@@ -331,7 +328,7 @@ jobs:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
         with:
-          name: wrf-${{ github.workflow }}-seg01-${{ github.run_id }}
+          name: wrf-cim5-manual-seg01-${{ github.run_id }}
           path: .
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -414,7 +411,7 @@ jobs:
       - name: Salvar checkpoint e produtos desta etapa
         uses: actions/upload-artifact@v4
         with:
-          name: wrf-${{ github.workflow }}-${{ github.job }}-${{ github.run_id }}
+          name: wrf-cim5-manual-${{ github.job }}-${{ github.run_id }}
           path: |
             **/*restart*/**
             **/*products*/**
@@ -435,7 +432,7 @@ jobs:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
         with:
-          name: wrf-${{ github.workflow }}-seg02-${{ github.run_id }}
+          name: wrf-cim5-manual-seg02-${{ github.run_id }}
           path: .
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -518,7 +515,7 @@ jobs:
       - name: Salvar checkpoint e produtos desta etapa
         uses: actions/upload-artifact@v4
         with:
-          name: wrf-${{ github.workflow }}-${{ github.job }}-${{ github.run_id }}
+          name: wrf-cim5-manual-${{ github.job }}-${{ github.run_id }}
           path: |
             **/*restart*/**
             **/*products*/**
@@ -539,7 +536,7 @@ jobs:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
         with:
-          name: wrf-${{ github.workflow }}-seg03-${{ github.run_id }}
+          name: wrf-cim5-manual-seg03-${{ github.run_id }}
           path: .
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -622,7 +619,7 @@ jobs:
       - name: Salvar checkpoint e produtos desta etapa
         uses: actions/upload-artifact@v4
         with:
-          name: wrf-${{ github.workflow }}-${{ github.job }}-${{ github.run_id }}
+          name: wrf-cim5-manual-${{ github.job }}-${{ github.run_id }}
           path: |
             **/*restart*/**
             **/*products*/**
@@ -643,7 +640,7 @@ jobs:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
         with:
-          name: wrf-${{ github.workflow }}-seg04-${{ github.run_id }}
+          name: wrf-cim5-manual-seg04-${{ github.run_id }}
           path: .
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -726,7 +723,7 @@ jobs:
       - name: Salvar checkpoint e produtos desta etapa
         uses: actions/upload-artifact@v4
         with:
-          name: wrf-${{ github.workflow }}-${{ github.job }}-${{ github.run_id }}
+          name: wrf-cim5-manual-${{ github.job }}-${{ github.run_id }}
           path: |
             **/*restart*/**
             **/*products*/**
@@ -747,7 +744,7 @@ jobs:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
         with:
-          name: wrf-${{ github.workflow }}-seg05-${{ github.run_id }}
+          name: wrf-cim5-manual-seg05-${{ github.run_id }}
           path: .
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -830,7 +827,7 @@ jobs:
       - name: Salvar checkpoint e produtos desta etapa
         uses: actions/upload-artifact@v4
         with:
-          name: wrf-${{ github.workflow }}-${{ github.job }}-${{ github.run_id }}
+          name: wrf-cim5-manual-${{ github.job }}-${{ github.run_id }}
           path: |
             **/*restart*/**
             **/*products*/**
@@ -851,7 +848,7 @@ jobs:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
         with:
-          name: wrf-${{ github.workflow }}-seg06-${{ github.run_id }}
+          name: wrf-cim5-manual-seg06-${{ github.run_id }}
           path: .
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -934,7 +931,7 @@ jobs:
       - name: Salvar checkpoint e produtos desta etapa
         uses: actions/upload-artifact@v4
         with:
-          name: wrf-${{ github.workflow }}-${{ github.job }}-${{ github.run_id }}
+          name: wrf-cim5-manual-${{ github.job }}-${{ github.run_id }}
           path: |
             **/*restart*/**
             **/*products*/**
@@ -955,7 +952,7 @@ jobs:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
         with:
-          name: wrf-${{ github.workflow }}-seg07-${{ github.run_id }}
+          name: wrf-cim5-manual-seg07-${{ github.run_id }}
           path: .
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -1038,7 +1035,7 @@ jobs:
       - name: Salvar checkpoint e produtos desta etapa
         uses: actions/upload-artifact@v4
         with:
-          name: wrf-${{ github.workflow }}-${{ github.job }}-${{ github.run_id }}
+          name: wrf-cim5-manual-${{ github.job }}-${{ github.run_id }}
           path: |
             **/*restart*/**
             **/*products*/**
@@ -1059,7 +1056,7 @@ jobs:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
         with:
-          name: wrf-${{ github.workflow }}-seg08-${{ github.run_id }}
+          name: wrf-cim5-manual-seg08-${{ github.run_id }}
           path: .
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -1142,7 +1139,7 @@ jobs:
       - name: Salvar checkpoint e produtos desta etapa
         uses: actions/upload-artifact@v4
         with:
-          name: wrf-${{ github.workflow }}-${{ github.job }}-${{ github.run_id }}
+          name: wrf-cim5-manual-${{ github.job }}-${{ github.run_id }}
           path: |
             **/*restart*/**
             **/*products*/**
@@ -1163,7 +1160,7 @@ jobs:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
         with:
-          name: wrf-${{ github.workflow }}-seg09-${{ github.run_id }}
+          name: wrf-cim5-manual-seg09-${{ github.run_id }}
           path: .
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -1246,7 +1243,7 @@ jobs:
       - name: Salvar checkpoint e produtos desta etapa
         uses: actions/upload-artifact@v4
         with:
-          name: wrf-${{ github.workflow }}-${{ github.job }}-${{ github.run_id }}
+          name: wrf-cim5-manual-${{ github.job }}-${{ github.run_id }}
           path: |
             **/*restart*/**
             **/*products*/**
@@ -1267,7 +1264,7 @@ jobs:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
         with:
-          name: wrf-${{ github.workflow }}-seg10-${{ github.run_id }}
+          name: wrf-cim5-manual-seg10-${{ github.run_id }}
           path: .
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -1350,7 +1347,7 @@ jobs:
       - name: Salvar checkpoint e produtos desta etapa
         uses: actions/upload-artifact@v4
         with:
-          name: wrf-${{ github.workflow }}-${{ github.job }}-${{ github.run_id }}
+          name: wrf-cim5-manual-${{ github.job }}-${{ github.run_id }}
           path: |
             **/*restart*/**
             **/*products*/**
@@ -1371,7 +1368,7 @@ jobs:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
         with:
-          name: wrf-${{ github.workflow }}-seg11-${{ github.run_id }}
+          name: wrf-cim5-manual-seg11-${{ github.run_id }}
           path: .
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -1454,7 +1451,7 @@ jobs:
       - name: Salvar checkpoint e produtos desta etapa
         uses: actions/upload-artifact@v4
         with:
-          name: wrf-${{ github.workflow }}-${{ github.job }}-${{ github.run_id }}
+          name: wrf-cim5-manual-${{ github.job }}-${{ github.run_id }}
           path: |
             **/*restart*/**
             **/*products*/**
@@ -1475,7 +1472,7 @@ jobs:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
         with:
-          name: wrf-${{ github.workflow }}-seg12-${{ github.run_id }}
+          name: wrf-cim5-manual-seg12-${{ github.run_id }}
           path: .
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -1558,7 +1555,7 @@ jobs:
       - name: Salvar checkpoint e produtos desta etapa
         uses: actions/upload-artifact@v4
         with:
-          name: wrf-${{ github.workflow }}-${{ github.job }}-${{ github.run_id }}
+          name: wrf-cim5-manual-${{ github.job }}-${{ github.run_id }}
           path: |
             **/*restart*/**
             **/*products*/**
@@ -1599,7 +1596,7 @@ jobs:
       - name: Publicar produtos finais como artifact
         uses: actions/upload-artifact@v4
         with:
-          name: wrf-final-${{ github.workflow }}-${{ github.job }}-${{ github.run_id }}
+          name: wrf-final-cim5-manual-${{ github.job }}-${{ github.run_id }}
           path: |
             **/*products*/**
             **/*publish*/**
@@ -1632,7 +1629,7 @@ jobs:
       - name: Publicar produtos finais como artifact
         uses: actions/upload-artifact@v4
         with:
-          name: wrf-final-${{ github.workflow }}-${{ github.job }}-${{ github.run_id }}
+          name: wrf-final-cim5-manual-${{ github.job }}-${{ github.run_id }}
           path: |
             **/*products*/**
             **/*publish*/**
