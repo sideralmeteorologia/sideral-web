@@ -97,6 +97,53 @@ jobs:
           print("Model release publisher validation passed.")
           PY
 
+      - name: Validate automatic schedules and ECMWF EPS cycle policy
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+          import yaml
+
+          root = Path(".github/workflows")
+          def load(name):
+              return yaml.load((root / name).read_text(encoding="utf-8"), Loader=yaml.BaseLoader)
+
+          nwp = load("sideral-global-nwp-artifact.yml")
+          assert nwp["on"].get("schedule"), "Global NWP must have an automatic schedule"
+          models = nwp["jobs"]["collect"]["strategy"]["matrix"]["model"]
+          required_models = {
+              "ecmwf_ifs", "ecmwf_eps", "ecmwf_aifs", "ecmwf_aifs_ens",
+              "icon_dwd", "icon_ai", "gfs", "gfs_ai", "gefs_ai",
+              "cmc_gdps", "cmc_geps", "hgefs", "ukmet",
+          }
+          assert required_models.issubset(set(models)), (
+              f"Global NWP model matrix is incomplete: {sorted(required_models - set(models))}"
+          )
+          collect_steps = nwp["jobs"]["collect"]["steps"]
+          collect = next(step for step in collect_steps if step.get("name") == "Coletar todas as variáveis/níveis e validades publicadas")
+          collect_run = collect.get("run", "")
+          assert 'MODEL_KEY' in collect_run and 'ecmwf_eps' in collect_run
+          assert '"06") COLLECT_CYCLE="00"' in collect_run, (
+              "ECMWF EPS must map the unsupported 06Z EP cycle to 00Z"
+          )
+          assert '"18") COLLECT_CYCLE="12"' in collect_run, (
+              "ECMWF EPS must map the unsupported 18Z EP cycle to 12Z"
+          )
+          assert 'COLLECT_CYCLE="12"' in collect_run and 'COLLECT_CYCLE="00"' in collect_run
+          assert 'CYCLE_ARG=(--cycle "$COLLECT_CYCLE")' in collect_run
+
+          multimodel = load("SIDERAL_MULTIMODELS_05_ICON_HORIZON_FIX (1).yml")
+          assert multimodel["on"].get("schedule"), "Sideral Multimodels must have an automatic schedule"
+
+          print(
+              f"Automatic schedules OK: {len(nwp['on']['schedule'])} Global NWP cron(s), "
+              f"{len(multimodel['on']['schedule'])} Multimodel cron(s), "
+              f"{len(models)} Global NWP model collectors."
+          )
+          print("ECMWF EPS uses only valid ENFO-EP cycles (00/12 UTC).")
+          PY
+
       - name: Validate WRF artifact TAR transport
         shell: bash
         run: |
