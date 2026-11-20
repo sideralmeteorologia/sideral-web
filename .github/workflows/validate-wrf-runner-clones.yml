@@ -32,6 +32,7 @@ jobs:
           from pathlib import Path
           import base64
           import re
+          import subprocess
           import yaml
 
           root = Path(".github/workflows")
@@ -237,6 +238,17 @@ jobs:
                       encoded = line.split("printf '%s' '", 1)[1].split("' | base64 -d >", 1)[0]
                       gfs_script = base64.b64decode(encoded).decode("utf-8")
               assert checkpoint_script, f"{filename}: embedded METBR checkpoint runner is missing"
+              for label, source in (("checkpoint", checkpoint_script), ("GFS", gfs_script)):
+                  result = subprocess.run(
+                      ["bash", "-n"],
+                      input=source,
+                      text=True,
+                      capture_output=True,
+                      check=False,
+                  )
+                  assert result.returncode == 0, (
+                      f"{filename}: embedded METBR {label} shell syntax failed: {result.stderr}"
+                  )
               assert 'START_HOUR="${1:?start hour}"' in checkpoint_script, (
                   f"{filename}: embedded METBR runner has invalid escaped shell parameters"
               )
