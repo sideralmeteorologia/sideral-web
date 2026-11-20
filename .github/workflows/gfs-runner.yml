@@ -1,0 +1,98 @@
+name: SIDERAL | Runner GFS
+run-name: "GFS | ${{ inputs.domain || 'scheduled' }} | ${{ github.event.schedule || 'manual' }}"
+
+on:
+  workflow_dispatch:
+    inputs:
+      domain:
+        description: Domínio WRF a executar
+        required: true
+        type: choice
+        options: [cbr, cim5, cim8, metbr, sudeste, tarc]
+      resolution_km:
+        description: Resolução quando o domínio selecionado for Sudeste
+        required: false
+        default: '4'
+        type: choice
+        options: ['4', '5']
+      run_date:
+        description: Data UTC YYYYMMDD para domínios que aceitam data manual
+        required: false
+        type: string
+      run_cycle:
+        description: Ciclo UTC para domínios que aceitam ciclo manual
+        required: false
+        type: string
+  schedule:
+    - cron: '45 10 * * *'
+    - cron: '30 11 * * *'
+    - cron: '57 9 * * *'
+    - cron: '0 7 * * *'
+    - cron: '40 16 * * *'
+    - cron: '20 17 * * *'
+    - cron: '55 10 * * *'
+
+permissions:
+  contents: write
+  actions: read
+
+concurrency:
+  group: sideral-gfs-runner-${{ inputs.domain || github.event.schedule || github.run_id }}
+  cancel-in-progress: false
+
+jobs:
+  cbr:
+    name: CBR 4 km
+    if: inputs.domain == 'cbr' || github.event.schedule == '45 10 * * *'
+    uses: ./.github/workflows/cbr-wrf.yml
+    with:
+      model_variant: wrf
+      source_model: gfs
+    secrets: inherit
+
+  cim5:
+    name: CIM 5 km
+    if: inputs.domain == 'cim5' || github.event.schedule == '30 11 * * *'
+    uses: ./.github/workflows/cim-wrf-5km.yml
+    with:
+      model_variant: wrf
+      source_model: gfs
+      scheduled_cycle: ${{ (github.event.schedule == '17 19 * * *' || github.event.schedule == '0 20 * * *' || github.event.schedule == '30 20 * * *') && '12' || inputs.run_cycle || '' }}
+    secrets: inherit
+
+  cim8:
+    name: CIM 8 km
+    if: inputs.domain == 'cim8' || github.event.schedule == '57 9 * * *'
+    uses: ./.github/workflows/cim-wrf-8km.yml
+    with:
+      source_model: gfs
+    secrets: inherit
+
+  metbr:
+    name: METBR 4 km
+    if: inputs.domain == 'metbr' || github.event.schedule == '0 7 * * *'
+    uses: ./.github/workflows/metbr-wrf.yml
+    with:
+      model_variant: wrf
+      source_model: gfs
+    secrets: inherit
+
+  sudeste:
+    name: Sudeste 4/5 km
+    if: inputs.domain == 'sudeste' || github.event.schedule == '40 16 * * *' || github.event.schedule == '20 17 * * *'
+    uses: ./.github/workflows/sideral-sudeste-wrf.yml
+    with:
+      model_variant: wrf
+      source_model: gfs
+      scheduled_cycle: ${{ (github.event.schedule == '0 7 * * *' || github.event.schedule == '20 7 * * *' || github.event.schedule == '40 7 * * *') && '00' || (github.event.schedule == '0 16 * * *' || github.event.schedule == '20 16 * * *' || github.event.schedule == '40 16 * * *' || github.event.schedule == '30 16 * * *' || github.event.schedule == '0 17 * * *' || github.event.schedule == '20 17 * * *' || github.event.schedule == '0 19 * * *' || github.event.schedule == '20 19 * * *' || github.event.schedule == '40 19 * * *') && '12' || inputs.run_cycle || '' }}
+      resolution_km: ${{ (github.event.schedule == '30 16 * * *' || github.event.schedule == '0 17 * * *' || github.event.schedule == '20 17 * * *' || github.event.schedule == '0 19 * * *' || github.event.schedule == '20 19 * * *' || github.event.schedule == '40 19 * * *') && '5' || inputs.resolution_km || '4' }}
+    secrets: inherit
+
+  tarc:
+    name: TARC 3 km
+    if: inputs.domain == 'tarc' || github.event.schedule == '55 10 * * *'
+    uses: ./.github/workflows/tarc-wrf.yml
+    with:
+      model_variant: wrf
+      source_model: gfs
+    secrets: inherit
