@@ -19,6 +19,7 @@ on:
         type: string
 permissions:
   contents: write
+  actions: read
 
 concurrency:
   group: sideral-wrf-brasil-21km-icon
