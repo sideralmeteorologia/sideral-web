@@ -19,7 +19,7 @@ permissions:
   actions: read
 
 concurrency:
-  group: sideral-wrf-brasil-21km-icon
+  group: brasil-wrf-21km-wrf-icon
   cancel-in-progress: false
 
 env:
