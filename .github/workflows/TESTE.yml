@@ -90,7 +90,7 @@ jobs:
               safe = module.safe_name("wrfout_d01_2026-11-20_15:00:00")
               assert ":" not in safe and "|" not in safe
               parts, record = module.split_file(selected[1][0], selected[1][1], root / "assets")
-              assert record["size"] == 3 and len(parts) == 1
+              assert record["size"] == selected[1][0].stat().st_size and len(parts) == 1
 
           assert module.product_key(".github/workflows/sideral-global-nwp-artifact.yml", "Global NWP") == "global-nwp"
           assert module.product_key(".github/workflows/SIDERAL_MULTIMODELS_05_ICON_HORIZON_FIX (1).yml", "Multimodels") == "multimodels-05"
