@@ -216,7 +216,7 @@ def self_test() -> int:
         (workspace / "cbr_restart" / restart_name).write_bytes(b"WRF-RESTART")
         (workspace / "cbr_products" / product_name).write_text('{"ok":true}', encoding="utf-8")
 
-        os.environ["WRF_ARTIFACT_PATTERNS"] = "cbr_restart/**\ncbr_products/**"
+        os.environ["WRF_ARTIFACT_PATTERNS"] = "**/*restart*/**\n**/*products*/**"
         bundle = workspace / ".wrf-artifact-safe" / "wrf-payload-001.tar"
         pack(workspace, bundle)
         assert ":" not in bundle.name
