@@ -145,7 +145,12 @@ jobs:
           assert "docker/login-action@v3" not in sudeste_text, "Docker Hub login must be removed"
 
           # The watchdog must query the new source-specific files, not the manual-only base workflows.
-          watchdog = (root / "wrf-watchdog.yml").read_text(encoding="utf-8")
+          watchdog_path = root / "wrf-watchdog.yml"
+          with watchdog_path.open(encoding="utf-8") as stream:
+              watchdog_cfg = yaml.load(stream, Loader=yaml.BaseLoader)
+          assert isinstance(watchdog_cfg.get("on"), dict), "wrf-watchdog.yml: invalid workflow events"
+          assert isinstance(watchdog_cfg.get("jobs"), dict), "wrf-watchdog.yml: missing jobs"
+          watchdog = watchdog_path.read_text(encoding="utf-8")
           missing_watchdog = [name for name in clone_files if f'"{name}"' not in watchdog]
           assert not missing_watchdog, f"Watchdog is missing runner entries: {missing_watchdog}"
 
