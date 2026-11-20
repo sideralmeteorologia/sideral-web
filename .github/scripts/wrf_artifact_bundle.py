@@ -194,12 +194,20 @@ def unpack_downloads(downloads_root: Path, workspace: Path) -> int:
 
 
 def unpack_release_artifacts(root: Path) -> int:
-    """Restore tar payloads from gh run download's artifact-name directories."""
+    """Restore only final product bundles; leave segment/checkpoint artifacts untouched."""
     root = root.resolve()
     if not root.exists():
         raise FileNotFoundError(f"Release artifact download root missing: {root}")
+    final_prefixes = (
+        "wrf-final-",
+        "sideral-global-nwp-",
+        "sideral-multimodels-",
+    )
     restored = 0
     for artifact_dir in sorted(item for item in root.iterdir() if item.is_dir()):
+        if not artifact_dir.name.lower().startswith(final_prefixes):
+            print(f"Skipping intermediate artifact during Release publishing: {artifact_dir.name}")
+            continue
         restored += unpack_source(artifact_dir, artifact_dir, required=False)
     return restored
 
@@ -234,7 +242,27 @@ def self_test() -> int:
         actual = restored / "cbr_restart" / restart_name
         assert actual.read_bytes() == b"WRF-RESTART"
         assert (restored / "cbr_products" / product_name).read_text(encoding="utf-8") == '{"ok":true}'
-    print("WRF artifact bundle self-test passed (colon timestamp and folder layout preserved).")
+
+        release_root = root / "release-downloads"
+        final_dir = release_root / "wrf-final-cim4-run"
+        segment_dir = release_root / "wrf-cim4-seg00"
+        final_dir.mkdir(parents=True)
+        segment_dir.mkdir(parents=True)
+        for directory, filename, payload in (
+            (final_dir, "wrf-payload-001.tar", b"final product"),
+            (segment_dir, "wrf-payload-001.tar", b"intermediate checkpoint"),
+        ):
+            source = root / (directory.name + ".txt")
+            source.write_bytes(payload)
+            with tarfile.open(directory / filename, "w") as archive:
+                archive.add(source, arcname="product.txt")
+        unpack_release_artifacts(release_root)
+        assert (final_dir / "product.txt").read_bytes() == b"final product"
+        assert (segment_dir / "wrf-payload-001.tar").is_file(), (
+            "Intermediate WRF segment TAR must not be extracted by the Release publisher."
+        )
+        assert not (segment_dir / "product.txt").exists()
+    print("WRF artifact bundle self-test passed (colon names preserved; final-only extraction).")
     return 0
 
 
