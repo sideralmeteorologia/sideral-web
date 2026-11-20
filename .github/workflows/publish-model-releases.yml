@@ -71,6 +71,8 @@ jobs:
             --repo "$SOURCE_REPOSITORY" \
             --dir "$RUNNER_TEMP/model-artifacts"
           test -n "$(find "$RUNNER_TEMP/model-artifacts" -type f -print -quit)"
+          python3 .github/scripts/wrf_artifact_bundle.py unpack-release-artifacts \
+            --root "$RUNNER_TEMP/model-artifacts"
 
       - name: Publicar Release e espelho legível pelo navegador
         if: steps.filter.outputs.enabled == 'true'
