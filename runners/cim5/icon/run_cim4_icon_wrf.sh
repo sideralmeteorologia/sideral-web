@@ -68,7 +68,9 @@ if [[ "${WRF2_TOMORROW:-0}" == "1" ]]; then
 else
   SELECTION_ARGS=(--start-hour "$WRF_START_HOUR" --end-hour "$SOURCE_END_HOUR" --output "$ROOT/cim4-icon-run.env")
   if [[ -n "$FORCE_RUN_DATE" && -n "$FORCE_RUN_CYCLE" ]]; then
-    SELECTION_ARGS+=(--date "$FORCE_RUN_DATE" --cycle "$FORCE_RUN_CYCLE")
+    # Preserve the requested cycle when complete; if its ICON fields are still
+    # publishing, fall back only to an earlier fully validated source cycle.
+    SELECTION_ARGS+=(--date "$FORCE_RUN_DATE" --cycle "$FORCE_RUN_CYCLE" --allow-fallback)
   fi
   python3 "$ROOT/wrf/select_tarc_icon_run.py" "${SELECTION_ARGS[@]}"
   source "$ROOT/cim4-icon-run.env"

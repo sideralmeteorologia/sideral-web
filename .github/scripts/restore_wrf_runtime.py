@@ -98,6 +98,18 @@ def main() -> None:
         required.append("Vtable.ECMWF_OPEN")
     elif source_model == "gfs":
         required.append("Vtable.GFS_SOIL")
+    # Alguns runners regionais reutilizam a Vtable ICON mantida no perfil CIM.
+    # O conteúdo é idêntico e continua separado do executável/modelo regional.
+    if source_model == "icon" and not (WRF / "Vtable.ICONp").is_file():
+        for candidate in (
+            RUNNERS / "cim5" / "icon" / "Vtable.ICONp",
+            RUNNERS / "tarc" / "icon" / "Vtable.ICONp",
+        ):
+            if candidate.is_file():
+                shutil.copy2(candidate, WRF / "Vtable.ICONp")
+                copied += 1
+                break
+
     missing = [name for name in required if not (WRF / name).is_file()]
     if missing:
         raise SystemExit(
