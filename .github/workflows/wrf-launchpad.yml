@@ -1,0 +1,159 @@
+name: SIDERAL — WRF Launchpad
+
+on:
+  workflow_dispatch:
+    inputs:
+      scope:
+        description: "O que iniciar"
+        required: true
+        type: choice
+        options:
+          - all
+          - wrf
+          - numerical
+        default: all
+      skip_active:
+        description: "Pular workflows já na fila ou em execução"
+        required: true
+        type: boolean
+        default: true
+
+permissions:
+  contents: read
+
+concurrency:
+  group: sideral-wrf-launchpad
+  cancel-in-progress: false
+
+jobs:
+  dispatch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Disparar WRF e modelos numéricos
+        env:
+          GH_TOKEN: ${{ secrets.GH_DISPATCH_TOKEN }}
+          GH_REPOSITORY: ${{ github.repository }}
+          GH_REF: ${{ github.ref_name }}
+          SCOPE: ${{ inputs.scope }}
+          SKIP_ACTIVE: ${{ inputs.skip_active }}
+        run: |
+          python - <<'PY'
+          import json, os, time, urllib.request, urllib.error
+
+          token = os.environ.get("GH_TOKEN", "")
+          if not token:
+              raise SystemExit("Configure o secret GH_DISPATCH_TOKEN (token com Actions: write).")
+
+          repo = os.environ["GH_REPOSITORY"]
+          ref = os.environ["GH_REF"]
+          scope = os.environ["SCOPE"]
+          skip_active = os.environ["SKIP_ACTIVE"].lower() == "true"
+          base = f"https://api.github.com/repos/{repo}"
+          headers = {
+              "Authorization": f"Bearer {token}",
+              "Accept": "application/vnd.github+json",
+              "X-GitHub-Api-Version": "2022-11-28",
+              "User-Agent": "SIDERAL-WRF-Launchpad",
+          }
+
+          wrf = [
+              "brasil-wrf-21km-wrf-ecmwf.yml",
+              "brasil-wrf-21km-wrf-icon.yml",
+              "cbr-wrf-4km-wrf-ecmwf.yml",
+              "cbr-wrf-4km-wrf-gfs.yml",
+              "cbr-wrf-4km-wrf-icon.yml",
+              "cbr-wrf-4km-wrf2-ecmwf.yml",
+              "cbr-wrf-4km-wrf2-gfs.yml",
+              "cbr-wrf-4km-wrf2-icon.yml",
+              "cbr-wrf.yml",
+              "cim-wrf-5km-wrf-ecmwf.yml",
+              "cim-wrf-5km-wrf-gfs.yml",
+              "cim-wrf-5km-wrf-icon.yml",
+              "cim-wrf-5km-wrf2-ecmwf.yml",
+              "cim-wrf-5km-wrf2-gfs.yml",
+              "cim-wrf-5km-wrf2-icon.yml",
+              "cim-wrf-5km.yml",
+              "cim-wrf-8km-wrf-ecmwf.yml",
+              "cim-wrf-8km-wrf-gfs.yml",
+              "cim-wrf-8km-wrf-icon.yml",
+              "cim-wrf-8km.yml",
+              "metbr-wrf-4km-wrf-ecmwf.yml",
+              "metbr-wrf-4km-wrf-gfs.yml",
+              "metbr-wrf-4km-wrf-icon.yml",
+              "metbr-wrf-4km-wrf2-ecmwf.yml",
+              "metbr-wrf-4km-wrf2-gfs.yml",
+              "metbr-wrf-4km-wrf2-icon.yml",
+              "metbr-wrf.yml",
+              "sideral-brasil-wrf.yml",
+              "sudeste-wrf-4km-wrf-ecmwf.yml",
+              "sudeste-wrf-4km-wrf-gfs.yml",
+              "sudeste-wrf-4km-wrf-icon.yml",
+              "sudeste-wrf-4km-wrf2-ecmwf.yml",
+              "sudeste-wrf-4km-wrf2-gfs.yml",
+              "sudeste-wrf-4km-wrf2-icon.yml",
+              "sudeste-wrf-5km-wrf-ecmwf.yml",
+              "sudeste-wrf-5km-wrf-gfs.yml",
+              "sudeste-wrf-5km-wrf-icon.yml",
+              "sudeste-wrf-5km-wrf2-ecmwf.yml",
+              "sudeste-wrf-5km-wrf2-gfs.yml",
+              "sudeste-wrf-5km-wrf2-icon.yml",
+              "tarc-wrf-3km-wrf-ecmwf.yml",
+              "tarc-wrf-3km-wrf-gfs.yml",
+              "tarc-wrf-3km-wrf-icon.yml",
+              "tarc-wrf-3km-wrf2-ecmwf.yml",
+              "tarc-wrf-3km-wrf2-gfs.yml",
+              "tarc-wrf-3km-wrf2-icon.yml",
+              "tarc-wrf.yml",
+              "wrf-maestro.yml",
+              "wrf-watchdog.yml",
+          ]
+          numerical = [
+              "sideral-global-nwp-artifact.yml",
+              "SIDERAL_MULTIMODELS_05_ICON_HORIZON_FIX (1).yml",
+          ]
+
+          targets = (wrf if scope == "wrf" else numerical if scope == "numerical" else wrf + numerical)
+          print(f"Escopo={scope}; workflows alvo={len(targets)}; ref={ref}")
+
+          def api(path, method="GET", body=None):
+              data = json.dumps(body).encode() if body is not None else None
+              req = urllib.request.Request(base + path, data=data, headers=headers, method=method)
+              with urllib.request.urlopen(req, timeout=30) as resp:
+                  return json.loads(resp.read()) if resp.status != 204 else None
+
+          launched, skipped, failed = [], [], []
+          for filename in targets:
+              workflow_path = " .github/workflows/" + filename
+              workflow_path = workflow_path.strip()
+              try:
+                  if skip_active:
+                      runs = api(f"/actions/workflows/{urllib.parse.quote(filename, safe='')}/runs?per_page=10")
+                      active = [r for r in runs.get("workflow_runs", []) if r.get("status") in ("queued", "in_progress")]
+                      if active:
+                          skipped.append((filename, "já queued/in_progress"))
+                          print(f"SKIP {filename}: já ativo")
+                          continue
+                  api(f"/actions/workflows/{urllib.parse.quote(filename, safe='')}/dispatches", "POST", {"ref": ref})
+                  launched.append(filename)
+                  print(f"DISPATCH {filename}")
+                  time.sleep(2)
+              except urllib.error.HTTPError as e:
+                  detail = e.read().decode("utf-8", "replace")[:400]
+                  failed.append((filename, f"HTTP {e.code}: {detail}"))
+                  print(f"ERRO {filename}: HTTP {e.code} {detail}")
+              except Exception as e:
+                  failed.append((filename, str(e)))
+                  print(f"ERRO {filename}: {e}")
+
+          print("\n=== RESUMO ===")
+          print(f"Disparados: {len(launched)}")
+          print(f"Pulados: {len(skipped)}")
+          print(f"Falhas: {len(failed)}")
+          if failed:
+              print("\nFalhas:")
+              for name, why in failed:
+                  print(f"- {name}: {why}")
+          if failed and not launched:
+              raise SystemExit("Nenhum workflow foi disparado; verifique os logs e os triggers workflow_dispatch.")
+          PY
