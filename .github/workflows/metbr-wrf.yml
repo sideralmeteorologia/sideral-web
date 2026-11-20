@@ -1,4 +1,4 @@
-name: SIDERAL | METBR WRF 4 km unificado
+name: METBR WRF 4 km | manual
 
 on:
   workflow_dispatch:
@@ -16,14 +16,6 @@ on:
         type: choice
         options: [icon, ecmwf, gfs]
   # Uma única execução programada por dia, após a janela de publicação do ICON.
-  schedule:
-    - cron: '0 6 * * *'
-    - cron: '0 8 * * *'
-    - cron: '0 7 * * *'
-    - cron: '30 10 * * *'
-    - cron: '30 12 * * *'
-    - cron: '30 11 * * *'
-
 permissions:
   contents: write
 
@@ -33,6 +25,7 @@ concurrency:
   cancel-in-progress: false
 
 env:
+  GH_TOKEN: ${{ github.token }}
   METBR_SOURCE_MODEL: icon
   CHECKPOINT_PREFIX: metbr-wrf-4km-checkpoint
   SOURCE_MODEL: ${{ (github.event.schedule == '0 8 * * *' || github.event.schedule == '30 12 * * *') && 'ecmwf' || (github.event.schedule == '0 7 * * *' || github.event.schedule == '30 11 * * *') && 'gfs' || inputs.source_model || 'icon' }}
@@ -100,6 +93,9 @@ jobs:
           mkdir -p wrf/bin
           printf '%s' 'IyEvdXNyL2Jpbi9lbnYgYmFzaApzZXQgLWV1byBwaXBlZmFpbApbWyAiXCR7MTotfSIgPT0gInJlbGVhc2UiIF1dIHx8IHsgZWNobyAiTUVUQlIgUjIgYWRhcHRlciBzdXBwb3J0cyByZWxlYXNlIG9wZXJhdGlvbnMgb25seSIgPiYyOyBleGl0IDI7IH0Kc3ViPSJcJHsyOi19IjsgdGFnPSJcJHszOi19Ijsgc2hpZnQgJCgoICQjID49IDMgPyAzIDogJCMgKSkKIDogIyBleHRlcm5hbCBvYmplY3Qgc3RvcmFnZSByZW1vdmVkCiA6ICMgZXh0ZXJuYWwgb2JqZWN0IHN0b3JhZ2UgcmVtb3ZlZAogOiAjIGV4dGVybmFsIG9iamVjdCBzdG9yYWdlIHJlbW92ZWQKYXJncz0oLS1lbmRwb2ludC11cmwgIiRlbmRwb2ludCIgLS1yZWdpb24gYXV0bykKY2FzZSAiJHN1YiIgaW4KIDogIyBleHRlcm5hbCBvYmplY3Qgc3RvcmFnZSByZW1vdmVkCiA6ICMgZXh0ZXJuYWwgb2JqZWN0IHN0b3JhZ2UgcmVtb3ZlZAogZG93bmxvYWQpCiAgcGF0dGVybj0nKic7IGRlc3Q9Jy4nCiAgd2hpbGUgKCgkIykpOyBkbyBjYXNlICIkMSIgaW4gLS1wYXR0ZXJuKSBwYXR0ZXJuPSIkMiI7IHNoaWZ0IDI7OyAtLWRpcikgZGVzdD0iJDIiOyBzaGlmdCAyOzsgLS1yZXBvKSBzaGlmdCAyOzsgLS1jbG9iYmVyKSBzaGlmdDs7ICopIHNoaWZ0OzsgZXNhYzsgZG9uZQogIG1rZGlyIC1wICIkZGVzdCIKIDogIyBleHRlcm5hbCBvYmplY3Qgc3RvcmFnZSByZW1vdmVkCiAgZm91bmQ9MAogOiAjIGV4dGVybmFsIG9iamVjdCBzdG9yYWdlIHJlbW92ZWQKICAoKCBmb3VuZCA+IDAgKSkgfHwgeyBlY2hvICJPYmpldG8gUjIgbsOjbyBlbmNvbnRyYWRvOiAkcGF0dGVybiAoJGJhc2UpIiA+JjI7IGV4aXQgMzsgfQogIDs7CiB1cGxvYWQpCiA6ICMgZXh0ZXJuYWwgb2JqZWN0IHN0b3JhZ2UgcmVtb3ZlZAogIDs7CiAqKSBlY2hvICJPcGVyYcOnw6NvIFIyIG7Do28gc3Vwb3J0YWRhOiAkc3ViIiA+JjI7IGV4aXQgMiA7Owplc2Fj' | base64 -d > wrf/bin/gh
           chmod +x wrf/bin/gh wrf/*.sh
+      - name: Garantir executabilidade dos scripts WRF
+        shell: bash
+        run: chmod +x wrf/*.sh
       - name: Validar scripts e extrator METBR
         shell: bash
         run: |
@@ -117,7 +113,7 @@ jobs:
       - name: Salvar checkpoint e produtos desta etapa
         uses: actions/upload-artifact@v4
         with:
-          name: wrf-${{ github.workflow }}-${{ github.job }}-${{ github.run_id }}
+          name: wrf-metbr4-manual-${{ github.job }}-${{ github.run_id }}
           path: |
             **/*restart*/**
             **/*products*/**
@@ -138,7 +134,7 @@ jobs:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
         with:
-          name: wrf-${{ github.workflow }}-seg00-${{ github.run_id }}
+          name: wrf-metbr4-manual-seg00-${{ github.run_id }}
           path: .
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -160,7 +156,7 @@ jobs:
       - name: Salvar checkpoint e produtos desta etapa
         uses: actions/upload-artifact@v4
         with:
-          name: wrf-${{ github.workflow }}-${{ github.job }}-${{ github.run_id }}
+          name: wrf-metbr4-manual-${{ github.job }}-${{ github.run_id }}
           path: |
             **/*restart*/**
             **/*products*/**
@@ -181,7 +177,7 @@ jobs:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
         with:
-          name: wrf-${{ github.workflow }}-seg01-${{ github.run_id }}
+          name: wrf-metbr4-manual-seg01-${{ github.run_id }}
           path: .
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -203,7 +199,7 @@ jobs:
       - name: Salvar checkpoint e produtos desta etapa
         uses: actions/upload-artifact@v4
         with:
-          name: wrf-${{ github.workflow }}-${{ github.job }}-${{ github.run_id }}
+          name: wrf-metbr4-manual-${{ github.job }}-${{ github.run_id }}
           path: |
             **/*restart*/**
             **/*products*/**
@@ -224,7 +220,7 @@ jobs:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
         with:
-          name: wrf-${{ github.workflow }}-seg02-${{ github.run_id }}
+          name: wrf-metbr4-manual-seg02-${{ github.run_id }}
           path: .
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -246,7 +242,7 @@ jobs:
       - name: Salvar checkpoint e produtos desta etapa
         uses: actions/upload-artifact@v4
         with:
-          name: wrf-${{ github.workflow }}-${{ github.job }}-${{ github.run_id }}
+          name: wrf-metbr4-manual-${{ github.job }}-${{ github.run_id }}
           path: |
             **/*restart*/**
             **/*products*/**
@@ -267,7 +263,7 @@ jobs:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
         with:
-          name: wrf-${{ github.workflow }}-seg03-${{ github.run_id }}
+          name: wrf-metbr4-manual-seg03-${{ github.run_id }}
           path: .
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -289,7 +285,7 @@ jobs:
       - name: Salvar checkpoint e produtos desta etapa
         uses: actions/upload-artifact@v4
         with:
-          name: wrf-${{ github.workflow }}-${{ github.job }}-${{ github.run_id }}
+          name: wrf-metbr4-manual-${{ github.job }}-${{ github.run_id }}
           path: |
             **/*restart*/**
             **/*products*/**
@@ -310,7 +306,7 @@ jobs:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
         with:
-          name: wrf-${{ github.workflow }}-seg04-${{ github.run_id }}
+          name: wrf-metbr4-manual-seg04-${{ github.run_id }}
           path: .
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -332,7 +328,7 @@ jobs:
       - name: Salvar checkpoint e produtos desta etapa
         uses: actions/upload-artifact@v4
         with:
-          name: wrf-${{ github.workflow }}-${{ github.job }}-${{ github.run_id }}
+          name: wrf-metbr4-manual-${{ github.job }}-${{ github.run_id }}
           path: |
             **/*restart*/**
             **/*products*/**
@@ -353,7 +349,7 @@ jobs:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
         with:
-          name: wrf-${{ github.workflow }}-seg05-${{ github.run_id }}
+          name: wrf-metbr4-manual-seg05-${{ github.run_id }}
           path: .
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -375,7 +371,7 @@ jobs:
       - name: Salvar checkpoint e produtos desta etapa
         uses: actions/upload-artifact@v4
         with:
-          name: wrf-${{ github.workflow }}-${{ github.job }}-${{ github.run_id }}
+          name: wrf-metbr4-manual-${{ github.job }}-${{ github.run_id }}
           path: |
             **/*restart*/**
             **/*products*/**
@@ -396,7 +392,7 @@ jobs:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
         with:
-          name: wrf-${{ github.workflow }}-seg06-${{ github.run_id }}
+          name: wrf-metbr4-manual-seg06-${{ github.run_id }}
           path: .
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -418,7 +414,7 @@ jobs:
       - name: Salvar checkpoint e produtos desta etapa
         uses: actions/upload-artifact@v4
         with:
-          name: wrf-${{ github.workflow }}-${{ github.job }}-${{ github.run_id }}
+          name: wrf-metbr4-manual-${{ github.job }}-${{ github.run_id }}
           path: |
             **/*restart*/**
             **/*products*/**
@@ -439,7 +435,7 @@ jobs:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
         with:
-          name: wrf-${{ github.workflow }}-seg07-${{ github.run_id }}
+          name: wrf-metbr4-manual-seg07-${{ github.run_id }}
           path: .
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -461,7 +457,7 @@ jobs:
       - name: Salvar checkpoint e produtos desta etapa
         uses: actions/upload-artifact@v4
         with:
-          name: wrf-${{ github.workflow }}-${{ github.job }}-${{ github.run_id }}
+          name: wrf-metbr4-manual-${{ github.job }}-${{ github.run_id }}
           path: |
             **/*restart*/**
             **/*products*/**
@@ -482,7 +478,7 @@ jobs:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
         with:
-          name: wrf-${{ github.workflow }}-seg08-${{ github.run_id }}
+          name: wrf-metbr4-manual-seg08-${{ github.run_id }}
           path: .
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -504,7 +500,7 @@ jobs:
       - name: Salvar checkpoint e produtos desta etapa
         uses: actions/upload-artifact@v4
         with:
-          name: wrf-${{ github.workflow }}-${{ github.job }}-${{ github.run_id }}
+          name: wrf-metbr4-manual-${{ github.job }}-${{ github.run_id }}
           path: |
             **/*restart*/**
             **/*products*/**
@@ -525,7 +521,7 @@ jobs:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
         with:
-          name: wrf-${{ github.workflow }}-seg09-${{ github.run_id }}
+          name: wrf-metbr4-manual-seg09-${{ github.run_id }}
           path: .
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -547,7 +543,7 @@ jobs:
       - name: Salvar checkpoint e produtos desta etapa
         uses: actions/upload-artifact@v4
         with:
-          name: wrf-${{ github.workflow }}-${{ github.job }}-${{ github.run_id }}
+          name: wrf-metbr4-manual-${{ github.job }}-${{ github.run_id }}
           path: |
             **/*restart*/**
             **/*products*/**
@@ -568,7 +564,7 @@ jobs:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
         with:
-          name: wrf-${{ github.workflow }}-seg10-${{ github.run_id }}
+          name: wrf-metbr4-manual-seg10-${{ github.run_id }}
           path: .
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -590,7 +586,7 @@ jobs:
       - name: Salvar checkpoint e produtos desta etapa
         uses: actions/upload-artifact@v4
         with:
-          name: wrf-${{ github.workflow }}-${{ github.job }}-${{ github.run_id }}
+          name: wrf-metbr4-manual-${{ github.job }}-${{ github.run_id }}
           path: |
             **/*restart*/**
             **/*products*/**
@@ -611,7 +607,7 @@ jobs:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
         with:
-          name: wrf-${{ github.workflow }}-seg11-${{ github.run_id }}
+          name: wrf-metbr4-manual-seg11-${{ github.run_id }}
           path: .
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -633,7 +629,7 @@ jobs:
       - name: Salvar checkpoint e produtos desta etapa
         uses: actions/upload-artifact@v4
         with:
-          name: wrf-${{ github.workflow }}-${{ github.job }}-${{ github.run_id }}
+          name: wrf-metbr4-manual-${{ github.job }}-${{ github.run_id }}
           path: |
             **/*restart*/**
             **/*products*/**
@@ -654,7 +650,7 @@ jobs:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
         with:
-          name: wrf-${{ github.workflow }}-seg12-${{ github.run_id }}
+          name: wrf-metbr4-manual-seg12-${{ github.run_id }}
           path: .
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -676,7 +672,7 @@ jobs:
       - name: Salvar checkpoint e produtos desta etapa
         uses: actions/upload-artifact@v4
         with:
-          name: wrf-${{ github.workflow }}-${{ github.job }}-${{ github.run_id }}
+          name: wrf-metbr4-manual-${{ github.job }}-${{ github.run_id }}
           path: |
             **/*restart*/**
             **/*products*/**
@@ -766,7 +762,7 @@ jobs:
       - name: Publicar produtos finais como artifact
         uses: actions/upload-artifact@v4
         with:
-          name: wrf-final-${{ github.workflow }}-${{ github.job }}-${{ github.run_id }}
+          name: wrf-final-metbr4-manual-${{ github.job }}-${{ github.run_id }}
           path: |
             **/*products*/**
             **/*publish*/**
@@ -799,7 +795,7 @@ jobs:
       - name: Publicar produtos finais como artifact
         uses: actions/upload-artifact@v4
         with:
-          name: wrf-final-${{ github.workflow }}-${{ github.job }}-${{ github.run_id }}
+          name: wrf-final-metbr4-manual-${{ github.job }}-${{ github.run_id }}
           path: |
             **/*products*/**
             **/*publish*/**

@@ -1,4 +1,4 @@
-name: SIDERAL | Sudeste WRF 4/5 km unificado
+name: WRF Sudeste 4/5 km | manual
 
 on:
   workflow_dispatch:
@@ -22,25 +22,12 @@ on:
         type: choice
         options: [icon, ecmwf, gfs]
 
-  schedule:
-    - cron: '0 16 * * *'
-    - cron: '20 16 * * *'
-    - cron: '40 16 * * *'
-    - cron: '0 7 * * *'
-    - cron: '20 7 * * *'
-    - cron: '40 7 * * *'
-    - cron: '30 16 * * *'
-    - cron: '0 17 * * *'
-    - cron: '20 17 * * *'
-    - cron: '0 19 * * *'
-    - cron: '20 19 * * *'
-    - cron: '40 19 * * *'
-
 permissions:
   contents: write
   actions: read
 
 env:
+  GH_TOKEN: ${{ github.token }}
   SIDERAL_CHECKPOINT_PREFIX: sideral-wrf-sudeste-checkpoint
   FAMILY: sideral-sudeste
   RESOLUTION_KM: ${{ (github.event.schedule == '30 16 * * *' || github.event.schedule == '0 17 * * *' || github.event.schedule == '20 17 * * *' || github.event.schedule == '0 19 * * *' || github.event.schedule == '20 19 * * *' || github.event.schedule == '40 19 * * *') && '5' || inputs.resolution_km || '4' }}
@@ -177,11 +164,6 @@ jobs:
             command -v "$PYBIN" >/dev/null 2>&1 || continue
             "$PYBIN" -c "from ecmwf.opendata import Client; print('ECMWF Open Data client OK em $PYBIN')" || echo "AVISO: $PYBIN nao importa ecmwf.opendata"
           done
-      - name: Login Docker Hub
-        uses: docker/login-action@v3
-        with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
       - name: Pré-validar scripts Bash e ShellCheck
         shell: bash
         run: |
@@ -220,7 +202,7 @@ jobs:
       - name: Salvar checkpoint e produtos desta etapa
         uses: actions/upload-artifact@v4
         with:
-          name: wrf-${{ github.workflow }}-${{ github.job }}-${{ github.run_id }}
+          name: wrf-sudeste-manual-${{ github.job }}-${{ github.run_id }}
           path: |
             **/*restart*/**
             **/*products*/**
@@ -241,7 +223,7 @@ jobs:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
         with:
-          name: wrf-${{ github.workflow }}-seg00-${{ github.run_id }}
+          name: wrf-sudeste-manual-seg00-${{ github.run_id }}
           path: .
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -278,11 +260,6 @@ jobs:
             command -v "$PYBIN" >/dev/null 2>&1 || continue
             "$PYBIN" -c "from ecmwf.opendata import Client; print('ECMWF Open Data client OK em $PYBIN')" || echo "AVISO: $PYBIN nao importa ecmwf.opendata"
           done
-      - name: Login Docker Hub
-        uses: docker/login-action@v3
-        with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
       - name: Pré-validar scripts Bash e ShellCheck
         shell: bash
         run: |
@@ -315,7 +292,7 @@ jobs:
       - name: Salvar checkpoint e produtos desta etapa
         uses: actions/upload-artifact@v4
         with:
-          name: wrf-${{ github.workflow }}-${{ github.job }}-${{ github.run_id }}
+          name: wrf-sudeste-manual-${{ github.job }}-${{ github.run_id }}
           path: |
             **/*restart*/**
             **/*products*/**
@@ -336,7 +313,7 @@ jobs:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
         with:
-          name: wrf-${{ github.workflow }}-seg01-${{ github.run_id }}
+          name: wrf-sudeste-manual-seg01-${{ github.run_id }}
           path: .
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -373,11 +350,6 @@ jobs:
             command -v "$PYBIN" >/dev/null 2>&1 || continue
             "$PYBIN" -c "from ecmwf.opendata import Client; print('ECMWF Open Data client OK em $PYBIN')" || echo "AVISO: $PYBIN nao importa ecmwf.opendata"
           done
-      - name: Login Docker Hub
-        uses: docker/login-action@v3
-        with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
       - name: Pré-validar scripts Bash e ShellCheck
         shell: bash
         run: |
@@ -410,7 +382,7 @@ jobs:
       - name: Salvar checkpoint e produtos desta etapa
         uses: actions/upload-artifact@v4
         with:
-          name: wrf-${{ github.workflow }}-${{ github.job }}-${{ github.run_id }}
+          name: wrf-sudeste-manual-${{ github.job }}-${{ github.run_id }}
           path: |
             **/*restart*/**
             **/*products*/**
@@ -431,7 +403,7 @@ jobs:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
         with:
-          name: wrf-${{ github.workflow }}-seg02-${{ github.run_id }}
+          name: wrf-sudeste-manual-seg02-${{ github.run_id }}
           path: .
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -468,11 +440,6 @@ jobs:
             command -v "$PYBIN" >/dev/null 2>&1 || continue
             "$PYBIN" -c "from ecmwf.opendata import Client; print('ECMWF Open Data client OK em $PYBIN')" || echo "AVISO: $PYBIN nao importa ecmwf.opendata"
           done
-      - name: Login Docker Hub
-        uses: docker/login-action@v3
-        with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
       - name: Pré-validar scripts Bash e ShellCheck
         shell: bash
         run: |
@@ -505,7 +472,7 @@ jobs:
       - name: Salvar checkpoint e produtos desta etapa
         uses: actions/upload-artifact@v4
         with:
-          name: wrf-${{ github.workflow }}-${{ github.job }}-${{ github.run_id }}
+          name: wrf-sudeste-manual-${{ github.job }}-${{ github.run_id }}
           path: |
             **/*restart*/**
             **/*products*/**
@@ -526,7 +493,7 @@ jobs:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
         with:
-          name: wrf-${{ github.workflow }}-seg03-${{ github.run_id }}
+          name: wrf-sudeste-manual-seg03-${{ github.run_id }}
           path: .
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -563,11 +530,6 @@ jobs:
             command -v "$PYBIN" >/dev/null 2>&1 || continue
             "$PYBIN" -c "from ecmwf.opendata import Client; print('ECMWF Open Data client OK em $PYBIN')" || echo "AVISO: $PYBIN nao importa ecmwf.opendata"
           done
-      - name: Login Docker Hub
-        uses: docker/login-action@v3
-        with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
       - name: Pré-validar scripts Bash e ShellCheck
         shell: bash
         run: |
@@ -600,7 +562,7 @@ jobs:
       - name: Salvar checkpoint e produtos desta etapa
         uses: actions/upload-artifact@v4
         with:
-          name: wrf-${{ github.workflow }}-${{ github.job }}-${{ github.run_id }}
+          name: wrf-sudeste-manual-${{ github.job }}-${{ github.run_id }}
           path: |
             **/*restart*/**
             **/*products*/**
@@ -621,7 +583,7 @@ jobs:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
         with:
-          name: wrf-${{ github.workflow }}-seg04-${{ github.run_id }}
+          name: wrf-sudeste-manual-seg04-${{ github.run_id }}
           path: .
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -658,11 +620,6 @@ jobs:
             command -v "$PYBIN" >/dev/null 2>&1 || continue
             "$PYBIN" -c "from ecmwf.opendata import Client; print('ECMWF Open Data client OK em $PYBIN')" || echo "AVISO: $PYBIN nao importa ecmwf.opendata"
           done
-      - name: Login Docker Hub
-        uses: docker/login-action@v3
-        with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
       - name: Pré-validar scripts Bash e ShellCheck
         shell: bash
         run: |
@@ -695,7 +652,7 @@ jobs:
       - name: Salvar checkpoint e produtos desta etapa
         uses: actions/upload-artifact@v4
         with:
-          name: wrf-${{ github.workflow }}-${{ github.job }}-${{ github.run_id }}
+          name: wrf-sudeste-manual-${{ github.job }}-${{ github.run_id }}
           path: |
             **/*restart*/**
             **/*products*/**
@@ -716,7 +673,7 @@ jobs:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
         with:
-          name: wrf-${{ github.workflow }}-seg05-${{ github.run_id }}
+          name: wrf-sudeste-manual-seg05-${{ github.run_id }}
           path: .
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -753,11 +710,6 @@ jobs:
             command -v "$PYBIN" >/dev/null 2>&1 || continue
             "$PYBIN" -c "from ecmwf.opendata import Client; print('ECMWF Open Data client OK em $PYBIN')" || echo "AVISO: $PYBIN nao importa ecmwf.opendata"
           done
-      - name: Login Docker Hub
-        uses: docker/login-action@v3
-        with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
       - name: Pré-validar scripts Bash e ShellCheck
         shell: bash
         run: |
@@ -790,7 +742,7 @@ jobs:
       - name: Salvar checkpoint e produtos desta etapa
         uses: actions/upload-artifact@v4
         with:
-          name: wrf-${{ github.workflow }}-${{ github.job }}-${{ github.run_id }}
+          name: wrf-sudeste-manual-${{ github.job }}-${{ github.run_id }}
           path: |
             **/*restart*/**
             **/*products*/**
@@ -811,7 +763,7 @@ jobs:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
         with:
-          name: wrf-${{ github.workflow }}-seg06-${{ github.run_id }}
+          name: wrf-sudeste-manual-seg06-${{ github.run_id }}
           path: .
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -848,11 +800,6 @@ jobs:
             command -v "$PYBIN" >/dev/null 2>&1 || continue
             "$PYBIN" -c "from ecmwf.opendata import Client; print('ECMWF Open Data client OK em $PYBIN')" || echo "AVISO: $PYBIN nao importa ecmwf.opendata"
           done
-      - name: Login Docker Hub
-        uses: docker/login-action@v3
-        with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
       - name: Pré-validar scripts Bash e ShellCheck
         shell: bash
         run: |
@@ -885,7 +832,7 @@ jobs:
       - name: Salvar checkpoint e produtos desta etapa
         uses: actions/upload-artifact@v4
         with:
-          name: wrf-${{ github.workflow }}-${{ github.job }}-${{ github.run_id }}
+          name: wrf-sudeste-manual-${{ github.job }}-${{ github.run_id }}
           path: |
             **/*restart*/**
             **/*products*/**
@@ -918,11 +865,6 @@ jobs:
           set -euo pipefail
           command -v aws >/dev/null || { sudo apt-get update -qq && sudo apt-get install -y awscli; }
           echo "$GITHUB_WORKSPACE/wrf/bin" >> "$GITHUB_PATH"
-      - name: Login Docker Hub
-        uses: docker/login-action@v3
-        with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
       - name: Pré-validar scripts Bash e ShellCheck
         shell: bash
         run: |
@@ -1041,7 +983,7 @@ jobs:
       - name: Publicar produtos finais como artifact
         uses: actions/upload-artifact@v4
         with:
-          name: wrf-final-${{ github.workflow }}-${{ github.job }}-${{ github.run_id }}
+          name: wrf-final-sudeste-manual-${{ github.job }}-${{ github.run_id }}
           path: |
             **/*products*/**
             **/*publish*/**
@@ -1075,7 +1017,7 @@ jobs:
       - name: Publicar produtos finais como artifact
         uses: actions/upload-artifact@v4
         with:
-          name: wrf-final-${{ github.workflow }}-${{ github.job }}-${{ github.run_id }}
+          name: wrf-final-sudeste-manual-${{ github.job }}-${{ github.run_id }}
           path: |
             **/*products*/**
             **/*publish*/**

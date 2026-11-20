@@ -1,4 +1,4 @@
-name: SIDERAL | CBR WRF 4 km unificado
+name: CBR WRF 4 km | manual
 
 on:
   workflow_dispatch:
@@ -25,19 +25,12 @@ on:
         required: false
         default: icon
         type: string
-  schedule:
-    - cron: '15 10 * * *'
-    - cron: '25 10 * * *'
-    - cron: '45 10 * * *'
-    - cron: '15 11 * * *'
-    - cron: '25 11 * * *'
-    - cron: '45 11 * * *'
-
 permissions:
   contents: write
   actions: read
 
 env:
+  GH_TOKEN: ${{ github.token }}
   CBR_CHECKPOINT_PREFIX: cbr-wrf-4km-checkpoint
   WRF_MPI_PROCS: 8
   WRF_TARGET_RESOLUTION_KM: 4
@@ -108,6 +101,9 @@ jobs:
           mkdir -p "$(dirname 'wrf/Vtable.GFS_SOIL')"
           printf '%s' 'R1JJQjF8IExldmVsfCBGcm9tIHwgIFRvICB8IG1ldGdyaWQgIHwgbWV0Z3JpZCB8IG1ldGdyaWQgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB8R1JJQjJ8R1JJQjJ8R1JJQjJ8R1JJQjJ8ClBhcmFtfCBUeXBlIHxMZXZlbDF8TGV2ZWwyfCBOYW1lICAgICB8IFVuaXRzICAgfCBEZXNjcmlwdGlvbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgfERpc2NwfENhdGd5fFBhcmFtfExldmVsfAotLS0tLSstLS0tLS0rLS0tLS0tKy0tLS0tLSstLS0tLS0tLS0tKy0tLS0tLS0tLSstLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLSstLS0tLS0tLS0tLS0tLS0tLS0tLS0tLSsKICAxMSB8ICAgMSAgfCAgIDAgIHwgICAgICB8IFNLSU5URU1QIHwgSyAgICAgICB8IFNraW4gdGVtcGVyYXR1cmUgICAgICAgICAgICAgICAgICAgICAgICB8ICAwICB8ICAwICB8ICAwICB8ICAgMSB8CiAgODEgfCAgIDEgIHwgICAwICB8ICAgICAgfCBMQU5EU0VBICB8IHByb3BydG4gfCBMYW5kL1NlYSBmbGFnICAgICAgICAgICAgICAgICAgICAgICAgICAgfCAgMiAgfCAgMCAgfCAgMCAgfCAgIDEgfAogICA3IHwgICAxICB8ICAgMCAgfCAgICAgIHwgU09JTEhHVCAgfCBtICAgICAgIHwgVGVycmFpbiBmaWVsZCBvZiBzb3VyY2UgYW5hbHlzaXMgICAgICAgIHwgIDAgIHwgIDMgIHwgIDUgIHwgICAxIHwKICA2NSB8ICAgMSAgfCAgIDAgIHwgICAgICB8IFNOT1cgICAgIHwga2cgbS0yICB8IFdhdGVyIGVxdWl2YWxlbnQgc25vdyBkZXB0aCAgICAgICAgICAgICB8ICAwICB8ICAxICB8IDEzICB8ICAgMSB8CiAgOTEgfCAgIDEgIHwgICAwICB8ICAgICAgfCBTRUFJQ0UgICB8IHByb3BydG4gfCBTZWEgaWNlIGZsYWcgICAgICAgICAgICAgICAgICAgICAgICAgICAgfCAxMCAgfCAgMiAgfCAgMCAgfCAgIDEgfAogIDExIHwgMTEyICB8ICAgMCAgfCAgMTAgIHwgU1QwMDAwMTAgfCBLICAgICAgIHwgU29pbCB0ZW1wZXJhdHVyZSAwLTEwIGNtICAgICAgICAgICAgICAgIHwgIDAgIHwgIDAgIHwgIDAgIHwgMTA2IHwKICAxMSB8IDExMiAgfCAgMTAgIHwgIDQwICB8IFNUMDEwMDQwIHwgSyAgICAgICB8IFNvaWwgdGVtcGVyYXR1cmUgMTAtNDAgY20gICAgICAgICAgICAgICB8ICAwICB8ICAwICB8ICAwICB8IDEwNiB8CiAgMTEgfCAxMTIgIHwgIDQwICB8IDEwMCAgfCBTVDA0MDEwMCB8IEsgICAgICAgfCBTb2lsIHRlbXBlcmF0dXJlIDQwLTEwMCBjbSAgICAgICAgICAgICAgfCAgMCAgfCAgMCAgfCAgMCAgfCAxMDYgfAogIDExIHwgMTEyICB8IDEwMCAgfCAyMDAgIHwgU1QxMDAyMDAgfCBLICAgICAgIHwgU29pbCB0ZW1wZXJhdHVyZSAxMDAtMjAwIGNtICAgICAgICAgICAgIHwgIDAgIHwgIDAgIHwgIDAgIHwgMTA2IHwKICA4NSB8IDExMiAgfCAgIDAgIHwgIDEwICB8IFNUMDAwMDEwIHwgSyAgICAgICB8IFNvaWwgdGVtcGVyYXR1cmUgMC0xMCBjbSAoR0ZTIEdSSUIyKSAgICB8ICAyICB8ICAwICB8ICAyICB8IDEwNiB8CiAgODUgfCAxMTIgIHwgIDEwICB8ICA0MCAgfCBTVDAxMDA0MCB8IEsgICAgICAgfCBTb2lsIHRlbXBlcmF0dXJlIDEwLTQwIGNtIChHRlMgR1JJQjIpICAgfCAgMiAgfCAgMCAgfCAgMiAgfCAxMDYgfAogIDg1IHwgMTEyICB8ICA0MCAgfCAxMDAgIHwgU1QwNDAxMDAgfCBLICAgICAgIHwgU29pbCB0ZW1wZXJhdHVyZSA0MC0xMDAgY20gKEdGUyBHUklCMikgIHwgIDIgIHwgIDAgIHwgIDIgIHwgMTA2IHwKICA4NSB8IDExMiAgfCAxMDAgIHwgMjAwICB8IFNUMTAwMjAwIHwgSyAgICAgICB8IFNvaWwgdGVtcGVyYXR1cmUgMTAwLTIwMCBjbSAoR0ZTIEdSSUIyKSB8ICAyICB8ICAwICB8ICAyICB8IDEwNiB8CiAxNDQgfCAxMTIgIHwgICAwICB8ICAxMCAgfCBTTTAwMDAxMCB8IGZyYWN0aW9ufCBTb2lsIG1vaXN0dXJlIDAtMTAgY20gICAgICAgICAgICAgICAgICAgfCAgMiAgfCAgMCAgfCAxOTIgfCAxMDYgfAogMTQ0IHwgMTEyICB8ICAxMCAgfCAgNDAgIHwgU00wMTAwNDAgfCBmcmFjdGlvbnwgU29pbCBtb2lzdHVyZSAxMC00MCBjbSAgICAgICAgICAgICAgICAgIHwgIDIgIHwgIDAgIHwgMTkyIHwgMTA2IHwKIDE0NCB8IDExMiAgfCAgNDAgIHwgMTAwICB8IFNNMDQwMTAwIHwgZnJhY3Rpb258IFNvaWwgbW9pc3R1cmUgNDAtMTAwIGNtICAgICAgICAgICAgICAgICB8ICAyICB8ICAwICB8IDE5MiB8IDEwNiB8CiAxNDQgfCAxMTIgIHwgMTAwICB8IDIwMCAgfCBTTTEwMDIwMCB8IGZyYWN0aW9ufCBTb2lsIG1vaXN0dXJlIDEwMC0yMDAgY20gICAgICAgICAgICAgICAgfCAgMiAgfCAgMCAgfCAxOTIgfCAxMDYgfAotLS0tLSstLS0tLS0rLS0tLS0tKy0tLS0tLSstLS0tLS0tLS0tKy0tLS0tLS0tLSstLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLSstLS0tLS0tLS0tLS0tLS0tLS0tLS0tLSsK' | base64 -d > 'wrf/Vtable.GFS_SOIL'
           mkdir -p wrf/bin
+          mkdir -p wrf
+          printf '%s' 'IyEvdXNyL2Jpbi9lbnYgcHl0aG9uMwpmcm9tIF9fZnV0dXJlX18gaW1wb3J0IGFubm90YXRpb25zCgppbXBvcnQgYXJncGFyc2UKaW1wb3J0IGRhdGV0aW1lIGFzIGR0CmltcG9ydCBnemlwCmltcG9ydCBqc29uCmltcG9ydCByZQpmcm9tIHBhdGhsaWIgaW1wb3J0IFBhdGgKCmltcG9ydCBudW1weSBhcyBucApmcm9tIG5ldENERjQgaW1wb3J0IERhdGFzZXQKCkVQUyA9IDAuNjIyCgoKZGVmIGFycjJkKGRzLCBuYW1lKToKICAgIGlmIG5hbWUgbm90IGluIGRzLnZhcmlhYmxlczoKICAgICAgICByZXR1cm4gTm9uZQogICAgYSA9IG5wLmFzYXJyYXkoZHMudmFyaWFibGVzW25hbWVdWzBdLCBkdHlwZT1ucC5mbG9hdDMyKQogICAgd2hpbGUgYS5uZGltID4gMjoKICAgICAgICBhID0gYVswXQogICAgaWYgYS5uZGltICE9IDI6CiAgICAgICAgcmV0dXJuIE5vbmUKICAgIHJldHVybiBhCgoKZGVmIGZsYXR0ZW4oYSwgZGVjaW1hbHM9Mik6CiAgICBpZiBhIGlzIE5vbmU6CiAgICAgICAgcmV0dXJuIE5vbmUKICAgIHggPSBucC5hc2FycmF5KGEsIGR0eXBlPW5wLmZsb2F0MzIpCiAgICB4ID0gbnAucm91bmQoeCwgZGVjaW1hbHMpCiAgICByZXR1cm4gW2Zsb2F0KHYpIGlmIG5wLmlzZmluaXRlKHYpIGVsc2UgTm9uZSBmb3IgdiBpbiB4LnJlc2hhcGUoLTEpXQoKCmRlZiBzY2FsYXJfbWV0YShhKToKICAgIGlmIGEgaXMgTm9uZToKICAgICAgICByZXR1cm4gTm9uZQogICAgeCA9IG5wLmFzYXJyYXkoYSwgZHR5cGU9bnAuZmxvYXQzMikKICAgIGZpbml0ZSA9IHhbbnAuaXNmaW5pdGUoeCldCiAgICBpZiBmaW5pdGUuc2l6ZSA9PSAwOgogICAgICAgIHJldHVybiB7Im1pbiI6IE5vbmUsICJtYXgiOiBOb25lfQogICAgcmV0dXJuIHsibWluIjogZmxvYXQobnAubWluKGZpbml0ZSkpLCAibWF4IjogZmxvYXQobnAubWF4KGZpbml0ZSkpfQoKCmRlZiByZWFkX3RpbWUoZHMpOgogICAgdmFyID0gZHMudmFyaWFibGVzLmdldCgiVGltZXMiKQogICAgaWYgdmFyIGlzIE5vbmU6CiAgICAgICAgcmV0dXJuIE5vbmUKICAgIHJhdyA9IG5wLmFzYXJyYXkodmFyWzBdKQogICAgdGV4dCA9ICIiLmpvaW4oeC5kZWNvZGUoKSBpZiBpc2luc3RhbmNlKHgsIGJ5dGVzKSBlbHNlIHN0cih4KSBmb3IgeCBpbiByYXcpCiAgICB0ZXh0ID0gdGV4dC5yZXBsYWNlKCJfIiwgIiAiKQogICAgdHJ5OgogICAgICAgIHJldHVybiBkdC5kYXRldGltZS5zdHJwdGltZSh0ZXh0LCAiJVktJW0tJWQgJUg6JU06JVMiKS5yZXBsYWNlKHR6aW5mbz1kdC50aW1lem9uZS51dGMpCiAgICBleGNlcHQgVmFsdWVFcnJvcjoKICAgICAgICByZXR1cm4gTm9uZQoKCmRlZiByZWFkX3J1bl9pbml0KHBhdGg6IFBhdGgpOgogICAgIiIiUmVhZCB0aGUgYXV0aG9yaXRhdGl2ZSBpbml0aWFsaXphdGlvbiB0aW1lIGZyb20gdGhlIGNoZWNrcG9pbnQncyBjYnItcnVuLmVudi4iIiIKICAgIGlmIG5vdCBwYXRoLmV4aXN0cygpOgogICAgICAgIHJldHVybiBOb25lCgogICAgdmFsdWVzID0ge30KICAgIGZvciBsaW5lIGluIHBhdGgucmVhZF90ZXh0KGVuY29kaW5nPSJ1dGYtOCIpLnNwbGl0bGluZXMoKToKICAgICAgICBsaW5lID0gbGluZS5zdHJpcCgpCiAgICAgICAgaWYgbm90IGxpbmUgb3IgbGluZS5zdGFydHN3aXRoKCIjIikgb3IgIj0iIG5vdCBpbiBsaW5lOgogICAgICAgICAgICBjb250aW51ZQogICAgICAgIGtleSwgdmFsdWUgPSBsaW5lLnNwbGl0KCI9IiwgMSkKICAgICAgICB2YWx1ZXNba2V5LnN0cmlwKCldID0gdmFsdWUuc3RyaXAoKS5zdHJpcCgnIicpLnN0cmlwKCInIikKCiAgICBydW5fZGF0ZSA9IHZhbHVlcy5nZXQoIlJVTl9EQVRFIiwgIiIpLnJlcGxhY2UoIi0iLCAiIikKICAgIHJ1bl9jeWNsZSA9IHZhbHVlcy5nZXQoIlJVTl9DWUNMRSIsICIiKQogICAgaWYgbm90IHJlLmZ1bGxtYXRjaChyIlxkezh9IiwgcnVuX2RhdGUpIG9yIG5vdCByZS5mdWxsbWF0Y2gociJcZHsyfSIsIHJ1bl9jeWNsZSk6CiAgICAgICAgcmFpc2UgU3lzdGVtRXhpdCgKICAgICAgICAgICAgZiJbQ0JSXSBjYnItcnVuLmVudiBpbnbDoWxpZG86IFJVTl9EQVRFPXtydW5fZGF0ZSFyfSwgUlVOX0NZQ0xFPXtydW5fY3ljbGUhcn0iCiAgICAgICAgKQogICAgaWYgcnVuX2N5Y2xlIG5vdCBpbiB7IjAwIiwgIjA2IiwgIjEyIiwgIjE4In06CiAgICAgICAgcmFpc2UgU3lzdGVtRXhpdChmIltDQlJdIGNpY2xvIGludsOhbGlkbyBlbSBjYnItcnVuLmVudjoge3J1bl9jeWNsZSFyfSIpCiAgICB0cnk6CiAgICAgICAgcmV0dXJuIGR0LmRhdGV0aW1lLnN0cnB0aW1lKHJ1bl9kYXRlICsgcnVuX2N5Y2xlLCAiJVklbSVkJUgiKS5yZXBsYWNlKAogICAgICAgICAgICB0emluZm89ZHQudGltZXpvbmUudXRjCiAgICAgICAgKQogICAgZXhjZXB0IFZhbHVlRXJyb3IgYXMgZXhjOgogICAgICAgIHJhaXNlIFN5c3RlbUV4aXQoZiJbQ0JSXSBkYXRhL2NpY2xvIGludsOhbGlkbyBlbSBjYnItcnVuLmVudjoge2V4Y30iKSBmcm9tIGV4YwoKCmRlZiByZWFkX3NvdXJjZV9tb2RlbChwYXRoOiBQYXRoKToKICAgIGlmIG5vdCBwYXRoLmV4aXN0cygpOgogICAgICAgIHJldHVybiAiaWNvbiIKICAgIGZvciBsaW5lIGluIHBhdGgucmVhZF90ZXh0KGVuY29kaW5nPSJ1dGYtOCIpLnNwbGl0bGluZXMoKToKICAgICAgICBpZiBsaW5lLnN0cmlwKCkuc3RhcnRzd2l0aCgiU09VUkNFX01PREVMPSIpOgogICAgICAgICAgICByZXR1cm4gbGluZS5zcGxpdCgiPSIsIDEpWzFdLnN0cmlwKCkuc3RyaXAoJyInKS5zdHJpcCgiJyIpLmxvd2VyKCkgb3IgImljb24iCiAgICByZXR1cm4gImljb24iCgoKZGVmIG5hdGl2ZV9yZWZsZWN0aXZpdHkoZHMpOgogICAgaWYgIlJFRkxfMTBDTSIgaW4gZHMudmFyaWFibGVzOgogICAgICAgIGEgPSBucC5hc2FycmF5KGRzLnZhcmlhYmxlc1siUkVGTF8xMENNIl1bMF0sIGR0eXBlPW5wLmZsb2F0MzIpCiAgICBlbGlmICJSRUZMXzEwQ01fTUFYIiBpbiBkcy52YXJpYWJsZXM6CiAgICAgICAgYSA9IG5wLmFzYXJyYXkoZHMudmFyaWFibGVzWyJSRUZMXzEwQ01fTUFYIl1bMF0sIGR0eXBlPW5wLmZsb2F0MzIpCiAgICAgICAgd2hpbGUgYS5uZGltID4gMjoKICAgICAgICAgICAgYSA9IGFbMF0KICAgICAgICByZXR1cm4gYSwgYQogICAgZWxzZToKICAgICAgICByZXR1cm4gTm9uZSwgTm9uZQoKICAgIHdoaWxlIGEubmRpbSA+IDM6CiAgICAgICAgYSA9IGFbMF0KICAgIGlmIGEubmRpbSA9PSAzOgogICAgICAgIHJldHVybiBhWzBdLCBucC5uYW5tYXgoYSwgYXhpcz0wKQogICAgaWYgYS5uZGltID09IDI6CiAgICAgICAgcmV0dXJuIGEsIGEKICAgIHJldHVybiBOb25lLCBOb25lCgoKZGVmIGRld3BvaW50X3JoKHQyLCBxMiwgcHNmYyk6CiAgICBxID0gbnAubWF4aW11bShucC5hc2FycmF5KHEyLCBkdHlwZT1ucC5mbG9hdDMyKSwgMWUtOCkKICAgIHAgPSBucC5hc2FycmF5KHBzZmMsIGR0eXBlPW5wLmZsb2F0MzIpCiAgICB0ID0gbnAuYXNhcnJheSh0MiwgZHR5cGU9bnAuZmxvYXQzMikKICAgIHZhcG9yID0gcSAqIHAgLyAoRVBTICsgcSkKICAgIHZhcG9yID0gbnAubWF4aW11bSh2YXBvciwgMS4wKQogICAgbCA9IG5wLmxvZyh2YXBvciAvIDYxMS4yKQogICAgdGQgPSAyNDMuNSAqIGwgLyAoMTcuNjcgLSBsKQogICAgdGMgPSB0IC0gMjczLjE1CiAgICBlcyA9IDYxMS4yICogbnAuZXhwKDE3LjY3ICogdGMgLyAodGMgKyAyNDMuNSkpCiAgICByaCA9IG5wLmNsaXAoMTAwLjAgKiB2YXBvciAvIGVzLCAwLjAsIDEwMC4wKQogICAgcmV0dXJuIHRkLmFzdHlwZShucC5mbG9hdDMyKSwgcmguYXN0eXBlKG5wLmZsb2F0MzIpCgoKZGVmIGZyYW1lX3BheWxvYWQocGF0aCwgc291cmNlX21vZGVsPSdpY29uJyk6CiAgICB3aXRoIERhdGFzZXQocGF0aCkgYXMgZHM6CiAgICAgICAgZHMuc2V0X2F1dG9fbWFza2FuZHNjYWxlKFRydWUpCiAgICAgICAgbGF0ID0gYXJyMmQoZHMsICJYTEFUIikKICAgICAgICBsb24gPSBhcnIyZChkcywgIlhMT05HIikKICAgICAgICBpZiBsYXQgaXMgTm9uZSBvciBsb24gaXMgTm9uZToKICAgICAgICAgICAgcmFpc2UgUnVudGltZUVycm9yKGYiWExBVC9YTE9ORyBhdXNlbnRlcyBlbSB7cGF0aC5uYW1lfSIpCgogICAgICAgIHJlZmwsIGNvbXAgPSBuYXRpdmVfcmVmbGVjdGl2aXR5KGRzKQogICAgICAgIGlmIHJlZmwgaXMgTm9uZSBvciBjb21wIGlzIE5vbmU6CiAgICAgICAgICAgIHJhaXNlIFJ1bnRpbWVFcnJvcihmIlJFRkxfMTBDTS9SRUZMXzEwQ01fTUFYIGF1c2VudGUgZW0ge3BhdGgubmFtZX0iKQogICAgICAgIHUxMCwgdjEwID0gYXJyMmQoZHMsICJVMTAiKSwgYXJyMmQoZHMsICJWMTAiKQogICAgICAgIHQyLCBxMiwgcHNmYyA9IGFycjJkKGRzLCAiVDIiKSwgYXJyMmQoZHMsICJRMiIpLCBhcnIyZChkcywgIlBTRkMiKQogICAgICAgIHNscCA9IGFycjJkKGRzLCAiU0xQIikKICAgICAgICByYWluYywgcmFpbm5jLCByYWluc2ggPSBhcnIyZChkcywgIlJBSU5DIiksIGFycjJkKGRzLCAiUkFJTk5DIiksIGFycjJkKGRzLCAiUkFJTlNIIikKICAgICAgICBzbm93bmMsIGdyYXVwZWwsIGhhaWwsIGNsZGZyYSA9IFthcnIyZChkcywgbikgZm9yIG4gaW4gKCJTTk9XTkMiLCAiR1JBVVBFTE5DIiwgIkhBSUxOQyIsICJDTERGUkEiKV0KICAgICAgICBndXN0MTAgPSBhcnIyZChkcywgIkdVU1QiKQogICAgICAgIGlmIGd1c3QxMCBpcyBOb25lOgogICAgICAgICAgICBndXN0MTAgPSBhcnIyZChkcywgIldJTkRHVVNUIikKICAgICAgICBud3BfZGlhZ25vc3RpY3MgPSB7CiAgICAgICAgICAgICJXU1BEMTBNQVgiOiBhcnIyZChkcywgIldTUEQxME1BWCIpLAogICAgICAgICAgICAiVVBfSEVMSV9NQVgiOiBhcnIyZChkcywgIlVQX0hFTElfTUFYIiksCiAgICAgICAgICAgICJXX1VQX01BWCI6IGFycjJkKGRzLCAiV19VUF9NQVgiKSwKICAgICAgICAgICAgIldfRE5fTUFYIjogYXJyMmQoZHMsICJXX0ROX01BWCIpLAogICAgICAgICAgICAiV19DT0xNRUFOIjogYXJyMmQoZHMsICJXX0NPTE1FQU4iKSwKICAgICAgICAgICAgIldfTUVBTiI6IGFycjJkKGRzLCAiV19NRUFOIiksCiAgICAgICAgICAgICJHUlBMX01BWCI6IGFycjJkKGRzLCAiR1JQTF9NQVgiKSwKICAgICAgICAgICAgIkdSUExfQ09MSU5UIjogYXJyMmQoZHMsICJHUlBMX0NPTElOVCIpLAogICAgICAgICAgICAiSEFJTF9NQVhLMSI6IGFycjJkKGRzLCAiSEFJTF9NQVhLMSIpLAogICAgICAgICAgICAiSEFJTF9NQVgyRCI6IGFycjJkKGRzLCAiSEFJTF9NQVgyRCIpLAogICAgICAgICAgICAiUkVGRF9NQVgiOiBhcnIyZChkcywgIlJFRkRfTUFYIiksCiAgICAgICAgfQoKICAgICAgICBmaWVsZHMgPSB7fQogICAgICAgIGZpZWxkc1sibGF0Il0gPSBmbGF0dGVuKGxhdCwgNCkKICAgICAgICBmaWVsZHNbImxvbiJdID0gZmxhdHRlbihsb24sIDQpCgogICAgICAgIGlmIHJlZmwgaXMgbm90IE5vbmU6CiAgICAgICAgICAgIGZpZWxkc1sicmVmbGVjdGl2aXR5RGJ6Il0gPSBmbGF0dGVuKHJlZmwsIDEpCiAgICAgICAgaWYgY29tcCBpcyBub3QgTm9uZToKICAgICAgICAgICAgZmllbGRzWyJyZWZsZWN0aXZpdHlDb21wb3NpdGVEYnoiXSA9IGZsYXR0ZW4oY29tcCwgMSkKCiAgICAgICAgaWYgdTEwIGlzIG5vdCBOb25lOgogICAgICAgICAgICBmaWVsZHNbInUxME1zIl0gPSBmbGF0dGVuKHUxMCwgMSkKICAgICAgICBpZiB2MTAgaXMgbm90IE5vbmU6CiAgICAgICAgICAgIGZpZWxkc1sidjEwTXMiXSA9IGZsYXR0ZW4odjEwLCAxKQogICAgICAgIGlmIHUxMCBpcyBub3QgTm9uZSBhbmQgdjEwIGlzIG5vdCBOb25lOgogICAgICAgICAgICB3aW5kID0gbnAuaHlwb3QodTEwLCB2MTApCiAgICAgICAgICAgIGRpcmVjdGlvbiA9IChucC5kZWdyZWVzKG5wLmFyY3RhbjIoLXUxMCwgLXYxMCkpICsgMzYwLjApICUgMzYwLjAKICAgICAgICAgICAgZmllbGRzWyJ3aW5kMTBNcyJdID0gZmxhdHRlbih3aW5kLCAxKQogICAgICAgICAgICBmaWVsZHNbIndpbmQxMERpckRlZyJdID0gZmxhdHRlbihkaXJlY3Rpb24sIDEpCgogICAgICAgIGlmIHQyIGlzIG5vdCBOb25lOgogICAgICAgICAgICBmaWVsZHNbInQyQyJdID0gZmxhdHRlbih0MiAtIDI3My4xNSwgMSkKICAgICAgICBpZiBxMiBpcyBub3QgTm9uZToKICAgICAgICAgICAgZmllbGRzWyJxMktnS2ciXSA9IGZsYXR0ZW4ocTIsIDYpCiAgICAgICAgaWYgcHNmYyBpcyBub3QgTm9uZToKICAgICAgICAgICAgZmllbGRzWyJwc2ZjSHBhIl0gPSBmbGF0dGVuKHBzZmMgLyAxMDAuMCwgMSkKICAgICAgICBpZiBzbHAgaXMgbm90IE5vbmU6CiAgICAgICAgICAgIGZpZWxkc1sic2xwSHBhIl0gPSBmbGF0dGVuKHNscCAvIDEwMC4wIGlmIG5wLm5hbm1lZGlhbihzbHApID4gMjAwMCBlbHNlIHNscCwgMSkKICAgICAgICBpZiB0MiBpcyBub3QgTm9uZSBhbmQgcTIgaXMgbm90IE5vbmUgYW5kIHBzZmMgaXMgbm90IE5vbmU6CiAgICAgICAgICAgIHRkMiwgcmgyID0gZGV3cG9pbnRfcmgodDIsIHEyLCBwc2ZjKQogICAgICAgICAgICBmaWVsZHNbInRkMkMiXSA9IGZsYXR0ZW4odGQyLCAxKQogICAgICAgICAgICBmaWVsZHNbInJoMlBjdCJdID0gZmxhdHRlbihyaDIsIDEpCgogICAgICAgIGZvciB2YWx1ZSwga2V5LCBkZWNpbWFscyBpbiAoCiAgICAgICAgICAgIChyYWluYywgInJhaW5jTW0iLCAyKSwgKHJhaW5uYywgInJhaW5uY01tIiwgMiksIChyYWluc2gsICJyYWluc2hNbSIsIDIpLAogICAgICAgICAgICAoc25vd25jLCAic25vd25jTW0iLCAyKSwgKGdyYXVwZWwsICJncmF1cGVsbmNNbSIsIDIpLAogICAgICAgICAgICAoaGFpbCwgImhhaWxuY01tIiwgMiksIChjbGRmcmEsICJjbG91ZEZyYWN0aW9uIiwgMyksCiAgICAgICAgKToKICAgICAgICAgICAgaWYgdmFsdWUgaXMgbm90IE5vbmU6CiAgICAgICAgICAgICAgICBmaWVsZHNba2V5XSA9IGZsYXR0ZW4odmFsdWUsIGRlY2ltYWxzKQoKICAgICAgICBpZiByYWluYyBpcyBub3QgTm9uZSBhbmQgcmFpbm5jIGlzIG5vdCBOb25lOgogICAgICAgICAgICBmaWVsZHNbInJhaW5Ub3RhbE1tIl0gPSBmbGF0dGVuKHJhaW5jICsgcmFpbm5jLCAyKQoKICAgICAgICBpZiBndXN0MTAgaXMgbm90IE5vbmU6CiAgICAgICAgICAgIGZpZWxkc1sid2luZEd1c3QxMG1NcyJdID0gZmxhdHRlbihndXN0MTAsIDIpCgogICAgICAgIGZvciBzb3VyY2VfbmFtZSwgcHJvZHVjdF9uYW1lLCBkZWNpbWFscyBpbiBbWyJXU1BEMTBNQVgiLCJ3aW5kMTBtTWF4TXMiLDJdLFsiVVBfSEVMSV9NQVgiLCJ1cGRyYWZ0SGVsaWNpdHlNYXhNMnMyIiwyXSxbIldfVVBfTUFYIiwidXBkcmFmdFZlbG9jaXR5TWF4TXMiLDJdLFsiV19ETl9NQVgiLCJkb3duZHJhZnRWZWxvY2l0eU1heE1zIiwyXSxbIldfQ09MTUVBTiIsImNvbHVtbk1lYW5WZXJ0aWNhbFZlbG9jaXR5TXMiLDNdLFsiV19NRUFOIiwiaW50ZXJ2YWxNZWFuVmVydGljYWxWZWxvY2l0eU1zIiwzXSxbIkdSUExfTUFYIiwiZ3JhdXBlbENvbHVtbk1heEtnTTIiLDNdLFsiR1JQTF9DT0xJTlQiLCJncmF1cGVsQ29sdW1uSW50ZWdyYWxLZ00yIiwzXSxbIkhBSUxfTUFYSzEiLCJoYWlsRGlhbWV0ZXJMb3dlc3RMZXZlbE1heE0iLDRdLFsiSEFJTF9NQVgyRCIsImhhaWxEaWFtZXRlckNvbHVtbk1heE0iLDRdLFsiUkVGRF9NQVgiLCJyZWZsZWN0aXZpdHlDb2x1bW5NYXhEYnoiLDFdXToKICAgICAgICAgICAgdmFsdWUgPSBud3BfZGlhZ25vc3RpY3MuZ2V0KHNvdXJjZV9uYW1lKQogICAgICAgICAgICBpZiB2YWx1ZSBpcyBub3QgTm9uZToKICAgICAgICAgICAgICAgIGZpZWxkc1twcm9kdWN0X25hbWVdID0gZmxhdHRlbih2YWx1ZSwgZGVjaW1hbHMpCgoKICAgICAgICB2YWxpZCA9IHJlYWRfdGltZShkcykKICAgICAgICBpZiB2YWxpZCBpcyBOb25lOgogICAgICAgICAgICByYWlzZSBSdW50aW1lRXJyb3IoZiJUZW1wbyBUaW1lcyBhdXNlbnRlL2ludmFsaWRvIGVtIHtwYXRoLm5hbWV9IikKCiAgICAgICAgY2VsbF9jb3VudCA9IGludChsYXQuc2l6ZSkKICAgICAgICBmb3Iga2V5LCB2YWx1ZSBpbiBmaWVsZHMuaXRlbXMoKToKICAgICAgICAgICAgaWYgdmFsdWUgaXMgbm90IE5vbmUgYW5kIGxlbih2YWx1ZSkgIT0gY2VsbF9jb3VudDoKICAgICAgICAgICAgICAgIHJhaXNlIFJ1bnRpbWVFcnJvcigKICAgICAgICAgICAgICAgICAgICBmIkNhbXBvIHtrZXl9IGNvbSB7bGVuKHZhbHVlKX0gY8OpbHVsYXMgZW0ge3BhdGgubmFtZX07ICIKICAgICAgICAgICAgICAgICAgICBmIlhMQVQvWExPTkcgcG9zc3VlbSB7Y2VsbF9jb3VudH0iCiAgICAgICAgICAgICAgICApCgogICAgICAgIG1vZGVsX2tleSA9ICJjYnJfd3JmXzRrbSIKICAgICAgICBtb2RlbF9sYWJlbCA9ICJXUkYgQ0JSIDQgS00iCiAgICAgICAgcmV0dXJuIHsKICAgICAgICAgICAgImZpbGUiOiBwYXRoLm5hbWUsCiAgICAgICAgICAgICJ0aW1lIjogdmFsaWQuaXNvZm9ybWF0KCkucmVwbGFjZSgiKzAwOjAwIiwgIloiKSwKICAgICAgICAgICAgImdyaWQiOiB7Im54IjogaW50KGxhdC5zaGFwZVsxXSksICJueSI6IGludChsYXQuc2hhcGVbMF0pfSwKICAgICAgICAgICAgIm1vZGVsIjogbW9kZWxfbGFiZWwsCiAgICAgICAgICAgICJtb2RlbEtleSI6IG1vZGVsX2tleSwKICAgICAgICAgICAgInNvdXJjZU1vZGVsIjogc291cmNlX21vZGVsLnVwcGVyKCksCiAgICAgICAgICAgICJmaWVsZHMiOiBmaWVsZHMsCiAgICAgICAgICAgICJyYW5nZXMiOiB7CiAgICAgICAgICAgICAgICBrZXk6IHNjYWxhcl9tZXRhKG5wLmFzYXJyYXkodmFsdWUsIGR0eXBlPW5wLmZsb2F0MzIpLnJlc2hhcGUobGF0LnNoYXBlKSkKICAgICAgICAgICAgICAgIGZvciBrZXksIHZhbHVlIGluICgKICAgICAgICAgICAgICAgICAgICAoInJlZmxlY3Rpdml0eURieiIsIHJlZmwpLAogICAgICAgICAgICAgICAgICAgICgicmVmbGVjdGl2aXR5Q29tcG9zaXRlRGJ6IiwgY29tcCksCiAgICAgICAgICAgICAgICAgICAgKCJ3aW5kMTBNcyIsIG5wLmh5cG90KHUxMCwgdjEwKSBpZiB1MTAgaXMgbm90IE5vbmUgYW5kIHYxMCBpcyBub3QgTm9uZSBlbHNlIE5vbmUpLAogICAgICAgICAgICAgICAgICAgICgidDJDIiwgdDIgLSAyNzMuMTUgaWYgdDIgaXMgbm90IE5vbmUgZWxzZSBOb25lKSwKICAgICAgICAgICAgICAgICAgICAoInBzZmNIcGEiLCBwc2ZjIC8gMTAwLjAgaWYgcHNmYyBpcyBub3QgTm9uZSBlbHNlIE5vbmUpLAogICAgICAgICAgICAgICAgKQogICAgICAgICAgICAgICAgaWYgdmFsdWUgaXMgbm90IE5vbmUKICAgICAgICAgICAgfSwKICAgICAgICB9CgoKZGVmIG1haW4oKToKICAgIGFwID0gYXJncGFyc2UuQXJndW1lbnRQYXJzZXIoKQogICAgYXAuYWRkX2FyZ3VtZW50KCItLXJ1bi1kaXIiLCByZXF1aXJlZD1UcnVlKQogICAgYXAuYWRkX2FyZ3VtZW50KCItLW91dHB1dC1kaXIiLCByZXF1aXJlZD1UcnVlKQogICAgYXAuYWRkX2FyZ3VtZW50KCItLWV4cGVjdGVkLXN0YXJ0IiwgdHlwZT1pbnQsIGRlZmF1bHQ9MCkKICAgIGFwLmFkZF9hcmd1bWVudCgiLS1leHBlY3RlZC1lbmQiLCB0eXBlPWludCwgZGVmYXVsdD00MikKICAgIGFwLmFkZF9hcmd1bWVudCgiLS1ydW4tZW52IiwgZGVmYXVsdD0iY2JyLXJ1bi5lbnYiKQogICAgYXAuYWRkX2FyZ3VtZW50KCItLWNhdGFsb2ciLCBkZWZhdWx0PSJ3cmYvY2JyX3ZhcmlhYmxlX2NhdGFsb2cuanNvbiIpCiAgICBhcC5hZGRfYXJndW1lbnQoCiAgICAgICAgIi0tcmVxdWlyZS1jb21wbGV0ZSIsCiAgICAgICAgYWN0aW9uPSJzdG9yZV90cnVlIiwKICAgICAgICBoZWxwPSJmYWxoYSBzZSBhbGd1bSBob3LDoXJpbyBwcmV2aXN0byBlc3RpdmVyIGF1c2VudGUiLAogICAgKQogICAgYXJncyA9IGFwLnBhcnNlX2FyZ3MoKQoKICAgIGlmIGFyZ3MuZXhwZWN0ZWRfc3RhcnQgPCAwIG9yIGFyZ3MuZXhwZWN0ZWRfZW5kIDwgYXJncy5leHBlY3RlZF9zdGFydDoKICAgICAgICByYWlzZSBTeXN0ZW1FeGl0KAogICAgICAgICAgICBmIltDQlJdIGludGVydmFsbyBkZSBwcmV2aXPDo28gaW52w6FsaWRvOiBGe2FyZ3MuZXhwZWN0ZWRfc3RhcnR9LUZ7YXJncy5leHBlY3RlZF9lbmR9IgogICAgICAgICkKCiAgICBjYXRhbG9nX3BhdGggPSBQYXRoKGFyZ3MuY2F0YWxvZykKICAgIHRyeToKICAgICAgICBjYXRhbG9nID0ganNvbi5sb2FkcyhjYXRhbG9nX3BhdGgucmVhZF90ZXh0KGVuY29kaW5nPSJ1dGYtOCIpKQogICAgICAgIGRvbWFpbiA9IGNhdGFsb2dbImRvbWFpbiJdCiAgICAgICAgZV93ZSwgZV9zbiA9IGludChkb21haW5bImVfd2UiXSksIGludChkb21haW5bImVfc24iXSkKICAgIGV4Y2VwdCAoT1NFcnJvciwgVmFsdWVFcnJvciwgS2V5RXJyb3IsIFR5cGVFcnJvcikgYXMgZXhjOgogICAgICAgIHJhaXNlIFN5c3RlbUV4aXQoZiJbQ0JSXSBjYXTDoWxvZ28gV1JGIGludsOhbGlkbyBlbSB7Y2F0YWxvZ19wYXRofToge2V4Y30iKSBmcm9tIGV4YwoKICAgIGlmIGVfd2UgPCAyIG9yIGVfc24gPCAyOgogICAgICAgIHJhaXNlIFN5c3RlbUV4aXQoZiJbQ0JSXSBkaW1lbnPDtWVzIGVfd2UvZV9zbiBpbnbDoWxpZGFzIG5vIGNhdMOhbG9nbzoge2Vfd2V9IHgge2Vfc259IikKCiAgICAjIFdSRidzIGVfd2UvZV9zbiBpbmNsdWRlIHN0YWdnZXJlZCBwb2ludHMuIFNjYWxhciBmaWVsZHMgKFhMQVQvWExPTkcsIFJFRkxfMTBDTSkKICAgICMgbGl2ZSBvbiB0aGUgdW5zdGFnZ2VyZWQgbWFzcyBncmlkLCB3aG9zZSBkaW1lbnNpb25zIGFyZSBlX3dlLTEgYnkgZV9zbi0xLgogICAgZXhwZWN0ZWRfZ3JpZCA9IHsibngiOiBlX3dlIC0gMSwgIm55IjogZV9zbiAtIDF9CgogICAgcnVuX2RpciA9IFBhdGgoYXJncy5ydW5fZGlyKQogICAgb3V0ID0gUGF0aChhcmdzLm91dHB1dF9kaXIpCiAgICBmcmFtZXNfZGlyID0gb3V0IC8gImZyYW1lcyIKICAgIG91dC5ta2RpcihwYXJlbnRzPVRydWUsIGV4aXN0X29rPVRydWUpCiAgICBmcmFtZXNfZGlyLm1rZGlyKHBhcmVudHM9VHJ1ZSwgZXhpc3Rfb2s9VHJ1ZSkKICAgIGZvciBzdGFsZSBpbiBmcmFtZXNfZGlyLmdsb2IoImYqLmpzb24uZ3oiKToKICAgICAgICBzdGFsZS51bmxpbmsoKQoKICAgIGZpbGVzID0gc29ydGVkKHJ1bl9kaXIuZ2xvYigid3Jmb3V0X2QwMV8qIikpCiAgICBpZiBub3QgZmlsZXM6CiAgICAgICAgcmFpc2UgU3lzdGVtRXhpdChmIltDQlJdIG5lbmh1bSBXUkZPVVQgZW5jb250cmFkbyBlbSB7cnVuX2Rpcn0iKQoKICAgIHVuaXF1ZSA9IHt9CiAgICBmb3IgcGF0aCBpbiBmaWxlczoKICAgICAgICB0cnk6CiAgICAgICAgICAgIHdpdGggRGF0YXNldChwYXRoKSBhcyBkczoKICAgICAgICAgICAgICAgIHZhbGlkID0gcmVhZF90aW1lKGRzKQogICAgICAgIGV4Y2VwdCBFeGNlcHRpb24gYXMgZXhjOgogICAgICAgICAgICBwcmludChmIltDQlJdW1NLSVBdIE5ldENERiBpbGVnw612ZWwge3BhdGgubmFtZX06IHtleGN9IikKICAgICAgICAgICAgY29udGludWUKICAgICAgICBpZiB2YWxpZCBpcyBOb25lOgogICAgICAgICAgICBwcmludChmIltDQlJdW1NLSVBdIHRlbXBvIFRpbWVzIGF1c2VudGUvaW52w6FsaWRvOiB7cGF0aC5uYW1lfSIpCiAgICAgICAgICAgIGNvbnRpbnVlCiAgICAgICAgaWYgdmFsaWQgaW4gdW5pcXVlOgogICAgICAgICAgICBwcmludCgKICAgICAgICAgICAgICAgIGYiW0NCUl1bRFVQTElDQURPXSB7cGF0aC5uYW1lfSBlIHt1bmlxdWVbdmFsaWRdLm5hbWV9IHTDqm0gbyBtZXNtbyBob3LDoXJpbzsgIgogICAgICAgICAgICAgICAgIm1hbnRlbmRvIG8gcHJpbWVpcm8gYXJxdWl2byBlbSBvcmRlbSBsZXhpY2FsIgogICAgICAgICAgICApCiAgICAgICAgICAgIGNvbnRpbnVlCiAgICAgICAgdW5pcXVlW3ZhbGlkXSA9IHBhdGgKCiAgICBzZWxlY3RlZCA9IHNvcnRlZCh1bmlxdWUuaXRlbXMoKSkKICAgIGlmIG5vdCBzZWxlY3RlZDoKICAgICAgICByYWlzZSBTeXN0ZW1FeGl0KGYiW0NCUl0gbmVuaHVtIFdSRk9VVCBsZWfDrXZlbCBjb20gdmFyacOhdmVsIFRpbWVzIGVtIHtydW5fZGlyfSIpCgogICAgcnVuX2Vudl9wYXRoID0gUGF0aChhcmdzLnJ1bl9lbnYpCiAgICBpbml0ID0gcmVhZF9ydW5faW5pdChydW5fZW52X3BhdGgpCiAgICBzb3VyY2VfbW9kZWwgPSByZWFkX3NvdXJjZV9tb2RlbChydW5fZW52X3BhdGgpCiAgICBpZiBzb3VyY2VfbW9kZWwgbm90IGluIHsnaWNvbicsICdlY213ZicsICdnZnMnfToKICAgICAgICByYWlzZSBTeXN0ZW1FeGl0KGYnW0NCUl0gU09VUkNFX01PREVMIGludmFsaWRvIG5vIGNoZWNrcG9pbnQ6IHtzb3VyY2VfbW9kZWwhcn0nKQogICAgaWYgaW5pdCBpcyBOb25lOgogICAgICAgIGlmIGFyZ3MuZXhwZWN0ZWRfc3RhcnQgIT0gMDoKICAgICAgICAgICAgcmFpc2UgU3lzdGVtRXhpdCgKICAgICAgICAgICAgICAgIGYiW0NCUl0ge2FyZ3MucnVuX2Vudn0gYXVzZW50ZTogbsOjbyDDqSBzZWd1cm8gY2FsY3VsYXIgRnthcmdzLmV4cGVjdGVkX3N0YXJ0fSsgIgogICAgICAgICAgICAgICAgImEgcGFydGlyIGRvIHByaW1laXJvIGFycXVpdm8gZGUgdW0gc2VnbWVudG8uIEZvcm5lw6dhIFJVTl9EQVRFL1JVTl9DWUNMRS4iCiAgICAgICAgICAgICkKICAgICAgICBpbml0ID0gc2VsZWN0ZWRbMF1bMF0KICAgICAgICBwcmludCgKICAgICAgICAgICAgIltDQlJdW0FWSVNPXSBjYnItcnVuLmVudiBhdXNlbnRlOyB1c2FuZG8gbyBwcmltZWlybyBXUkZPVVQgY29tbyBGMDAwLiAiCiAgICAgICAgICAgICJBIGNvbXBsZXR1ZGUgZG8gY2ljbG8gc2Vyw6EgdmVyaWZpY2FkYS4iCiAgICAgICAgKQoKICAgIGZyYW1lcyA9IFtdCgogICAgZm9yIHZhbGlkLCBwYXRoIGluIHNlbGVjdGVkOgogICAgICAgIGRlbHRhX2hvdXJzID0gKHZhbGlkIC0gaW5pdCkudG90YWxfc2Vjb25kcygpIC8gMzYwMC4wCiAgICAgICAgZmggPSBpbnQocm91bmQoZGVsdGFfaG91cnMpKQogICAgICAgIGlmIGFicyhkZWx0YV9ob3VycyAtIGZoKSA+IDFlLTY6CiAgICAgICAgICAgIHJhaXNlIFN5c3RlbUV4aXQoCiAgICAgICAgICAgICAgICBmIltDQlJdIGhvcsOhcmlvIFdSRiBmb3JhIGRhIGNhZMOqbmNpYSBob3LDoXJpYToge3BhdGgubmFtZX0sICIKICAgICAgICAgICAgICAgIGYiaW5pdD17aW5pdC5pc29mb3JtYXQoKX0sIGRpZmVyZW7Dp2E9e2RlbHRhX2hvdXJzOi40Zn0gaCIKICAgICAgICAgICAgKQogICAgICAgIGlmIGZoIDwgMDoKICAgICAgICAgICAgcmFpc2UgU3lzdGVtRXhpdCgKICAgICAgICAgICAgICAgIGYiW0NCUl0gV1JGT1VUIGFudGVyaW9yIGFvIGNpY2xvIHNlbGVjaW9uYWRvOiB7cGF0aC5uYW1lfTsgIgogICAgICAgICAgICAgICAgZiJpbml0PXtpbml0Lmlzb2Zvcm1hdCgpfSwgdmFsaWRhZGU9e3ZhbGlkLmlzb2Zvcm1hdCgpfSIKICAgICAgICAgICAgKQogICAgICAgIGlmIGZoIDwgYXJncy5leHBlY3RlZF9zdGFydCBvciBmaCA+IGFyZ3MuZXhwZWN0ZWRfZW5kOgogICAgICAgICAgICBjb250aW51ZQoKICAgICAgICBwYXlsb2FkID0gZnJhbWVfcGF5bG9hZChwYXRoLCBzb3VyY2VfbW9kZWwpCiAgICAgICAgaWYgcGF5bG9hZFsiZ3JpZCJdICE9IGV4cGVjdGVkX2dyaWQ6CiAgICAgICAgICAgIHJhaXNlIFN5c3RlbUV4aXQoCiAgICAgICAgICAgICAgICBmIltDQlJdIGdyYWRlIGludsOhbGlkYSBlbSB7cGF0aC5uYW1lfTogb2JzZXJ2YWRvIHtwYXlsb2FkWydncmlkJ119LCAiCiAgICAgICAgICAgICAgICBmImVzcGVyYWRvIHtleHBlY3RlZF9ncmlkfSBhIHBhcnRpciBkZSBlX3dlPXtlX3dlfSwgZV9zbj17ZV9zbn0gIgogICAgICAgICAgICAgICAgIihncmFkZSBkZSBtYXNzYSBXUkYgPSBlX3dlLTEgeCBlX3NuLTEpIgogICAgICAgICAgICApCiAgICAgICAgcGF5bG9hZFsibW9kZWwiXSA9ICJXUkYgQ0JSIDQgS00iCiAgICAgICAgcGF5bG9hZFsibW9kZWxLZXkiXSA9ICJjYnJfd3JmXzRrbSIKICAgICAgICBwYXlsb2FkWyJyZXNvbHV0aW9uS20iXSA9IDQKICAgICAgICBwYXlsb2FkWyJmb3JlY2FzdEhvdXIiXSA9IGZoCiAgICAgICAgcGF5bG9hZFsibmF0aXZlUmVmbGVjdGl2aXR5Il0gPSAiUkVGTF8xMENNIgogICAgICAgIHBheWxvYWRbIm5hdGl2ZUdyaWQiXSA9IFRydWUKCiAgICAgICAgdGFyZ2V0ID0gZnJhbWVzX2RpciAvIGYiZntmaDowM2R9Lmpzb24uZ3oiCiAgICAgICAgd2l0aCB0YXJnZXQub3Blbigid2IiKSBhcyByYXc6CiAgICAgICAgICAgIHdpdGggZ3ppcC5HemlwRmlsZShmaWxlbmFtZT0iIiwgbW9kZT0id2IiLCBmaWxlb2JqPXJhdywgY29tcHJlc3NsZXZlbD05LCBtdGltZT0wKSBhcyB6OgogICAgICAgICAgICAgICAgei53cml0ZShqc29uLmR1bXBzKHBheWxvYWQsIGVuc3VyZV9hc2NpaT1GYWxzZSwgc2VwYXJhdG9ycz0oIiwiLCAiOiIpLCBhbGxvd19uYW49RmFsc2UpLmVuY29kZSgidXRmLTgiKSkKCiAgICAgICAgZnJhbWVzLmFwcGVuZCh7CiAgICAgICAgICAgICJmb3JlY2FzdEhvdXIiOiBmaCwKICAgICAgICAgICAgInRpbWUiOiBwYXlsb2FkWyJ0aW1lIl0sCiAgICAgICAgICAgICJmaWxlIjogZiJmcmFtZXMvZntmaDowM2R9Lmpzb24uZ3oiLAogICAgICAgICAgICAiZ3JpZCI6IHBheWxvYWRbImdyaWQiXSwKICAgICAgICAgICAgInJhbmdlcyI6IHBheWxvYWRbInJhbmdlcyJdLAogICAgICAgIH0pCgogICAgZXhwZWN0ZWQgPSBsaXN0KHJhbmdlKGFyZ3MuZXhwZWN0ZWRfc3RhcnQsIGFyZ3MuZXhwZWN0ZWRfZW5kICsgMSkpCiAgICBhY3R1YWwgPSBbeFsiZm9yZWNhc3RIb3VyIl0gZm9yIHggaW4gZnJhbWVzXQogICAgbWlzc2luZyA9IFt4IGZvciB4IGluIGV4cGVjdGVkIGlmIHggbm90IGluIGFjdHVhbF0KICAgIGZpcnN0X2dyaWQgPSBmcmFtZXNbMF1bImdyaWQiXSBpZiBmcmFtZXMgZWxzZSBOb25lCgogICAgbWV0YWRhdGEgPSB7CiAgICAgICAgInNjaGVtYVZlcnNpb24iOiAic2lkZXJhbC1jYnItd3JmLTRrbS12MSIsCiAgICAgICAgIm1vZGVsIjogIldSRiBDQlIgNCBLTSIsCiAgICAgICAgIm1vZGVsS2V5IjogImNicl93cmZfNGttIiwKICAgICAgICAic291cmNlTW9kZWwiOiBzb3VyY2VfbW9kZWwudXBwZXIoKSwKICAgICAgICAicmVzb2x1dGlvbkttIjogNCwKICAgICAgICAiZm9yZWNhc3RIb3VycyI6IFthcmdzLmV4cGVjdGVkX3N0YXJ0LCBhcmdzLmV4cGVjdGVkX2VuZF0sCiAgICAgICAgInRlbXBvcmFsUmVzb2x1dGlvbk1pbnV0ZXMiOiA2MCwKICAgICAgICAiaW5pdFRpbWUiOiBpbml0Lmlzb2Zvcm1hdCgpLnJlcGxhY2UoIiswMDowMCIsICJaIiksCiAgICAgICAgImdyaWQiOiBmaXJzdF9ncmlkIG9yIGV4cGVjdGVkX2dyaWQsCiAgICAgICAgIm5hbWVsaXN0R3JpZCI6IHsKICAgICAgICAgICAgImVfd2UiOiBlX3dlLAogICAgICAgICAgICAiZV9zbiI6IGVfc24sCiAgICAgICAgICAgICJkZXNjcmlwdGlvbiI6ICJkaW1lbnNpb25zIGluY2x1ZGUgc3RhZ2dlcmVkIHBvaW50czsgc2NhbGFyIGZpZWxkcyB1c2UgZV93ZS0xIGJ5IGVfc24tMSIsCiAgICAgICAgfSwKICAgICAgICAiZG9tYWluIjogeyJ3ZXN0IjogLTUwLjAsICJlYXN0IjogLTMwLjAsICJzb3V0aCI6IC0yMS4wLCAibm9ydGgiOiAxLjB9LAogICAgICAgICJwcm9qZWN0aW9uIjogIkxhbWJlcnQgQ29uZm9ybWFsIiwKICAgICAgICAibmF0aXZlUmVmbGVjdGl2aXR5IjogIlJFRkxfMTBDTSIsCiAgICAgICAgInJlZmxlY3Rpdml0eUNvbXBvc2l0ZSI6ICJtYXhpbXVtIHRocm91Z2ggdGhlIG5hdGl2ZSBXUkYgY29sdW1uIiwKICAgICAgICAid2luZCI6IHsidSI6ICJVMTAiLCAidiI6ICJWMTAiLCAiYmFyYnMiOiAiZnJvbnRlbmQgcmVuZGVycyBmcm9tIFUxMC9WMTAifSwKICAgICAgICAiZmllbGRzIjogWwogICAgICAgICAgICAicmVmbGVjdGl2aXR5RGJ6IiwgInJlZmxlY3Rpdml0eUNvbXBvc2l0ZURieiIsCiAgICAgICAgICAgICJ1MTBNcyIsICJ2MTBNcyIsICJ3aW5kMTBNcyIsICJ3aW5kMTBEaXJEZWciLAogICAgICAgICAgICAidDJDIiwgInEyS2dLZyIsICJ0ZDJDIiwgInJoMlBjdCIsCiAgICAgICAgICAgICJwc2ZjSHBhIiwgInNscEhwYSIsCiAgICAgICAgICAgICJyYWluY01tIiwgInJhaW5uY01tIiwgInJhaW5zaE1tIiwgInJhaW5Ub3RhbE1tIiwKICAgICAgICAgICAgInNub3duY01tIiwgImdyYXVwZWxuY01tIiwgImhhaWxuY01tIiwgImNsb3VkRnJhY3Rpb24iLAogICAgICAgICAgICAid2luZEd1c3QxMG1NcyIsICJ3aW5kMTBtTWF4TXMiLCAidXBkcmFmdEhlbGljaXR5TWF4TTJzMiIsICJ1cGRyYWZ0VmVsb2NpdHlNYXhNcyIsICJkb3duZHJhZnRWZWxvY2l0eU1heE1zIiwgImNvbHVtbk1lYW5WZXJ0aWNhbFZlbG9jaXR5TXMiLCAiaW50ZXJ2YWxNZWFuVmVydGljYWxWZWxvY2l0eU1zIiwgImdyYXVwZWxDb2x1bW5NYXhLZ00yIiwgImdyYXVwZWxDb2x1bW5JbnRlZ3JhbEtnTTIiLCAiaGFpbERpYW1ldGVyTG93ZXN0TGV2ZWxNYXhNIiwgImhhaWxEaWFtZXRlckNvbHVtbk1heE0iLCAicmVmbGVjdGl2aXR5Q29sdW1uTWF4RGJ6IgogICAgICAgIF0sCiAgICAgICAgIndpbmRHdXN0MTBtTm90ZSI6ICJHVVNUL1dJTkRHVVNUIMOpIGNhbXBvIGRlIHJhamFkYSBmw61zaWNhIGVtaXRpZG8gcGVsYSBjb25maWd1cmHDp8OjbyBkZSBzdXBlcmbDrWNpZSwgcXVhbmRvIGRpc3BvbsOtdmVsOyBudW5jYSBzdWJzdGl0dcOtZG8gcG9yIFdTUEQxME1BWC4iLAogICAgICAgICJ3aW5kMTBtTWF4Tm90ZSI6ICJXU1BEMTBNQVggw6kgbcOheGltbyBubyBpbnRlcnZhbG8gZGUgaGlzdMOzcmljbyBkbyBXUkY7IHByb3h5IGRlIHBpY28vcmFqYWRhLCBuw6NvIHJhamFkYSBpbnN0YW50w6JuZWEuIiwKICAgICAgICAiZnJhbWVzIjogZnJhbWVzLAogICAgICAgICJmcmFtZUNvdW50IjogbGVuKGZyYW1lcyksCiAgICAgICAgIm1pc3NpbmdGb3JlY2FzdEhvdXJzIjogbWlzc2luZywKICAgICAgICAic3RhdHVzIjogImNvbXBsZXRlIiBpZiBub3QgbWlzc2luZyBlbHNlICJwYXJ0aWFsIiwKICAgIH0KCiAgICAob3V0IC8gIm1ldGFkYXRhLmpzb24iKS53cml0ZV90ZXh0KAogICAgICAgIGpzb24uZHVtcHMobWV0YWRhdGEsIGVuc3VyZV9hc2NpaT1GYWxzZSwgaW5kZW50PTIsIGFsbG93X25hbj1GYWxzZSksCiAgICAgICAgZW5jb2Rpbmc9InV0Zi04IiwKICAgICkKCiAgICBwcmludCgKICAgICAgICBmIltDQlJdIEpTT04gcHVibGljYWRvIGVtIHtmcmFtZXNfZGlyfToge2xlbihmcmFtZXMpfSBmcmFtZXM7ICIKICAgICAgICBmImZhbHRhbnRlcz17bWlzc2luZ307IGdyYWRlIGRlIG1hc3NhPXttZXRhZGF0YVsnZ3JpZCddWydueCddfXh7bWV0YWRhdGFbJ2dyaWQnXVsnbnknXX0iCiAgICApCiAgICBpZiBtaXNzaW5nIGFuZCBhcmdzLnJlcXVpcmVfY29tcGxldGU6CiAgICAgICAgcmFpc2UgU3lzdGVtRXhpdCgKICAgICAgICAgICAgZiJbQ0JSXSBleHRyYcOnw6NvIGluY29tcGxldGE6IGF1c2VudGVzIEZ7bWlzc2luZ1swXTowM2R9Li47ICIKICAgICAgICAgICAgZiJ7bGVuKG1pc3NpbmcpfSBob3LDoXJpb3MgZmFsdGFuZG8gbm8gaW50ZXJ2YWxvIEZ7YXJncy5leHBlY3RlZF9zdGFydH0tRnthcmdzLmV4cGVjdGVkX2VuZH0iCiAgICAgICAgKQoKCmlmIF9fbmFtZV9fID09ICJfX21haW5fXyI6CiAgICBtYWluKCkK' | base64 -d > wrf/cbr_extract_json.py
+          chmod +x wrf/*.sh
       - name: Validar scripts CBR e catálogo
         shell: bash
         run: |
@@ -157,7 +153,7 @@ jobs:
       - name: Salvar checkpoint e produtos desta etapa
         uses: actions/upload-artifact@v4
         with:
-          name: wrf-${{ github.workflow }}-${{ github.job }}-${{ github.run_id }}
+          name: wrf-cbr4-manual-${{ github.job }}-${{ github.run_id }}
           path: |
             **/*restart*/**
             **/*products*/**
@@ -179,7 +175,7 @@ jobs:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
         with:
-          name: wrf-${{ github.workflow }}-seg00-${{ github.run_id }}
+          name: wrf-cbr4-manual-seg00-${{ github.run_id }}
           path: .
       - name: Checkout CBR
         uses: actions/checkout@v4
@@ -248,7 +244,7 @@ jobs:
       - name: Salvar checkpoint e produtos desta etapa
         uses: actions/upload-artifact@v4
         with:
-          name: wrf-${{ github.workflow }}-${{ github.job }}-${{ github.run_id }}
+          name: wrf-cbr4-manual-${{ github.job }}-${{ github.run_id }}
           path: |
             **/*restart*/**
             **/*products*/**
@@ -269,7 +265,7 @@ jobs:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
         with:
-          name: wrf-${{ github.workflow }}-seg01-${{ github.run_id }}
+          name: wrf-cbr4-manual-seg01-${{ github.run_id }}
           path: .
       - name: Checkout CBR
         uses: actions/checkout@v4
@@ -331,7 +327,7 @@ jobs:
       - name: Salvar checkpoint e produtos desta etapa
         uses: actions/upload-artifact@v4
         with:
-          name: wrf-${{ github.workflow }}-${{ github.job }}-${{ github.run_id }}
+          name: wrf-cbr4-manual-${{ github.job }}-${{ github.run_id }}
           path: |
             **/*restart*/**
             **/*products*/**
@@ -352,7 +348,7 @@ jobs:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
         with:
-          name: wrf-${{ github.workflow }}-seg02-${{ github.run_id }}
+          name: wrf-cbr4-manual-seg02-${{ github.run_id }}
           path: .
       - name: Checkout CBR
         uses: actions/checkout@v4
@@ -414,7 +410,7 @@ jobs:
       - name: Salvar checkpoint e produtos desta etapa
         uses: actions/upload-artifact@v4
         with:
-          name: wrf-${{ github.workflow }}-${{ github.job }}-${{ github.run_id }}
+          name: wrf-cbr4-manual-${{ github.job }}-${{ github.run_id }}
           path: |
             **/*restart*/**
             **/*products*/**
@@ -435,7 +431,7 @@ jobs:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
         with:
-          name: wrf-${{ github.workflow }}-seg03-${{ github.run_id }}
+          name: wrf-cbr4-manual-seg03-${{ github.run_id }}
           path: .
       - name: Checkout CBR
         uses: actions/checkout@v4
@@ -497,7 +493,7 @@ jobs:
       - name: Salvar checkpoint e produtos desta etapa
         uses: actions/upload-artifact@v4
         with:
-          name: wrf-${{ github.workflow }}-${{ github.job }}-${{ github.run_id }}
+          name: wrf-cbr4-manual-${{ github.job }}-${{ github.run_id }}
           path: |
             **/*restart*/**
             **/*products*/**
@@ -518,7 +514,7 @@ jobs:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
         with:
-          name: wrf-${{ github.workflow }}-seg04-${{ github.run_id }}
+          name: wrf-cbr4-manual-seg04-${{ github.run_id }}
           path: .
       - name: Checkout CBR
         uses: actions/checkout@v4
@@ -580,7 +576,7 @@ jobs:
       - name: Salvar checkpoint e produtos desta etapa
         uses: actions/upload-artifact@v4
         with:
-          name: wrf-${{ github.workflow }}-${{ github.job }}-${{ github.run_id }}
+          name: wrf-cbr4-manual-${{ github.job }}-${{ github.run_id }}
           path: |
             **/*restart*/**
             **/*products*/**
@@ -601,7 +597,7 @@ jobs:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
         with:
-          name: wrf-${{ github.workflow }}-seg05-${{ github.run_id }}
+          name: wrf-cbr4-manual-seg05-${{ github.run_id }}
           path: .
       - name: Checkout CBR
         uses: actions/checkout@v4
@@ -663,7 +659,7 @@ jobs:
       - name: Salvar checkpoint e produtos desta etapa
         uses: actions/upload-artifact@v4
         with:
-          name: wrf-${{ github.workflow }}-${{ github.job }}-${{ github.run_id }}
+          name: wrf-cbr4-manual-${{ github.job }}-${{ github.run_id }}
           path: |
             **/*restart*/**
             **/*products*/**
@@ -684,7 +680,7 @@ jobs:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
         with:
-          name: wrf-${{ github.workflow }}-seg06-${{ github.run_id }}
+          name: wrf-cbr4-manual-seg06-${{ github.run_id }}
           path: .
       - name: Checkout CBR
         uses: actions/checkout@v4
@@ -746,7 +742,7 @@ jobs:
       - name: Salvar checkpoint e produtos desta etapa
         uses: actions/upload-artifact@v4
         with:
-          name: wrf-${{ github.workflow }}-${{ github.job }}-${{ github.run_id }}
+          name: wrf-cbr4-manual-${{ github.job }}-${{ github.run_id }}
           path: |
             **/*restart*/**
             **/*products*/**
@@ -767,7 +763,7 @@ jobs:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
         with:
-          name: wrf-${{ github.workflow }}-seg07-${{ github.run_id }}
+          name: wrf-cbr4-manual-seg07-${{ github.run_id }}
           path: .
       - name: Checkout CBR
         uses: actions/checkout@v4
@@ -829,7 +825,7 @@ jobs:
       - name: Salvar checkpoint e produtos desta etapa
         uses: actions/upload-artifact@v4
         with:
-          name: wrf-${{ github.workflow }}-${{ github.job }}-${{ github.run_id }}
+          name: wrf-cbr4-manual-${{ github.job }}-${{ github.run_id }}
           path: |
             **/*restart*/**
             **/*products*/**
@@ -850,7 +846,7 @@ jobs:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
         with:
-          name: wrf-${{ github.workflow }}-seg08-${{ github.run_id }}
+          name: wrf-cbr4-manual-seg08-${{ github.run_id }}
           path: .
       - name: Checkout CBR
         uses: actions/checkout@v4
@@ -912,7 +908,7 @@ jobs:
       - name: Salvar checkpoint e produtos desta etapa
         uses: actions/upload-artifact@v4
         with:
-          name: wrf-${{ github.workflow }}-${{ github.job }}-${{ github.run_id }}
+          name: wrf-cbr4-manual-${{ github.job }}-${{ github.run_id }}
           path: |
             **/*restart*/**
             **/*products*/**
@@ -933,7 +929,7 @@ jobs:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
         with:
-          name: wrf-${{ github.workflow }}-seg09-${{ github.run_id }}
+          name: wrf-cbr4-manual-seg09-${{ github.run_id }}
           path: .
       - name: Checkout CBR
         uses: actions/checkout@v4
@@ -995,7 +991,7 @@ jobs:
       - name: Salvar checkpoint e produtos desta etapa
         uses: actions/upload-artifact@v4
         with:
-          name: wrf-${{ github.workflow }}-${{ github.job }}-${{ github.run_id }}
+          name: wrf-cbr4-manual-${{ github.job }}-${{ github.run_id }}
           path: |
             **/*restart*/**
             **/*products*/**
@@ -1016,7 +1012,7 @@ jobs:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
         with:
-          name: wrf-${{ github.workflow }}-seg10-${{ github.run_id }}
+          name: wrf-cbr4-manual-seg10-${{ github.run_id }}
           path: .
       - name: Checkout CBR
         uses: actions/checkout@v4
@@ -1078,7 +1074,7 @@ jobs:
       - name: Salvar checkpoint e produtos desta etapa
         uses: actions/upload-artifact@v4
         with:
-          name: wrf-${{ github.workflow }}-${{ github.job }}-${{ github.run_id }}
+          name: wrf-cbr4-manual-${{ github.job }}-${{ github.run_id }}
           path: |
             **/*restart*/**
             **/*products*/**
@@ -1099,7 +1095,7 @@ jobs:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
         with:
-          name: wrf-${{ github.workflow }}-seg11-${{ github.run_id }}
+          name: wrf-cbr4-manual-seg11-${{ github.run_id }}
           path: .
       - name: Checkout CBR
         uses: actions/checkout@v4
@@ -1161,7 +1157,7 @@ jobs:
       - name: Salvar checkpoint e produtos desta etapa
         uses: actions/upload-artifact@v4
         with:
-          name: wrf-${{ github.workflow }}-${{ github.job }}-${{ github.run_id }}
+          name: wrf-cbr4-manual-${{ github.job }}-${{ github.run_id }}
           path: |
             **/*restart*/**
             **/*products*/**
@@ -1182,7 +1178,7 @@ jobs:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
         with:
-          name: wrf-${{ github.workflow }}-seg12-${{ github.run_id }}
+          name: wrf-cbr4-manual-seg12-${{ github.run_id }}
           path: .
       - name: Checkout CBR
         uses: actions/checkout@v4
@@ -1244,7 +1240,7 @@ jobs:
       - name: Salvar checkpoint e produtos desta etapa
         uses: actions/upload-artifact@v4
         with:
-          name: wrf-${{ github.workflow }}-${{ github.job }}-${{ github.run_id }}
+          name: wrf-cbr4-manual-${{ github.job }}-${{ github.run_id }}
           path: |
             **/*restart*/**
             **/*products*/**
@@ -1308,7 +1304,7 @@ jobs:
       - name: Publicar produtos finais como artifact
         uses: actions/upload-artifact@v4
         with:
-          name: wrf-final-${{ github.workflow }}-${{ github.job }}-${{ github.run_id }}
+          name: wrf-final-cbr4-manual-${{ github.job }}-${{ github.run_id }}
           path: |
             **/*products*/**
             **/*publish*/**
@@ -1341,7 +1337,7 @@ jobs:
       - name: Publicar produtos finais como artifact
         uses: actions/upload-artifact@v4
         with:
-          name: wrf-final-${{ github.workflow }}-${{ github.job }}-${{ github.run_id }}
+          name: wrf-final-cbr4-manual-${{ github.job }}-${{ github.run_id }}
           path: |
             **/*products*/**
             **/*publish*/**
