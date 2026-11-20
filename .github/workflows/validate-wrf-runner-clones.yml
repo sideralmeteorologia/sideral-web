@@ -144,5 +144,25 @@ jobs:
           sudeste_text = (root / "sideral-sudeste-wrf.yml").read_text(encoding="utf-8")
           assert "docker/login-action@v3" not in sudeste_text, "Docker Hub login must be removed"
 
+          # The watchdog must query the new source-specific files, not the manual-only base workflows.
+          watchdog = (root / "wrf-watchdog.yml").read_text(encoding="utf-8")
+          missing_watchdog = [name for name in clone_files if f'"{name}"' not in watchdog]
+          assert not missing_watchdog, f"Watchdog is missing runner entries: {missing_watchdog}"
+
+          # These two families originally declared a shared concurrency group; clones must isolate it.
+          for prefix in ("cim-wrf-8km-wrf-", "brasil-wrf-21km-wrf-"):
+              groups = []
+              for filename in clone_files:
+                  if filename.startswith(prefix):
+                      group = (configs[filename].get("concurrency") or {}).get("group")
+                      assert group, f"{filename}: missing concurrency group"
+                      groups.append(group)
+              assert len(groups) == len(set(groups)), f"{prefix}: cloned runners share concurrency groups"
+
+          # No private Docker Hub login is required for the public remapping images.
+          for filename in clone_files:
+              if filename.startswith("sudeste-wrf-"):
+                  assert "docker/login-action@v3" not in (root / filename).read_text(encoding="utf-8")
+
           print(f"Validated {len(targets)} WRF workflow files and {len(clone_files)} independent clones.")
           PY
