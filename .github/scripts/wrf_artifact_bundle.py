@@ -69,11 +69,30 @@ def pack(workspace: Path, output: Path) -> int:
                 if item != candidate and candidate not in item.parents
             }
 
-    # upload-artifact preserves paths relative to the common parent of matches.
+    # Mirror upload-artifact's rootDirectory rule: use the common directory
+    # prefix before the first glob metacharacter in the requested path patterns.
+    roots: list[Path] = []
+    for pattern in includes:
+        normalized = pattern.removeprefix("./").rstrip("/")
+        components = Path(normalized).parts
+        prefix = []
+        has_magic = False
+        for component in components:
+            if glob.has_magic(component):
+                has_magic = True
+                break
+            prefix.append(component)
+        if has_magic:
+            root = Path(*prefix) if prefix else Path(".")
+        else:
+            exact = workspace / Path(normalized)
+            root = Path(normalized) if exact.is_dir() else Path(*Path(normalized).parts[:-1])
+            if not root.parts:
+                root = Path(".")
+        roots.append(root)
+
     if selected:
-        common = Path(os.path.commonpath([p.parent.as_posix() for p in selected]))
-        if common == Path(""):
-            common = Path(".")
+        common = Path(os.path.commonpath([root.as_posix() for root in roots])) if roots else Path(".")
         archive_paths = {
             item: (item.relative_to(common) if common != Path(".") else item)
             for item in selected
