@@ -196,7 +196,7 @@ jobs:
                           f"{filename}/{job_name}: checkpoint must be downloaded into metbr_restart_input"
                       )
                       assert download_with.get("name") == (
-                          f"wrf-metbr4-${{ env.MODEL_VARIANT }}-${{ env.SOURCE_MODEL }}-"
+                           f"wrf-metbr4-${{{{ env.MODEL_VARIANT }}}}-${{{{ env.SOURCE_MODEL }}}}-"
                           f"seg{i - 1:02d}-${{{{ github.run_id }}}}"
                       ), f"{filename}/{job_name}: wrong predecessor checkpoint artifact"
               complete = cfg["jobs"].get("complete")
@@ -209,7 +209,7 @@ jobs:
               assert len(aggregate) == 1, f"{filename}: complete must download the 14 segment artifacts"
               aggregate_with = aggregate[0].get("with") or {}
               assert aggregate_with.get("pattern") == (
-                  "wrf-metbr4-${{{{ env.MODEL_VARIANT }}}}-${{{{ env.SOURCE_MODEL }}}}-"
+                   "wrf-metbr4-${{ env.MODEL_VARIANT }}-${{ env.SOURCE_MODEL }}-"
                   "seg??-${{ github.run_id }}"
               ), f"{filename}: complete artifact pattern is incorrect"
               assert any("metbr_all_wrfout" in (step.get("run") or "") for step in complete_steps), (
