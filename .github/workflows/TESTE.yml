@@ -94,7 +94,33 @@ jobs:
 
           assert module.product_key(".github/workflows/sideral-global-nwp-artifact.yml", "Global NWP") == "global-nwp"
           assert module.product_key(".github/workflows/SIDERAL_MULTIMODELS_05_ICON_HORIZON_FIX (1).yml", "Multimodels") == "multimodels-05"
-          print("Model release publisher validation passed.")
+
+          with tempfile.TemporaryDirectory() as temp:
+              root = Path(temp)
+              nwp = root / "sideral-global-nwp-123-1"
+              (nwp / "ecmwf_ifs").mkdir(parents=True)
+              (nwp / "ecmwf_ifs" / "region.json").write_text('{"ok":true}', encoding="utf-8")
+              (nwp / "ecmwf_ifs" / "temperature.nc").write_bytes(b"NC")
+              intermediate = root / "global-nwp-ecmwf_eps"
+              intermediate.mkdir()
+              (intermediate / "model_status.json").write_text('{"status":"failed"}', encoding="utf-8")
+              selected = module.collect(root)
+              assert {name for _, name in selected} == {
+                  "ecmwf_ifs/region.json", "ecmwf_ifs/temperature.nc"
+              }, {name for _, name in selected}
+
+          with tempfile.TemporaryDirectory() as temp:
+              root = Path(temp)
+              multimodel = root / "sideral-multimodels-05-123"
+              multimodel.mkdir()
+              (multimodel / "consensus.json").write_text('{"ok":true}', encoding="utf-8")
+              (multimodel / "precipitation.npz").write_bytes(b"NPZ")
+              selected = module.collect(root)
+              assert {name for _, name in selected} == {
+                  "consensus.json", "precipitation.npz"
+              }, {name for _, name in selected}
+
+          print("Model release publisher validation passed for WRF, Global NWP and Multimodel final artifacts.")
           PY
 
       - name: Validate automatic schedules and ECMWF EPS cycle policy
@@ -135,6 +161,18 @@ jobs:
 
           multimodel = load("SIDERAL_MULTIMODELS_05_ICON_HORIZON_FIX (1).yml")
           assert multimodel["on"].get("schedule"), "Sideral Multimodels must have an automatic schedule"
+
+          publisher = load("publish-model-releases.yml")
+          publisher_if = str(publisher["jobs"]["publish"].get("if", ""))
+          assert "workflow_run.conclusion == 'success'" not in publisher_if, (
+              "Final valid products must still be mirrored when another model in the run fails."
+          )
+          assert "github.event.workflow.path" in publisher_if, (
+              "The release publisher must filter source workflow paths and avoid recursion."
+          )
+          assert "global-nwp" in publisher_if and "MULTIMODELS" in publisher_if and "wrf" in publisher_if, (
+              "The release publisher must cover all WRF, Global NWP and Multimodel workflows."
+          )
 
           print(
               f"Automatic schedules OK: {len(nwp['on']['schedule'])} Global NWP cron(s), "
