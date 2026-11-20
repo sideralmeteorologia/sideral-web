@@ -1,6 +1,17 @@
 name: SIDERAL — WRF Launchpad
 
 on:
+  push:
+    branches:
+      - main
+    paths:
+      - ".github/scripts/restore_wrf_runtime.py"
+      - ".github/workflows/*wrf*.yml"
+      - ".github/workflows/*WRF*.yml"
+      - ".github/workflows/sideral-global-nwp-artifact.yml"
+      - ".github/workflows/SIDERAL_MULTIMODELS_05_ICON_HORIZON_FIX (1).yml"
+      - ".github/workflows/wrf-launchpad.yml"
+      - "runners/**"
   workflow_dispatch:
     inputs:
       scope:
@@ -36,8 +47,8 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           GH_REPOSITORY: ${{ github.repository }}
           GH_REF: ${{ github.ref_name }}
-          SCOPE: ${{ inputs.scope }}
-          SKIP_ACTIVE: ${{ inputs.skip_active }}
+          SCOPE: ${{ github.event_name == 'push' && 'all' || inputs.scope || 'all' }}
+          SKIP_ACTIVE: ${{ github.event_name == 'push' && 'true' || (inputs.skip_active == true && 'true' || 'false') }}
         run: |
           python - <<'PY'
           import json, os, time, urllib.request, urllib.error, urllib.parse
