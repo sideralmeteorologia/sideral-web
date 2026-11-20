@@ -39,7 +39,7 @@ jobs:
           SKIP_ACTIVE: ${{ inputs.skip_active }}
         run: |
           python - <<'PY'
-          import json, os, time, urllib.request, urllib.error
+          import json, os, time, urllib.request, urllib.error, urllib.parse
 
           token = os.environ.get("GH_TOKEN", "")
           if not token:
@@ -124,8 +124,6 @@ jobs:
 
           launched, skipped, failed = [], [], []
           for filename in targets:
-              workflow_path = " .github/workflows/" + filename
-              workflow_path = workflow_path.strip()
               try:
                   if skip_active:
                       runs = api(f"/actions/workflows/{urllib.parse.quote(filename, safe='')}/runs?per_page=10")
