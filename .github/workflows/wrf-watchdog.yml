@@ -69,7 +69,7 @@ jobs:
               ("Brasil 21 km WRF ICON","brasil-wrf-21km-wrf-icon.yml"),
               ("Brasil 21 km WRF ECMWF","brasil-wrf-21km-wrf-ecmwf.yml"),
           ]
-                    print("## Watchdog WRF Sideral")
+          print("## Watchdog WRF Sideral")
           print()
           print("| Família | Estado mais recente | Conclusão | Início UTC | Observação |")
           print("|---|---|---|---|---|")
