@@ -210,7 +210,7 @@ jobs:
                       assert restore_env.get("WRF_ARTIFACT_RESTORE_TO") == "metbr_restart_input", (
                           f"{filename}/{job_name}: downloaded checkpoint must be restored into metbr_restart_input"
                       )
-                      assert ".wrf-downloads/" in str(download_with.get("path", "")), (
+                      assert "/wrf-downloads/" in str(download_with.get("path", "")), (
                           f"{filename}/{job_name}: download must first use a temporary safe location"
                       )
                       assert download_with.get("name") == (
