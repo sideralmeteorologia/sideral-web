@@ -168,11 +168,23 @@ jobs:
                   upload = uploads[0].get("with") or {}
                   upload_paths = upload.get("path", "")
                   upload_paths = upload_paths if isinstance(upload_paths, list) else str(upload_paths).splitlines()
-                  assert "metbr-checkpoint-*.tar.gz" in upload_paths, (
-                      f"{filename}/{job_name}: checkpoint tar is not uploaded"
+                  pack_steps = [
+                      step for step in steps
+                      if (step.get("name") or "").startswith("Bundle WRF artifact safely")
+                  ]
+                  assert len(pack_steps) == 1, (
+                      f"{filename}/{job_name}: WRF TAR bundling step is missing"
                   )
-                  assert "metbr-wrfout-*" in upload_paths, (
-                      f"{filename}/{job_name}: segment WRFOUTs are not uploaded"
+                  pack_patterns = (pack_steps[0].get("env") or {}).get("WRF_ARTIFACT_PATTERNS", "")
+                  pack_patterns = pack_patterns if isinstance(pack_patterns, list) else str(pack_patterns).splitlines()
+                  assert "metbr-checkpoint-*.tar.gz" in pack_patterns, (
+                      f"{filename}/{job_name}: checkpoint TAR is not included in the safe bundle"
+                  )
+                  assert "metbr-wrfout-*" in pack_patterns, (
+                      f"{filename}/{job_name}: segment WRFOUTs are not included in the safe bundle"
+                  )
+                  assert len(upload_paths) == 1 and ".wrf-artifact-safe/wrf-payload-" in upload_paths[0], (
+                      f"{filename}/{job_name}: upload must contain only the colon-safe TAR payload"
                   )
                   assert upload.get("if-no-files-found") == "error", (
                       f"{filename}/{job_name}: empty segment artifacts must fail"
@@ -193,8 +205,13 @@ jobs:
                       assert checkout_index >= 0 and download_index > checkout_index, (
                           f"{filename}/{job_name}: download must happen after checkout"
                       )
-                      assert download_with.get("path") == "metbr_restart_input", (
-                          f"{filename}/{job_name}: checkpoint must be downloaded into metbr_restart_input"
+                      restore_step = steps[download_index + 1] if download_index + 1 < len(steps) else {}
+                      restore_env = restore_step.get("env") or {}
+                      assert restore_env.get("WRF_ARTIFACT_RESTORE_TO") == "metbr_restart_input", (
+                          f"{filename}/{job_name}: downloaded checkpoint must be restored into metbr_restart_input"
+                      )
+                      assert ".wrf-downloads/" in str(download_with.get("path", "")), (
+                          f"{filename}/{job_name}: download must first use a temporary safe location"
                       )
                       assert download_with.get("name") == (
                            f"wrf-metbr4-${{{{ env.MODEL_VARIANT }}}}-${{{{ env.SOURCE_MODEL }}}}-"
@@ -221,9 +238,19 @@ jobs:
                   if (step.get("uses") or "").startswith("actions/upload-artifact@")
               ]
               assert len(final_uploads) == 1, f"{filename}: final model products artifact is missing"
-              final_paths = (final_uploads[0].get("with") or {}).get("path", "")
-              assert "metbr_products/**" in str(final_paths), (
-                  f"{filename}: extracted METBR products are not published"
+              final_upload_paths = (final_uploads[0].get("with") or {}).get("path", "")
+              final_upload_paths = final_upload_paths if isinstance(final_upload_paths, list) else str(final_upload_paths).splitlines()
+              final_pack = [
+                  step for step in complete_steps
+                  if (step.get("name") or "").startswith("Bundle WRF artifact safely")
+              ]
+              assert len(final_pack) == 1, f"{filename}: final products must be bundled safely"
+              final_pack_patterns = (final_pack[0].get("env") or {}).get("WRF_ARTIFACT_PATTERNS", "")
+              assert "metbr_products/**" in str(final_pack_patterns), (
+                  f"{filename}: extracted METBR products are not included in the public artifact bundle"
+              )
+              assert len(final_upload_paths) == 1 and ".wrf-artifact-safe/wrf-payload-" in final_upload_paths[0], (
+                  f"{filename}: final product artifact must upload only its colon-safe TAR bundle"
               )
               assert "register-run" not in cfg["jobs"], (
                   f"{filename}: obsolete R2 registration job must not run"
