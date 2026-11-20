@@ -99,6 +99,7 @@ jobs:
           printf '%s' 'R1JJQjF8IExldmVsfCBGcm9tIHwgIFRvICB8IG1ldGdyaWQgIHwgbWV0Z3JpZCAgfCBtZXRncmlkICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHxHUklCMnxHUklCMnxHUklCMnxHUklCMnwKUGFyYW18IFR5cGUgfExldmVsMXxMZXZlbDJ8IE5hbWUgICAgIHwgVW5pdHMgICAgfCBEZXNjcmlwdGlvbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHxEaXNjcHxDYXRneXxQYXJhbXxMZXZlbHwKLS0tLS0rLS0tLS0tKy0tLS0tLSstLS0tLS0rLS0tLS0tLS0tLSstLS0tLS0tLS0tKy0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLSstLS0tLS0tLS0tLS0tLS0tLS0tLS0tLSsKIDE1NiB8IDEwMCAgfCAgICogIHwgICAgICB8IEhHVCAgICAgIHwgbSAgICAgICAgfCBHZW9wb3RlbnRpYWwgaGVpZ2h0ICAgICAgICAgICAgICAgICAgICAgIHwgIDAgIHwgIDMgIHwgIDUgIHwgMTAwIHwKIDEzMCB8IDEwMCAgfCAgICogIHwgICAgICB8IFRUICAgICAgIHwgSyAgICAgICAgfCBUZW1wZXJhdHVyZSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHwgIDAgIHwgIDAgIHwgIDAgIHwgMTAwIHwKIDEzMSB8IDEwMCAgfCAgICogIHwgICAgICB8IFVVICAgICAgIHwgbSBzLTEgICAgfCBVICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHwgIDAgIHwgIDIgIHwgIDIgIHwgMTAwIHwKIDEzMiB8IDEwMCAgfCAgICogIHwgICAgICB8IFZWICAgICAgIHwgbSBzLTEgICAgfCBWICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHwgIDAgIHwgIDIgIHwgIDMgIHwgMTAwIHwKIDE1NyB8IDEwMCAgfCAgICogIHwgICAgICB8IFJIICAgICAgIHwgJSAgICAgICAgfCBSZWxhdGl2ZSBIdW1pZGl0eSAgICAgICAgICAgICAgICAgICAgICAgIHwgIDAgIHwgIDEgIHwgIDEgIHwgMTAwIHwKIDE2NSB8ICAgMSAgfCAgIDAgIHwgICAgICB8IFVVICAgICAgIHwgbSBzLTEgICAgfCBVIGF0IDEwIG0gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHwgIDAgIHwgIDIgIHwgIDIgIHwgMTAzIHwKIDE2NiB8ICAgMSAgfCAgIDAgIHwgICAgICB8IFZWICAgICAgIHwgbSBzLTEgICAgfCBWIGF0IDEwIG0gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHwgIDAgIHwgIDIgIHwgIDMgIHwgMTAzIHwKIDE2NyB8ICAgMSAgfCAgIDAgIHwgICAgICB8IFRUICAgICAgIHwgSyAgICAgICAgfCBUZW1wZXJhdHVyZSBhdCAyIG0gICAgICAgICAgICAgICAgICAgICAgIHwgIDAgIHwgIDAgIHwgIDAgIHwgMTAzIHwKIDE2OCB8ICAgMSAgfCAgIDAgIHwgICAgICB8IERFV1BUICAgIHwgSyAgICAgICAgfCBEZXcgcG9pbnQgYXQgMiBtICAgICAgICAgICAgICAgICAgICAgICAgIHwgIDAgIHwgIDAgIHwgIDYgIHwgMTAzIHwKIDEzNCB8ICAgMSAgfCAgIDAgIHwgICAgICB8IFBTRkMgICAgIHwgUGEgICAgICAgfCBTdXJmYWNlIFByZXNzdXJlICAgICAgICAgICAgICAgICAgICAgICAgIHwgIDAgIHwgIDMgIHwgIDAgIHwgICAxIHwKIDE1MSB8ICAgMSAgfCAgIDAgIHwgICAgICB8IFBNU0wgICAgIHwgUGEgICAgICAgfCBTZWEtbGV2ZWwgUHJlc3N1cmUgICAgICAgICAgICAgICAgICAgICAgIHwgIDAgIHwgIDMgIHwgIDAgIHwgMTAxIHwKLS0tLS0rLS0tLS0tKy0tLS0tLSstLS0tLS0rLS0tLS0tLS0tLSstLS0tLS0tLS0tKy0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLSstLS0tLS0tLS0tLS0tLS0tLS0tLS0tLSsK' | base64 -d > 'wrf/Vtable.ECMWF_OPEN'
           mkdir -p "$(dirname 'wrf/Vtable.GFS_SOIL')"
           printf '%s' 'R1JJQjF8IExldmVsfCBGcm9tIHwgIFRvICB8IG1ldGdyaWQgIHwgbWV0Z3JpZCB8IG1ldGdyaWQgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB8R1JJQjJ8R1JJQjJ8R1JJQjJ8R1JJQjJ8ClBhcmFtfCBUeXBlIHxMZXZlbDF8TGV2ZWwyfCBOYW1lICAgICB8IFVuaXRzICAgfCBEZXNjcmlwdGlvbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgfERpc2NwfENhdGd5fFBhcmFtfExldmVsfAotLS0tLSstLS0tLS0rLS0tLS0tKy0tLS0tLSstLS0tLS0tLS0tKy0tLS0tLS0tLSstLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLSstLS0tLS0tLS0tLS0tLS0tLS0tLS0tLSsKICAxMSB8ICAgMSAgfCAgIDAgIHwgICAgICB8IFNLSU5URU1QIHwgSyAgICAgICB8IFNraW4gdGVtcGVyYXR1cmUgICAgICAgICAgICAgICAgICAgICAgICB8ICAwICB8ICAwICB8ICAwICB8ICAgMSB8CiAgODEgfCAgIDEgIHwgICAwICB8ICAgICAgfCBMQU5EU0VBICB8IHByb3BydG4gfCBMYW5kL1NlYSBmbGFnICAgICAgICAgICAgICAgICAgICAgICAgICAgfCAgMiAgfCAgMCAgfCAgMCAgfCAgIDEgfAogICA3IHwgICAxICB8ICAgMCAgfCAgICAgIHwgU09JTEhHVCAgfCBtICAgICAgIHwgVGVycmFpbiBmaWVsZCBvZiBzb3VyY2UgYW5hbHlzaXMgICAgICAgIHwgIDAgIHwgIDMgIHwgIDUgIHwgICAxIHwKICA2NSB8ICAgMSAgfCAgIDAgIHwgICAgICB8IFNOT1cgICAgIHwga2cgbS0yICB8IFdhdGVyIGVxdWl2YWxlbnQgc25vdyBkZXB0aCAgICAgICAgICAgICB8ICAwICB8ICAxICB8IDEzICB8ICAgMSB8CiAgOTEgfCAgIDEgIHwgICAwICB8ICAgICAgfCBTRUFJQ0UgICB8IHByb3BydG4gfCBTZWEgaWNlIGZsYWcgICAgICAgICAgICAgICAgICAgICAgICAgICAgfCAxMCAgfCAgMiAgfCAgMCAgfCAgIDEgfAogIDExIHwgMTEyICB8ICAgMCAgfCAgMTAgIHwgU1QwMDAwMTAgfCBLICAgICAgIHwgU29pbCB0ZW1wZXJhdHVyZSAwLTEwIGNtICAgICAgICAgICAgICAgIHwgIDAgIHwgIDAgIHwgIDAgIHwgMTA2IHwKICAxMSB8IDExMiAgfCAgMTAgIHwgIDQwICB8IFNUMDEwMDQwIHwgSyAgICAgICB8IFNvaWwgdGVtcGVyYXR1cmUgMTAtNDAgY20gICAgICAgICAgICAgICB8ICAwICB8ICAwICB8ICAwICB8IDEwNiB8CiAgMTEgfCAxMTIgIHwgIDQwICB8IDEwMCAgfCBTVDA0MDEwMCB8IEsgICAgICAgfCBTb2lsIHRlbXBlcmF0dXJlIDQwLTEwMCBjbSAgICAgICAgICAgICAgfCAgMCAgfCAgMCAgfCAgMCAgfCAxMDYgfAogIDExIHwgMTEyICB8IDEwMCAgfCAyMDAgIHwgU1QxMDAyMDAgfCBLICAgICAgIHwgU29pbCB0ZW1wZXJhdHVyZSAxMDAtMjAwIGNtICAgICAgICAgICAgIHwgIDAgIHwgIDAgIHwgIDAgIHwgMTA2IHwKICA4NSB8IDExMiAgfCAgIDAgIHwgIDEwICB8IFNUMDAwMDEwIHwgSyAgICAgICB8IFNvaWwgdGVtcGVyYXR1cmUgMC0xMCBjbSAoR0ZTIEdSSUIyKSAgICB8ICAyICB8ICAwICB8ICAyICB8IDEwNiB8CiAgODUgfCAxMTIgIHwgIDEwICB8ICA0MCAgfCBTVDAxMDA0MCB8IEsgICAgICAgfCBTb2lsIHRlbXBlcmF0dXJlIDEwLTQwIGNtIChHRlMgR1JJQjIpICAgfCAgMiAgfCAgMCAgfCAgMiAgfCAxMDYgfAogIDg1IHwgMTEyICB8ICA0MCAgfCAxMDAgIHwgU1QwNDAxMDAgfCBLICAgICAgIHwgU29pbCB0ZW1wZXJhdHVyZSA0MC0xMDAgY20gKEdGUyBHUklCMikgIHwgIDIgIHwgIDAgIHwgIDIgIHwgMTA2IHwKICA4NSB8IDExMiAgfCAxMDAgIHwgMjAwICB8IFNUMTAwMjAwIHwgSyAgICAgICB8IFNvaWwgdGVtcGVyYXR1cmUgMTAwLTIwMCBjbSAoR0ZTIEdSSUIyKSB8ICAyICB8ICAwICB8ICAyICB8IDEwNiB8CiAxNDQgfCAxMTIgIHwgICAwICB8ICAxMCAgfCBTTTAwMDAxMCB8IGZyYWN0aW9ufCBTb2lsIG1vaXN0dXJlIDAtMTAgY20gICAgICAgICAgICAgICAgICAgfCAgMiAgfCAgMCAgfCAxOTIgfCAxMDYgfAogMTQ0IHwgMTEyICB8ICAxMCAgfCAgNDAgIHwgU00wMTAwNDAgfCBmcmFjdGlvbnwgU29pbCBtb2lzdHVyZSAxMC00MCBjbSAgICAgICAgICAgICAgICAgIHwgIDIgIHwgIDAgIHwgMTkyIHwgMTA2IHwKIDE0NCB8IDExMiAgfCAgNDAgIHwgMTAwICB8IFNNMDQwMTAwIHwgZnJhY3Rpb258IFNvaWwgbW9pc3R1cmUgNDAtMTAwIGNtICAgICAgICAgICAgICAgICB8ICAyICB8ICAwICB8IDE5MiB8IDEwNiB8CiAxNDQgfCAxMTIgIHwgMTAwICB8IDIwMCAgfCBTTTEwMDIwMCB8IGZyYWN0aW9ufCBTb2lsIG1vaXN0dXJlIDEwMC0yMDAgY20gICAgICAgICAgICAgICAgfCAgMiAgfCAgMCAgfCAxOTIgfCAxMDYgfAotLS0tLSstLS0tLS0rLS0tLS0tKy0tLS0tLSstLS0tLS0tLS0tKy0tLS0tLS0tLSstLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLSstLS0tLS0tLS0tLS0tLS0tLS0tLS0tLSsK' | base64 -d > 'wrf/Vtable.GFS_SOIL'
+          install -D -m 0644 runners/cbr/icon/Vtable.ICONp wrf/Vtable.ICONp
           mkdir -p wrf/bin
       - name: Validar scripts CBR e catálogo
         shell: bash
@@ -121,7 +122,7 @@ jobs:
           done
           shellcheck -S error -s bash "${scripts[@]}"
           python3 -m py_compile wrf/fetch_icon_wrf_step.py wrf/select_cbr_icon_run.py wrf/fetch_ecmwf_wrf_input.py wrf/fetch_gfs_land_support.py wrf/extract_wrf_severe_core.py wrf/extract_wrf_severe.py wrf/cbr_extract_json.py wrf/cbr_postprocess.py
-          test -s wrf/Vtable.ECMWF_OPEN || { echo "Vtable ECMWF CBR ausente" >&2; exit 1; }
+          test -s wrf/Vtable.ECMWF_OPEN && test -s wrf/Vtable.ICONp || { echo "Vtable ECMWF/ICON CBR ausente" >&2; exit 1; }
           python3 - <<'PY'
           import json
           from pathlib import Path
@@ -246,7 +247,7 @@ jobs:
           done
           shellcheck -S error -s bash "${scripts[@]}"
           python3 -m py_compile wrf/fetch_icon_wrf_step.py wrf/select_cbr_icon_run.py wrf/fetch_ecmwf_wrf_input.py wrf/fetch_gfs_land_support.py wrf/extract_wrf_severe_core.py wrf/extract_wrf_severe.py wrf/cbr_extract_json.py wrf/cbr_postprocess.py
-          test -s wrf/Vtable.ECMWF_OPEN || { echo "Vtable ECMWF CBR ausente" >&2; exit 1; }
+          test -s wrf/Vtable.ECMWF_OPEN && test -s wrf/Vtable.ICONp || { echo "Vtable ECMWF/ICON CBR ausente" >&2; exit 1; }
           python3 - <<'PY'
           import json
           from pathlib import Path
@@ -363,7 +364,7 @@ jobs:
           done
           shellcheck -S error -s bash "${scripts[@]}"
           python3 -m py_compile wrf/fetch_icon_wrf_step.py wrf/select_cbr_icon_run.py wrf/fetch_ecmwf_wrf_input.py wrf/fetch_gfs_land_support.py wrf/extract_wrf_severe_core.py wrf/extract_wrf_severe.py wrf/cbr_extract_json.py wrf/cbr_postprocess.py
-          test -s wrf/Vtable.ECMWF_OPEN || { echo "Vtable ECMWF CBR ausente" >&2; exit 1; }
+          test -s wrf/Vtable.ECMWF_OPEN && test -s wrf/Vtable.ICONp || { echo "Vtable ECMWF/ICON CBR ausente" >&2; exit 1; }
           python3 - <<'PY'
           import json
           from pathlib import Path
@@ -480,7 +481,7 @@ jobs:
           done
           shellcheck -S error -s bash "${scripts[@]}"
           python3 -m py_compile wrf/fetch_icon_wrf_step.py wrf/select_cbr_icon_run.py wrf/fetch_ecmwf_wrf_input.py wrf/fetch_gfs_land_support.py wrf/extract_wrf_severe_core.py wrf/extract_wrf_severe.py wrf/cbr_extract_json.py wrf/cbr_postprocess.py
-          test -s wrf/Vtable.ECMWF_OPEN || { echo "Vtable ECMWF CBR ausente" >&2; exit 1; }
+          test -s wrf/Vtable.ECMWF_OPEN && test -s wrf/Vtable.ICONp || { echo "Vtable ECMWF/ICON CBR ausente" >&2; exit 1; }
           python3 - <<'PY'
           import json
           from pathlib import Path
@@ -597,7 +598,7 @@ jobs:
           done
           shellcheck -S error -s bash "${scripts[@]}"
           python3 -m py_compile wrf/fetch_icon_wrf_step.py wrf/select_cbr_icon_run.py wrf/fetch_ecmwf_wrf_input.py wrf/fetch_gfs_land_support.py wrf/extract_wrf_severe_core.py wrf/extract_wrf_severe.py wrf/cbr_extract_json.py wrf/cbr_postprocess.py
-          test -s wrf/Vtable.ECMWF_OPEN || { echo "Vtable ECMWF CBR ausente" >&2; exit 1; }
+          test -s wrf/Vtable.ECMWF_OPEN && test -s wrf/Vtable.ICONp || { echo "Vtable ECMWF/ICON CBR ausente" >&2; exit 1; }
           python3 - <<'PY'
           import json
           from pathlib import Path
@@ -714,7 +715,7 @@ jobs:
           done
           shellcheck -S error -s bash "${scripts[@]}"
           python3 -m py_compile wrf/fetch_icon_wrf_step.py wrf/select_cbr_icon_run.py wrf/fetch_ecmwf_wrf_input.py wrf/fetch_gfs_land_support.py wrf/extract_wrf_severe_core.py wrf/extract_wrf_severe.py wrf/cbr_extract_json.py wrf/cbr_postprocess.py
-          test -s wrf/Vtable.ECMWF_OPEN || { echo "Vtable ECMWF CBR ausente" >&2; exit 1; }
+          test -s wrf/Vtable.ECMWF_OPEN && test -s wrf/Vtable.ICONp || { echo "Vtable ECMWF/ICON CBR ausente" >&2; exit 1; }
           python3 - <<'PY'
           import json
           from pathlib import Path
@@ -831,7 +832,7 @@ jobs:
           done
           shellcheck -S error -s bash "${scripts[@]}"
           python3 -m py_compile wrf/fetch_icon_wrf_step.py wrf/select_cbr_icon_run.py wrf/fetch_ecmwf_wrf_input.py wrf/fetch_gfs_land_support.py wrf/extract_wrf_severe_core.py wrf/extract_wrf_severe.py wrf/cbr_extract_json.py wrf/cbr_postprocess.py
-          test -s wrf/Vtable.ECMWF_OPEN || { echo "Vtable ECMWF CBR ausente" >&2; exit 1; }
+          test -s wrf/Vtable.ECMWF_OPEN && test -s wrf/Vtable.ICONp || { echo "Vtable ECMWF/ICON CBR ausente" >&2; exit 1; }
           python3 - <<'PY'
           import json
           from pathlib import Path
@@ -948,7 +949,7 @@ jobs:
           done
           shellcheck -S error -s bash "${scripts[@]}"
           python3 -m py_compile wrf/fetch_icon_wrf_step.py wrf/select_cbr_icon_run.py wrf/fetch_ecmwf_wrf_input.py wrf/fetch_gfs_land_support.py wrf/extract_wrf_severe_core.py wrf/extract_wrf_severe.py wrf/cbr_extract_json.py wrf/cbr_postprocess.py
-          test -s wrf/Vtable.ECMWF_OPEN || { echo "Vtable ECMWF CBR ausente" >&2; exit 1; }
+          test -s wrf/Vtable.ECMWF_OPEN && test -s wrf/Vtable.ICONp || { echo "Vtable ECMWF/ICON CBR ausente" >&2; exit 1; }
           python3 - <<'PY'
           import json
           from pathlib import Path
@@ -1065,7 +1066,7 @@ jobs:
           done
           shellcheck -S error -s bash "${scripts[@]}"
           python3 -m py_compile wrf/fetch_icon_wrf_step.py wrf/select_cbr_icon_run.py wrf/fetch_ecmwf_wrf_input.py wrf/fetch_gfs_land_support.py wrf/extract_wrf_severe_core.py wrf/extract_wrf_severe.py wrf/cbr_extract_json.py wrf/cbr_postprocess.py
-          test -s wrf/Vtable.ECMWF_OPEN || { echo "Vtable ECMWF CBR ausente" >&2; exit 1; }
+          test -s wrf/Vtable.ECMWF_OPEN && test -s wrf/Vtable.ICONp || { echo "Vtable ECMWF/ICON CBR ausente" >&2; exit 1; }
           python3 - <<'PY'
           import json
           from pathlib import Path
@@ -1182,7 +1183,7 @@ jobs:
           done
           shellcheck -S error -s bash "${scripts[@]}"
           python3 -m py_compile wrf/fetch_icon_wrf_step.py wrf/select_cbr_icon_run.py wrf/fetch_ecmwf_wrf_input.py wrf/fetch_gfs_land_support.py wrf/extract_wrf_severe_core.py wrf/extract_wrf_severe.py wrf/cbr_extract_json.py wrf/cbr_postprocess.py
-          test -s wrf/Vtable.ECMWF_OPEN || { echo "Vtable ECMWF CBR ausente" >&2; exit 1; }
+          test -s wrf/Vtable.ECMWF_OPEN && test -s wrf/Vtable.ICONp || { echo "Vtable ECMWF/ICON CBR ausente" >&2; exit 1; }
           python3 - <<'PY'
           import json
           from pathlib import Path
@@ -1299,7 +1300,7 @@ jobs:
           done
           shellcheck -S error -s bash "${scripts[@]}"
           python3 -m py_compile wrf/fetch_icon_wrf_step.py wrf/select_cbr_icon_run.py wrf/fetch_ecmwf_wrf_input.py wrf/fetch_gfs_land_support.py wrf/extract_wrf_severe_core.py wrf/extract_wrf_severe.py wrf/cbr_extract_json.py wrf/cbr_postprocess.py
-          test -s wrf/Vtable.ECMWF_OPEN || { echo "Vtable ECMWF CBR ausente" >&2; exit 1; }
+          test -s wrf/Vtable.ECMWF_OPEN && test -s wrf/Vtable.ICONp || { echo "Vtable ECMWF/ICON CBR ausente" >&2; exit 1; }
           python3 - <<'PY'
           import json
           from pathlib import Path
@@ -1416,7 +1417,7 @@ jobs:
           done
           shellcheck -S error -s bash "${scripts[@]}"
           python3 -m py_compile wrf/fetch_icon_wrf_step.py wrf/select_cbr_icon_run.py wrf/fetch_ecmwf_wrf_input.py wrf/fetch_gfs_land_support.py wrf/extract_wrf_severe_core.py wrf/extract_wrf_severe.py wrf/cbr_extract_json.py wrf/cbr_postprocess.py
-          test -s wrf/Vtable.ECMWF_OPEN || { echo "Vtable ECMWF CBR ausente" >&2; exit 1; }
+          test -s wrf/Vtable.ECMWF_OPEN && test -s wrf/Vtable.ICONp || { echo "Vtable ECMWF/ICON CBR ausente" >&2; exit 1; }
           python3 - <<'PY'
           import json
           from pathlib import Path
@@ -1533,7 +1534,7 @@ jobs:
           done
           shellcheck -S error -s bash "${scripts[@]}"
           python3 -m py_compile wrf/fetch_icon_wrf_step.py wrf/select_cbr_icon_run.py wrf/fetch_ecmwf_wrf_input.py wrf/fetch_gfs_land_support.py wrf/extract_wrf_severe_core.py wrf/extract_wrf_severe.py wrf/cbr_extract_json.py wrf/cbr_postprocess.py
-          test -s wrf/Vtable.ECMWF_OPEN || { echo "Vtable ECMWF CBR ausente" >&2; exit 1; }
+          test -s wrf/Vtable.ECMWF_OPEN && test -s wrf/Vtable.ICONp || { echo "Vtable ECMWF/ICON CBR ausente" >&2; exit 1; }
           python3 - <<'PY'
           import json
           from pathlib import Path
@@ -1650,7 +1651,7 @@ jobs:
           done
           shellcheck -S error -s bash "${scripts[@]}"
           python3 -m py_compile wrf/fetch_icon_wrf_step.py wrf/select_cbr_icon_run.py wrf/fetch_ecmwf_wrf_input.py wrf/fetch_gfs_land_support.py wrf/extract_wrf_severe_core.py wrf/extract_wrf_severe.py wrf/cbr_extract_json.py wrf/cbr_postprocess.py
-          test -s wrf/Vtable.ECMWF_OPEN || { echo "Vtable ECMWF CBR ausente" >&2; exit 1; }
+          test -s wrf/Vtable.ECMWF_OPEN && test -s wrf/Vtable.ICONp || { echo "Vtable ECMWF/ICON CBR ausente" >&2; exit 1; }
           python3 - <<'PY'
           import json
           from pathlib import Path
