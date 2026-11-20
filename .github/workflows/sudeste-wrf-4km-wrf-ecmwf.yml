@@ -1,37 +1,33 @@
-name: SIDERAL | WRF Sudeste 4/5 km | ICON | WRF2
+name: SIDERAL | WRF Sudeste 4 km | ECMWF | WRF
 
 on:
   workflow_dispatch:
-    inputs:
-      resolution_km:
-        description: Resolução do domínio
-        required: true
-        default: '4'
-        type: choice
-        options: ['4', '5']
   schedule:
-    - cron: '0 7 * * *'
-    - cron: '0 19 * * *'
+    - cron: '20 16 * * *'
 
 permissions:
   contents: write
   actions: read
 
+concurrency:
+  group: sideral-sudeste-4km-wrf-ecmwf-${{ github.ref }}
+  cancel-in-progress: false
+
 env:
   GH_TOKEN: ${{ github.token }}
-  SIDERAL_CHECKPOINT_PREFIX: sideral-wrf-sudeste-checkpoint
+  SIDERAL_CHECKPOINT_PREFIX: 'sideral-wrf-sudeste-4km-checkpoint'
   FAMILY: sideral-sudeste
-  RESOLUTION_KM: ${{ (github.event.schedule == '30 16 * * *' || github.event.schedule == '0 17 * * *' || github.event.schedule == '20 17 * * *' || github.event.schedule == '0 19 * * *' || github.event.schedule == '20 19 * * *' || github.event.schedule == '40 19 * * *') && '5' || inputs.resolution_km || '4' }}
-  MODEL_VARIANT: wrf2
-  SOURCE_MODEL: icon
-  WRF2_TOMORROW: '1'
+  RESOLUTION_KM: '4'
+  MODEL_VARIANT: wrf
+  SOURCE_MODEL: ecmwf
+  WRF2_TOMORROW: '0'
   WRF_MPI_PROCS: 4
-  WRF_TARGET_RESOLUTION_KM: ${{ ((github.event.schedule == '30 16 * * *' || github.event.schedule == '0 17 * * *' || github.event.schedule == '20 17 * * *' || github.event.schedule == '0 19 * * *' || github.event.schedule == '20 19 * * *' || github.event.schedule == '40 19 * * *') && '5' || inputs.resolution_km || '4') }}
-  WRF_DX_METERS: ${{ ((github.event.schedule == '30 16 * * *' || github.event.schedule == '0 17 * * *' || github.event.schedule == '20 17 * * *' || github.event.schedule == '0 19 * * *' || github.event.schedule == '20 19 * * *' || github.event.schedule == '40 19 * * *') && '5' || inputs.resolution_km || '4') == '5' && '5000' || '4000' }}
-  WRF_DY_METERS: ${{ ((github.event.schedule == '30 16 * * *' || github.event.schedule == '0 17 * * *' || github.event.schedule == '20 17 * * *' || github.event.schedule == '0 19 * * *' || github.event.schedule == '20 19 * * *' || github.event.schedule == '40 19 * * *') && '5' || inputs.resolution_km || '4') == '5' && '5000' || '4000' }}
-  WRF_E_WE: ${{ ((github.event.schedule == '30 16 * * *' || github.event.schedule == '0 17 * * *' || github.event.schedule == '20 17 * * *' || github.event.schedule == '0 19 * * *' || github.event.schedule == '20 19 * * *' || github.event.schedule == '40 19 * * *') && '5' || inputs.resolution_km || '4') == '5' && '269' || '337' }}
-  WRF_E_SN: ${{ ((github.event.schedule == '30 16 * * *' || github.event.schedule == '0 17 * * *' || github.event.schedule == '20 17 * * *' || github.event.schedule == '0 19 * * *' || github.event.schedule == '20 19 * * *' || github.event.schedule == '40 19 * * *') && '5' || inputs.resolution_km || '4') == '5' && '401' || '501' }}
-  WRF_TIME_STEP: ${{ ((github.event.schedule == '30 16 * * *' || github.event.schedule == '0 17 * * *' || github.event.schedule == '20 17 * * *' || github.event.schedule == '0 19 * * *' || github.event.schedule == '20 19 * * *' || github.event.schedule == '40 19 * * *') && '5' || inputs.resolution_km || '4') == '5' && '24' || '20' }}
+  WRF_TARGET_RESOLUTION_KM: '4'
+  WRF_DX_METERS: '4000'
+  WRF_DY_METERS: '4000'
+  WRF_E_WE: '337'
+  WRF_E_SN: '501'
+  WRF_TIME_STEP: '20'
   WRF_HISTORY_INTERVAL_MINUTES: 60
   WRF2_ICON_ONLY: '0'
   WRF_SCHEDULED_CYCLE: ${{ (github.event.schedule == '0 7 * * *' || github.event.schedule == '20 7 * * *' || github.event.schedule == '40 7 * * *') && '00' || (github.event.schedule == '0 16 * * *' || github.event.schedule == '20 16 * * *' || github.event.schedule == '40 16 * * *' || github.event.schedule == '30 16 * * *' || github.event.schedule == '0 17 * * *' || github.event.schedule == '20 17 * * *' || github.event.schedule == '0 19 * * *' || github.event.schedule == '20 19 * * *' || github.event.schedule == '40 19 * * *') && '12' || '' }}
@@ -42,7 +38,7 @@ env:
 jobs:
 
   seg00:
-    name: SIDERAL ${{ (inputs.resolution_km || '4') }} KM ${{ 'wrf2' }} ${{ 'icon' }} F000-F006
+    name: SIDERAL 4 KM wrf ecmwf F000-F006
     runs-on: ubuntu-22.04
     timeout-minutes: 478
     steps:
@@ -136,12 +132,12 @@ jobs:
       - name: Add R2 adapter to PATH
         run: echo "$GITHUB_WORKSPACE/wrf/bin" >> "$GITHUB_PATH"
       - name: Configure Python for ECMWF Open Data
-        if: ${{ 'icon' == 'ecmwf' }}
+        if: ${{ 'ecmwf' == 'ecmwf' }}
         uses: actions/setup-python@v5
         with:
           python-version: '3.12'
       - name: Install and verify ECMWF Open Data client
-        if: ${{ 'icon' == 'ecmwf' }}
+        if: ${{ 'ecmwf' == 'ecmwf' }}
         shell: bash
         run: |
           set -euo pipefail
@@ -180,8 +176,8 @@ jobs:
           echo "ShellCheck e sintaxe Python dos fallbacks validados."
       - name: Executar F000-F006
         env:
-          CHECKPOINT_TAG: sideral-wrf-${{ (inputs.resolution_km || '4') }}km-${{ 'wrf2' }}-sudeste-checkpoint-${{ github.run_id }}
-          SOURCE_MODEL: ${{ 'icon' }}
+          CHECKPOINT_TAG: sideral-wrf-4km-wrf-sudeste-checkpoint-${{ github.run_id }}
+          SOURCE_MODEL: ecmwf
           WRF_NO_FALLBACK: '1'
           RUN_DATE: ''
           RUN_CYCLE: ''
@@ -193,7 +189,7 @@ jobs:
       - name: Salvar checkpoint e produtos desta etapa
         uses: actions/upload-artifact@v4
         with:
-          name: wrf-sudeste-wrf2-icon-${{ github.job }}-${{ github.run_id }}
+          name: wrf-sudeste-4km-wrf-ecmwf-${{ github.job }}-${{ github.run_id }}
           path: |
             **/*restart*/**
             **/*products*/**
@@ -206,7 +202,7 @@ jobs:
           if-no-files-found: ignore
           retention-days: 7
   seg01:
-    name: SIDERAL ${{ (inputs.resolution_km || '4') }} KM ${{ 'wrf2' }} ${{ 'icon' }} F006-F012
+    name: SIDERAL 4 KM wrf ecmwf F006-F012
     runs-on: ubuntu-22.04
     needs: seg00
     timeout-minutes: 478
@@ -214,7 +210,7 @@ jobs:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
         with:
-          name: wrf-sudeste-wrf2-icon-seg00-${{ github.run_id }}
+          name: wrf-sudeste-4km-wrf-ecmwf-seg00-${{ github.run_id }}
           path: .
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -232,12 +228,12 @@ jobs:
           command -v aws >/dev/null || { sudo apt-get update -qq && sudo apt-get install -y awscli; }
           echo "$GITHUB_WORKSPACE/wrf/bin" >> "$GITHUB_PATH"
       - name: Configure Python for ECMWF Open Data
-        if: ${{ 'icon' == 'ecmwf' }}
+        if: ${{ 'ecmwf' == 'ecmwf' }}
         uses: actions/setup-python@v5
         with:
           python-version: '3.12'
       - name: Install and verify ECMWF Open Data client
-        if: ${{ 'icon' == 'ecmwf' }}
+        if: ${{ 'ecmwf' == 'ecmwf' }}
         shell: bash
         run: |
           set -euo pipefail
@@ -270,8 +266,8 @@ jobs:
           shellcheck -S error -s bash "${scripts[@]}"
       - name: Executar F006-F012
         env:
-          CHECKPOINT_TAG: sideral-wrf-${{ (inputs.resolution_km || '4') }}km-${{ 'wrf2' }}-sudeste-checkpoint-${{ github.run_id }}
-          SOURCE_MODEL: ${{ 'icon' }}
+          CHECKPOINT_TAG: sideral-wrf-4km-wrf-sudeste-checkpoint-${{ github.run_id }}
+          SOURCE_MODEL: ecmwf
           WRF_NO_FALLBACK: '1'
           RUN_DATE: ''
           RUN_CYCLE: ''
@@ -283,7 +279,7 @@ jobs:
       - name: Salvar checkpoint e produtos desta etapa
         uses: actions/upload-artifact@v4
         with:
-          name: wrf-sudeste-wrf2-icon-${{ github.job }}-${{ github.run_id }}
+          name: wrf-sudeste-4km-wrf-ecmwf-${{ github.job }}-${{ github.run_id }}
           path: |
             **/*restart*/**
             **/*products*/**
@@ -296,7 +292,7 @@ jobs:
           if-no-files-found: ignore
           retention-days: 7
   seg02:
-    name: SIDERAL ${{ (inputs.resolution_km || '4') }} KM ${{ 'wrf2' }} ${{ 'icon' }} F012-F018
+    name: SIDERAL 4 KM wrf ecmwf F012-F018
     runs-on: ubuntu-22.04
     needs: seg01
     timeout-minutes: 478
@@ -304,7 +300,7 @@ jobs:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
         with:
-          name: wrf-sudeste-wrf2-icon-seg01-${{ github.run_id }}
+          name: wrf-sudeste-4km-wrf-ecmwf-seg01-${{ github.run_id }}
           path: .
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -322,12 +318,12 @@ jobs:
           command -v aws >/dev/null || { sudo apt-get update -qq && sudo apt-get install -y awscli; }
           echo "$GITHUB_WORKSPACE/wrf/bin" >> "$GITHUB_PATH"
       - name: Configure Python for ECMWF Open Data
-        if: ${{ 'icon' == 'ecmwf' }}
+        if: ${{ 'ecmwf' == 'ecmwf' }}
         uses: actions/setup-python@v5
         with:
           python-version: '3.12'
       - name: Install and verify ECMWF Open Data client
-        if: ${{ 'icon' == 'ecmwf' }}
+        if: ${{ 'ecmwf' == 'ecmwf' }}
         shell: bash
         run: |
           set -euo pipefail
@@ -360,8 +356,8 @@ jobs:
           shellcheck -S error -s bash "${scripts[@]}"
       - name: Executar F012-F018
         env:
-          CHECKPOINT_TAG: sideral-wrf-${{ (inputs.resolution_km || '4') }}km-${{ 'wrf2' }}-sudeste-checkpoint-${{ github.run_id }}
-          SOURCE_MODEL: ${{ 'icon' }}
+          CHECKPOINT_TAG: sideral-wrf-4km-wrf-sudeste-checkpoint-${{ github.run_id }}
+          SOURCE_MODEL: ecmwf
           WRF_NO_FALLBACK: '1'
           RUN_DATE: ''
           RUN_CYCLE: ''
@@ -373,7 +369,7 @@ jobs:
       - name: Salvar checkpoint e produtos desta etapa
         uses: actions/upload-artifact@v4
         with:
-          name: wrf-sudeste-wrf2-icon-${{ github.job }}-${{ github.run_id }}
+          name: wrf-sudeste-4km-wrf-ecmwf-${{ github.job }}-${{ github.run_id }}
           path: |
             **/*restart*/**
             **/*products*/**
@@ -386,7 +382,7 @@ jobs:
           if-no-files-found: ignore
           retention-days: 7
   seg03:
-    name: SIDERAL ${{ (inputs.resolution_km || '4') }} KM ${{ 'wrf2' }} ${{ 'icon' }} F018-F024
+    name: SIDERAL 4 KM wrf ecmwf F018-F024
     runs-on: ubuntu-22.04
     needs: seg02
     timeout-minutes: 478
@@ -394,7 +390,7 @@ jobs:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
         with:
-          name: wrf-sudeste-wrf2-icon-seg02-${{ github.run_id }}
+          name: wrf-sudeste-4km-wrf-ecmwf-seg02-${{ github.run_id }}
           path: .
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -412,12 +408,12 @@ jobs:
           command -v aws >/dev/null || { sudo apt-get update -qq && sudo apt-get install -y awscli; }
           echo "$GITHUB_WORKSPACE/wrf/bin" >> "$GITHUB_PATH"
       - name: Configure Python for ECMWF Open Data
-        if: ${{ 'icon' == 'ecmwf' }}
+        if: ${{ 'ecmwf' == 'ecmwf' }}
         uses: actions/setup-python@v5
         with:
           python-version: '3.12'
       - name: Install and verify ECMWF Open Data client
-        if: ${{ 'icon' == 'ecmwf' }}
+        if: ${{ 'ecmwf' == 'ecmwf' }}
         shell: bash
         run: |
           set -euo pipefail
@@ -450,8 +446,8 @@ jobs:
           shellcheck -S error -s bash "${scripts[@]}"
       - name: Executar F018-F024
         env:
-          CHECKPOINT_TAG: sideral-wrf-${{ (inputs.resolution_km || '4') }}km-${{ 'wrf2' }}-sudeste-checkpoint-${{ github.run_id }}
-          SOURCE_MODEL: ${{ 'icon' }}
+          CHECKPOINT_TAG: sideral-wrf-4km-wrf-sudeste-checkpoint-${{ github.run_id }}
+          SOURCE_MODEL: ecmwf
           WRF_NO_FALLBACK: '1'
           RUN_DATE: ''
           RUN_CYCLE: ''
@@ -463,7 +459,7 @@ jobs:
       - name: Salvar checkpoint e produtos desta etapa
         uses: actions/upload-artifact@v4
         with:
-          name: wrf-sudeste-wrf2-icon-${{ github.job }}-${{ github.run_id }}
+          name: wrf-sudeste-4km-wrf-ecmwf-${{ github.job }}-${{ github.run_id }}
           path: |
             **/*restart*/**
             **/*products*/**
@@ -476,7 +472,7 @@ jobs:
           if-no-files-found: ignore
           retention-days: 7
   seg04:
-    name: SIDERAL ${{ (inputs.resolution_km || '4') }} KM ${{ 'wrf2' }} ${{ 'icon' }} F024-F030
+    name: SIDERAL 4 KM wrf ecmwf F024-F030
     runs-on: ubuntu-22.04
     needs: seg03
     timeout-minutes: 478
@@ -484,7 +480,7 @@ jobs:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
         with:
-          name: wrf-sudeste-wrf2-icon-seg03-${{ github.run_id }}
+          name: wrf-sudeste-4km-wrf-ecmwf-seg03-${{ github.run_id }}
           path: .
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -502,12 +498,12 @@ jobs:
           command -v aws >/dev/null || { sudo apt-get update -qq && sudo apt-get install -y awscli; }
           echo "$GITHUB_WORKSPACE/wrf/bin" >> "$GITHUB_PATH"
       - name: Configure Python for ECMWF Open Data
-        if: ${{ 'icon' == 'ecmwf' }}
+        if: ${{ 'ecmwf' == 'ecmwf' }}
         uses: actions/setup-python@v5
         with:
           python-version: '3.12'
       - name: Install and verify ECMWF Open Data client
-        if: ${{ 'icon' == 'ecmwf' }}
+        if: ${{ 'ecmwf' == 'ecmwf' }}
         shell: bash
         run: |
           set -euo pipefail
@@ -540,8 +536,8 @@ jobs:
           shellcheck -S error -s bash "${scripts[@]}"
       - name: Executar F024-F030
         env:
-          CHECKPOINT_TAG: sideral-wrf-${{ (inputs.resolution_km || '4') }}km-${{ 'wrf2' }}-sudeste-checkpoint-${{ github.run_id }}
-          SOURCE_MODEL: ${{ 'icon' }}
+          CHECKPOINT_TAG: sideral-wrf-4km-wrf-sudeste-checkpoint-${{ github.run_id }}
+          SOURCE_MODEL: ecmwf
           WRF_NO_FALLBACK: '1'
           RUN_DATE: ''
           RUN_CYCLE: ''
@@ -553,7 +549,7 @@ jobs:
       - name: Salvar checkpoint e produtos desta etapa
         uses: actions/upload-artifact@v4
         with:
-          name: wrf-sudeste-wrf2-icon-${{ github.job }}-${{ github.run_id }}
+          name: wrf-sudeste-4km-wrf-ecmwf-${{ github.job }}-${{ github.run_id }}
           path: |
             **/*restart*/**
             **/*products*/**
@@ -566,7 +562,7 @@ jobs:
           if-no-files-found: ignore
           retention-days: 7
   seg05:
-    name: SIDERAL ${{ (inputs.resolution_km || '4') }} KM ${{ 'wrf2' }} ${{ 'icon' }} F030-F036
+    name: SIDERAL 4 KM wrf ecmwf F030-F036
     runs-on: ubuntu-22.04
     needs: seg04
     timeout-minutes: 478
@@ -574,7 +570,7 @@ jobs:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
         with:
-          name: wrf-sudeste-wrf2-icon-seg04-${{ github.run_id }}
+          name: wrf-sudeste-4km-wrf-ecmwf-seg04-${{ github.run_id }}
           path: .
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -592,12 +588,12 @@ jobs:
           command -v aws >/dev/null || { sudo apt-get update -qq && sudo apt-get install -y awscli; }
           echo "$GITHUB_WORKSPACE/wrf/bin" >> "$GITHUB_PATH"
       - name: Configure Python for ECMWF Open Data
-        if: ${{ 'icon' == 'ecmwf' }}
+        if: ${{ 'ecmwf' == 'ecmwf' }}
         uses: actions/setup-python@v5
         with:
           python-version: '3.12'
       - name: Install and verify ECMWF Open Data client
-        if: ${{ 'icon' == 'ecmwf' }}
+        if: ${{ 'ecmwf' == 'ecmwf' }}
         shell: bash
         run: |
           set -euo pipefail
@@ -630,8 +626,8 @@ jobs:
           shellcheck -S error -s bash "${scripts[@]}"
       - name: Executar F030-F036
         env:
-          CHECKPOINT_TAG: sideral-wrf-${{ (inputs.resolution_km || '4') }}km-${{ 'wrf2' }}-sudeste-checkpoint-${{ github.run_id }}
-          SOURCE_MODEL: ${{ 'icon' }}
+          CHECKPOINT_TAG: sideral-wrf-4km-wrf-sudeste-checkpoint-${{ github.run_id }}
+          SOURCE_MODEL: ecmwf
           WRF_NO_FALLBACK: '1'
           RUN_DATE: ''
           RUN_CYCLE: ''
@@ -643,7 +639,7 @@ jobs:
       - name: Salvar checkpoint e produtos desta etapa
         uses: actions/upload-artifact@v4
         with:
-          name: wrf-sudeste-wrf2-icon-${{ github.job }}-${{ github.run_id }}
+          name: wrf-sudeste-4km-wrf-ecmwf-${{ github.job }}-${{ github.run_id }}
           path: |
             **/*restart*/**
             **/*products*/**
@@ -656,7 +652,7 @@ jobs:
           if-no-files-found: ignore
           retention-days: 7
   seg06:
-    name: SIDERAL ${{ (inputs.resolution_km || '4') }} KM ${{ 'wrf2' }} ${{ 'icon' }} F036-F042
+    name: SIDERAL 4 KM wrf ecmwf F036-F042
     runs-on: ubuntu-22.04
     needs: seg05
     timeout-minutes: 478
@@ -664,7 +660,7 @@ jobs:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
         with:
-          name: wrf-sudeste-wrf2-icon-seg05-${{ github.run_id }}
+          name: wrf-sudeste-4km-wrf-ecmwf-seg05-${{ github.run_id }}
           path: .
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -682,12 +678,12 @@ jobs:
           command -v aws >/dev/null || { sudo apt-get update -qq && sudo apt-get install -y awscli; }
           echo "$GITHUB_WORKSPACE/wrf/bin" >> "$GITHUB_PATH"
       - name: Configure Python for ECMWF Open Data
-        if: ${{ 'icon' == 'ecmwf' }}
+        if: ${{ 'ecmwf' == 'ecmwf' }}
         uses: actions/setup-python@v5
         with:
           python-version: '3.12'
       - name: Install and verify ECMWF Open Data client
-        if: ${{ 'icon' == 'ecmwf' }}
+        if: ${{ 'ecmwf' == 'ecmwf' }}
         shell: bash
         run: |
           set -euo pipefail
@@ -720,8 +716,8 @@ jobs:
           shellcheck -S error -s bash "${scripts[@]}"
       - name: Executar F036-F042
         env:
-          CHECKPOINT_TAG: sideral-wrf-${{ (inputs.resolution_km || '4') }}km-${{ 'wrf2' }}-sudeste-checkpoint-${{ github.run_id }}
-          SOURCE_MODEL: ${{ 'icon' }}
+          CHECKPOINT_TAG: sideral-wrf-4km-wrf-sudeste-checkpoint-${{ github.run_id }}
+          SOURCE_MODEL: ecmwf
           WRF_NO_FALLBACK: '1'
           RUN_DATE: ''
           RUN_CYCLE: ''
@@ -733,7 +729,7 @@ jobs:
       - name: Salvar checkpoint e produtos desta etapa
         uses: actions/upload-artifact@v4
         with:
-          name: wrf-sudeste-wrf2-icon-${{ github.job }}-${{ github.run_id }}
+          name: wrf-sudeste-4km-wrf-ecmwf-${{ github.job }}-${{ github.run_id }}
           path: |
             **/*restart*/**
             **/*products*/**
@@ -746,7 +742,7 @@ jobs:
           if-no-files-found: ignore
           retention-days: 7
   seg07:
-    name: SIDERAL ${{ (inputs.resolution_km || '4') }} KM ${{ 'wrf2' }} ${{ 'icon' }} F042-F048
+    name: SIDERAL 4 KM wrf ecmwf F042-F048
     runs-on: ubuntu-22.04
     needs: seg06
     timeout-minutes: 478
@@ -754,7 +750,7 @@ jobs:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
         with:
-          name: wrf-sudeste-wrf2-icon-seg06-${{ github.run_id }}
+          name: wrf-sudeste-4km-wrf-ecmwf-seg06-${{ github.run_id }}
           path: .
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -772,12 +768,12 @@ jobs:
           command -v aws >/dev/null || { sudo apt-get update -qq && sudo apt-get install -y awscli; }
           echo "$GITHUB_WORKSPACE/wrf/bin" >> "$GITHUB_PATH"
       - name: Configure Python for ECMWF Open Data
-        if: ${{ 'icon' == 'ecmwf' }}
+        if: ${{ 'ecmwf' == 'ecmwf' }}
         uses: actions/setup-python@v5
         with:
           python-version: '3.12'
       - name: Install and verify ECMWF Open Data client
-        if: ${{ 'icon' == 'ecmwf' }}
+        if: ${{ 'ecmwf' == 'ecmwf' }}
         shell: bash
         run: |
           set -euo pipefail
@@ -810,8 +806,8 @@ jobs:
           shellcheck -S error -s bash "${scripts[@]}"
       - name: Executar F042-F048
         env:
-          CHECKPOINT_TAG: sideral-wrf-${{ (inputs.resolution_km || '4') }}km-${{ 'wrf2' }}-sudeste-checkpoint-${{ github.run_id }}
-          SOURCE_MODEL: ${{ 'icon' }}
+          CHECKPOINT_TAG: sideral-wrf-4km-wrf-sudeste-checkpoint-${{ github.run_id }}
+          SOURCE_MODEL: ecmwf
           WRF_NO_FALLBACK: '1'
           RUN_DATE: ''
           RUN_CYCLE: ''
@@ -823,7 +819,7 @@ jobs:
       - name: Salvar checkpoint e produtos desta etapa
         uses: actions/upload-artifact@v4
         with:
-          name: wrf-sudeste-wrf2-icon-${{ github.job }}-${{ github.run_id }}
+          name: wrf-sudeste-4km-wrf-ecmwf-${{ github.job }}-${{ github.run_id }}
           path: |
             **/*restart*/**
             **/*products*/**
@@ -875,8 +871,8 @@ jobs:
           shellcheck -S error -s bash "${scripts[@]}"
       - name: Baixar WRFOUT da rodada completa
         env:
-          CHECKPOINT_TAG: sideral-wrf-${{ (inputs.resolution_km || '4') }}km-${{ 'wrf2' }}-sudeste-checkpoint-${{ github.run_id }}
-          SOURCE_MODEL: ${{ 'icon' }}
+          CHECKPOINT_TAG: sideral-wrf-4km-wrf-sudeste-checkpoint-${{ github.run_id }}
+          SOURCE_MODEL: ecmwf
           WRF_NO_FALLBACK: '1'
         run: |
           set -euo pipefail
@@ -901,7 +897,7 @@ jobs:
           python -m pip install --disable-pip-version-check 'numpy>=2.0,<3' 'netCDF4>=1.7,<2' 'xarray>=2024.1,<2027'
       - name: Gerar produtos principais
         env:
-          WRF_PRODUCT_MODEL: ${{ format('WRF SIDERAL {0} KM{1} SUDESTE', (inputs.resolution_km || '4'), 'wrf2' == 'wrf2' && ' 2' || '') }}
+          WRF_PRODUCT_MODEL: "WRF SIDERAL 4 KM SUDESTE"
         run: |
           python wrf/tarc_postprocess.py tarc_all_wrfout/wrfout_d01_* --output-dir tarc_products
           test -s tarc_products/metadata.json
@@ -917,15 +913,15 @@ jobs:
           cp -f "$CATALOG_PATH" tarc_products/variable_catalog.json
       - name: Gerar diagnósticos severos
         env:
-          WRF_DX_METERS: ${{ (inputs.resolution_km || '4') == '5' && '5000' || '4000' }}
-          WRF_PRODUCT_LABEL: ${{ format('WRF SIDERAL {0} KM{1} SUDESTE {2}', (inputs.resolution_km || '4'), 'wrf2' == 'wrf2' && ' 2' || '', 'icon') }}
+          WRF_DX_METERS: '4000'
+          WRF_PRODUCT_LABEL: "WRF SIDERAL 4 KM SUDESTE ECMWF"
         run: |
           python wrf/extract_wrf_severe.py --run-dir tarc_all_wrfout --run-env tarc-run.env --output-dir tarc_severe --grid-x "$WRF_E_WE" --grid-y "$WRF_E_SN" --model "${SOURCE_MODEL:-icon}" --interval-hours 3 --expected-start 0 --expected-end 48
           test -s tarc_severe/metadata.json
           test -s tarc_severe/diagnostics.json
       - name: Validar grade e produtos
         env:
-          WRF_PRODUCT_MODEL: ${{ format('WRF SIDERAL {0} KM{1} SUDESTE', (inputs.resolution_km || '4'), 'wrf2' == 'wrf2' && ' 2' || '') }}
+          WRF_PRODUCT_MODEL: "WRF SIDERAL 4 KM SUDESTE"
         run: |
           python - <<'PY'
           import json, pathlib, os
@@ -952,8 +948,8 @@ jobs:
           PY
       - name: Publicar produtos no Release
         env:
-          CHECKPOINT_TAG: sideral-wrf-${{ (inputs.resolution_km || '4') }}km-${{ 'wrf2' }}-sudeste-checkpoint-${{ github.run_id }}
-          SOURCE_MODEL: ${{ 'icon' }}
+          CHECKPOINT_TAG: sideral-wrf-4km-wrf-sudeste-checkpoint-${{ github.run_id }}
+          SOURCE_MODEL: ecmwf
           WRF_NO_FALLBACK: '1'
         run: |
           set -euo pipefail
@@ -974,7 +970,7 @@ jobs:
       - name: Publicar produtos finais como artifact
         uses: actions/upload-artifact@v4
         with:
-          name: wrf-final-sudeste-wrf2-icon-${{ github.job }}-${{ github.run_id }}
+          name: wrf-final-sudeste-wrf-ecmwf-${{ github.job }}-${{ github.run_id }}
           path: |
             **/*products*/**
             **/*publish*/**
@@ -991,10 +987,10 @@ jobs:
     steps:
       - name: Registrar metadados da rodada concluída no R2
         env:
-          CHECKPOINT_TAG: sideral-wrf-${{ (inputs.resolution_km || '4') }}km-${{ 'wrf2' }}-sudeste-checkpoint-${{ github.run_id }}
-          MODEL_VARIANT: ${{ 'wrf2' }}
-          SOURCE_MODEL: ${{ 'icon' }}
-          RESOLUTION_KM: ${{ (inputs.resolution_km || '4') }}
+          CHECKPOINT_TAG: sideral-wrf-4km-wrf-sudeste-checkpoint-${{ github.run_id }}
+          MODEL_VARIANT: wrf
+          SOURCE_MODEL: ecmwf
+          RESOLUTION_KM: 4
         shell: bash
         run: |
           set -euo pipefail
@@ -1008,7 +1004,7 @@ jobs:
       - name: Publicar produtos finais como artifact
         uses: actions/upload-artifact@v4
         with:
-          name: wrf-final-sudeste-wrf2-icon-${{ github.job }}-${{ github.run_id }}
+          name: wrf-final-sudeste-wrf-ecmwf-${{ github.job }}-${{ github.run_id }}
           path: |
             **/*products*/**
             **/*publish*/**

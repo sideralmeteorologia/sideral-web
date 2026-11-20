@@ -40,7 +40,6 @@ jobs:
               "cim-wrf-8km.yml",
               "metbr-wrf.yml",
               "sideral-brasil-wrf.yml",
-              "sideral-sudeste-wrf.yml",
               "tarc-wrf.yml",
           ]
           clone_prefixes = (
@@ -49,14 +48,15 @@ jobs:
               "cim-wrf-8km-",
               "metbr-wrf-4km-",
               "brasil-wrf-21km-",
-              "sudeste-wrf-4-5km-",
+              "sudeste-wrf-4km-",
+              "sudeste-wrf-5km-",
               "tarc-wrf-3km-",
           )
           clone_files = sorted(
               p.name for p in root.glob("*.yml")
               if p.name.startswith(clone_prefixes)
           )
-          expected_clone_count = 35
+          expected_clone_count = 41
           assert len(clone_files) == expected_clone_count, (
               f"expected {expected_clone_count} independent runner copies, got {len(clone_files)}"
           )
@@ -110,22 +110,31 @@ jobs:
                   elif filename.startswith(("cbr-", "cim-wrf-5km-", "metbr-", "sudeste-", "tarc-")):
                       assert env.get("MODEL_VARIANT") == "wrf", f"{filename}: primary WRF not pinned"
 
-              # Every copy must retain the original forecast-segment job graph.
-              if filename.startswith(("cbr-wrf-4km-", "cim-wrf-5km-", "metbr-wrf-4km-", "sudeste-wrf-4-5km-", "tarc-wrf-3km-")):
-                  base = (
-                      "cbr-wrf.yml" if filename.startswith("cbr-") else
-                      "cim-wrf-5km.yml" if filename.startswith("cim-wrf-5km-") else
-                      "metbr-wrf.yml" if filename.startswith("metbr-") else
-                      "sideral-sudeste-wrf.yml" if filename.startswith("sudeste-") else
-                      "tarc-wrf.yml"
-                  )
-                  count = lambda x: sum(
-                      bool(re.search(r"F\\d{3}-F\\d{3}", (job or {}).get("name", "")))
-                      for job in x["jobs"].values()
-                  )
-                  assert count(cfg) == count(configs[base]), (
-                      f"{filename}: segment graph changed ({count(cfg)} != {count(configs[base])})"
-                  )
+              # Preserve the original forecast-segment graph for all existing segmented domains.
+          count_segments = lambda x: sum(
+              bool(re.search(r"F\d{3}-F\d{3}", (job or {}).get("name", "")))
+              for job in x["jobs"].values()
+          )
+          if filename.startswith(("cbr-wrf-4km-", "cim-wrf-5km-", "metbr-wrf-4km-", "tarc-wrf-3km-")):
+              base = (
+                  "cbr-wrf.yml" if filename.startswith("cbr-") else
+                  "cim-wrf-5km.yml" if filename.startswith("cim-wrf-5km-") else
+                  "metbr-wrf.yml" if filename.startswith("metbr-") else
+                  "tarc-wrf.yml"
+              )
+              assert count_segments(cfg) == count_segments(configs[base]), (
+                  f"{filename}: segment graph changed ({count_segments(cfg)} != {count_segments(configs[base])})"
+              )
+          elif filename.startswith(("sudeste-wrf-4km-", "sudeste-wrf-5km-")):
+              segment_jobs = sorted(
+                  name for name in cfg["jobs"] if re.fullmatch(r"seg\d{2}", name)
+              )
+              assert segment_jobs == [f"seg{i:02d}" for i in range(8)], (
+                  f"{filename}: expected seg00-seg07 independently, got {segment_jobs}"
+              )
+              assert "complete" in cfg["jobs"] and "register-run" in cfg["jobs"], (
+                  f"{filename}: completion/publication jobs are missing"
+              )
 
           # The CBR extractor must exist in seg00, before its first py_compile.
           cbr_steps = configs["cbr-wrf.yml"]["jobs"]["seg00"]["steps"]
@@ -141,8 +150,74 @@ jobs:
               for step in cim8_steps
           ), "CIM 8 km extract_wrf_json.py dependency is missing"
 
-          sudeste_text = (root / "sideral-sudeste-wrf.yml").read_text(encoding="utf-8")
-          assert "docker/login-action@v3" not in sudeste_text, "Docker Hub login must be removed"
+          # Sudeste is no longer a combined 4/5 km runner. Require all 12 fixed variants.
+          expected_sudeste = {
+              "sudeste-wrf-4km-wrf-icon.yml": ("4", "wrf", "icon", "0 16 * * *"),
+              "sudeste-wrf-4km-wrf-ecmwf.yml": ("4", "wrf", "ecmwf", "20 16 * * *"),
+              "sudeste-wrf-4km-wrf-gfs.yml": ("4", "wrf", "gfs", "40 16 * * *"),
+              "sudeste-wrf-5km-wrf-icon.yml": ("5", "wrf", "icon", "30 16 * * *"),
+              "sudeste-wrf-5km-wrf-ecmwf.yml": ("5", "wrf", "ecmwf", "0 17 * * *"),
+              "sudeste-wrf-5km-wrf-gfs.yml": ("5", "wrf", "gfs", "20 17 * * *"),
+              "sudeste-wrf-4km-wrf2-icon.yml": ("4", "wrf2", "icon", "0 7 * * *"),
+              "sudeste-wrf-4km-wrf2-ecmwf.yml": ("4", "wrf2", "ecmwf", "20 7 * * *"),
+              "sudeste-wrf-4km-wrf2-gfs.yml": ("4", "wrf2", "gfs", "40 7 * * *"),
+              "sudeste-wrf-5km-wrf2-icon.yml": ("5", "wrf2", "icon", "0 19 * * *"),
+              "sudeste-wrf-5km-wrf2-ecmwf.yml": ("5", "wrf2", "ecmwf", "20 19 * * *"),
+              "sudeste-wrf-5km-wrf2-gfs.yml": ("5", "wrf2", "gfs", "40 19 * * *"),
+          }
+          assert set(expected_sudeste).issubset(set(clone_files)), "Sudeste independent runner matrix is incomplete"
+          sudeste_groups = []
+          for filename, (resolution, variant, source, cron) in expected_sudeste.items():
+              cfg = configs[filename]
+              env = cfg.get("env", {})
+              assert env.get("RESOLUTION_KM") == resolution, f"{filename}: resolution is not pinned"
+              assert env.get("WRF_TARGET_RESOLUTION_KM") == resolution, f"{filename}: target resolution is not pinned"
+              dx, e_we, e_sn, time_step = (
+                  ("4000", "337", "501", "20") if resolution == "4"
+                  else ("5000", "269", "401", "24")
+              )
+              assert env.get("WRF_DX_METERS") == dx and env.get("WRF_DY_METERS") == dx, (
+                  f"{filename}: DX/DY do not match the {resolution} km grid"
+              )
+              assert env.get("WRF_E_WE") == e_we and env.get("WRF_E_SN") == e_sn, (
+                  f"{filename}: domain dimensions do not match the {resolution} km grid"
+              )
+              assert env.get("WRF_TIME_STEP") == time_step, f"{filename}: timestep does not match the resolution"
+              assert env.get("MODEL_VARIANT") == variant, f"{filename}: model variant is not pinned"
+              assert env.get("SOURCE_MODEL") == source, f"{filename}: source is not pinned"
+              assert env.get("WRF2_TOMORROW") == ("1" if variant == "wrf2" else "0"), (
+                  f"{filename}: WRF2 tomorrow flag does not match the variant"
+              )
+              schedules = cfg["on"].get("schedule", [])
+              assert len(schedules) == 1 and schedules[0].get("cron") == cron, (
+                  f"{filename}: expected only cron {cron}, got {schedules}"
+              )
+              dispatch = cfg["on"].get("workflow_dispatch") or {}
+              assert not dispatch.get("inputs"), f"{filename}: must not expose a resolution selector"
+              content = (root / filename).read_text(encoding="utf-8")
+              assert "inputs.resolution_km" not in content, f"{filename}: still uses the combined resolution input"
+              assert "4/5 km" not in content, f"{filename}: combined resolution label remains"
+              assert f"sideral-wrf-{resolution}km-{variant}-sudeste-checkpoint" in content, (
+                  f"{filename}: checkpoint tag is not isolated by resolution and variant"
+              )
+              assert "docker/login-action@v3" not in content, f"{filename}: unnecessary Docker Hub login"
+              group = (cfg.get("concurrency") or {}).get("group")
+              assert group, f"{filename}: concurrency group is missing"
+              sudeste_groups.append(group)
+          assert len(sudeste_groups) == len(set(sudeste_groups)), "Sudeste runners share concurrency groups"
+
+          legacy_sudeste = [
+              "sideral-sudeste-wrf.yml",
+              "sudeste-wrf-4-5km-wrf-ecmwf.yml",
+              "sudeste-wrf-4-5km-wrf-gfs.yml",
+              "sudeste-wrf-4-5km-wrf-icon.yml",
+              "sudeste-wrf-4-5km-wrf2-ecmwf.yml",
+              "sudeste-wrf-4-5km-wrf2-gfs.yml",
+              "sudeste-wrf-4-5km-wrf2-icon.yml",
+          ]
+          assert not any((root / name).exists() for name in legacy_sudeste), (
+              "Old combined Sudeste workflows are still present"
+          )
 
           # The watchdog must query the new source-specific files, not the manual-only base workflows.
           watchdog_path = root / "wrf-watchdog.yml"
@@ -155,7 +230,7 @@ jobs:
           assert not missing_watchdog, f"Watchdog is missing runner entries: {missing_watchdog}"
 
           # These two families originally declared a shared concurrency group; clones must isolate it.
-          for prefix in ("cim-wrf-8km-wrf-", "brasil-wrf-21km-wrf-"):
+          for prefix in ("cim-wrf-8km-wrf-", "brasil-wrf-21km-wrf-", "sudeste-wrf-4km-", "sudeste-wrf-5km-"):
               groups = []
               for filename in clone_files:
                   if filename.startswith(prefix):
