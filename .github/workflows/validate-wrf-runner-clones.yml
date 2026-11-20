@@ -1,0 +1,148 @@
+name: Validate independent WRF runners
+
+on:
+  pull_request:
+    paths:
+      - ".github/workflows/**"
+  push:
+    branches:
+      - fix/segmented-model-runners-clones
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    name: Validate YAML, sources, segments and artifacts
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install YAML parser
+        run: python -m pip install --disable-pip-version-check "PyYAML>=6,<7"
+
+      - name: Validate all original and cloned WRF workflows
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+          import yaml
+
+          root = Path(".github/workflows")
+          base_files = [
+              "cbr-wrf.yml",
+              "cim-wrf-5km.yml",
+              "cim-wrf-8km.yml",
+              "metbr-wrf.yml",
+              "sideral-brasil-wrf.yml",
+              "sideral-sudeste-wrf.yml",
+              "tarc-wrf.yml",
+          ]
+          clone_prefixes = (
+              "cbr-wrf-4km-",
+              "cim-wrf-5km-",
+              "cim-wrf-8km-",
+              "metbr-wrf-4km-",
+              "brasil-wrf-21km-",
+              "sudeste-wrf-4-5km-",
+              "tarc-wrf-3km-",
+          )
+          clone_files = sorted(
+              p.name for p in root.glob("*.yml")
+              if p.name.startswith(clone_prefixes)
+          )
+          expected_clone_count = 36
+          assert len(clone_files) == expected_clone_count, (
+              f"expected {expected_clone_count} independent runner copies, got {len(clone_files)}"
+          )
+
+          targets = base_files + clone_files
+          configs = {}
+          for filename in targets:
+              path = root / filename
+              with path.open(encoding="utf-8") as stream:
+                  cfg = yaml.load(stream, Loader=yaml.BaseLoader)
+              assert isinstance(cfg, dict), f"{filename}: root must be a mapping"
+              assert isinstance(cfg.get("on"), dict), f"{filename}: missing workflow events"
+              assert isinstance(cfg.get("jobs"), dict) and cfg["jobs"], f"{filename}: missing jobs"
+              configs[filename] = cfg
+
+              env = cfg.get("env", {})
+              permissions = cfg.get("permissions", {})
+              assert env.get("GH_TOKEN"), f"{filename}: GH_TOKEN is not set"
+              assert permissions.get("actions") in ("read", "write"), (
+                  f"{filename}: actions: read permission is required for checkpoint lookups"
+              )
+
+              for job_name, job in cfg["jobs"].items():
+                  for step in job.get("steps", []) or []:
+                      uses = step.get("uses", "")
+                      if uses.startswith("actions/upload-artifact@"):
+                          artifact_name = (step.get("with") or {}).get("name", "")
+                          assert artifact_name, f"{filename}/{job_name}: artifact has no name"
+                          forbidden = set('"<>|*?:\\/\r\n')
+                          bad = sorted(set(artifact_name) & forbidden)
+                          assert not bad, (
+                              f"{filename}/{job_name}: invalid artifact-name characters {bad}: {artifact_name}"
+                          )
+
+              if filename in base_files:
+                  assert "schedule" not in cfg["on"], (
+                      f"{filename}: manual base workflow must not compete with source-specific runners"
+                  )
+              else:
+                  schedule = cfg["on"].get("schedule", [])
+                  assert schedule, f"{filename}: independent runner has no schedule"
+                  assert env.get("SOURCE_MODEL") in ("icon", "ecmwf", "gfs"), (
+                      f"{filename}: source model is not pinned"
+                  )
+                  assert not re.search(r"\\$\\{\\{\\s*github\\.workflow\\s*\\}\\}", str(cfg)), (
+                      f"{filename}: artifact name still depends on the workflow display name"
+                  )
+                  if "-wrf2-" in filename:
+                      assert env.get("MODEL_VARIANT") == "wrf2", f"{filename}: WRF2 not pinned"
+                      assert env.get("WRF2_TOMORROW") == "1", f"{filename}: tomorrow forecast flag is off"
+                  elif filename.startswith(("cbr-", "cim-wrf-5km-", "metbr-", "sudeste-", "tarc-")):
+                      assert env.get("MODEL_VARIANT") == "wrf", f"{filename}: primary WRF not pinned"
+
+              # Every copy must retain the original forecast-segment job graph.
+              if filename.startswith(("cbr-wrf-4km-", "cim-wrf-5km-", "metbr-wrf-4km-", "sudeste-wrf-4-5km-", "tarc-wrf-3km-")):
+                  base = (
+                      "cbr-wrf.yml" if filename.startswith("cbr-") else
+                      "cim-wrf-5km.yml" if filename.startswith("cim-wrf-5km-") else
+                      "metbr-wrf.yml" if filename.startswith("metbr-") else
+                      "sideral-sudeste-wrf.yml" if filename.startswith("sudeste-") else
+                      "tarc-wrf.yml"
+                  )
+                  count = lambda x: sum(
+                      bool(re.search(r"F\\d{3}-F\\d{3}", (job or {}).get("name", "")))
+                      for job in x["jobs"].values()
+                  )
+                  assert count(cfg) == count(configs[base]), (
+                      f"{filename}: segment graph changed ({count(cfg)} != {count(configs[base])})"
+                  )
+
+          # The CBR extractor must exist in seg00, before its first py_compile.
+          cbr_steps = configs["cbr-wrf.yml"]["jobs"]["seg00"]["steps"]
+          assert any(
+              "wrf/cbr_extract_json.py" in (step.get("run") or "")
+              for step in cbr_steps
+          ), "CBR seg00 still compiles an extractor that has not been embedded"
+
+          # CIM 8 km imports this module directly from extract_cim_wrf_core.py.
+          cim8_steps = configs["cim-wrf-8km.yml"]["jobs"]["resolve_runs"]["steps"]
+          assert any(
+              "wrf/extract_wrf_json.py" in (step.get("run") or "")
+              for step in cim8_steps
+          ), "CIM 8 km extract_wrf_json.py dependency is missing"
+
+          sudeste_text = (root / "sideral-sudeste-wrf.yml").read_text(encoding="utf-8")
+          assert "docker/login-action@v3" not in sudeste_text, "Docker Hub login must be removed"
+
+          print(f"Validated {len(targets)} WRF workflow files and {len(clone_files)} independent clones.")
+          PY
