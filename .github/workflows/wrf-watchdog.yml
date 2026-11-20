@@ -33,15 +33,43 @@ jobs:
           repo=os.environ["GITHUB_REPOSITORY"]
           token=os.environ["GH_TOKEN"]
           workflows=[
-              ("METBR WRF 4 km","metbr-wrf.yml"),
-              ("CBR WRF 4 km","cbr-wrf.yml"),
-              ("TARC WRF 3 km","tarc-wrf.yml"),
-              ("Sudeste WRF 4/5 km","sideral-sudeste-wrf.yml"),
-              ("CIM WRF 5 km","cim-wrf-5km.yml"),
-              ("CIM WRF 8 km","cim-wrf-8km.yml"),
-              ("Brasil WRF 21 km","sideral-brasil-wrf.yml"),
-          ]
-          print("## Watchdog WRF Sideral")
+    ("METBR 4 km WRF ICON","metbr-wrf-4km-wrf-icon.yml"),
+    ("METBR 4 km WRF ECMWF","metbr-wrf-4km-wrf-ecmwf.yml"),
+    ("METBR 4 km WRF GFS","metbr-wrf-4km-wrf-gfs.yml"),
+    ("METBR 4 km WRF2 ICON","metbr-wrf-4km-wrf2-icon.yml"),
+    ("METBR 4 km WRF2 ECMWF","metbr-wrf-4km-wrf2-ecmwf.yml"),
+    ("METBR 4 km WRF2 GFS","metbr-wrf-4km-wrf2-gfs.yml"),
+    ("CBR 4 km WRF ICON","cbr-wrf-4km-wrf-icon.yml"),
+    ("CBR 4 km WRF ECMWF","cbr-wrf-4km-wrf-ecmwf.yml"),
+    ("CBR 4 km WRF GFS","cbr-wrf-4km-wrf-gfs.yml"),
+    ("CBR 4 km WRF2 ICON","cbr-wrf-4km-wrf2-icon.yml"),
+    ("CBR 4 km WRF2 ECMWF","cbr-wrf-4km-wrf2-ecmwf.yml"),
+    ("CBR 4 km WRF2 GFS","cbr-wrf-4km-wrf2-gfs.yml"),
+    ("TARC 3 km WRF ICON","tarc-wrf-3km-wrf-icon.yml"),
+    ("TARC 3 km WRF ECMWF","tarc-wrf-3km-wrf-ecmwf.yml"),
+    ("TARC 3 km WRF GFS","tarc-wrf-3km-wrf-gfs.yml"),
+    ("TARC 3 km WRF2 ICON","tarc-wrf-3km-wrf2-icon.yml"),
+    ("TARC 3 km WRF2 ECMWF","tarc-wrf-3km-wrf2-ecmwf.yml"),
+    ("TARC 3 km WRF2 GFS","tarc-wrf-3km-wrf2-gfs.yml"),
+    ("Sudeste 4/5 km WRF ICON","sudeste-wrf-4-5km-wrf-icon.yml"),
+    ("Sudeste 4/5 km WRF ECMWF","sudeste-wrf-4-5km-wrf-ecmwf.yml"),
+    ("Sudeste 4/5 km WRF GFS","sudeste-wrf-4-5km-wrf-gfs.yml"),
+    ("Sudeste 4/5 km WRF2 ICON","sudeste-wrf-4-5km-wrf2-icon.yml"),
+    ("Sudeste 4/5 km WRF2 ECMWF","sudeste-wrf-4-5km-wrf2-ecmwf.yml"),
+    ("Sudeste 4/5 km WRF2 GFS","sudeste-wrf-4-5km-wrf2-gfs.yml"),
+    ("CIM 5 km WRF ICON","cim-wrf-5km-wrf-icon.yml"),
+    ("CIM 5 km WRF ECMWF","cim-wrf-5km-wrf-ecmwf.yml"),
+    ("CIM 5 km WRF GFS","cim-wrf-5km-wrf-gfs.yml"),
+    ("CIM 5 km WRF2 ICON","cim-wrf-5km-wrf2-icon.yml"),
+    ("CIM 5 km WRF2 ECMWF","cim-wrf-5km-wrf2-ecmwf.yml"),
+    ("CIM 5 km WRF2 GFS","cim-wrf-5km-wrf2-gfs.yml"),
+    ("CIM 8 km WRF ICON","cim-wrf-8km-wrf-icon.yml"),
+    ("CIM 8 km WRF ECMWF","cim-wrf-8km-wrf-ecmwf.yml"),
+    ("CIM 8 km WRF GFS","cim-wrf-8km-wrf-gfs.yml"),
+    ("Brasil 21 km WRF ICON","brasil-wrf-21km-wrf-icon.yml"),
+    ("Brasil 21 km WRF ECMWF","brasil-wrf-21km-wrf-ecmwf.yml"),
+]
+                    print("## Watchdog WRF Sideral")
           print()
           print("| Família | Estado mais recente | Conclusão | Início UTC | Observação |")
           print("|---|---|---|---|---|")
