@@ -126,8 +126,14 @@ jobs:
                   f"{filename}: segment graph changed ({count_segments(cfg)} != {count_segments(configs[base])})"
               )
           elif filename.startswith(("sudeste-wrf-4km-", "sudeste-wrf-5km-")):
-              assert count_segments(cfg) == 8, (
-                  f"{filename}: expected 8 independent F000-F048 segments, got {count_segments(cfg)}"
+              segment_jobs = sorted(
+                  name for name in cfg["jobs"] if re.fullmatch(r"seg\d{2}", name)
+              )
+              assert segment_jobs == [f"seg{i:02d}" for i in range(8)], (
+                  f"{filename}: expected seg00-seg07 independently, got {segment_jobs}"
+              )
+              assert "complete" in cfg["jobs"] and "register-run" in cfg["jobs"], (
+                  f"{filename}: completion/publication jobs are missing"
               )
 
           # The CBR extractor must exist in seg00, before its first py_compile.
