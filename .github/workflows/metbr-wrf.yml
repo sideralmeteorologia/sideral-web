@@ -18,6 +18,7 @@ on:
   # Uma única execução programada por dia, após a janela de publicação do ICON.
 permissions:
   contents: write
+  actions: read
 
 # One scheduled METBR run per day. Separate run IDs keep manual runs isolated.
 concurrency:
