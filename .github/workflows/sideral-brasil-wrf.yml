@@ -52,6 +52,9 @@ jobs:
     timeout-minutes: 480
     steps:
       - uses: actions/checkout@v4
+      - name: Restore WRF runtime files from runners catalog
+        shell: bash
+        run: python3 .github/scripts/restore_wrf_runtime.py
       - name: Restore WRF artifacts after checkout (1)
         shell: bash
         run: |
