@@ -101,7 +101,7 @@ jobs:
                   assert env.get("SOURCE_MODEL") in ("icon", "ecmwf", "gfs"), (
                       f"{filename}: source model is not pinned"
                   )
-                  assert not re.search(r"\\$\\{\\{\\s*github\\.workflow\\s*\\}\\}", str(cfg)), (
+                  assert not re.search(r"\$\{\{\s*github\.workflow\s*}}", str(cfg)), (
                       f"{filename}: artifact name still depends on the workflow display name"
                   )
                   if "-wrf2-" in filename:
@@ -120,7 +120,7 @@ jobs:
                       "tarc-wrf.yml"
                   )
                   count = lambda x: sum(
-                      bool(re.search(r"F\\d{3}-F\\d{3}", (job or {}).get("name", "")))
+                      bool(re.search(r"F\d{3}-F\d{3}", (job or {}).get("name", "")))
                       for job in x["jobs"].values()
                   )
                   assert count(cfg) == count(configs[base]), (
