@@ -97,6 +97,13 @@ jobs:
           print("Model release publisher validation passed.")
           PY
 
+      - name: Validate WRF artifact TAR transport
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 -m py_compile .github/scripts/wrf_artifact_bundle.py
+          python3 .github/scripts/wrf_artifact_bundle.py self-test
+
       # Runs a single command using the runners shell
       - name: Run a one-line script
         run: echo Hello, world!
