@@ -47,6 +47,14 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 1
+      - name: Restore WRF artifacts after checkout (1)
+        shell: bash
+        run: |
+          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
+            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
+              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
+              --workspace "$GITHUB_WORKSPACE"
+          fi
       - name: Embutir executores WRF CBR (sem arquivos-fonte no Git)
         shell: bash
         run: |
@@ -137,11 +145,10 @@ jobs:
           WRF_NO_FALLBACK: '1'
         run: |
           bash wrf/run_cbr_checkpoint_segment.sh 0 3 0 1
-      - name: Salvar checkpoint e produtos desta etapa
-        uses: actions/upload-artifact@v4
-        with:
-          name: wrf-cbr4-wrf-icon-${{ github.job }}-${{ github.run_id }}
-          path: |
+      - name: Bundle WRF artifact safely (1)
+        shell: bash
+        env:
+          WRF_ARTIFACT_PATTERNS: |
             **/*restart*/**
             **/*products*/**
             **/*publish*/**
@@ -150,6 +157,17 @@ jobs:
             **/*.tar.gz
             **/wrfout_d01_*
             **/*-run.env
+          WRF_ARTIFACT_OUTPUT: .wrf-artifact-safe/wrf-payload-001.tar
+        run: |
+          python3 .github/scripts/wrf_artifact_bundle.py pack \
+            --workspace "$GITHUB_WORKSPACE" \
+            --output "$GITHUB_WORKSPACE/$WRF_ARTIFACT_OUTPUT"
+      - name: Salvar checkpoint e produtos desta etapa
+        uses: actions/upload-artifact@v4
+        with:
+          name: wrf-cbr4-wrf-icon-${{ github.job }}-${{ github.run_id }}
+          path: |
+            .wrf-artifact-safe/wrf-payload-001.tar
           if-no-files-found: ignore
           retention-days: 7
   seg01:
@@ -163,11 +181,32 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: wrf-cbr4-wrf-icon-seg00-${{ github.run_id }}
-          path: .
+          path: ${{ runner.temp }}/wrf-downloads/d001
+      - name: Register WRF artifact restore target (1)
+        shell: bash
+        env:
+          WRF_ARTIFACT_DOWNLOAD_DIR: ${{ runner.temp }}/wrf-downloads/d001
+          WRF_ARTIFACT_RESTORE_TO: '.'
+        run: |
+          mkdir -p "$WRF_ARTIFACT_DOWNLOAD_DIR"
+          printf '%s\n' "$WRF_ARTIFACT_RESTORE_TO" > "$WRF_ARTIFACT_DOWNLOAD_DIR/.restore-to"
+          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
+            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
+              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
+              --workspace "$GITHUB_WORKSPACE"
+          fi
       - name: Checkout CBR
         uses: actions/checkout@v4
         with:
           fetch-depth: 1
+      - name: Restore WRF artifacts after checkout (2)
+        shell: bash
+        run: |
+          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
+            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
+              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
+              --workspace "$GITHUB_WORKSPACE"
+          fi
       - name: Embutir extrator CBR final no YAML
         shell: bash
         run: |
@@ -228,11 +267,10 @@ jobs:
           WRF_NO_FALLBACK: '1'
         run: |
           bash wrf/run_cbr_checkpoint_segment.sh 3 6 1 0
-      - name: Salvar checkpoint e produtos desta etapa
-        uses: actions/upload-artifact@v4
-        with:
-          name: wrf-cbr4-wrf-icon-${{ github.job }}-${{ github.run_id }}
-          path: |
+      - name: Bundle WRF artifact safely (2)
+        shell: bash
+        env:
+          WRF_ARTIFACT_PATTERNS: |
             **/*restart*/**
             **/*products*/**
             **/*publish*/**
@@ -241,6 +279,17 @@ jobs:
             **/*.tar.gz
             **/wrfout_d01_*
             **/*-run.env
+          WRF_ARTIFACT_OUTPUT: .wrf-artifact-safe/wrf-payload-002.tar
+        run: |
+          python3 .github/scripts/wrf_artifact_bundle.py pack \
+            --workspace "$GITHUB_WORKSPACE" \
+            --output "$GITHUB_WORKSPACE/$WRF_ARTIFACT_OUTPUT"
+      - name: Salvar checkpoint e produtos desta etapa
+        uses: actions/upload-artifact@v4
+        with:
+          name: wrf-cbr4-wrf-icon-${{ github.job }}-${{ github.run_id }}
+          path: |
+            .wrf-artifact-safe/wrf-payload-002.tar
           if-no-files-found: ignore
           retention-days: 7
   seg02:
@@ -253,11 +302,32 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: wrf-cbr4-wrf-icon-seg01-${{ github.run_id }}
-          path: .
+          path: ${{ runner.temp }}/wrf-downloads/d002
+      - name: Register WRF artifact restore target (2)
+        shell: bash
+        env:
+          WRF_ARTIFACT_DOWNLOAD_DIR: ${{ runner.temp }}/wrf-downloads/d002
+          WRF_ARTIFACT_RESTORE_TO: '.'
+        run: |
+          mkdir -p "$WRF_ARTIFACT_DOWNLOAD_DIR"
+          printf '%s\n' "$WRF_ARTIFACT_RESTORE_TO" > "$WRF_ARTIFACT_DOWNLOAD_DIR/.restore-to"
+          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
+            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
+              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
+              --workspace "$GITHUB_WORKSPACE"
+          fi
       - name: Checkout CBR
         uses: actions/checkout@v4
         with:
           fetch-depth: 1
+      - name: Restore WRF artifacts after checkout (3)
+        shell: bash
+        run: |
+          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
+            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
+              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
+              --workspace "$GITHUB_WORKSPACE"
+          fi
       - name: Restaurar runtime científico
         uses: actions/cache@v4
         with:
@@ -311,11 +381,10 @@ jobs:
           WRF_NO_FALLBACK: '1'
         run: |
           bash wrf/run_cbr_checkpoint_segment.sh 6 9 2 0
-      - name: Salvar checkpoint e produtos desta etapa
-        uses: actions/upload-artifact@v4
-        with:
-          name: wrf-cbr4-wrf-icon-${{ github.job }}-${{ github.run_id }}
-          path: |
+      - name: Bundle WRF artifact safely (3)
+        shell: bash
+        env:
+          WRF_ARTIFACT_PATTERNS: |
             **/*restart*/**
             **/*products*/**
             **/*publish*/**
@@ -324,6 +393,17 @@ jobs:
             **/*.tar.gz
             **/wrfout_d01_*
             **/*-run.env
+          WRF_ARTIFACT_OUTPUT: .wrf-artifact-safe/wrf-payload-003.tar
+        run: |
+          python3 .github/scripts/wrf_artifact_bundle.py pack \
+            --workspace "$GITHUB_WORKSPACE" \
+            --output "$GITHUB_WORKSPACE/$WRF_ARTIFACT_OUTPUT"
+      - name: Salvar checkpoint e produtos desta etapa
+        uses: actions/upload-artifact@v4
+        with:
+          name: wrf-cbr4-wrf-icon-${{ github.job }}-${{ github.run_id }}
+          path: |
+            .wrf-artifact-safe/wrf-payload-003.tar
           if-no-files-found: ignore
           retention-days: 7
   seg03:
@@ -336,11 +416,32 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: wrf-cbr4-wrf-icon-seg02-${{ github.run_id }}
-          path: .
+          path: ${{ runner.temp }}/wrf-downloads/d003
+      - name: Register WRF artifact restore target (3)
+        shell: bash
+        env:
+          WRF_ARTIFACT_DOWNLOAD_DIR: ${{ runner.temp }}/wrf-downloads/d003
+          WRF_ARTIFACT_RESTORE_TO: '.'
+        run: |
+          mkdir -p "$WRF_ARTIFACT_DOWNLOAD_DIR"
+          printf '%s\n' "$WRF_ARTIFACT_RESTORE_TO" > "$WRF_ARTIFACT_DOWNLOAD_DIR/.restore-to"
+          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
+            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
+              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
+              --workspace "$GITHUB_WORKSPACE"
+          fi
       - name: Checkout CBR
         uses: actions/checkout@v4
         with:
           fetch-depth: 1
+      - name: Restore WRF artifacts after checkout (4)
+        shell: bash
+        run: |
+          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
+            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
+              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
+              --workspace "$GITHUB_WORKSPACE"
+          fi
       - name: Restaurar runtime científico
         uses: actions/cache@v4
         with:
@@ -394,11 +495,10 @@ jobs:
           WRF_NO_FALLBACK: '1'
         run: |
           bash wrf/run_cbr_checkpoint_segment.sh 9 12 3 0
-      - name: Salvar checkpoint e produtos desta etapa
-        uses: actions/upload-artifact@v4
-        with:
-          name: wrf-cbr4-wrf-icon-${{ github.job }}-${{ github.run_id }}
-          path: |
+      - name: Bundle WRF artifact safely (4)
+        shell: bash
+        env:
+          WRF_ARTIFACT_PATTERNS: |
             **/*restart*/**
             **/*products*/**
             **/*publish*/**
@@ -407,6 +507,17 @@ jobs:
             **/*.tar.gz
             **/wrfout_d01_*
             **/*-run.env
+          WRF_ARTIFACT_OUTPUT: .wrf-artifact-safe/wrf-payload-004.tar
+        run: |
+          python3 .github/scripts/wrf_artifact_bundle.py pack \
+            --workspace "$GITHUB_WORKSPACE" \
+            --output "$GITHUB_WORKSPACE/$WRF_ARTIFACT_OUTPUT"
+      - name: Salvar checkpoint e produtos desta etapa
+        uses: actions/upload-artifact@v4
+        with:
+          name: wrf-cbr4-wrf-icon-${{ github.job }}-${{ github.run_id }}
+          path: |
+            .wrf-artifact-safe/wrf-payload-004.tar
           if-no-files-found: ignore
           retention-days: 7
   seg04:
@@ -419,11 +530,32 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: wrf-cbr4-wrf-icon-seg03-${{ github.run_id }}
-          path: .
+          path: ${{ runner.temp }}/wrf-downloads/d004
+      - name: Register WRF artifact restore target (4)
+        shell: bash
+        env:
+          WRF_ARTIFACT_DOWNLOAD_DIR: ${{ runner.temp }}/wrf-downloads/d004
+          WRF_ARTIFACT_RESTORE_TO: '.'
+        run: |
+          mkdir -p "$WRF_ARTIFACT_DOWNLOAD_DIR"
+          printf '%s\n' "$WRF_ARTIFACT_RESTORE_TO" > "$WRF_ARTIFACT_DOWNLOAD_DIR/.restore-to"
+          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
+            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
+              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
+              --workspace "$GITHUB_WORKSPACE"
+          fi
       - name: Checkout CBR
         uses: actions/checkout@v4
         with:
           fetch-depth: 1
+      - name: Restore WRF artifacts after checkout (5)
+        shell: bash
+        run: |
+          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
+            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
+              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
+              --workspace "$GITHUB_WORKSPACE"
+          fi
       - name: Restaurar runtime científico
         uses: actions/cache@v4
         with:
@@ -477,11 +609,10 @@ jobs:
           WRF_NO_FALLBACK: '1'
         run: |
           bash wrf/run_cbr_checkpoint_segment.sh 12 15 4 0
-      - name: Salvar checkpoint e produtos desta etapa
-        uses: actions/upload-artifact@v4
-        with:
-          name: wrf-cbr4-wrf-icon-${{ github.job }}-${{ github.run_id }}
-          path: |
+      - name: Bundle WRF artifact safely (5)
+        shell: bash
+        env:
+          WRF_ARTIFACT_PATTERNS: |
             **/*restart*/**
             **/*products*/**
             **/*publish*/**
@@ -490,6 +621,17 @@ jobs:
             **/*.tar.gz
             **/wrfout_d01_*
             **/*-run.env
+          WRF_ARTIFACT_OUTPUT: .wrf-artifact-safe/wrf-payload-005.tar
+        run: |
+          python3 .github/scripts/wrf_artifact_bundle.py pack \
+            --workspace "$GITHUB_WORKSPACE" \
+            --output "$GITHUB_WORKSPACE/$WRF_ARTIFACT_OUTPUT"
+      - name: Salvar checkpoint e produtos desta etapa
+        uses: actions/upload-artifact@v4
+        with:
+          name: wrf-cbr4-wrf-icon-${{ github.job }}-${{ github.run_id }}
+          path: |
+            .wrf-artifact-safe/wrf-payload-005.tar
           if-no-files-found: ignore
           retention-days: 7
   seg05:
@@ -502,11 +644,32 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: wrf-cbr4-wrf-icon-seg04-${{ github.run_id }}
-          path: .
+          path: ${{ runner.temp }}/wrf-downloads/d005
+      - name: Register WRF artifact restore target (5)
+        shell: bash
+        env:
+          WRF_ARTIFACT_DOWNLOAD_DIR: ${{ runner.temp }}/wrf-downloads/d005
+          WRF_ARTIFACT_RESTORE_TO: '.'
+        run: |
+          mkdir -p "$WRF_ARTIFACT_DOWNLOAD_DIR"
+          printf '%s\n' "$WRF_ARTIFACT_RESTORE_TO" > "$WRF_ARTIFACT_DOWNLOAD_DIR/.restore-to"
+          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
+            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
+              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
+              --workspace "$GITHUB_WORKSPACE"
+          fi
       - name: Checkout CBR
         uses: actions/checkout@v4
         with:
           fetch-depth: 1
+      - name: Restore WRF artifacts after checkout (6)
+        shell: bash
+        run: |
+          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
+            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
+              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
+              --workspace "$GITHUB_WORKSPACE"
+          fi
       - name: Restaurar runtime científico
         uses: actions/cache@v4
         with:
@@ -560,11 +723,10 @@ jobs:
           WRF_NO_FALLBACK: '1'
         run: |
           bash wrf/run_cbr_checkpoint_segment.sh 15 18 5 0
-      - name: Salvar checkpoint e produtos desta etapa
-        uses: actions/upload-artifact@v4
-        with:
-          name: wrf-cbr4-wrf-icon-${{ github.job }}-${{ github.run_id }}
-          path: |
+      - name: Bundle WRF artifact safely (6)
+        shell: bash
+        env:
+          WRF_ARTIFACT_PATTERNS: |
             **/*restart*/**
             **/*products*/**
             **/*publish*/**
@@ -573,6 +735,17 @@ jobs:
             **/*.tar.gz
             **/wrfout_d01_*
             **/*-run.env
+          WRF_ARTIFACT_OUTPUT: .wrf-artifact-safe/wrf-payload-006.tar
+        run: |
+          python3 .github/scripts/wrf_artifact_bundle.py pack \
+            --workspace "$GITHUB_WORKSPACE" \
+            --output "$GITHUB_WORKSPACE/$WRF_ARTIFACT_OUTPUT"
+      - name: Salvar checkpoint e produtos desta etapa
+        uses: actions/upload-artifact@v4
+        with:
+          name: wrf-cbr4-wrf-icon-${{ github.job }}-${{ github.run_id }}
+          path: |
+            .wrf-artifact-safe/wrf-payload-006.tar
           if-no-files-found: ignore
           retention-days: 7
   seg06:
@@ -585,11 +758,32 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: wrf-cbr4-wrf-icon-seg05-${{ github.run_id }}
-          path: .
+          path: ${{ runner.temp }}/wrf-downloads/d006
+      - name: Register WRF artifact restore target (6)
+        shell: bash
+        env:
+          WRF_ARTIFACT_DOWNLOAD_DIR: ${{ runner.temp }}/wrf-downloads/d006
+          WRF_ARTIFACT_RESTORE_TO: '.'
+        run: |
+          mkdir -p "$WRF_ARTIFACT_DOWNLOAD_DIR"
+          printf '%s\n' "$WRF_ARTIFACT_RESTORE_TO" > "$WRF_ARTIFACT_DOWNLOAD_DIR/.restore-to"
+          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
+            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
+              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
+              --workspace "$GITHUB_WORKSPACE"
+          fi
       - name: Checkout CBR
         uses: actions/checkout@v4
         with:
           fetch-depth: 1
+      - name: Restore WRF artifacts after checkout (7)
+        shell: bash
+        run: |
+          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
+            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
+              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
+              --workspace "$GITHUB_WORKSPACE"
+          fi
       - name: Restaurar runtime científico
         uses: actions/cache@v4
         with:
@@ -643,11 +837,10 @@ jobs:
           WRF_NO_FALLBACK: '1'
         run: |
           bash wrf/run_cbr_checkpoint_segment.sh 18 21 6 0
-      - name: Salvar checkpoint e produtos desta etapa
-        uses: actions/upload-artifact@v4
-        with:
-          name: wrf-cbr4-wrf-icon-${{ github.job }}-${{ github.run_id }}
-          path: |
+      - name: Bundle WRF artifact safely (7)
+        shell: bash
+        env:
+          WRF_ARTIFACT_PATTERNS: |
             **/*restart*/**
             **/*products*/**
             **/*publish*/**
@@ -656,6 +849,17 @@ jobs:
             **/*.tar.gz
             **/wrfout_d01_*
             **/*-run.env
+          WRF_ARTIFACT_OUTPUT: .wrf-artifact-safe/wrf-payload-007.tar
+        run: |
+          python3 .github/scripts/wrf_artifact_bundle.py pack \
+            --workspace "$GITHUB_WORKSPACE" \
+            --output "$GITHUB_WORKSPACE/$WRF_ARTIFACT_OUTPUT"
+      - name: Salvar checkpoint e produtos desta etapa
+        uses: actions/upload-artifact@v4
+        with:
+          name: wrf-cbr4-wrf-icon-${{ github.job }}-${{ github.run_id }}
+          path: |
+            .wrf-artifact-safe/wrf-payload-007.tar
           if-no-files-found: ignore
           retention-days: 7
   seg07:
@@ -668,11 +872,32 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: wrf-cbr4-wrf-icon-seg06-${{ github.run_id }}
-          path: .
+          path: ${{ runner.temp }}/wrf-downloads/d007
+      - name: Register WRF artifact restore target (7)
+        shell: bash
+        env:
+          WRF_ARTIFACT_DOWNLOAD_DIR: ${{ runner.temp }}/wrf-downloads/d007
+          WRF_ARTIFACT_RESTORE_TO: '.'
+        run: |
+          mkdir -p "$WRF_ARTIFACT_DOWNLOAD_DIR"
+          printf '%s\n' "$WRF_ARTIFACT_RESTORE_TO" > "$WRF_ARTIFACT_DOWNLOAD_DIR/.restore-to"
+          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
+            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
+              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
+              --workspace "$GITHUB_WORKSPACE"
+          fi
       - name: Checkout CBR
         uses: actions/checkout@v4
         with:
           fetch-depth: 1
+      - name: Restore WRF artifacts after checkout (8)
+        shell: bash
+        run: |
+          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
+            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
+              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
+              --workspace "$GITHUB_WORKSPACE"
+          fi
       - name: Restaurar runtime científico
         uses: actions/cache@v4
         with:
@@ -726,11 +951,10 @@ jobs:
           WRF_NO_FALLBACK: '1'
         run: |
           bash wrf/run_cbr_checkpoint_segment.sh 21 24 7 0
-      - name: Salvar checkpoint e produtos desta etapa
-        uses: actions/upload-artifact@v4
-        with:
-          name: wrf-cbr4-wrf-icon-${{ github.job }}-${{ github.run_id }}
-          path: |
+      - name: Bundle WRF artifact safely (8)
+        shell: bash
+        env:
+          WRF_ARTIFACT_PATTERNS: |
             **/*restart*/**
             **/*products*/**
             **/*publish*/**
@@ -739,6 +963,17 @@ jobs:
             **/*.tar.gz
             **/wrfout_d01_*
             **/*-run.env
+          WRF_ARTIFACT_OUTPUT: .wrf-artifact-safe/wrf-payload-008.tar
+        run: |
+          python3 .github/scripts/wrf_artifact_bundle.py pack \
+            --workspace "$GITHUB_WORKSPACE" \
+            --output "$GITHUB_WORKSPACE/$WRF_ARTIFACT_OUTPUT"
+      - name: Salvar checkpoint e produtos desta etapa
+        uses: actions/upload-artifact@v4
+        with:
+          name: wrf-cbr4-wrf-icon-${{ github.job }}-${{ github.run_id }}
+          path: |
+            .wrf-artifact-safe/wrf-payload-008.tar
           if-no-files-found: ignore
           retention-days: 7
   seg08:
@@ -751,11 +986,32 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: wrf-cbr4-wrf-icon-seg07-${{ github.run_id }}
-          path: .
+          path: ${{ runner.temp }}/wrf-downloads/d008
+      - name: Register WRF artifact restore target (8)
+        shell: bash
+        env:
+          WRF_ARTIFACT_DOWNLOAD_DIR: ${{ runner.temp }}/wrf-downloads/d008
+          WRF_ARTIFACT_RESTORE_TO: '.'
+        run: |
+          mkdir -p "$WRF_ARTIFACT_DOWNLOAD_DIR"
+          printf '%s\n' "$WRF_ARTIFACT_RESTORE_TO" > "$WRF_ARTIFACT_DOWNLOAD_DIR/.restore-to"
+          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
+            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
+              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
+              --workspace "$GITHUB_WORKSPACE"
+          fi
       - name: Checkout CBR
         uses: actions/checkout@v4
         with:
           fetch-depth: 1
+      - name: Restore WRF artifacts after checkout (9)
+        shell: bash
+        run: |
+          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
+            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
+              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
+              --workspace "$GITHUB_WORKSPACE"
+          fi
       - name: Restaurar runtime científico
         uses: actions/cache@v4
         with:
@@ -809,11 +1065,10 @@ jobs:
           WRF_NO_FALLBACK: '1'
         run: |
           bash wrf/run_cbr_checkpoint_segment.sh 24 27 8 0
-      - name: Salvar checkpoint e produtos desta etapa
-        uses: actions/upload-artifact@v4
-        with:
-          name: wrf-cbr4-wrf-icon-${{ github.job }}-${{ github.run_id }}
-          path: |
+      - name: Bundle WRF artifact safely (9)
+        shell: bash
+        env:
+          WRF_ARTIFACT_PATTERNS: |
             **/*restart*/**
             **/*products*/**
             **/*publish*/**
@@ -822,6 +1077,17 @@ jobs:
             **/*.tar.gz
             **/wrfout_d01_*
             **/*-run.env
+          WRF_ARTIFACT_OUTPUT: .wrf-artifact-safe/wrf-payload-009.tar
+        run: |
+          python3 .github/scripts/wrf_artifact_bundle.py pack \
+            --workspace "$GITHUB_WORKSPACE" \
+            --output "$GITHUB_WORKSPACE/$WRF_ARTIFACT_OUTPUT"
+      - name: Salvar checkpoint e produtos desta etapa
+        uses: actions/upload-artifact@v4
+        with:
+          name: wrf-cbr4-wrf-icon-${{ github.job }}-${{ github.run_id }}
+          path: |
+            .wrf-artifact-safe/wrf-payload-009.tar
           if-no-files-found: ignore
           retention-days: 7
   seg09:
@@ -834,11 +1100,32 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: wrf-cbr4-wrf-icon-seg08-${{ github.run_id }}
-          path: .
+          path: ${{ runner.temp }}/wrf-downloads/d009
+      - name: Register WRF artifact restore target (9)
+        shell: bash
+        env:
+          WRF_ARTIFACT_DOWNLOAD_DIR: ${{ runner.temp }}/wrf-downloads/d009
+          WRF_ARTIFACT_RESTORE_TO: '.'
+        run: |
+          mkdir -p "$WRF_ARTIFACT_DOWNLOAD_DIR"
+          printf '%s\n' "$WRF_ARTIFACT_RESTORE_TO" > "$WRF_ARTIFACT_DOWNLOAD_DIR/.restore-to"
+          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
+            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
+              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
+              --workspace "$GITHUB_WORKSPACE"
+          fi
       - name: Checkout CBR
         uses: actions/checkout@v4
         with:
           fetch-depth: 1
+      - name: Restore WRF artifacts after checkout (10)
+        shell: bash
+        run: |
+          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
+            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
+              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
+              --workspace "$GITHUB_WORKSPACE"
+          fi
       - name: Restaurar runtime científico
         uses: actions/cache@v4
         with:
@@ -892,11 +1179,10 @@ jobs:
           WRF_NO_FALLBACK: '1'
         run: |
           bash wrf/run_cbr_checkpoint_segment.sh 27 30 9 0
-      - name: Salvar checkpoint e produtos desta etapa
-        uses: actions/upload-artifact@v4
-        with:
-          name: wrf-cbr4-wrf-icon-${{ github.job }}-${{ github.run_id }}
-          path: |
+      - name: Bundle WRF artifact safely (10)
+        shell: bash
+        env:
+          WRF_ARTIFACT_PATTERNS: |
             **/*restart*/**
             **/*products*/**
             **/*publish*/**
@@ -905,6 +1191,17 @@ jobs:
             **/*.tar.gz
             **/wrfout_d01_*
             **/*-run.env
+          WRF_ARTIFACT_OUTPUT: .wrf-artifact-safe/wrf-payload-010.tar
+        run: |
+          python3 .github/scripts/wrf_artifact_bundle.py pack \
+            --workspace "$GITHUB_WORKSPACE" \
+            --output "$GITHUB_WORKSPACE/$WRF_ARTIFACT_OUTPUT"
+      - name: Salvar checkpoint e produtos desta etapa
+        uses: actions/upload-artifact@v4
+        with:
+          name: wrf-cbr4-wrf-icon-${{ github.job }}-${{ github.run_id }}
+          path: |
+            .wrf-artifact-safe/wrf-payload-010.tar
           if-no-files-found: ignore
           retention-days: 7
   seg10:
@@ -917,11 +1214,32 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: wrf-cbr4-wrf-icon-seg09-${{ github.run_id }}
-          path: .
+          path: ${{ runner.temp }}/wrf-downloads/d010
+      - name: Register WRF artifact restore target (10)
+        shell: bash
+        env:
+          WRF_ARTIFACT_DOWNLOAD_DIR: ${{ runner.temp }}/wrf-downloads/d010
+          WRF_ARTIFACT_RESTORE_TO: '.'
+        run: |
+          mkdir -p "$WRF_ARTIFACT_DOWNLOAD_DIR"
+          printf '%s\n' "$WRF_ARTIFACT_RESTORE_TO" > "$WRF_ARTIFACT_DOWNLOAD_DIR/.restore-to"
+          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
+            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
+              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
+              --workspace "$GITHUB_WORKSPACE"
+          fi
       - name: Checkout CBR
         uses: actions/checkout@v4
         with:
           fetch-depth: 1
+      - name: Restore WRF artifacts after checkout (11)
+        shell: bash
+        run: |
+          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
+            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
+              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
+              --workspace "$GITHUB_WORKSPACE"
+          fi
       - name: Restaurar runtime científico
         uses: actions/cache@v4
         with:
@@ -975,11 +1293,10 @@ jobs:
           WRF_NO_FALLBACK: '1'
         run: |
           bash wrf/run_cbr_checkpoint_segment.sh 30 33 10 0
-      - name: Salvar checkpoint e produtos desta etapa
-        uses: actions/upload-artifact@v4
-        with:
-          name: wrf-cbr4-wrf-icon-${{ github.job }}-${{ github.run_id }}
-          path: |
+      - name: Bundle WRF artifact safely (11)
+        shell: bash
+        env:
+          WRF_ARTIFACT_PATTERNS: |
             **/*restart*/**
             **/*products*/**
             **/*publish*/**
@@ -988,6 +1305,17 @@ jobs:
             **/*.tar.gz
             **/wrfout_d01_*
             **/*-run.env
+          WRF_ARTIFACT_OUTPUT: .wrf-artifact-safe/wrf-payload-011.tar
+        run: |
+          python3 .github/scripts/wrf_artifact_bundle.py pack \
+            --workspace "$GITHUB_WORKSPACE" \
+            --output "$GITHUB_WORKSPACE/$WRF_ARTIFACT_OUTPUT"
+      - name: Salvar checkpoint e produtos desta etapa
+        uses: actions/upload-artifact@v4
+        with:
+          name: wrf-cbr4-wrf-icon-${{ github.job }}-${{ github.run_id }}
+          path: |
+            .wrf-artifact-safe/wrf-payload-011.tar
           if-no-files-found: ignore
           retention-days: 7
   seg11:
@@ -1000,11 +1328,32 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: wrf-cbr4-wrf-icon-seg10-${{ github.run_id }}
-          path: .
+          path: ${{ runner.temp }}/wrf-downloads/d011
+      - name: Register WRF artifact restore target (11)
+        shell: bash
+        env:
+          WRF_ARTIFACT_DOWNLOAD_DIR: ${{ runner.temp }}/wrf-downloads/d011
+          WRF_ARTIFACT_RESTORE_TO: '.'
+        run: |
+          mkdir -p "$WRF_ARTIFACT_DOWNLOAD_DIR"
+          printf '%s\n' "$WRF_ARTIFACT_RESTORE_TO" > "$WRF_ARTIFACT_DOWNLOAD_DIR/.restore-to"
+          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
+            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
+              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
+              --workspace "$GITHUB_WORKSPACE"
+          fi
       - name: Checkout CBR
         uses: actions/checkout@v4
         with:
           fetch-depth: 1
+      - name: Restore WRF artifacts after checkout (12)
+        shell: bash
+        run: |
+          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
+            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
+              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
+              --workspace "$GITHUB_WORKSPACE"
+          fi
       - name: Restaurar runtime científico
         uses: actions/cache@v4
         with:
@@ -1058,11 +1407,10 @@ jobs:
           WRF_NO_FALLBACK: '1'
         run: |
           bash wrf/run_cbr_checkpoint_segment.sh 33 36 11 0
-      - name: Salvar checkpoint e produtos desta etapa
-        uses: actions/upload-artifact@v4
-        with:
-          name: wrf-cbr4-wrf-icon-${{ github.job }}-${{ github.run_id }}
-          path: |
+      - name: Bundle WRF artifact safely (12)
+        shell: bash
+        env:
+          WRF_ARTIFACT_PATTERNS: |
             **/*restart*/**
             **/*products*/**
             **/*publish*/**
@@ -1071,6 +1419,17 @@ jobs:
             **/*.tar.gz
             **/wrfout_d01_*
             **/*-run.env
+          WRF_ARTIFACT_OUTPUT: .wrf-artifact-safe/wrf-payload-012.tar
+        run: |
+          python3 .github/scripts/wrf_artifact_bundle.py pack \
+            --workspace "$GITHUB_WORKSPACE" \
+            --output "$GITHUB_WORKSPACE/$WRF_ARTIFACT_OUTPUT"
+      - name: Salvar checkpoint e produtos desta etapa
+        uses: actions/upload-artifact@v4
+        with:
+          name: wrf-cbr4-wrf-icon-${{ github.job }}-${{ github.run_id }}
+          path: |
+            .wrf-artifact-safe/wrf-payload-012.tar
           if-no-files-found: ignore
           retention-days: 7
   seg12:
@@ -1083,11 +1442,32 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: wrf-cbr4-wrf-icon-seg11-${{ github.run_id }}
-          path: .
+          path: ${{ runner.temp }}/wrf-downloads/d012
+      - name: Register WRF artifact restore target (12)
+        shell: bash
+        env:
+          WRF_ARTIFACT_DOWNLOAD_DIR: ${{ runner.temp }}/wrf-downloads/d012
+          WRF_ARTIFACT_RESTORE_TO: '.'
+        run: |
+          mkdir -p "$WRF_ARTIFACT_DOWNLOAD_DIR"
+          printf '%s\n' "$WRF_ARTIFACT_RESTORE_TO" > "$WRF_ARTIFACT_DOWNLOAD_DIR/.restore-to"
+          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
+            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
+              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
+              --workspace "$GITHUB_WORKSPACE"
+          fi
       - name: Checkout CBR
         uses: actions/checkout@v4
         with:
           fetch-depth: 1
+      - name: Restore WRF artifacts after checkout (13)
+        shell: bash
+        run: |
+          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
+            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
+              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
+              --workspace "$GITHUB_WORKSPACE"
+          fi
       - name: Restaurar runtime científico
         uses: actions/cache@v4
         with:
@@ -1141,11 +1521,10 @@ jobs:
           WRF_NO_FALLBACK: '1'
         run: |
           bash wrf/run_cbr_checkpoint_segment.sh 36 39 12 0
-      - name: Salvar checkpoint e produtos desta etapa
-        uses: actions/upload-artifact@v4
-        with:
-          name: wrf-cbr4-wrf-icon-${{ github.job }}-${{ github.run_id }}
-          path: |
+      - name: Bundle WRF artifact safely (13)
+        shell: bash
+        env:
+          WRF_ARTIFACT_PATTERNS: |
             **/*restart*/**
             **/*products*/**
             **/*publish*/**
@@ -1154,6 +1533,17 @@ jobs:
             **/*.tar.gz
             **/wrfout_d01_*
             **/*-run.env
+          WRF_ARTIFACT_OUTPUT: .wrf-artifact-safe/wrf-payload-013.tar
+        run: |
+          python3 .github/scripts/wrf_artifact_bundle.py pack \
+            --workspace "$GITHUB_WORKSPACE" \
+            --output "$GITHUB_WORKSPACE/$WRF_ARTIFACT_OUTPUT"
+      - name: Salvar checkpoint e produtos desta etapa
+        uses: actions/upload-artifact@v4
+        with:
+          name: wrf-cbr4-wrf-icon-${{ github.job }}-${{ github.run_id }}
+          path: |
+            .wrf-artifact-safe/wrf-payload-013.tar
           if-no-files-found: ignore
           retention-days: 7
   seg13:
@@ -1166,11 +1556,32 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: wrf-cbr4-wrf-icon-seg12-${{ github.run_id }}
-          path: .
+          path: ${{ runner.temp }}/wrf-downloads/d013
+      - name: Register WRF artifact restore target (13)
+        shell: bash
+        env:
+          WRF_ARTIFACT_DOWNLOAD_DIR: ${{ runner.temp }}/wrf-downloads/d013
+          WRF_ARTIFACT_RESTORE_TO: '.'
+        run: |
+          mkdir -p "$WRF_ARTIFACT_DOWNLOAD_DIR"
+          printf '%s\n' "$WRF_ARTIFACT_RESTORE_TO" > "$WRF_ARTIFACT_DOWNLOAD_DIR/.restore-to"
+          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
+            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
+              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
+              --workspace "$GITHUB_WORKSPACE"
+          fi
       - name: Checkout CBR
         uses: actions/checkout@v4
         with:
           fetch-depth: 1
+      - name: Restore WRF artifacts after checkout (14)
+        shell: bash
+        run: |
+          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
+            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
+              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
+              --workspace "$GITHUB_WORKSPACE"
+          fi
       - name: Restaurar runtime científico
         uses: actions/cache@v4
         with:
@@ -1224,11 +1635,10 @@ jobs:
           WRF_NO_FALLBACK: '1'
         run: |
           bash wrf/run_cbr_checkpoint_segment.sh 39 42 13 0
-      - name: Salvar checkpoint e produtos desta etapa
-        uses: actions/upload-artifact@v4
-        with:
-          name: wrf-cbr4-wrf-icon-${{ github.job }}-${{ github.run_id }}
-          path: |
+      - name: Bundle WRF artifact safely (14)
+        shell: bash
+        env:
+          WRF_ARTIFACT_PATTERNS: |
             **/*restart*/**
             **/*products*/**
             **/*publish*/**
@@ -1237,6 +1647,17 @@ jobs:
             **/*.tar.gz
             **/wrfout_d01_*
             **/*-run.env
+          WRF_ARTIFACT_OUTPUT: .wrf-artifact-safe/wrf-payload-014.tar
+        run: |
+          python3 .github/scripts/wrf_artifact_bundle.py pack \
+            --workspace "$GITHUB_WORKSPACE" \
+            --output "$GITHUB_WORKSPACE/$WRF_ARTIFACT_OUTPUT"
+      - name: Salvar checkpoint e produtos desta etapa
+        uses: actions/upload-artifact@v4
+        with:
+          name: wrf-cbr4-wrf-icon-${{ github.job }}-${{ github.run_id }}
+          path: |
+            .wrf-artifact-safe/wrf-payload-014.tar
           if-no-files-found: ignore
           retention-days: 7
   complete:
@@ -1248,6 +1669,14 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 1
+      - name: Restore WRF artifacts after checkout (15)
+        shell: bash
+        run: |
+          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
+            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
+              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
+              --workspace "$GITHUB_WORKSPACE"
+          fi
       - name: Restaurar runtime científico
         uses: actions/cache@v4
         with:
@@ -1288,17 +1717,27 @@ jobs:
           : # artifact-only workflow
           : # artifact-only workflow
           : # artifact-only workflow
-      - name: Publicar produtos finais como artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: wrf-final-cbr4-wrf-icon-${{ github.job }}-${{ github.run_id }}
-          path: |
+      - name: Bundle WRF artifact safely (15)
+        shell: bash
+        env:
+          WRF_ARTIFACT_PATTERNS: |
             **/*products*/**
             **/*publish*/**
             **/*.json
             **/*.npz
             **/*.tar.gz
             **/wrfout_d01_*
+          WRF_ARTIFACT_OUTPUT: .wrf-artifact-safe/wrf-payload-015.tar
+        run: |
+          python3 .github/scripts/wrf_artifact_bundle.py pack \
+            --workspace "$GITHUB_WORKSPACE" \
+            --output "$GITHUB_WORKSPACE/$WRF_ARTIFACT_OUTPUT"
+      - name: Publicar produtos finais como artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: wrf-final-cbr4-wrf-icon-${{ github.job }}-${{ github.run_id }}
+          path: |
+            .wrf-artifact-safe/wrf-payload-015.tar
           if-no-files-found: ignore
           retention-days: 7
   register-run:
@@ -1321,16 +1760,26 @@ jobs:
           latest_prefix="sideral/cbr/4km/$MODEL_VARIANT/$SOURCE_MODEL/latest"
           [[ "$count" != 0 && "$count" != None ]] || { echo "Nenhum produto validado no prefixo: $artifact_prefix" >&2; exit 41; }
           completed_at="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
-      - name: Publicar produtos finais como artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: wrf-final-cbr4-wrf-icon-${{ github.job }}-${{ github.run_id }}
-          path: |
+      - name: Bundle WRF artifact safely (16)
+        shell: bash
+        env:
+          WRF_ARTIFACT_PATTERNS: |
             **/*products*/**
             **/*publish*/**
             **/*.json
             **/*.npz
             **/*.tar.gz
             **/wrfout_d01_*
+          WRF_ARTIFACT_OUTPUT: .wrf-artifact-safe/wrf-payload-016.tar
+        run: |
+          python3 .github/scripts/wrf_artifact_bundle.py pack \
+            --workspace "$GITHUB_WORKSPACE" \
+            --output "$GITHUB_WORKSPACE/$WRF_ARTIFACT_OUTPUT"
+      - name: Publicar produtos finais como artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: wrf-final-cbr4-wrf-icon-${{ github.job }}-${{ github.run_id }}
+          path: |
+            .wrf-artifact-safe/wrf-payload-016.tar
           if-no-files-found: ignore
           retention-days: 7
