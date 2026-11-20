@@ -2,6 +2,9 @@ name: SIDERAL | TARC WRF 3 km | ICON | WRF2
 
 on:
   workflow_dispatch:
+  schedule:
+    - cron: '0 11 * * *'
+
 permissions:
   contents: write
   actions: read
@@ -1281,7 +1284,5 @@ jobs:
             **/*.tar.gz
             **/wrfout_d01_*
           if-no-files-found: ignore
-  schedule:
-    - cron: '0 11 * * *'
 
           retention-days: 7
