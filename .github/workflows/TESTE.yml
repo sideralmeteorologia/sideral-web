@@ -25,6 +25,33 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v4
 
+      - name: Validate workflow YAML and all WRF runner clones
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m pip install --disable-pip-version-check "PyYAML>=6,<7"
+          python - <<'PY'
+          from pathlib import Path
+          import yaml
+
+          root = Path(".github/workflows")
+          files = sorted(root.glob("*.yml"))
+          for path in files:
+              with path.open(encoding="utf-8") as stream:
+                  yaml.load(stream, Loader=yaml.BaseLoader)
+          validator = yaml.load(
+              (root / "validate-wrf-runner-clones.yml").read_text(encoding="utf-8"),
+              Loader=yaml.BaseLoader,
+          )
+          step = next(
+              step for step in validator["jobs"]["validate"]["steps"]
+              if step.get("name") == "Validate all original and cloned WRF workflows"
+          )
+          command = step["run"]
+          source = command.split("python - <<'PY'\n", 1)[1].rsplit("\nPY", 1)[0]
+          exec(compile(source, "validate-wrf-runner-clones.yml", "exec"), {})
+          PY
+
       # Runs a single command using the runners shell
       - name: Run a one-line script
         run: echo Hello, world!
