@@ -49,6 +49,8 @@ def pack(workspace: Path, output: Path) -> int:
             candidate = Path(match)
             if candidate.is_absolute() or ".." in candidate.parts:
                 raise RuntimeError(f"Unsafe artifact path match: {match}")
+            if ".git" in candidate.parts or ".wrf-artifact-safe" in candidate.parts:
+                continue
             full = workspace / candidate
             if not full.exists() and not full.is_symlink():
                 continue
@@ -100,6 +102,8 @@ def pack(workspace: Path, output: Path) -> int:
     else:
         archive_paths = {}
 
+    if not selected and os.environ.get("WRF_ARTIFACT_REQUIRE_FILES") == "1":
+        raise RuntimeError("No files matched an artifact configured with if-no-files-found: error.")
     output.parent.mkdir(parents=True, exist_ok=True)
     if output.exists():
         output.unlink()
