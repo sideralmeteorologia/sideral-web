@@ -20,7 +20,7 @@ permissions:
 # Cada fonte tem sua própria execução e seu próprio checkpoint; nunca cancelar
 # uma rodada ECMWF/GFS porque outra fonte começou.
 concurrency:
-  group: cim-wrf-8km
+  group: cim-wrf-8km-wrf-gfs
   cancel-in-progress: false
 
 env:
