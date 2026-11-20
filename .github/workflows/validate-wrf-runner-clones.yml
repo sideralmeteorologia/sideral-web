@@ -56,7 +56,7 @@ jobs:
               p.name for p in root.glob("*.yml")
               if p.name.startswith(clone_prefixes)
           )
-          expected_clone_count = 36
+          expected_clone_count = 35
           assert len(clone_files) == expected_clone_count, (
               f"expected {expected_clone_count} independent runner copies, got {len(clone_files)}"
           )
