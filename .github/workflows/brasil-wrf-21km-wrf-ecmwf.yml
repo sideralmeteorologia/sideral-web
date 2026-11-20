@@ -42,10 +42,10 @@ env:
   WRF_GRID_X: '215'
   WRF_GRID_Y: '215'
   # Brasil 21 km domain (~-79..-28 lon, -49..-7 lat) plus WPS interpolation margin.
-  ECMWF_SOURCE_WEST: '-82'
-  ECMWF_SOURCE_EAST: '-25'
-  ECMWF_SOURCE_SOUTH: '-52'
-  ECMWF_SOURCE_NORTH: '-4'
+  ECMWF_SOURCE_WEST: '-85'
+  ECMWF_SOURCE_EAST: '-23'
+  ECMWF_SOURCE_SOUTH: '-38'
+  ECMWF_SOURCE_NORTH: '12'
 
 jobs:
   brasil:
