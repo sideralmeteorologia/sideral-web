@@ -33,9 +33,6 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 1
-      - name: Restore WRF runtime files from runners catalog
-        shell: bash
-        run: python3 .github/scripts/restore_wrf_runtime.py
       - name: Restore WRF artifacts after checkout (1)
         shell: bash
         run: |
@@ -44,6 +41,9 @@ jobs:
               --downloads-root "$RUNNER_TEMP/wrf-downloads" \
               --workspace "$GITHUB_WORKSPACE"
           fi
+      - name: Restore WRF runtime files from runners catalog
+        shell: bash
+        run: python3 .github/scripts/restore_wrf_runtime.py
       - name: Configurar Python e dependências dos fetchers
         uses: actions/setup-python@v5
         with:
@@ -148,9 +148,6 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 1
-      - name: Restore WRF runtime files from runners catalog
-        shell: bash
-        run: python3 .github/scripts/restore_wrf_runtime.py
       - name: Restore WRF artifacts after checkout (2)
         shell: bash
         run: |
@@ -159,6 +156,9 @@ jobs:
               --downloads-root "$RUNNER_TEMP/wrf-downloads" \
               --workspace "$GITHUB_WORKSPACE"
           fi
+      - name: Restore WRF runtime files from runners catalog
+        shell: bash
+        run: python3 .github/scripts/restore_wrf_runtime.py
       - name: Restaurar runtime científico METBR
         uses: actions/cache@v4
         with:
@@ -228,9 +228,6 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 1
-      - name: Restore WRF runtime files from runners catalog
-        shell: bash
-        run: python3 .github/scripts/restore_wrf_runtime.py
       - name: Restore WRF artifacts after checkout (3)
         shell: bash
         run: |
@@ -239,6 +236,9 @@ jobs:
               --downloads-root "$RUNNER_TEMP/wrf-downloads" \
               --workspace "$GITHUB_WORKSPACE"
           fi
+      - name: Restore WRF runtime files from runners catalog
+        shell: bash
+        run: python3 .github/scripts/restore_wrf_runtime.py
       - name: Restaurar runtime científico METBR
         uses: actions/cache@v4
         with:
@@ -308,9 +308,6 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 1
-      - name: Restore WRF runtime files from runners catalog
-        shell: bash
-        run: python3 .github/scripts/restore_wrf_runtime.py
       - name: Restore WRF artifacts after checkout (4)
         shell: bash
         run: |
@@ -319,6 +316,9 @@ jobs:
               --downloads-root "$RUNNER_TEMP/wrf-downloads" \
               --workspace "$GITHUB_WORKSPACE"
           fi
+      - name: Restore WRF runtime files from runners catalog
+        shell: bash
+        run: python3 .github/scripts/restore_wrf_runtime.py
       - name: Restaurar runtime científico METBR
         uses: actions/cache@v4
         with:
@@ -388,9 +388,6 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 1
-      - name: Restore WRF runtime files from runners catalog
-        shell: bash
-        run: python3 .github/scripts/restore_wrf_runtime.py
       - name: Restore WRF artifacts after checkout (5)
         shell: bash
         run: |
@@ -399,6 +396,9 @@ jobs:
               --downloads-root "$RUNNER_TEMP/wrf-downloads" \
               --workspace "$GITHUB_WORKSPACE"
           fi
+      - name: Restore WRF runtime files from runners catalog
+        shell: bash
+        run: python3 .github/scripts/restore_wrf_runtime.py
       - name: Restaurar runtime científico METBR
         uses: actions/cache@v4
         with:
@@ -468,9 +468,6 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 1
-      - name: Restore WRF runtime files from runners catalog
-        shell: bash
-        run: python3 .github/scripts/restore_wrf_runtime.py
       - name: Restore WRF artifacts after checkout (6)
         shell: bash
         run: |
@@ -479,6 +476,9 @@ jobs:
               --downloads-root "$RUNNER_TEMP/wrf-downloads" \
               --workspace "$GITHUB_WORKSPACE"
           fi
+      - name: Restore WRF runtime files from runners catalog
+        shell: bash
+        run: python3 .github/scripts/restore_wrf_runtime.py
       - name: Restaurar runtime científico METBR
         uses: actions/cache@v4
         with:
@@ -548,9 +548,6 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 1
-      - name: Restore WRF runtime files from runners catalog
-        shell: bash
-        run: python3 .github/scripts/restore_wrf_runtime.py
       - name: Restore WRF artifacts after checkout (7)
         shell: bash
         run: |
@@ -559,6 +556,9 @@ jobs:
               --downloads-root "$RUNNER_TEMP/wrf-downloads" \
               --workspace "$GITHUB_WORKSPACE"
           fi
+      - name: Restore WRF runtime files from runners catalog
+        shell: bash
+        run: python3 .github/scripts/restore_wrf_runtime.py
       - name: Restaurar runtime científico METBR
         uses: actions/cache@v4
         with:
@@ -628,9 +628,6 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 1
-      - name: Restore WRF runtime files from runners catalog
-        shell: bash
-        run: python3 .github/scripts/restore_wrf_runtime.py
       - name: Restore WRF artifacts after checkout (8)
         shell: bash
         run: |
@@ -639,6 +636,9 @@ jobs:
               --downloads-root "$RUNNER_TEMP/wrf-downloads" \
               --workspace "$GITHUB_WORKSPACE"
           fi
+      - name: Restore WRF runtime files from runners catalog
+        shell: bash
+        run: python3 .github/scripts/restore_wrf_runtime.py
       - name: Restaurar runtime científico METBR
         uses: actions/cache@v4
         with:
@@ -708,9 +708,6 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 1
-      - name: Restore WRF runtime files from runners catalog
-        shell: bash
-        run: python3 .github/scripts/restore_wrf_runtime.py
       - name: Restore WRF artifacts after checkout (9)
         shell: bash
         run: |
@@ -719,6 +716,9 @@ jobs:
               --downloads-root "$RUNNER_TEMP/wrf-downloads" \
               --workspace "$GITHUB_WORKSPACE"
           fi
+      - name: Restore WRF runtime files from runners catalog
+        shell: bash
+        run: python3 .github/scripts/restore_wrf_runtime.py
       - name: Restaurar runtime científico METBR
         uses: actions/cache@v4
         with:
@@ -788,9 +788,6 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 1
-      - name: Restore WRF runtime files from runners catalog
-        shell: bash
-        run: python3 .github/scripts/restore_wrf_runtime.py
       - name: Restore WRF artifacts after checkout (10)
         shell: bash
         run: |
@@ -799,6 +796,9 @@ jobs:
               --downloads-root "$RUNNER_TEMP/wrf-downloads" \
               --workspace "$GITHUB_WORKSPACE"
           fi
+      - name: Restore WRF runtime files from runners catalog
+        shell: bash
+        run: python3 .github/scripts/restore_wrf_runtime.py
       - name: Restaurar runtime científico METBR
         uses: actions/cache@v4
         with:
@@ -868,9 +868,6 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 1
-      - name: Restore WRF runtime files from runners catalog
-        shell: bash
-        run: python3 .github/scripts/restore_wrf_runtime.py
       - name: Restore WRF artifacts after checkout (11)
         shell: bash
         run: |
@@ -879,6 +876,9 @@ jobs:
               --downloads-root "$RUNNER_TEMP/wrf-downloads" \
               --workspace "$GITHUB_WORKSPACE"
           fi
+      - name: Restore WRF runtime files from runners catalog
+        shell: bash
+        run: python3 .github/scripts/restore_wrf_runtime.py
       - name: Restaurar runtime científico METBR
         uses: actions/cache@v4
         with:
@@ -948,9 +948,6 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 1
-      - name: Restore WRF runtime files from runners catalog
-        shell: bash
-        run: python3 .github/scripts/restore_wrf_runtime.py
       - name: Restore WRF artifacts after checkout (12)
         shell: bash
         run: |
@@ -959,6 +956,9 @@ jobs:
               --downloads-root "$RUNNER_TEMP/wrf-downloads" \
               --workspace "$GITHUB_WORKSPACE"
           fi
+      - name: Restore WRF runtime files from runners catalog
+        shell: bash
+        run: python3 .github/scripts/restore_wrf_runtime.py
       - name: Restaurar runtime científico METBR
         uses: actions/cache@v4
         with:
@@ -1028,9 +1028,6 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 1
-      - name: Restore WRF runtime files from runners catalog
-        shell: bash
-        run: python3 .github/scripts/restore_wrf_runtime.py
       - name: Restore WRF artifacts after checkout (13)
         shell: bash
         run: |
@@ -1039,6 +1036,9 @@ jobs:
               --downloads-root "$RUNNER_TEMP/wrf-downloads" \
               --workspace "$GITHUB_WORKSPACE"
           fi
+      - name: Restore WRF runtime files from runners catalog
+        shell: bash
+        run: python3 .github/scripts/restore_wrf_runtime.py
       - name: Restaurar runtime científico METBR
         uses: actions/cache@v4
         with:
@@ -1108,9 +1108,6 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 1
-      - name: Restore WRF runtime files from runners catalog
-        shell: bash
-        run: python3 .github/scripts/restore_wrf_runtime.py
       - name: Restore WRF artifacts after checkout (14)
         shell: bash
         run: |
@@ -1119,6 +1116,9 @@ jobs:
               --downloads-root "$RUNNER_TEMP/wrf-downloads" \
               --workspace "$GITHUB_WORKSPACE"
           fi
+      - name: Restore WRF runtime files from runners catalog
+        shell: bash
+        run: python3 .github/scripts/restore_wrf_runtime.py
       - name: Restaurar runtime científico METBR
         uses: actions/cache@v4
         with:
@@ -1188,9 +1188,6 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 1
-      - name: Restore WRF runtime files from runners catalog
-        shell: bash
-        run: python3 .github/scripts/restore_wrf_runtime.py
       - name: Restore WRF artifacts after checkout (15)
         shell: bash
         run: |
@@ -1199,6 +1196,9 @@ jobs:
               --downloads-root "$RUNNER_TEMP/wrf-downloads" \
               --workspace "$GITHUB_WORKSPACE"
           fi
+      - name: Restore WRF runtime files from runners catalog
+        shell: bash
+        run: python3 .github/scripts/restore_wrf_runtime.py
       - name: Restaurar runtime científico METBR
         uses: actions/cache@v4
         with:

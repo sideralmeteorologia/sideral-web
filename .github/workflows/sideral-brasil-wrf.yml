@@ -52,9 +52,6 @@ jobs:
     timeout-minutes: 480
     steps:
       - uses: actions/checkout@v4
-      - name: Restore WRF runtime files from runners catalog
-        shell: bash
-        run: python3 .github/scripts/restore_wrf_runtime.py
       - name: Restore WRF artifacts after checkout (1)
         shell: bash
         run: |
@@ -63,6 +60,9 @@ jobs:
               --downloads-root "$RUNNER_TEMP/wrf-downloads" \
               --workspace "$GITHUB_WORKSPACE"
           fi
+      - name: Restore WRF runtime files from runners catalog
+        shell: bash
+        run: python3 .github/scripts/restore_wrf_runtime.py
       - name: Incorporar executores meteorológicos Brasil 21 km neste YAML
         shell: bash
         run: |

@@ -54,9 +54,6 @@ jobs:
     steps:
 
       - uses: actions/checkout@v4
-      - name: Restore WRF runtime files from runners catalog
-        shell: bash
-        run: python3 .github/scripts/restore_wrf_runtime.py
       - name: Restore WRF artifacts after checkout (1)
         shell: bash
         run: |
@@ -65,6 +62,9 @@ jobs:
               --downloads-root "$RUNNER_TEMP/wrf-downloads" \
               --workspace "$GITHUB_WORKSPACE"
           fi
+      - name: Restore WRF runtime files from runners catalog
+        shell: bash
+        run: python3 .github/scripts/restore_wrf_runtime.py
       - name: Restaurar código científico CIM 8 km
         uses: actions/cache@v4
         with:
@@ -273,9 +273,6 @@ jobs:
         model: ${{ fromJSON(needs.resolve_runs.outputs.models) }}
     steps:
       - uses: actions/checkout@v4
-      - name: Restore WRF runtime files from runners catalog
-        shell: bash
-        run: python3 .github/scripts/restore_wrf_runtime.py
       - name: Restore WRF artifacts after checkout (2)
         shell: bash
         run: |
@@ -284,6 +281,9 @@ jobs:
               --downloads-root "$RUNNER_TEMP/wrf-downloads" \
               --workspace "$GITHUB_WORKSPACE"
           fi
+      - name: Restore WRF runtime files from runners catalog
+        shell: bash
+        run: python3 .github/scripts/restore_wrf_runtime.py
       - name: Restaurar código científico CIM 8 km
         uses: actions/cache@v4
         with:
