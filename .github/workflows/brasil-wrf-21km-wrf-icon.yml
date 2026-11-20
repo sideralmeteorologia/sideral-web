@@ -49,6 +49,14 @@ jobs:
     timeout-minutes: 480
     steps:
       - uses: actions/checkout@v4
+      - name: Restore WRF artifacts after checkout (1)
+        shell: bash
+        run: |
+          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
+            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
+              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
+              --workspace "$GITHUB_WORKSPACE"
+          fi
       - name: Incorporar executores meteorológicos Brasil 21 km neste YAML
         shell: bash
         run: |
@@ -271,16 +279,26 @@ jobs:
           {"schema":"sideral-wrf-run-v1","family":"brasil","resolutionKm":21,"variant":"wrf","source":"$SOURCE_MODEL","runId":"$GITHUB_RUN_ID","completedAt":"$completed_at","artifactPrefix":"$prefix/","latestPrefix":"$latest","publishExtensions":[".json",".npz",".tar.gz"],"frames":49,"grid":"215x215"}
           EOF
           : # artifact-only workflow
-      - name: Publicar produtos finais como artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: wrf-final-brasil21-wrf-icon-${{ github.job }}-${{ github.run_id }}
-          path: |
+      - name: Bundle WRF artifact safely (1)
+        shell: bash
+        env:
+          WRF_ARTIFACT_PATTERNS: |
             **/*products*/**
             **/*publish*/**
             **/*.json
             **/*.npz
             **/*.tar.gz
             **/wrfout_d01_*
+          WRF_ARTIFACT_OUTPUT: .wrf-artifact-safe/wrf-payload-001.tar
+        run: |
+          python3 .github/scripts/wrf_artifact_bundle.py pack \
+            --workspace "$GITHUB_WORKSPACE" \
+            --output "$GITHUB_WORKSPACE/$WRF_ARTIFACT_OUTPUT"
+      - name: Publicar produtos finais como artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: wrf-final-brasil21-wrf-icon-${{ github.job }}-${{ github.run_id }}
+          path: |
+            .wrf-artifact-safe/wrf-payload-001.tar
           if-no-files-found: ignore
           retention-days: 7

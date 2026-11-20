@@ -486,8 +486,34 @@ jobs:
           set -euo pipefail
           DATE_ARG=()
           CYCLE_ARG=()
+          COLLECT_CYCLE="${RUN_CYCLE:-auto}"
           if [[ -n "${RUN_DATE:-}" ]]; then DATE_ARG=(--date "$RUN_DATE"); fi
-          if [[ -n "${RUN_CYCLE:-}" && "$RUN_CYCLE" != "auto" ]]; then CYCLE_ARG=(--cycle "$RUN_CYCLE"); fi
+
+          # ECMWF Open Data publishes ENFO ensemble-probability (EP) files
+          # at 240/360h only for 00/12 UTC cycles. For 06/18 UTC it publishes
+          # ENFO ensemble forecasts (EF) only through 144h. Do not request the
+          # non-existent 240h-enfo-ep.index on 06/18: map those cycles back to
+          # the most recent compatible 00/12 cycle for the EPS collector only.
+          if [[ "$MODEL_KEY" == "ecmwf_eps" ]]; then
+            case "$COLLECT_CYCLE" in
+              ""|auto)
+                UTC_HOUR="$(date -u +%H)"
+                if (( 10#$UTC_HOUR >= 12 )); then
+                  COLLECT_CYCLE="12"
+                else
+                  COLLECT_CYCLE="00"
+                fi
+                ;;
+              "06") COLLECT_CYCLE="00" ;;
+              "18") COLLECT_CYCLE="12" ;;
+            esac
+            echo "ECMWF EPS: ciclo compatível ENFO-EP selecionado: ${COLLECT_CYCLE}Z"
+          fi
+
+          if [[ -n "$COLLECT_CYCLE" && "$COLLECT_CYCLE" != "auto" ]]; then
+            CYCLE_ARG=(--cycle "$COLLECT_CYCLE")
+          fi
+
           python .sideral_embedded/nwp-engine/global-nwp/collect.py \
             --model "$MODEL_KEY" \
             "${DATE_ARG[@]}" \
