@@ -2,16 +2,16 @@
 
 Cada execução concluída com sucesso na branch `main` de um workflow de produto é processada por `.github/workflows/publish-model-releases.yml`.
 
-São incluídos os workflows WRF (CBR, CIM, METBR, Sudeste, TARC e Brasil, em todas as resoluções/variantes/fontes existentes), Global NWP e Sideral Multimodels.
+São incluídos os workflows WRF de CBR, CIM, METBR, Sudeste, TARC e Brasil (todas as resoluções, variantes WRF/WRF2 e fontes existentes), o Global NWP e o Sideral Multimodels.
 
 ## Dois destinos com finalidades diferentes
 
-- **GitHub Release público:** downloads e arquivo versionado, com tag estável `sideral-data-<produto>-latest`.
+- **GitHub Release público:** download e arquivo dos dados, com tag estável `sideral-data-<produto>-latest`.
 - **Branch raw por produto:** leitura direta via JavaScript `fetch()`, sem token, em `raw.githubusercontent.com`. A branch tem o mesmo nome da tag e mantém apenas o snapshot mais recente daquele produto.
 
-Os dois destinos usam os mesmos dados e manifesto. Os arquivos são divididos em partes de até 45 MiB. O manifesto lista o nome original, tamanho, SHA-256, MIME type e URLs das partes. Nomes de arquivo publicados são seguros para Windows; os timestamps WRF originais permanecem preservados no conteúdo.
+Os dois destinos usam os mesmos dados e manifesto. Os arquivos são divididos em partes de até 45 MiB. O manifesto lista o nome original, tamanho, SHA-256, MIME type e URLs das partes. Os nomes publicados são seguros para Windows; timestamps WRF originais permanecem preservados dentro dos arquivos.
 
-## Descobrir todos os produtos no navegador
+## Descobrir os produtos no navegador
 
 A lista de Releases públicos pode ser obtida pela API pública do GitHub:
 
@@ -41,7 +41,7 @@ const manifests = await Promise.all(
 );
 ```
 
-Para ler um arquivo, localize o registro em `manifest.files`. Para arquivos não divididos, baixe `file.parts[0].url`. Para arquivos divididos, baixe todas as URLs de `file.parts` em ordem crescente de `part` e concatene os bytes.
+Para ler um produto, localize o registro em `manifest.files`. Para arquivos não divididos, baixe `file.parts[0].url`. Para arquivos divididos, baixe todas as URLs em `file.parts` em ordem crescente de `part` e concatene os bytes.
 
 ```js
 async function fetchModelFile(file) {
@@ -64,8 +64,8 @@ async function fetchModelFile(file) {
 }
 ```
 
-O publicador testa, a cada atualização, que o manifesto foi servido com HTTP 200 e `Access-Control-Allow-Origin: *`. A API REST do GitHub é usada para descobrir Releases; os dados meteorológicos em si são lidos do branch raw, não do endpoint de download de Release assets.
+A cada publicação, o publicador testa o acesso ao manifesto em `raw.githubusercontent.com` com HTTP 200 e `Access-Control-Allow-Origin: *`. A API de Releases é usada para descobrir produtos; os dados meteorológicos são lidos do branch raw, não do endpoint de download dos Release assets.
 
 ## Retenção
 
-Artifacts do Actions continuam sendo transporte temporário entre etapas. O produto final é preservado na Release pública e a versão atual é mantida no branch raw específico do produto.
+Artifacts do Actions continuam sendo transporte temporário entre jobs. Os produtos finais são preservados no Release público e a versão atual permanece no branch raw específico do produto.
