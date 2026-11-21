@@ -51,6 +51,28 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 1
+      - name: Baixar artifacts dos 16 segmentos WRF Sudeste
+        uses: actions/download-artifact@v4
+        with:
+          pattern: wrf-sudeste-${{ env.RESOLUTION_KM }}km-${{ env.MODEL_VARIANT }}-${{ env.SOURCE_MODEL }}-seg??-${{ github.run_id }}
+          path: ${{ runner.temp }}/wrf-downloads/sudeste-segments
+          merge-multiple: false
+      - name: Restaurar payloads locais dos segmentos Sudeste
+        shell: bash
+        env:
+          WRF_ARTIFACT_DOWNLOAD_DIR: ${{ runner.temp }}/wrf-downloads/sudeste-segments
+        run: |
+          set -euo pipefail
+          shopt -s nullglob
+          dirs=("$WRF_ARTIFACT_DOWNLOAD_DIR"/*)
+          (("${#dirs[@]}" == 16)) || { echo "Sudeste: esperados 16 artifacts; encontrados ${#dirs[@]}" >&2; exit 31; }
+          for dir in "${dirs[@]}"; do
+            [[ -d "$dir" ]] || continue
+            printf '%s\n' "tarc_segment_artifacts/${dir##*/}" > "$dir/.restore-to"
+          done
+          python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
+            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
+            --workspace "$GITHUB_WORKSPACE"
       - name: Restore WRF artifacts after checkout (1)
         shell: bash
         run: |
@@ -2097,31 +2119,30 @@ jobs:
           fi
       - name: Restore WRF runtime files from runners catalog
         shell: bash
-        run: python3 .github/scripts/restore_wrf_runtime.py
-      - name: Restore embedded Sudeste runtime
-        uses: actions/cache@v4
-        with:
-          path: wrf
-          key: ${{ runner.os }}-sideral-sudeste-runtime-${{ github.sha }}
-      - name: Expose WRF helper adapter to PATH
+        run: python3 .github/scripts/restor      - name: Reunir WRFOUTs locais da rodada completa
+        env:
+          SOURCE_MODEL: ${{ env.SOURCE_MODEL }}
         shell: bash
         run: |
           set -euo pipefail
-          echo "$GITHUB_WORKSPACE/wrf/bin" >> "$GITHUB_PATH"
-      - name: Pré-validar scripts Bash e ShellCheck
-        shell: bash
-        run: |
-          set -euo pipefail
-          mapfile -t scripts < <(find wrf -maxdepth 1 -type f -name '*.sh' -print | sort)
-          test "${#scripts[@]}" -gt 0
-          if grep -nIl $'\r' "${scripts[@]}"; then
-            echo "ERRO: existe CRLF em script wrf/*.sh; converta para LF." >&2
-            exit 1
-          fi
-          # Normalize checkout permissions: helpers are explicitly run with bash.
-          chmod +x "${scripts[@]}"
-          for f in "${scripts[@]}"; do
-            test -x "$f" || { echo "ERRO: script não executável após chmod: $f" >&2; exit 1; }
+          rm -rf tarc_all_wrfout tarc_products tarc_severe
+          mkdir -p tarc_all_wrfout
+          mapfile -t files < <(find tarc_segment_artifacts -type f -name 'tarc-wrfout-*' -size +0c -print | sort)
+          (("${#files[@]}" >= 49)) || { echo "Sudeste: esperados ao menos 49 WRFOUTs de segmentos; encontrados ${#files[@]}" >&2; exit 3; }
+          for f in "${files[@]}"; do
+            name="$(basename "$f" | sed -E 's/^tarc-wrfout-[0-9]+-//; s/_([0-9]{2})[.]([0-9]{2})[.]([0-9]{2})$/_\1:\2:\3/')"
+            [[ "$name" == wrfout_d01_* ]] || { echo "Nome WRFOUT inválido no artifact: $f" >&2; exit 4; }
+            cp -f "$f" "tarc_all_wrfout/$name"
+          done
+          mapfile -t outputs < <(find tarc_all_wrfout -maxdepth 1 -type f -name 'wrfout_d01_*' -size +0c -print | sort)
+          (("${#outputs[@]}" == 49)) || { echo "Sudeste: esperados 49 horários únicos F000-F048; encontrados ${#outputs[@]}" >&2; exit 5; }
+          run_env="$(find tarc_segment_artifacts -type f -name 'tarc-run.env' -size +0c -print | sort | head -n 1)"
+          test -n "$run_env" && test -s "$run_env" || { echo "tarc-run.env não foi recuperado dos artifacts" >&2; exit 6; }
+          cp -f "$run_env" tarc-run.env
+          source tarc-run.env
+          export SOURCE_MODEL
+          echo "Sudeste: 16 segmentos restaurados, 49 WRFOUTs horários prontos para pós-processamento."
+script não executável após chmod: $f" >&2; exit 1; }
             bash -n "$f"
           done
           shellcheck -S error -s bash "${scripts[@]}"
