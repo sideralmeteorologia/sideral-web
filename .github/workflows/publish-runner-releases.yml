@@ -46,7 +46,7 @@ jobs:
           while IFS=$'\t' read -r id name size; do
             [[ -n "${id:-}" ]] || continue
             lower="${name,,}"
-            if [[ "$lower" =~ checkpoint|segment|(^|[-_])seg[0-9]{1,3}([-_]|$)|(^|[-_])f[0-9]{3}-f[0-9]{3}([-_]|$)|runtime|cache|restart|boundary ]]; then
+            if [[ "$lower" =~ checkpoint|(^|[-_])seg[0-9]{1,3}([-_]|$)|runtime|cache|restart|boundary ]]; then
               echo "Ignorando arquivo interno do runner: $name"
               continue
             fi
