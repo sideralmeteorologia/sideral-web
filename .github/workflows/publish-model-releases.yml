@@ -4,7 +4,7 @@ on:
   workflow_run:
     # Listen to every completed workflow; the source-path allowlist is applied
     # safely after resolving workflow_id through the Actions API.
-    workflows: ["*"]
+    workflows: ["*", "!SIDERAL | Publicar modelos, multimodelos e NWP"]
     types: [completed]
     branches: [main]
 
