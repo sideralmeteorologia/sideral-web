@@ -63,12 +63,29 @@ def slug(value: str) -> str:
 def product_key(path: str, name: str) -> str:
     stem = Path(path).stem
     lowered = stem.lower()
-    if "global-nwp" in lowered or "global nwp" in name.lower():
+    workflow_name = name.lower()
+    if "global-nwp" in lowered or "global nwp" in workflow_name:
         return "global-nwp"
-    if "multimodel" in lowered or "multimodel" in name.lower():
+    if "multimodel" in lowered or "multimodel" in workflow_name:
         return "multimodels-05"
-    return slug(stem)
 
+    # Generic/manual entry points share the same model-specific Release tags
+    # as their dedicated source workflows instead of creating a competing
+    # generic "manual" product.
+    manual_products = {
+        "sideral-brasil-wrf": ("brasil-wrf-21km", False),
+        "cbr-wrf": ("cbr-wrf-4km", True),
+        "cim-wrf-5km": ("cim-wrf-5km", True),
+        "cim-wrf-8km": ("cim-wrf-8km", True),
+        "metbr-wrf": ("metbr-wrf-4km", True),
+        "tarc-wrf": ("tarc-wrf-3km", True),
+    }
+    if lowered in manual_products:
+        prefix, include_variant = manual_products[lowered]
+        source = get("SOURCE_MODEL", "icon").lower() or "icon"
+        variant = get("MODEL_VARIANT", "wrf").lower() or "wrf"
+        return slug(f"{prefix}-{variant}-{source}" if include_variant else f"{prefix}-{source}")
+    return slug(stem)
 
 def command(args: list[str], capture: bool = False) -> subprocess.CompletedProcess[str]:
     print("+", " ".join(args[:5]), flush=True)
