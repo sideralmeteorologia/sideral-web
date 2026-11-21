@@ -118,10 +118,10 @@ if [[ "$COLD_START" == "0" ]]; then
   RESTART_STARTED_AT="$(date +%s)"
   bash wrf/run_tarc_restart_segment.sh "$START_HOUR" "$END_HOUR" "$WRF_RESTART_DIR"
   echo "TARC_METRIC restart_forecast_seconds=$(( $(date +%s) - RESTART_STARTED_AT ))"
-  cp -f "$OUTPUT_DIR/namelist.restart.input" "$ROOT/tarc-namelist.input"
-
   OUTPUT_DIR="$ROOT/tarc_segment_output"
   test -d "$OUTPUT_DIR"
+  test -f "$OUTPUT_DIR/namelist.restart.input"
+  cp -f "$OUTPUT_DIR/namelist.restart.input" "$ROOT/tarc-namelist.input"
   UPLOAD_DIR="$ROOT/tarc_upload_$SEGMENT_INDEX"
   rm -rf "$UPLOAD_DIR"; mkdir -p "$UPLOAD_DIR"
   for f in "$OUTPUT_DIR"/wrfrst_d01_*; do cp -f "$f" "$UPLOAD_DIR/tarc-restart-$END_HOUR-$(basename "$f")"; done
