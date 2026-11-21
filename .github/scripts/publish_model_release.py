@@ -334,6 +334,11 @@ def run() -> int:
         print(f"Skipping non-model workflow: {path or name}")
         return 0
 
+    source_branch = get("SOURCE_BRANCH", get("GITHUB_REF_NAME"))
+    if source_branch and source_branch != "main":
+        print(f"Skipping Release publication outside main: {source_branch}")
+        return 0
+
     artifacts_root = Path(get("SOURCE_ARTIFACTS_DIR", "model-artifacts")).resolve()
     files = collect(artifacts_root)
     if not files:
