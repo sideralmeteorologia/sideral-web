@@ -38,9 +38,9 @@ env:
 jobs:
 
   seg00:
-    name: SIDERAL 4 KM wrf ecmwf F000-F006
+    name: SIDERAL 4 KM wrf ecmwf F000-F003
     runs-on: ubuntu-22.04
-    timeout-minutes: 478
+    timeout-minutes: 355
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -191,7 +191,7 @@ jobs:
           grep -Fq 'p.add_argument("--start-hour", type=int, default=0' wrf/fetch_gfs_land_support.py || { echo "ERRO: seletor de horas GFS ausente." >&2; exit 1; }
           python3 -m py_compile wrf/fetch_icon_wrf_step.py wrf/fetch_ecmwf_wrf_input.py wrf/select_tarc_icon_run.py wrf/fetch_gfs_land_support.py wrf/extract_wrf_severe_core.py wrf/extract_wrf_severe.py wrf/tarc_postprocess.py
           echo "ShellCheck e sintaxe Python dos fallbacks validados."
-      - name: Executar F000-F006
+      - name: Executar F000-F003
         env:
           CHECKPOINT_TAG: sideral-wrf-4km-wrf-sudeste-checkpoint-${{ github.run_id }}
           SOURCE_MODEL: ecmwf
@@ -202,7 +202,7 @@ jobs:
           FORCE_RUN_CYCLE: ''
         run: |
           chmod +x wrf/run_tarc_checkpoint_segment.sh
-          bash wrf/run_tarc_checkpoint_segment.sh 0 6 0 1
+          bash wrf/run_tarc_checkpoint_segment.sh 0 3 0 1
       - name: Bundle WRF artifact safely (1)
         shell: bash
         env:
@@ -229,10 +229,10 @@ jobs:
           if-no-files-found: ignore
           retention-days: 7
   seg01:
-    name: SIDERAL 4 KM wrf ecmwf F006-F012
+    name: SIDERAL 4 KM wrf ecmwf F003-F006
     runs-on: ubuntu-22.04
     needs: seg00
-    timeout-minutes: 478
+    timeout-minutes: 355
     steps:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
@@ -315,7 +315,7 @@ jobs:
             bash -n "$f"
           done
           shellcheck -S error -s bash "${scripts[@]}"
-      - name: Executar F006-F012
+      - name: Executar F003-F006
         env:
           CHECKPOINT_TAG: sideral-wrf-4km-wrf-sudeste-checkpoint-${{ github.run_id }}
           SOURCE_MODEL: ecmwf
@@ -326,7 +326,7 @@ jobs:
           FORCE_RUN_CYCLE: ''
         run: |
           chmod +x wrf/run_tarc_checkpoint_segment.sh
-          bash wrf/run_tarc_checkpoint_segment.sh 6 12 1 0
+          bash wrf/run_tarc_checkpoint_segment.sh 3 6 1 0
       - name: Bundle WRF artifact safely (2)
         shell: bash
         env:
@@ -353,20 +353,20 @@ jobs:
           if-no-files-found: ignore
           retention-days: 7
   seg02:
-    name: SIDERAL 4 KM wrf ecmwf F012-F018
+    name: SIDERAL 4 KM wrf ecmwf F006-F009
     runs-on: ubuntu-22.04
     needs: seg01
-    timeout-minutes: 478
+    timeout-minutes: 355
     steps:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
         with:
           name: wrf-sudeste-4km-wrf-ecmwf-seg01-${{ github.run_id }}
-          path: ${{ runner.temp }}/wrf-downloads/d002
-      - name: Register WRF artifact restore target (2)
+          path: ${{ runner.temp }}/wrf-downloads/d001
+      - name: Register WRF artifact restore target (1)
         shell: bash
         env:
-          WRF_ARTIFACT_DOWNLOAD_DIR: ${{ runner.temp }}/wrf-downloads/d002
+          WRF_ARTIFACT_DOWNLOAD_DIR: ${{ runner.temp }}/wrf-downloads/d001
           WRF_ARTIFACT_RESTORE_TO: '.'
         run: |
           mkdir -p "$WRF_ARTIFACT_DOWNLOAD_DIR"
@@ -380,7 +380,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 1
-      - name: Restore WRF artifacts after checkout (3)
+      - name: Restore WRF artifacts after checkout (2)
         shell: bash
         run: |
           if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
@@ -439,7 +439,7 @@ jobs:
             bash -n "$f"
           done
           shellcheck -S error -s bash "${scripts[@]}"
-      - name: Executar F012-F018
+      - name: Executar F006-F009
         env:
           CHECKPOINT_TAG: sideral-wrf-4km-wrf-sudeste-checkpoint-${{ github.run_id }}
           SOURCE_MODEL: ecmwf
@@ -450,8 +450,8 @@ jobs:
           FORCE_RUN_CYCLE: ''
         run: |
           chmod +x wrf/run_tarc_checkpoint_segment.sh
-          bash wrf/run_tarc_checkpoint_segment.sh 12 18 2 0
-      - name: Bundle WRF artifact safely (3)
+          bash wrf/run_tarc_checkpoint_segment.sh 6 9 2 0
+      - name: Bundle WRF artifact safely (2)
         shell: bash
         env:
           WRF_ARTIFACT_PATTERNS: |
@@ -463,7 +463,7 @@ jobs:
             **/*.tar.gz
             **/wrfout_d01_*
             **/*-run.env
-          WRF_ARTIFACT_OUTPUT: .wrf-artifact-safe/wrf-payload-003.tar
+          WRF_ARTIFACT_OUTPUT: .wrf-artifact-safe/wrf-payload-002.tar
         run: |
           python3 .github/scripts/wrf_artifact_bundle.py pack \
             --workspace "$GITHUB_WORKSPACE" \
@@ -473,24 +473,24 @@ jobs:
         with:
           name: wrf-sudeste-4km-wrf-ecmwf-${{ github.job }}-${{ github.run_id }}
           path: |
-            .wrf-artifact-safe/wrf-payload-003.tar
+            .wrf-artifact-safe/wrf-payload-002.tar
           if-no-files-found: ignore
           retention-days: 7
   seg03:
-    name: SIDERAL 4 KM wrf ecmwf F018-F024
+    name: SIDERAL 4 KM wrf ecmwf F009-F012
     runs-on: ubuntu-22.04
     needs: seg02
-    timeout-minutes: 478
+    timeout-minutes: 355
     steps:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
         with:
           name: wrf-sudeste-4km-wrf-ecmwf-seg02-${{ github.run_id }}
-          path: ${{ runner.temp }}/wrf-downloads/d003
-      - name: Register WRF artifact restore target (3)
+          path: ${{ runner.temp }}/wrf-downloads/d001
+      - name: Register WRF artifact restore target (1)
         shell: bash
         env:
-          WRF_ARTIFACT_DOWNLOAD_DIR: ${{ runner.temp }}/wrf-downloads/d003
+          WRF_ARTIFACT_DOWNLOAD_DIR: ${{ runner.temp }}/wrf-downloads/d001
           WRF_ARTIFACT_RESTORE_TO: '.'
         run: |
           mkdir -p "$WRF_ARTIFACT_DOWNLOAD_DIR"
@@ -504,7 +504,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 1
-      - name: Restore WRF artifacts after checkout (4)
+      - name: Restore WRF artifacts after checkout (2)
         shell: bash
         run: |
           if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
@@ -563,7 +563,7 @@ jobs:
             bash -n "$f"
           done
           shellcheck -S error -s bash "${scripts[@]}"
-      - name: Executar F018-F024
+      - name: Executar F009-F012
         env:
           CHECKPOINT_TAG: sideral-wrf-4km-wrf-sudeste-checkpoint-${{ github.run_id }}
           SOURCE_MODEL: ecmwf
@@ -574,8 +574,8 @@ jobs:
           FORCE_RUN_CYCLE: ''
         run: |
           chmod +x wrf/run_tarc_checkpoint_segment.sh
-          bash wrf/run_tarc_checkpoint_segment.sh 18 24 3 0
-      - name: Bundle WRF artifact safely (4)
+          bash wrf/run_tarc_checkpoint_segment.sh 9 12 3 0
+      - name: Bundle WRF artifact safely (2)
         shell: bash
         env:
           WRF_ARTIFACT_PATTERNS: |
@@ -587,7 +587,7 @@ jobs:
             **/*.tar.gz
             **/wrfout_d01_*
             **/*-run.env
-          WRF_ARTIFACT_OUTPUT: .wrf-artifact-safe/wrf-payload-004.tar
+          WRF_ARTIFACT_OUTPUT: .wrf-artifact-safe/wrf-payload-002.tar
         run: |
           python3 .github/scripts/wrf_artifact_bundle.py pack \
             --workspace "$GITHUB_WORKSPACE" \
@@ -597,24 +597,24 @@ jobs:
         with:
           name: wrf-sudeste-4km-wrf-ecmwf-${{ github.job }}-${{ github.run_id }}
           path: |
-            .wrf-artifact-safe/wrf-payload-004.tar
+            .wrf-artifact-safe/wrf-payload-002.tar
           if-no-files-found: ignore
           retention-days: 7
   seg04:
-    name: SIDERAL 4 KM wrf ecmwf F024-F030
+    name: SIDERAL 4 KM wrf ecmwf F012-F015
     runs-on: ubuntu-22.04
     needs: seg03
-    timeout-minutes: 478
+    timeout-minutes: 355
     steps:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
         with:
           name: wrf-sudeste-4km-wrf-ecmwf-seg03-${{ github.run_id }}
-          path: ${{ runner.temp }}/wrf-downloads/d004
-      - name: Register WRF artifact restore target (4)
+          path: ${{ runner.temp }}/wrf-downloads/d001
+      - name: Register WRF artifact restore target (1)
         shell: bash
         env:
-          WRF_ARTIFACT_DOWNLOAD_DIR: ${{ runner.temp }}/wrf-downloads/d004
+          WRF_ARTIFACT_DOWNLOAD_DIR: ${{ runner.temp }}/wrf-downloads/d001
           WRF_ARTIFACT_RESTORE_TO: '.'
         run: |
           mkdir -p "$WRF_ARTIFACT_DOWNLOAD_DIR"
@@ -628,7 +628,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 1
-      - name: Restore WRF artifacts after checkout (5)
+      - name: Restore WRF artifacts after checkout (2)
         shell: bash
         run: |
           if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
@@ -687,7 +687,7 @@ jobs:
             bash -n "$f"
           done
           shellcheck -S error -s bash "${scripts[@]}"
-      - name: Executar F024-F030
+      - name: Executar F012-F015
         env:
           CHECKPOINT_TAG: sideral-wrf-4km-wrf-sudeste-checkpoint-${{ github.run_id }}
           SOURCE_MODEL: ecmwf
@@ -698,8 +698,8 @@ jobs:
           FORCE_RUN_CYCLE: ''
         run: |
           chmod +x wrf/run_tarc_checkpoint_segment.sh
-          bash wrf/run_tarc_checkpoint_segment.sh 24 30 4 0
-      - name: Bundle WRF artifact safely (5)
+          bash wrf/run_tarc_checkpoint_segment.sh 12 15 4 0
+      - name: Bundle WRF artifact safely (2)
         shell: bash
         env:
           WRF_ARTIFACT_PATTERNS: |
@@ -711,7 +711,7 @@ jobs:
             **/*.tar.gz
             **/wrfout_d01_*
             **/*-run.env
-          WRF_ARTIFACT_OUTPUT: .wrf-artifact-safe/wrf-payload-005.tar
+          WRF_ARTIFACT_OUTPUT: .wrf-artifact-safe/wrf-payload-002.tar
         run: |
           python3 .github/scripts/wrf_artifact_bundle.py pack \
             --workspace "$GITHUB_WORKSPACE" \
@@ -721,24 +721,24 @@ jobs:
         with:
           name: wrf-sudeste-4km-wrf-ecmwf-${{ github.job }}-${{ github.run_id }}
           path: |
-            .wrf-artifact-safe/wrf-payload-005.tar
+            .wrf-artifact-safe/wrf-payload-002.tar
           if-no-files-found: ignore
           retention-days: 7
   seg05:
-    name: SIDERAL 4 KM wrf ecmwf F030-F036
+    name: SIDERAL 4 KM wrf ecmwf F015-F018
     runs-on: ubuntu-22.04
     needs: seg04
-    timeout-minutes: 478
+    timeout-minutes: 355
     steps:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
         with:
           name: wrf-sudeste-4km-wrf-ecmwf-seg04-${{ github.run_id }}
-          path: ${{ runner.temp }}/wrf-downloads/d005
-      - name: Register WRF artifact restore target (5)
+          path: ${{ runner.temp }}/wrf-downloads/d001
+      - name: Register WRF artifact restore target (1)
         shell: bash
         env:
-          WRF_ARTIFACT_DOWNLOAD_DIR: ${{ runner.temp }}/wrf-downloads/d005
+          WRF_ARTIFACT_DOWNLOAD_DIR: ${{ runner.temp }}/wrf-downloads/d001
           WRF_ARTIFACT_RESTORE_TO: '.'
         run: |
           mkdir -p "$WRF_ARTIFACT_DOWNLOAD_DIR"
@@ -752,7 +752,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 1
-      - name: Restore WRF artifacts after checkout (6)
+      - name: Restore WRF artifacts after checkout (2)
         shell: bash
         run: |
           if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
@@ -811,7 +811,7 @@ jobs:
             bash -n "$f"
           done
           shellcheck -S error -s bash "${scripts[@]}"
-      - name: Executar F030-F036
+      - name: Executar F015-F018
         env:
           CHECKPOINT_TAG: sideral-wrf-4km-wrf-sudeste-checkpoint-${{ github.run_id }}
           SOURCE_MODEL: ecmwf
@@ -822,8 +822,8 @@ jobs:
           FORCE_RUN_CYCLE: ''
         run: |
           chmod +x wrf/run_tarc_checkpoint_segment.sh
-          bash wrf/run_tarc_checkpoint_segment.sh 30 36 5 0
-      - name: Bundle WRF artifact safely (6)
+          bash wrf/run_tarc_checkpoint_segment.sh 15 18 5 0
+      - name: Bundle WRF artifact safely (2)
         shell: bash
         env:
           WRF_ARTIFACT_PATTERNS: |
@@ -835,7 +835,7 @@ jobs:
             **/*.tar.gz
             **/wrfout_d01_*
             **/*-run.env
-          WRF_ARTIFACT_OUTPUT: .wrf-artifact-safe/wrf-payload-006.tar
+          WRF_ARTIFACT_OUTPUT: .wrf-artifact-safe/wrf-payload-002.tar
         run: |
           python3 .github/scripts/wrf_artifact_bundle.py pack \
             --workspace "$GITHUB_WORKSPACE" \
@@ -845,24 +845,24 @@ jobs:
         with:
           name: wrf-sudeste-4km-wrf-ecmwf-${{ github.job }}-${{ github.run_id }}
           path: |
-            .wrf-artifact-safe/wrf-payload-006.tar
+            .wrf-artifact-safe/wrf-payload-002.tar
           if-no-files-found: ignore
           retention-days: 7
   seg06:
-    name: SIDERAL 4 KM wrf ecmwf F036-F042
+    name: SIDERAL 4 KM wrf ecmwf F018-F021
     runs-on: ubuntu-22.04
     needs: seg05
-    timeout-minutes: 478
+    timeout-minutes: 355
     steps:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
         with:
           name: wrf-sudeste-4km-wrf-ecmwf-seg05-${{ github.run_id }}
-          path: ${{ runner.temp }}/wrf-downloads/d006
-      - name: Register WRF artifact restore target (6)
+          path: ${{ runner.temp }}/wrf-downloads/d001
+      - name: Register WRF artifact restore target (1)
         shell: bash
         env:
-          WRF_ARTIFACT_DOWNLOAD_DIR: ${{ runner.temp }}/wrf-downloads/d006
+          WRF_ARTIFACT_DOWNLOAD_DIR: ${{ runner.temp }}/wrf-downloads/d001
           WRF_ARTIFACT_RESTORE_TO: '.'
         run: |
           mkdir -p "$WRF_ARTIFACT_DOWNLOAD_DIR"
@@ -876,7 +876,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 1
-      - name: Restore WRF artifacts after checkout (7)
+      - name: Restore WRF artifacts after checkout (2)
         shell: bash
         run: |
           if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
@@ -935,7 +935,7 @@ jobs:
             bash -n "$f"
           done
           shellcheck -S error -s bash "${scripts[@]}"
-      - name: Executar F036-F042
+      - name: Executar F018-F021
         env:
           CHECKPOINT_TAG: sideral-wrf-4km-wrf-sudeste-checkpoint-${{ github.run_id }}
           SOURCE_MODEL: ecmwf
@@ -946,8 +946,8 @@ jobs:
           FORCE_RUN_CYCLE: ''
         run: |
           chmod +x wrf/run_tarc_checkpoint_segment.sh
-          bash wrf/run_tarc_checkpoint_segment.sh 36 42 6 0
-      - name: Bundle WRF artifact safely (7)
+          bash wrf/run_tarc_checkpoint_segment.sh 18 21 6 0
+      - name: Bundle WRF artifact safely (2)
         shell: bash
         env:
           WRF_ARTIFACT_PATTERNS: |
@@ -959,7 +959,7 @@ jobs:
             **/*.tar.gz
             **/wrfout_d01_*
             **/*-run.env
-          WRF_ARTIFACT_OUTPUT: .wrf-artifact-safe/wrf-payload-007.tar
+          WRF_ARTIFACT_OUTPUT: .wrf-artifact-safe/wrf-payload-002.tar
         run: |
           python3 .github/scripts/wrf_artifact_bundle.py pack \
             --workspace "$GITHUB_WORKSPACE" \
@@ -969,24 +969,24 @@ jobs:
         with:
           name: wrf-sudeste-4km-wrf-ecmwf-${{ github.job }}-${{ github.run_id }}
           path: |
-            .wrf-artifact-safe/wrf-payload-007.tar
+            .wrf-artifact-safe/wrf-payload-002.tar
           if-no-files-found: ignore
           retention-days: 7
   seg07:
-    name: SIDERAL 4 KM wrf ecmwf F042-F048
+    name: SIDERAL 4 KM wrf ecmwf F021-F024
     runs-on: ubuntu-22.04
     needs: seg06
-    timeout-minutes: 478
+    timeout-minutes: 355
     steps:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
         with:
           name: wrf-sudeste-4km-wrf-ecmwf-seg06-${{ github.run_id }}
-          path: ${{ runner.temp }}/wrf-downloads/d007
-      - name: Register WRF artifact restore target (7)
+          path: ${{ runner.temp }}/wrf-downloads/d001
+      - name: Register WRF artifact restore target (1)
         shell: bash
         env:
-          WRF_ARTIFACT_DOWNLOAD_DIR: ${{ runner.temp }}/wrf-downloads/d007
+          WRF_ARTIFACT_DOWNLOAD_DIR: ${{ runner.temp }}/wrf-downloads/d001
           WRF_ARTIFACT_RESTORE_TO: '.'
         run: |
           mkdir -p "$WRF_ARTIFACT_DOWNLOAD_DIR"
@@ -1000,7 +1000,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 1
-      - name: Restore WRF artifacts after checkout (8)
+      - name: Restore WRF artifacts after checkout (2)
         shell: bash
         run: |
           if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
@@ -1059,7 +1059,7 @@ jobs:
             bash -n "$f"
           done
           shellcheck -S error -s bash "${scripts[@]}"
-      - name: Executar F042-F048
+      - name: Executar F021-F024
         env:
           CHECKPOINT_TAG: sideral-wrf-4km-wrf-sudeste-checkpoint-${{ github.run_id }}
           SOURCE_MODEL: ecmwf
@@ -1070,8 +1070,8 @@ jobs:
           FORCE_RUN_CYCLE: ''
         run: |
           chmod +x wrf/run_tarc_checkpoint_segment.sh
-          bash wrf/run_tarc_checkpoint_segment.sh 42 48 7 0
-      - name: Bundle WRF artifact safely (8)
+          bash wrf/run_tarc_checkpoint_segment.sh 21 24 7 0
+      - name: Bundle WRF artifact safely (2)
         shell: bash
         env:
           WRF_ARTIFACT_PATTERNS: |
@@ -1083,7 +1083,7 @@ jobs:
             **/*.tar.gz
             **/wrfout_d01_*
             **/*-run.env
-          WRF_ARTIFACT_OUTPUT: .wrf-artifact-safe/wrf-payload-008.tar
+          WRF_ARTIFACT_OUTPUT: .wrf-artifact-safe/wrf-payload-002.tar
         run: |
           python3 .github/scripts/wrf_artifact_bundle.py pack \
             --workspace "$GITHUB_WORKSPACE" \
@@ -1093,14 +1093,1006 @@ jobs:
         with:
           name: wrf-sudeste-4km-wrf-ecmwf-${{ github.job }}-${{ github.run_id }}
           path: |
-            .wrf-artifact-safe/wrf-payload-008.tar
+            .wrf-artifact-safe/wrf-payload-002.tar
+          if-no-files-found: ignore
+          retention-days: 7
+  seg08:
+    name: SIDERAL 4 KM wrf ecmwf F024-F027
+    runs-on: ubuntu-22.04
+    needs: seg07
+    timeout-minutes: 355
+    steps:
+      - name: Restaurar checkpoint do segmento anterior
+        uses: actions/download-artifact@v4
+        with:
+          name: wrf-sudeste-4km-wrf-ecmwf-seg07-${{ github.run_id }}
+          path: ${{ runner.temp }}/wrf-downloads/d001
+      - name: Register WRF artifact restore target (1)
+        shell: bash
+        env:
+          WRF_ARTIFACT_DOWNLOAD_DIR: ${{ runner.temp }}/wrf-downloads/d001
+          WRF_ARTIFACT_RESTORE_TO: '.'
+        run: |
+          mkdir -p "$WRF_ARTIFACT_DOWNLOAD_DIR"
+          printf '%s\n' "$WRF_ARTIFACT_RESTORE_TO" > "$WRF_ARTIFACT_DOWNLOAD_DIR/.restore-to"
+          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
+            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
+              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
+              --workspace "$GITHUB_WORKSPACE"
+          fi
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - name: Restore WRF artifacts after checkout (2)
+        shell: bash
+        run: |
+          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
+            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
+              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
+              --workspace "$GITHUB_WORKSPACE"
+          fi
+      - name: Restore WRF runtime files from runners catalog
+        shell: bash
+        run: python3 .github/scripts/restore_wrf_runtime.py
+      - name: Restore embedded Sudeste runtime
+        uses: actions/cache@v4
+        with:
+          path: wrf
+          key: ${{ runner.os }}-sideral-sudeste-runtime-${{ github.sha }}
+      - name: Install awscli and expose R2 adapter
+        shell: bash
+        run: |
+          set -euo pipefail
+          command -v aws >/dev/null || { sudo apt-get update -qq && sudo apt-get install -y awscli; }
+          echo "$GITHUB_WORKSPACE/wrf/bin" >> "$GITHUB_PATH"
+      - name: Configure Python for ECMWF Open Data
+        if: ${{ 'ecmwf' == 'ecmwf' }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install and verify ECMWF Open Data client
+        if: ${{ 'ecmwf' == 'ecmwf' }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          # Instala em diretorio fixo exportado via PYTHONPATH para qualquer python3.
+          DEPS="$RUNNER_TEMP/ecmwf-pydeps"
+          python -m pip install --disable-pip-version-check --upgrade --target "$DEPS" 'ecmwf-opendata==0.3.34' 'requests>=2.31'
+          echo "PYTHONPATH=$DEPS${PYTHONPATH:+:$PYTHONPATH}" >> "$GITHUB_ENV"
+          export PYTHONPATH="$DEPS${PYTHONPATH:+:$PYTHONPATH}"
+          python -c "from ecmwf.opendata import Client; print('ECMWF Open Data client OK em python')"
+          for PYBIN in python3 /usr/bin/python3; do
+            command -v "$PYBIN" >/dev/null 2>&1 || continue
+            "$PYBIN" -c "from ecmwf.opendata import Client; print('ECMWF Open Data client OK em $PYBIN')" || echo "AVISO: $PYBIN nao importa ecmwf.opendata"
+          done
+      - name: Pré-validar scripts Bash e ShellCheck
+        shell: bash
+        run: |
+          set -euo pipefail
+          mapfile -t scripts < <(find wrf -maxdepth 1 -type f -name '*.sh' -print | sort)
+          test "${#scripts[@]}" -gt 0
+          if grep -nIl $'\r' "${scripts[@]}"; then
+            echo "ERRO: existe CRLF em script wrf/*.sh; converta para LF." >&2
+            exit 1
+          fi
+          # Normalize checkout permissions: helpers are explicitly run with bash.
+          chmod +x "${scripts[@]}"
+          for f in "${scripts[@]}"; do
+            test -x "$f" || { echo "ERRO: script não executável após chmod: $f" >&2; exit 1; }
+            bash -n "$f"
+          done
+          shellcheck -S error -s bash "${scripts[@]}"
+      - name: Executar F024-F027
+        env:
+          CHECKPOINT_TAG: sideral-wrf-4km-wrf-sudeste-checkpoint-${{ github.run_id }}
+          SOURCE_MODEL: ecmwf
+          WRF_NO_FALLBACK: '1'
+          RUN_DATE: ''
+          RUN_CYCLE: ''
+          FORCE_RUN_DATE: ''
+          FORCE_RUN_CYCLE: ''
+        run: |
+          chmod +x wrf/run_tarc_checkpoint_segment.sh
+          bash wrf/run_tarc_checkpoint_segment.sh 24 27 8 0
+      - name: Bundle WRF artifact safely (2)
+        shell: bash
+        env:
+          WRF_ARTIFACT_PATTERNS: |
+            **/*restart*/**
+            **/*products*/**
+            **/*publish*/**
+            **/*.json
+            **/*.npz
+            **/*.tar.gz
+            **/wrfout_d01_*
+            **/*-run.env
+          WRF_ARTIFACT_OUTPUT: .wrf-artifact-safe/wrf-payload-002.tar
+        run: |
+          python3 .github/scripts/wrf_artifact_bundle.py pack \
+            --workspace "$GITHUB_WORKSPACE" \
+            --output "$GITHUB_WORKSPACE/$WRF_ARTIFACT_OUTPUT"
+      - name: Salvar checkpoint e produtos desta etapa
+        uses: actions/upload-artifact@v4
+        with:
+          name: wrf-sudeste-4km-wrf-ecmwf-${{ github.job }}-${{ github.run_id }}
+          path: |
+            .wrf-artifact-safe/wrf-payload-002.tar
+          if-no-files-found: ignore
+          retention-days: 7
+  seg09:
+    name: SIDERAL 4 KM wrf ecmwf F027-F030
+    runs-on: ubuntu-22.04
+    needs: seg08
+    timeout-minutes: 355
+    steps:
+      - name: Restaurar checkpoint do segmento anterior
+        uses: actions/download-artifact@v4
+        with:
+          name: wrf-sudeste-4km-wrf-ecmwf-seg08-${{ github.run_id }}
+          path: ${{ runner.temp }}/wrf-downloads/d001
+      - name: Register WRF artifact restore target (1)
+        shell: bash
+        env:
+          WRF_ARTIFACT_DOWNLOAD_DIR: ${{ runner.temp }}/wrf-downloads/d001
+          WRF_ARTIFACT_RESTORE_TO: '.'
+        run: |
+          mkdir -p "$WRF_ARTIFACT_DOWNLOAD_DIR"
+          printf '%s\n' "$WRF_ARTIFACT_RESTORE_TO" > "$WRF_ARTIFACT_DOWNLOAD_DIR/.restore-to"
+          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
+            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
+              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
+              --workspace "$GITHUB_WORKSPACE"
+          fi
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - name: Restore WRF artifacts after checkout (2)
+        shell: bash
+        run: |
+          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
+            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
+              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
+              --workspace "$GITHUB_WORKSPACE"
+          fi
+      - name: Restore WRF runtime files from runners catalog
+        shell: bash
+        run: python3 .github/scripts/restore_wrf_runtime.py
+      - name: Restore embedded Sudeste runtime
+        uses: actions/cache@v4
+        with:
+          path: wrf
+          key: ${{ runner.os }}-sideral-sudeste-runtime-${{ github.sha }}
+      - name: Install awscli and expose R2 adapter
+        shell: bash
+        run: |
+          set -euo pipefail
+          command -v aws >/dev/null || { sudo apt-get update -qq && sudo apt-get install -y awscli; }
+          echo "$GITHUB_WORKSPACE/wrf/bin" >> "$GITHUB_PATH"
+      - name: Configure Python for ECMWF Open Data
+        if: ${{ 'ecmwf' == 'ecmwf' }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install and verify ECMWF Open Data client
+        if: ${{ 'ecmwf' == 'ecmwf' }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          # Instala em diretorio fixo exportado via PYTHONPATH para qualquer python3.
+          DEPS="$RUNNER_TEMP/ecmwf-pydeps"
+          python -m pip install --disable-pip-version-check --upgrade --target "$DEPS" 'ecmwf-opendata==0.3.34' 'requests>=2.31'
+          echo "PYTHONPATH=$DEPS${PYTHONPATH:+:$PYTHONPATH}" >> "$GITHUB_ENV"
+          export PYTHONPATH="$DEPS${PYTHONPATH:+:$PYTHONPATH}"
+          python -c "from ecmwf.opendata import Client; print('ECMWF Open Data client OK em python')"
+          for PYBIN in python3 /usr/bin/python3; do
+            command -v "$PYBIN" >/dev/null 2>&1 || continue
+            "$PYBIN" -c "from ecmwf.opendata import Client; print('ECMWF Open Data client OK em $PYBIN')" || echo "AVISO: $PYBIN nao importa ecmwf.opendata"
+          done
+      - name: Pré-validar scripts Bash e ShellCheck
+        shell: bash
+        run: |
+          set -euo pipefail
+          mapfile -t scripts < <(find wrf -maxdepth 1 -type f -name '*.sh' -print | sort)
+          test "${#scripts[@]}" -gt 0
+          if grep -nIl $'\r' "${scripts[@]}"; then
+            echo "ERRO: existe CRLF em script wrf/*.sh; converta para LF." >&2
+            exit 1
+          fi
+          # Normalize checkout permissions: helpers are explicitly run with bash.
+          chmod +x "${scripts[@]}"
+          for f in "${scripts[@]}"; do
+            test -x "$f" || { echo "ERRO: script não executável após chmod: $f" >&2; exit 1; }
+            bash -n "$f"
+          done
+          shellcheck -S error -s bash "${scripts[@]}"
+      - name: Executar F027-F030
+        env:
+          CHECKPOINT_TAG: sideral-wrf-4km-wrf-sudeste-checkpoint-${{ github.run_id }}
+          SOURCE_MODEL: ecmwf
+          WRF_NO_FALLBACK: '1'
+          RUN_DATE: ''
+          RUN_CYCLE: ''
+          FORCE_RUN_DATE: ''
+          FORCE_RUN_CYCLE: ''
+        run: |
+          chmod +x wrf/run_tarc_checkpoint_segment.sh
+          bash wrf/run_tarc_checkpoint_segment.sh 27 30 9 0
+      - name: Bundle WRF artifact safely (2)
+        shell: bash
+        env:
+          WRF_ARTIFACT_PATTERNS: |
+            **/*restart*/**
+            **/*products*/**
+            **/*publish*/**
+            **/*.json
+            **/*.npz
+            **/*.tar.gz
+            **/wrfout_d01_*
+            **/*-run.env
+          WRF_ARTIFACT_OUTPUT: .wrf-artifact-safe/wrf-payload-002.tar
+        run: |
+          python3 .github/scripts/wrf_artifact_bundle.py pack \
+            --workspace "$GITHUB_WORKSPACE" \
+            --output "$GITHUB_WORKSPACE/$WRF_ARTIFACT_OUTPUT"
+      - name: Salvar checkpoint e produtos desta etapa
+        uses: actions/upload-artifact@v4
+        with:
+          name: wrf-sudeste-4km-wrf-ecmwf-${{ github.job }}-${{ github.run_id }}
+          path: |
+            .wrf-artifact-safe/wrf-payload-002.tar
+          if-no-files-found: ignore
+          retention-days: 7
+  seg10:
+    name: SIDERAL 4 KM wrf ecmwf F030-F033
+    runs-on: ubuntu-22.04
+    needs: seg09
+    timeout-minutes: 355
+    steps:
+      - name: Restaurar checkpoint do segmento anterior
+        uses: actions/download-artifact@v4
+        with:
+          name: wrf-sudeste-4km-wrf-ecmwf-seg09-${{ github.run_id }}
+          path: ${{ runner.temp }}/wrf-downloads/d001
+      - name: Register WRF artifact restore target (1)
+        shell: bash
+        env:
+          WRF_ARTIFACT_DOWNLOAD_DIR: ${{ runner.temp }}/wrf-downloads/d001
+          WRF_ARTIFACT_RESTORE_TO: '.'
+        run: |
+          mkdir -p "$WRF_ARTIFACT_DOWNLOAD_DIR"
+          printf '%s\n' "$WRF_ARTIFACT_RESTORE_TO" > "$WRF_ARTIFACT_DOWNLOAD_DIR/.restore-to"
+          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
+            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
+              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
+              --workspace "$GITHUB_WORKSPACE"
+          fi
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - name: Restore WRF artifacts after checkout (2)
+        shell: bash
+        run: |
+          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
+            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
+              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
+              --workspace "$GITHUB_WORKSPACE"
+          fi
+      - name: Restore WRF runtime files from runners catalog
+        shell: bash
+        run: python3 .github/scripts/restore_wrf_runtime.py
+      - name: Restore embedded Sudeste runtime
+        uses: actions/cache@v4
+        with:
+          path: wrf
+          key: ${{ runner.os }}-sideral-sudeste-runtime-${{ github.sha }}
+      - name: Install awscli and expose R2 adapter
+        shell: bash
+        run: |
+          set -euo pipefail
+          command -v aws >/dev/null || { sudo apt-get update -qq && sudo apt-get install -y awscli; }
+          echo "$GITHUB_WORKSPACE/wrf/bin" >> "$GITHUB_PATH"
+      - name: Configure Python for ECMWF Open Data
+        if: ${{ 'ecmwf' == 'ecmwf' }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install and verify ECMWF Open Data client
+        if: ${{ 'ecmwf' == 'ecmwf' }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          # Instala em diretorio fixo exportado via PYTHONPATH para qualquer python3.
+          DEPS="$RUNNER_TEMP/ecmwf-pydeps"
+          python -m pip install --disable-pip-version-check --upgrade --target "$DEPS" 'ecmwf-opendata==0.3.34' 'requests>=2.31'
+          echo "PYTHONPATH=$DEPS${PYTHONPATH:+:$PYTHONPATH}" >> "$GITHUB_ENV"
+          export PYTHONPATH="$DEPS${PYTHONPATH:+:$PYTHONPATH}"
+          python -c "from ecmwf.opendata import Client; print('ECMWF Open Data client OK em python')"
+          for PYBIN in python3 /usr/bin/python3; do
+            command -v "$PYBIN" >/dev/null 2>&1 || continue
+            "$PYBIN" -c "from ecmwf.opendata import Client; print('ECMWF Open Data client OK em $PYBIN')" || echo "AVISO: $PYBIN nao importa ecmwf.opendata"
+          done
+      - name: Pré-validar scripts Bash e ShellCheck
+        shell: bash
+        run: |
+          set -euo pipefail
+          mapfile -t scripts < <(find wrf -maxdepth 1 -type f -name '*.sh' -print | sort)
+          test "${#scripts[@]}" -gt 0
+          if grep -nIl $'\r' "${scripts[@]}"; then
+            echo "ERRO: existe CRLF em script wrf/*.sh; converta para LF." >&2
+            exit 1
+          fi
+          # Normalize checkout permissions: helpers are explicitly run with bash.
+          chmod +x "${scripts[@]}"
+          for f in "${scripts[@]}"; do
+            test -x "$f" || { echo "ERRO: script não executável após chmod: $f" >&2; exit 1; }
+            bash -n "$f"
+          done
+          shellcheck -S error -s bash "${scripts[@]}"
+      - name: Executar F030-F033
+        env:
+          CHECKPOINT_TAG: sideral-wrf-4km-wrf-sudeste-checkpoint-${{ github.run_id }}
+          SOURCE_MODEL: ecmwf
+          WRF_NO_FALLBACK: '1'
+          RUN_DATE: ''
+          RUN_CYCLE: ''
+          FORCE_RUN_DATE: ''
+          FORCE_RUN_CYCLE: ''
+        run: |
+          chmod +x wrf/run_tarc_checkpoint_segment.sh
+          bash wrf/run_tarc_checkpoint_segment.sh 30 33 10 0
+      - name: Bundle WRF artifact safely (2)
+        shell: bash
+        env:
+          WRF_ARTIFACT_PATTERNS: |
+            **/*restart*/**
+            **/*products*/**
+            **/*publish*/**
+            **/*.json
+            **/*.npz
+            **/*.tar.gz
+            **/wrfout_d01_*
+            **/*-run.env
+          WRF_ARTIFACT_OUTPUT: .wrf-artifact-safe/wrf-payload-002.tar
+        run: |
+          python3 .github/scripts/wrf_artifact_bundle.py pack \
+            --workspace "$GITHUB_WORKSPACE" \
+            --output "$GITHUB_WORKSPACE/$WRF_ARTIFACT_OUTPUT"
+      - name: Salvar checkpoint e produtos desta etapa
+        uses: actions/upload-artifact@v4
+        with:
+          name: wrf-sudeste-4km-wrf-ecmwf-${{ github.job }}-${{ github.run_id }}
+          path: |
+            .wrf-artifact-safe/wrf-payload-002.tar
+          if-no-files-found: ignore
+          retention-days: 7
+  seg11:
+    name: SIDERAL 4 KM wrf ecmwf F033-F036
+    runs-on: ubuntu-22.04
+    needs: seg10
+    timeout-minutes: 355
+    steps:
+      - name: Restaurar checkpoint do segmento anterior
+        uses: actions/download-artifact@v4
+        with:
+          name: wrf-sudeste-4km-wrf-ecmwf-seg10-${{ github.run_id }}
+          path: ${{ runner.temp }}/wrf-downloads/d001
+      - name: Register WRF artifact restore target (1)
+        shell: bash
+        env:
+          WRF_ARTIFACT_DOWNLOAD_DIR: ${{ runner.temp }}/wrf-downloads/d001
+          WRF_ARTIFACT_RESTORE_TO: '.'
+        run: |
+          mkdir -p "$WRF_ARTIFACT_DOWNLOAD_DIR"
+          printf '%s\n' "$WRF_ARTIFACT_RESTORE_TO" > "$WRF_ARTIFACT_DOWNLOAD_DIR/.restore-to"
+          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
+            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
+              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
+              --workspace "$GITHUB_WORKSPACE"
+          fi
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - name: Restore WRF artifacts after checkout (2)
+        shell: bash
+        run: |
+          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
+            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
+              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
+              --workspace "$GITHUB_WORKSPACE"
+          fi
+      - name: Restore WRF runtime files from runners catalog
+        shell: bash
+        run: python3 .github/scripts/restore_wrf_runtime.py
+      - name: Restore embedded Sudeste runtime
+        uses: actions/cache@v4
+        with:
+          path: wrf
+          key: ${{ runner.os }}-sideral-sudeste-runtime-${{ github.sha }}
+      - name: Install awscli and expose R2 adapter
+        shell: bash
+        run: |
+          set -euo pipefail
+          command -v aws >/dev/null || { sudo apt-get update -qq && sudo apt-get install -y awscli; }
+          echo "$GITHUB_WORKSPACE/wrf/bin" >> "$GITHUB_PATH"
+      - name: Configure Python for ECMWF Open Data
+        if: ${{ 'ecmwf' == 'ecmwf' }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install and verify ECMWF Open Data client
+        if: ${{ 'ecmwf' == 'ecmwf' }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          # Instala em diretorio fixo exportado via PYTHONPATH para qualquer python3.
+          DEPS="$RUNNER_TEMP/ecmwf-pydeps"
+          python -m pip install --disable-pip-version-check --upgrade --target "$DEPS" 'ecmwf-opendata==0.3.34' 'requests>=2.31'
+          echo "PYTHONPATH=$DEPS${PYTHONPATH:+:$PYTHONPATH}" >> "$GITHUB_ENV"
+          export PYTHONPATH="$DEPS${PYTHONPATH:+:$PYTHONPATH}"
+          python -c "from ecmwf.opendata import Client; print('ECMWF Open Data client OK em python')"
+          for PYBIN in python3 /usr/bin/python3; do
+            command -v "$PYBIN" >/dev/null 2>&1 || continue
+            "$PYBIN" -c "from ecmwf.opendata import Client; print('ECMWF Open Data client OK em $PYBIN')" || echo "AVISO: $PYBIN nao importa ecmwf.opendata"
+          done
+      - name: Pré-validar scripts Bash e ShellCheck
+        shell: bash
+        run: |
+          set -euo pipefail
+          mapfile -t scripts < <(find wrf -maxdepth 1 -type f -name '*.sh' -print | sort)
+          test "${#scripts[@]}" -gt 0
+          if grep -nIl $'\r' "${scripts[@]}"; then
+            echo "ERRO: existe CRLF em script wrf/*.sh; converta para LF." >&2
+            exit 1
+          fi
+          # Normalize checkout permissions: helpers are explicitly run with bash.
+          chmod +x "${scripts[@]}"
+          for f in "${scripts[@]}"; do
+            test -x "$f" || { echo "ERRO: script não executável após chmod: $f" >&2; exit 1; }
+            bash -n "$f"
+          done
+          shellcheck -S error -s bash "${scripts[@]}"
+      - name: Executar F033-F036
+        env:
+          CHECKPOINT_TAG: sideral-wrf-4km-wrf-sudeste-checkpoint-${{ github.run_id }}
+          SOURCE_MODEL: ecmwf
+          WRF_NO_FALLBACK: '1'
+          RUN_DATE: ''
+          RUN_CYCLE: ''
+          FORCE_RUN_DATE: ''
+          FORCE_RUN_CYCLE: ''
+        run: |
+          chmod +x wrf/run_tarc_checkpoint_segment.sh
+          bash wrf/run_tarc_checkpoint_segment.sh 33 36 11 0
+      - name: Bundle WRF artifact safely (2)
+        shell: bash
+        env:
+          WRF_ARTIFACT_PATTERNS: |
+            **/*restart*/**
+            **/*products*/**
+            **/*publish*/**
+            **/*.json
+            **/*.npz
+            **/*.tar.gz
+            **/wrfout_d01_*
+            **/*-run.env
+          WRF_ARTIFACT_OUTPUT: .wrf-artifact-safe/wrf-payload-002.tar
+        run: |
+          python3 .github/scripts/wrf_artifact_bundle.py pack \
+            --workspace "$GITHUB_WORKSPACE" \
+            --output "$GITHUB_WORKSPACE/$WRF_ARTIFACT_OUTPUT"
+      - name: Salvar checkpoint e produtos desta etapa
+        uses: actions/upload-artifact@v4
+        with:
+          name: wrf-sudeste-4km-wrf-ecmwf-${{ github.job }}-${{ github.run_id }}
+          path: |
+            .wrf-artifact-safe/wrf-payload-002.tar
+          if-no-files-found: ignore
+          retention-days: 7
+  seg12:
+    name: SIDERAL 4 KM wrf ecmwf F036-F039
+    runs-on: ubuntu-22.04
+    needs: seg11
+    timeout-minutes: 355
+    steps:
+      - name: Restaurar checkpoint do segmento anterior
+        uses: actions/download-artifact@v4
+        with:
+          name: wrf-sudeste-4km-wrf-ecmwf-seg11-${{ github.run_id }}
+          path: ${{ runner.temp }}/wrf-downloads/d001
+      - name: Register WRF artifact restore target (1)
+        shell: bash
+        env:
+          WRF_ARTIFACT_DOWNLOAD_DIR: ${{ runner.temp }}/wrf-downloads/d001
+          WRF_ARTIFACT_RESTORE_TO: '.'
+        run: |
+          mkdir -p "$WRF_ARTIFACT_DOWNLOAD_DIR"
+          printf '%s\n' "$WRF_ARTIFACT_RESTORE_TO" > "$WRF_ARTIFACT_DOWNLOAD_DIR/.restore-to"
+          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
+            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
+              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
+              --workspace "$GITHUB_WORKSPACE"
+          fi
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - name: Restore WRF artifacts after checkout (2)
+        shell: bash
+        run: |
+          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
+            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
+              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
+              --workspace "$GITHUB_WORKSPACE"
+          fi
+      - name: Restore WRF runtime files from runners catalog
+        shell: bash
+        run: python3 .github/scripts/restore_wrf_runtime.py
+      - name: Restore embedded Sudeste runtime
+        uses: actions/cache@v4
+        with:
+          path: wrf
+          key: ${{ runner.os }}-sideral-sudeste-runtime-${{ github.sha }}
+      - name: Install awscli and expose R2 adapter
+        shell: bash
+        run: |
+          set -euo pipefail
+          command -v aws >/dev/null || { sudo apt-get update -qq && sudo apt-get install -y awscli; }
+          echo "$GITHUB_WORKSPACE/wrf/bin" >> "$GITHUB_PATH"
+      - name: Configure Python for ECMWF Open Data
+        if: ${{ 'ecmwf' == 'ecmwf' }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install and verify ECMWF Open Data client
+        if: ${{ 'ecmwf' == 'ecmwf' }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          # Instala em diretorio fixo exportado via PYTHONPATH para qualquer python3.
+          DEPS="$RUNNER_TEMP/ecmwf-pydeps"
+          python -m pip install --disable-pip-version-check --upgrade --target "$DEPS" 'ecmwf-opendata==0.3.34' 'requests>=2.31'
+          echo "PYTHONPATH=$DEPS${PYTHONPATH:+:$PYTHONPATH}" >> "$GITHUB_ENV"
+          export PYTHONPATH="$DEPS${PYTHONPATH:+:$PYTHONPATH}"
+          python -c "from ecmwf.opendata import Client; print('ECMWF Open Data client OK em python')"
+          for PYBIN in python3 /usr/bin/python3; do
+            command -v "$PYBIN" >/dev/null 2>&1 || continue
+            "$PYBIN" -c "from ecmwf.opendata import Client; print('ECMWF Open Data client OK em $PYBIN')" || echo "AVISO: $PYBIN nao importa ecmwf.opendata"
+          done
+      - name: Pré-validar scripts Bash e ShellCheck
+        shell: bash
+        run: |
+          set -euo pipefail
+          mapfile -t scripts < <(find wrf -maxdepth 1 -type f -name '*.sh' -print | sort)
+          test "${#scripts[@]}" -gt 0
+          if grep -nIl $'\r' "${scripts[@]}"; then
+            echo "ERRO: existe CRLF em script wrf/*.sh; converta para LF." >&2
+            exit 1
+          fi
+          # Normalize checkout permissions: helpers are explicitly run with bash.
+          chmod +x "${scripts[@]}"
+          for f in "${scripts[@]}"; do
+            test -x "$f" || { echo "ERRO: script não executável após chmod: $f" >&2; exit 1; }
+            bash -n "$f"
+          done
+          shellcheck -S error -s bash "${scripts[@]}"
+      - name: Executar F036-F039
+        env:
+          CHECKPOINT_TAG: sideral-wrf-4km-wrf-sudeste-checkpoint-${{ github.run_id }}
+          SOURCE_MODEL: ecmwf
+          WRF_NO_FALLBACK: '1'
+          RUN_DATE: ''
+          RUN_CYCLE: ''
+          FORCE_RUN_DATE: ''
+          FORCE_RUN_CYCLE: ''
+        run: |
+          chmod +x wrf/run_tarc_checkpoint_segment.sh
+          bash wrf/run_tarc_checkpoint_segment.sh 36 39 12 0
+      - name: Bundle WRF artifact safely (2)
+        shell: bash
+        env:
+          WRF_ARTIFACT_PATTERNS: |
+            **/*restart*/**
+            **/*products*/**
+            **/*publish*/**
+            **/*.json
+            **/*.npz
+            **/*.tar.gz
+            **/wrfout_d01_*
+            **/*-run.env
+          WRF_ARTIFACT_OUTPUT: .wrf-artifact-safe/wrf-payload-002.tar
+        run: |
+          python3 .github/scripts/wrf_artifact_bundle.py pack \
+            --workspace "$GITHUB_WORKSPACE" \
+            --output "$GITHUB_WORKSPACE/$WRF_ARTIFACT_OUTPUT"
+      - name: Salvar checkpoint e produtos desta etapa
+        uses: actions/upload-artifact@v4
+        with:
+          name: wrf-sudeste-4km-wrf-ecmwf-${{ github.job }}-${{ github.run_id }}
+          path: |
+            .wrf-artifact-safe/wrf-payload-002.tar
+          if-no-files-found: ignore
+          retention-days: 7
+  seg13:
+    name: SIDERAL 4 KM wrf ecmwf F039-F042
+    runs-on: ubuntu-22.04
+    needs: seg12
+    timeout-minutes: 355
+    steps:
+      - name: Restaurar checkpoint do segmento anterior
+        uses: actions/download-artifact@v4
+        with:
+          name: wrf-sudeste-4km-wrf-ecmwf-seg12-${{ github.run_id }}
+          path: ${{ runner.temp }}/wrf-downloads/d001
+      - name: Register WRF artifact restore target (1)
+        shell: bash
+        env:
+          WRF_ARTIFACT_DOWNLOAD_DIR: ${{ runner.temp }}/wrf-downloads/d001
+          WRF_ARTIFACT_RESTORE_TO: '.'
+        run: |
+          mkdir -p "$WRF_ARTIFACT_DOWNLOAD_DIR"
+          printf '%s\n' "$WRF_ARTIFACT_RESTORE_TO" > "$WRF_ARTIFACT_DOWNLOAD_DIR/.restore-to"
+          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
+            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
+              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
+              --workspace "$GITHUB_WORKSPACE"
+          fi
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - name: Restore WRF artifacts after checkout (2)
+        shell: bash
+        run: |
+          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
+            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
+              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
+              --workspace "$GITHUB_WORKSPACE"
+          fi
+      - name: Restore WRF runtime files from runners catalog
+        shell: bash
+        run: python3 .github/scripts/restore_wrf_runtime.py
+      - name: Restore embedded Sudeste runtime
+        uses: actions/cache@v4
+        with:
+          path: wrf
+          key: ${{ runner.os }}-sideral-sudeste-runtime-${{ github.sha }}
+      - name: Install awscli and expose R2 adapter
+        shell: bash
+        run: |
+          set -euo pipefail
+          command -v aws >/dev/null || { sudo apt-get update -qq && sudo apt-get install -y awscli; }
+          echo "$GITHUB_WORKSPACE/wrf/bin" >> "$GITHUB_PATH"
+      - name: Configure Python for ECMWF Open Data
+        if: ${{ 'ecmwf' == 'ecmwf' }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install and verify ECMWF Open Data client
+        if: ${{ 'ecmwf' == 'ecmwf' }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          # Instala em diretorio fixo exportado via PYTHONPATH para qualquer python3.
+          DEPS="$RUNNER_TEMP/ecmwf-pydeps"
+          python -m pip install --disable-pip-version-check --upgrade --target "$DEPS" 'ecmwf-opendata==0.3.34' 'requests>=2.31'
+          echo "PYTHONPATH=$DEPS${PYTHONPATH:+:$PYTHONPATH}" >> "$GITHUB_ENV"
+          export PYTHONPATH="$DEPS${PYTHONPATH:+:$PYTHONPATH}"
+          python -c "from ecmwf.opendata import Client; print('ECMWF Open Data client OK em python')"
+          for PYBIN in python3 /usr/bin/python3; do
+            command -v "$PYBIN" >/dev/null 2>&1 || continue
+            "$PYBIN" -c "from ecmwf.opendata import Client; print('ECMWF Open Data client OK em $PYBIN')" || echo "AVISO: $PYBIN nao importa ecmwf.opendata"
+          done
+      - name: Pré-validar scripts Bash e ShellCheck
+        shell: bash
+        run: |
+          set -euo pipefail
+          mapfile -t scripts < <(find wrf -maxdepth 1 -type f -name '*.sh' -print | sort)
+          test "${#scripts[@]}" -gt 0
+          if grep -nIl $'\r' "${scripts[@]}"; then
+            echo "ERRO: existe CRLF em script wrf/*.sh; converta para LF." >&2
+            exit 1
+          fi
+          # Normalize checkout permissions: helpers are explicitly run with bash.
+          chmod +x "${scripts[@]}"
+          for f in "${scripts[@]}"; do
+            test -x "$f" || { echo "ERRO: script não executável após chmod: $f" >&2; exit 1; }
+            bash -n "$f"
+          done
+          shellcheck -S error -s bash "${scripts[@]}"
+      - name: Executar F039-F042
+        env:
+          CHECKPOINT_TAG: sideral-wrf-4km-wrf-sudeste-checkpoint-${{ github.run_id }}
+          SOURCE_MODEL: ecmwf
+          WRF_NO_FALLBACK: '1'
+          RUN_DATE: ''
+          RUN_CYCLE: ''
+          FORCE_RUN_DATE: ''
+          FORCE_RUN_CYCLE: ''
+        run: |
+          chmod +x wrf/run_tarc_checkpoint_segment.sh
+          bash wrf/run_tarc_checkpoint_segment.sh 39 42 13 0
+      - name: Bundle WRF artifact safely (2)
+        shell: bash
+        env:
+          WRF_ARTIFACT_PATTERNS: |
+            **/*restart*/**
+            **/*products*/**
+            **/*publish*/**
+            **/*.json
+            **/*.npz
+            **/*.tar.gz
+            **/wrfout_d01_*
+            **/*-run.env
+          WRF_ARTIFACT_OUTPUT: .wrf-artifact-safe/wrf-payload-002.tar
+        run: |
+          python3 .github/scripts/wrf_artifact_bundle.py pack \
+            --workspace "$GITHUB_WORKSPACE" \
+            --output "$GITHUB_WORKSPACE/$WRF_ARTIFACT_OUTPUT"
+      - name: Salvar checkpoint e produtos desta etapa
+        uses: actions/upload-artifact@v4
+        with:
+          name: wrf-sudeste-4km-wrf-ecmwf-${{ github.job }}-${{ github.run_id }}
+          path: |
+            .wrf-artifact-safe/wrf-payload-002.tar
+          if-no-files-found: ignore
+          retention-days: 7
+  seg14:
+    name: SIDERAL 4 KM wrf ecmwf F042-F045
+    runs-on: ubuntu-22.04
+    needs: seg13
+    timeout-minutes: 355
+    steps:
+      - name: Restaurar checkpoint do segmento anterior
+        uses: actions/download-artifact@v4
+        with:
+          name: wrf-sudeste-4km-wrf-ecmwf-seg13-${{ github.run_id }}
+          path: ${{ runner.temp }}/wrf-downloads/d001
+      - name: Register WRF artifact restore target (1)
+        shell: bash
+        env:
+          WRF_ARTIFACT_DOWNLOAD_DIR: ${{ runner.temp }}/wrf-downloads/d001
+          WRF_ARTIFACT_RESTORE_TO: '.'
+        run: |
+          mkdir -p "$WRF_ARTIFACT_DOWNLOAD_DIR"
+          printf '%s\n' "$WRF_ARTIFACT_RESTORE_TO" > "$WRF_ARTIFACT_DOWNLOAD_DIR/.restore-to"
+          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
+            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
+              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
+              --workspace "$GITHUB_WORKSPACE"
+          fi
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - name: Restore WRF artifacts after checkout (2)
+        shell: bash
+        run: |
+          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
+            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
+              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
+              --workspace "$GITHUB_WORKSPACE"
+          fi
+      - name: Restore WRF runtime files from runners catalog
+        shell: bash
+        run: python3 .github/scripts/restore_wrf_runtime.py
+      - name: Restore embedded Sudeste runtime
+        uses: actions/cache@v4
+        with:
+          path: wrf
+          key: ${{ runner.os }}-sideral-sudeste-runtime-${{ github.sha }}
+      - name: Install awscli and expose R2 adapter
+        shell: bash
+        run: |
+          set -euo pipefail
+          command -v aws >/dev/null || { sudo apt-get update -qq && sudo apt-get install -y awscli; }
+          echo "$GITHUB_WORKSPACE/wrf/bin" >> "$GITHUB_PATH"
+      - name: Configure Python for ECMWF Open Data
+        if: ${{ 'ecmwf' == 'ecmwf' }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install and verify ECMWF Open Data client
+        if: ${{ 'ecmwf' == 'ecmwf' }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          # Instala em diretorio fixo exportado via PYTHONPATH para qualquer python3.
+          DEPS="$RUNNER_TEMP/ecmwf-pydeps"
+          python -m pip install --disable-pip-version-check --upgrade --target "$DEPS" 'ecmwf-opendata==0.3.34' 'requests>=2.31'
+          echo "PYTHONPATH=$DEPS${PYTHONPATH:+:$PYTHONPATH}" >> "$GITHUB_ENV"
+          export PYTHONPATH="$DEPS${PYTHONPATH:+:$PYTHONPATH}"
+          python -c "from ecmwf.opendata import Client; print('ECMWF Open Data client OK em python')"
+          for PYBIN in python3 /usr/bin/python3; do
+            command -v "$PYBIN" >/dev/null 2>&1 || continue
+            "$PYBIN" -c "from ecmwf.opendata import Client; print('ECMWF Open Data client OK em $PYBIN')" || echo "AVISO: $PYBIN nao importa ecmwf.opendata"
+          done
+      - name: Pré-validar scripts Bash e ShellCheck
+        shell: bash
+        run: |
+          set -euo pipefail
+          mapfile -t scripts < <(find wrf -maxdepth 1 -type f -name '*.sh' -print | sort)
+          test "${#scripts[@]}" -gt 0
+          if grep -nIl $'\r' "${scripts[@]}"; then
+            echo "ERRO: existe CRLF em script wrf/*.sh; converta para LF." >&2
+            exit 1
+          fi
+          # Normalize checkout permissions: helpers are explicitly run with bash.
+          chmod +x "${scripts[@]}"
+          for f in "${scripts[@]}"; do
+            test -x "$f" || { echo "ERRO: script não executável após chmod: $f" >&2; exit 1; }
+            bash -n "$f"
+          done
+          shellcheck -S error -s bash "${scripts[@]}"
+      - name: Executar F042-F045
+        env:
+          CHECKPOINT_TAG: sideral-wrf-4km-wrf-sudeste-checkpoint-${{ github.run_id }}
+          SOURCE_MODEL: ecmwf
+          WRF_NO_FALLBACK: '1'
+          RUN_DATE: ''
+          RUN_CYCLE: ''
+          FORCE_RUN_DATE: ''
+          FORCE_RUN_CYCLE: ''
+        run: |
+          chmod +x wrf/run_tarc_checkpoint_segment.sh
+          bash wrf/run_tarc_checkpoint_segment.sh 42 45 14 0
+      - name: Bundle WRF artifact safely (2)
+        shell: bash
+        env:
+          WRF_ARTIFACT_PATTERNS: |
+            **/*restart*/**
+            **/*products*/**
+            **/*publish*/**
+            **/*.json
+            **/*.npz
+            **/*.tar.gz
+            **/wrfout_d01_*
+            **/*-run.env
+          WRF_ARTIFACT_OUTPUT: .wrf-artifact-safe/wrf-payload-002.tar
+        run: |
+          python3 .github/scripts/wrf_artifact_bundle.py pack \
+            --workspace "$GITHUB_WORKSPACE" \
+            --output "$GITHUB_WORKSPACE/$WRF_ARTIFACT_OUTPUT"
+      - name: Salvar checkpoint e produtos desta etapa
+        uses: actions/upload-artifact@v4
+        with:
+          name: wrf-sudeste-4km-wrf-ecmwf-${{ github.job }}-${{ github.run_id }}
+          path: |
+            .wrf-artifact-safe/wrf-payload-002.tar
+          if-no-files-found: ignore
+          retention-days: 7
+  seg15:
+    name: SIDERAL 4 KM wrf ecmwf F045-F048
+    runs-on: ubuntu-22.04
+    needs: seg14
+    timeout-minutes: 355
+    steps:
+      - name: Restaurar checkpoint do segmento anterior
+        uses: actions/download-artifact@v4
+        with:
+          name: wrf-sudeste-4km-wrf-ecmwf-seg14-${{ github.run_id }}
+          path: ${{ runner.temp }}/wrf-downloads/d001
+      - name: Register WRF artifact restore target (1)
+        shell: bash
+        env:
+          WRF_ARTIFACT_DOWNLOAD_DIR: ${{ runner.temp }}/wrf-downloads/d001
+          WRF_ARTIFACT_RESTORE_TO: '.'
+        run: |
+          mkdir -p "$WRF_ARTIFACT_DOWNLOAD_DIR"
+          printf '%s\n' "$WRF_ARTIFACT_RESTORE_TO" > "$WRF_ARTIFACT_DOWNLOAD_DIR/.restore-to"
+          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
+            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
+              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
+              --workspace "$GITHUB_WORKSPACE"
+          fi
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - name: Restore WRF artifacts after checkout (2)
+        shell: bash
+        run: |
+          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
+            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
+              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
+              --workspace "$GITHUB_WORKSPACE"
+          fi
+      - name: Restore WRF runtime files from runners catalog
+        shell: bash
+        run: python3 .github/scripts/restore_wrf_runtime.py
+      - name: Restore embedded Sudeste runtime
+        uses: actions/cache@v4
+        with:
+          path: wrf
+          key: ${{ runner.os }}-sideral-sudeste-runtime-${{ github.sha }}
+      - name: Install awscli and expose R2 adapter
+        shell: bash
+        run: |
+          set -euo pipefail
+          command -v aws >/dev/null || { sudo apt-get update -qq && sudo apt-get install -y awscli; }
+          echo "$GITHUB_WORKSPACE/wrf/bin" >> "$GITHUB_PATH"
+      - name: Configure Python for ECMWF Open Data
+        if: ${{ 'ecmwf' == 'ecmwf' }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install and verify ECMWF Open Data client
+        if: ${{ 'ecmwf' == 'ecmwf' }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          # Instala em diretorio fixo exportado via PYTHONPATH para qualquer python3.
+          DEPS="$RUNNER_TEMP/ecmwf-pydeps"
+          python -m pip install --disable-pip-version-check --upgrade --target "$DEPS" 'ecmwf-opendata==0.3.34' 'requests>=2.31'
+          echo "PYTHONPATH=$DEPS${PYTHONPATH:+:$PYTHONPATH}" >> "$GITHUB_ENV"
+          export PYTHONPATH="$DEPS${PYTHONPATH:+:$PYTHONPATH}"
+          python -c "from ecmwf.opendata import Client; print('ECMWF Open Data client OK em python')"
+          for PYBIN in python3 /usr/bin/python3; do
+            command -v "$PYBIN" >/dev/null 2>&1 || continue
+            "$PYBIN" -c "from ecmwf.opendata import Client; print('ECMWF Open Data client OK em $PYBIN')" || echo "AVISO: $PYBIN nao importa ecmwf.opendata"
+          done
+      - name: Pré-validar scripts Bash e ShellCheck
+        shell: bash
+        run: |
+          set -euo pipefail
+          mapfile -t scripts < <(find wrf -maxdepth 1 -type f -name '*.sh' -print | sort)
+          test "${#scripts[@]}" -gt 0
+          if grep -nIl $'\r' "${scripts[@]}"; then
+            echo "ERRO: existe CRLF em script wrf/*.sh; converta para LF." >&2
+            exit 1
+          fi
+          # Normalize checkout permissions: helpers are explicitly run with bash.
+          chmod +x "${scripts[@]}"
+          for f in "${scripts[@]}"; do
+            test -x "$f" || { echo "ERRO: script não executável após chmod: $f" >&2; exit 1; }
+            bash -n "$f"
+          done
+          shellcheck -S error -s bash "${scripts[@]}"
+      - name: Executar F045-F048
+        env:
+          CHECKPOINT_TAG: sideral-wrf-4km-wrf-sudeste-checkpoint-${{ github.run_id }}
+          SOURCE_MODEL: ecmwf
+          WRF_NO_FALLBACK: '1'
+          RUN_DATE: ''
+          RUN_CYCLE: ''
+          FORCE_RUN_DATE: ''
+          FORCE_RUN_CYCLE: ''
+        run: |
+          chmod +x wrf/run_tarc_checkpoint_segment.sh
+          bash wrf/run_tarc_checkpoint_segment.sh 45 48 15 0
+      - name: Bundle WRF artifact safely (2)
+        shell: bash
+        env:
+          WRF_ARTIFACT_PATTERNS: |
+            **/*restart*/**
+            **/*products*/**
+            **/*publish*/**
+            **/*.json
+            **/*.npz
+            **/*.tar.gz
+            **/wrfout_d01_*
+            **/*-run.env
+          WRF_ARTIFACT_OUTPUT: .wrf-artifact-safe/wrf-payload-002.tar
+        run: |
+          python3 .github/scripts/wrf_artifact_bundle.py pack \
+            --workspace "$GITHUB_WORKSPACE" \
+            --output "$GITHUB_WORKSPACE/$WRF_ARTIFACT_OUTPUT"
+      - name: Salvar checkpoint e produtos desta etapa
+        uses: actions/upload-artifact@v4
+        with:
+          name: wrf-sudeste-4km-wrf-ecmwf-${{ github.job }}-${{ github.run_id }}
+          path: |
+            .wrf-artifact-safe/wrf-payload-002.tar
           if-no-files-found: ignore
           retention-days: 7
   complete:
     name: TARC 3 KM F000-F048 completo e pós-processado
     runs-on: ubuntu-22.04
-    needs: [seg00, seg01, seg02, seg03, seg04, seg05, seg06, seg07]
-    timeout-minutes: 478
+    needs: [seg00, seg01, seg02, seg03, seg04, seg05, seg06, seg07, seg08, seg09, seg10, seg11, seg12, seg13, seg14, seg15]
+    timeout-minutes: 355
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -1187,6 +2179,18 @@ jobs:
           esac
           echo "CATALOG_PATH=$CATALOG_PATH" >> "$GITHUB_ENV"
           cp -f "$CATALOG_PATH" tarc_products/variable_catalog.json
+      - name: Garantir extrator de diagnósticos severos
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p wrf
+          if [[ ! -s wrf/extract_wrf_severe.py ]]; then
+            install -m 0644 runners/cim5/shared/extract_wrf_severe.py wrf/extract_wrf_severe.py
+          fi
+          if [[ ! -s wrf/extract_wrf_severe_core.py ]]; then
+            install -m 0644 runners/cim5/shared/extract_wrf_severe_core.py wrf/extract_wrf_severe_core.py
+          fi
+          python3 -m py_compile wrf/extract_wrf_severe.py wrf/extract_wrf_severe_core.py
       - name: Gerar diagnósticos severos
         env:
           WRF_DX_METERS: '4000'

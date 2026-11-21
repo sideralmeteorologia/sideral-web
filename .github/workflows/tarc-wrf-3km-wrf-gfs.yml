@@ -33,7 +33,7 @@ jobs:
   seg00:
     name: TARC GFS F000-F003
     runs-on: ubuntu-22.04
-    timeout-minutes: 300
+    timeout-minutes: 355
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -164,7 +164,7 @@ jobs:
     name: TARC GFS F003-F006
     runs-on: ubuntu-22.04
     needs: seg00
-    timeout-minutes: 300
+    timeout-minutes: 355
     steps:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
@@ -264,7 +264,7 @@ jobs:
     name: TARC GFS F006-F009
     runs-on: ubuntu-22.04
     needs: seg01
-    timeout-minutes: 300
+    timeout-minutes: 355
     steps:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
@@ -364,7 +364,7 @@ jobs:
     name: TARC GFS F009-F012
     runs-on: ubuntu-22.04
     needs: seg02
-    timeout-minutes: 300
+    timeout-minutes: 355
     steps:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
@@ -464,7 +464,7 @@ jobs:
     name: TARC GFS F012-F015
     runs-on: ubuntu-22.04
     needs: seg03
-    timeout-minutes: 300
+    timeout-minutes: 355
     steps:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
@@ -564,7 +564,7 @@ jobs:
     name: TARC GFS F015-F018
     runs-on: ubuntu-22.04
     needs: seg04
-    timeout-minutes: 300
+    timeout-minutes: 355
     steps:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
@@ -664,7 +664,7 @@ jobs:
     name: TARC GFS F018-F021
     runs-on: ubuntu-22.04
     needs: seg05
-    timeout-minutes: 300
+    timeout-minutes: 355
     steps:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
@@ -764,7 +764,7 @@ jobs:
     name: TARC GFS F021-F024
     runs-on: ubuntu-22.04
     needs: seg06
-    timeout-minutes: 300
+    timeout-minutes: 355
     steps:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
@@ -864,7 +864,7 @@ jobs:
     name: TARC GFS F024-F027
     runs-on: ubuntu-22.04
     needs: seg07
-    timeout-minutes: 300
+    timeout-minutes: 355
     steps:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
@@ -964,7 +964,7 @@ jobs:
     name: TARC GFS F027-F030
     runs-on: ubuntu-22.04
     needs: seg08
-    timeout-minutes: 300
+    timeout-minutes: 355
     steps:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
@@ -1064,7 +1064,7 @@ jobs:
     name: TARC GFS F030-F033
     runs-on: ubuntu-22.04
     needs: seg09
-    timeout-minutes: 300
+    timeout-minutes: 355
     steps:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
@@ -1164,7 +1164,7 @@ jobs:
     name: TARC GFS F033-F036
     runs-on: ubuntu-22.04
     needs: seg10
-    timeout-minutes: 300
+    timeout-minutes: 355
     steps:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
@@ -1264,7 +1264,7 @@ jobs:
     name: TARC GFS F036-F039
     runs-on: ubuntu-22.04
     needs: seg11
-    timeout-minutes: 300
+    timeout-minutes: 355
     steps:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
@@ -1364,7 +1364,7 @@ jobs:
     name: TARC GFS F039-F042
     runs-on: ubuntu-22.04
     needs: seg12
-    timeout-minutes: 300
+    timeout-minutes: 355
     steps:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
@@ -1464,7 +1464,7 @@ jobs:
     name: TARC GFS F042-F045
     runs-on: ubuntu-22.04
     needs: seg13
-    timeout-minutes: 300
+    timeout-minutes: 355
     steps:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
@@ -1564,7 +1564,7 @@ jobs:
     name: TARC GFS F045-F048
     runs-on: ubuntu-22.04
     needs: seg14
-    timeout-minutes: 300
+    timeout-minutes: 355
     steps:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
@@ -1742,6 +1742,18 @@ jobs:
             CATALOG_PATH=wrf/tarc_variable_catalog.json
           fi
           cp -f "$CATALOG_PATH" tarc_products/variable_catalog.json
+      - name: Garantir extrator de diagnósticos severos
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p wrf
+          if [[ ! -s wrf/extract_wrf_severe.py ]]; then
+            install -m 0644 runners/cim5/shared/extract_wrf_severe.py wrf/extract_wrf_severe.py
+          fi
+          if [[ ! -s wrf/extract_wrf_severe_core.py ]]; then
+            install -m 0644 runners/cim5/shared/extract_wrf_severe_core.py wrf/extract_wrf_severe_core.py
+          fi
+          python3 -m py_compile wrf/extract_wrf_severe.py wrf/extract_wrf_severe_core.py
       - name: Gerar diagnósticos severos
         env:
           WRF_DX_METERS: 3000
