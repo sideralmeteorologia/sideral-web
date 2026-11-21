@@ -1745,16 +1745,17 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           pattern: wrf-cbr4-manual-seg??-${{ github.run_id }}
-          path: ${{ runner.temp }}/cbr-segment-downloads
+          path: ${{ runner.temp }}/wrf-downloads/cbr-segments
           merge-multiple: false
-      - name: Restaurar payloads de produtos CBR dos segmentos
+      - name: Register WRF artifact restore target (CBR final products)
         shell: bash
         env:
-          CBR_SEGMENT_DOWNLOADS: ${{ runner.temp }}/cbr-segment-downloads
+          WRF_ARTIFACT_DOWNLOAD_DIR: ${{ runner.temp }}/wrf-downloads/cbr-segments
+          WRF_ARTIFACT_RESTORE_TO: 'cbr_segment_artifacts'
         run: |
           set -euo pipefail
           shopt -s nullglob
-          dirs=("$CBR_SEGMENT_DOWNLOADS"/*)
+          dirs=("$WRF_ARTIFACT_DOWNLOAD_DIR"/*)
           (("${#dirs[@]}" == 14)) || { echo "CBR: esperados 14 artifacts de segmentos; encontrados ${#dirs[@]}" >&2; exit 31; }
           for dir in "${dirs[@]}"; do
             [[ -d "$dir" ]] || continue
