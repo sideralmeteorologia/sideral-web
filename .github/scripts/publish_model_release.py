@@ -73,7 +73,7 @@ def product_key(path: str, name: str) -> str:
     # as their dedicated source workflows instead of creating a competing
     # generic "manual" product.
     manual_products = {
-        "sideral-brasil-wrf": ("brasil-wrf-21km", False),
+        "sideral-brasil-wrf": ("brasil-wrf-21km", True),
         "cbr-wrf": ("cbr-wrf-4km", True),
         "cim-wrf-5km": ("cim-wrf-5km", True),
         "cim-wrf-8km": ("cim-wrf-8km", True),
