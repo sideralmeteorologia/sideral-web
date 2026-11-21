@@ -1,4 +1,4 @@
-name: SIDERAL — Global NWP | Release pública (Artifact intermediário de 1 dia)
+name: SIDERAL — Global NWP | GitHub Release pública
 
 on:
   schedule:
@@ -404,12 +404,12 @@ jobs:
           catalog = json.loads(catalog_path.read_text(encoding="utf-8"))
           catalog["output"] = catalog.get("output", "").replace(
               "no prefixo nwp/ do bucket Cloudflare R2",
-              "dentro do GitHub Actions Artifact com retenção de 1 dia"
+              "dentro do GitHub Release e espelho raw com Release pública atualizada"
           )
           catalog["notes"] = [
               note.replace(
                   "O prefixo nwp/ do Cloudflare R2 mantém apenas a rodada mais recente;",
-                  "Cada execução gera um GitHub Actions Artifact com retenção de 1 dia;"
+                  "Cada execução gera um GitHub Release e espelho raw com Release pública atualizada;"
               )
               for note in catalog.get("notes", [])
           ]
@@ -633,7 +633,7 @@ jobs:
           PY
 
   publish:
-    name: Publicar Artifact Global NWP (retenção de 1 dia)
+    name: Publicar JSON Global NWP em GitHub Release
     if: ${{ always() && !cancelled() }}
     needs: [collect]
     runs-on: ubuntu-24.04
@@ -772,13 +772,13 @@ jobs:
           script = script.replace(old_urls, '    raw_data_base_url = "data/"', 1)
           script = script.replace(
               '        "storage": "Cloudflare R2",',
-              '        "storage": "GitHub Actions Artifact",',
+              '        "storage": "GitHub Release e espelho raw",',
               1
           )
           script = script.replace('        "storage_prefix": "nwp/",', '        "storage_prefix": "",', 1)
           script = script.replace(
               "    # A publicação é enviada ao prefixo nwp/ do bucket Cloudflare R2.",
-              "    # O pacote final é entregue como GitHub Actions Artifact com retenção de um dia.",
+              "    # O pacote final é entregue como GitHub Release e espelho raw com Release pública atualizada.",
               1
           )
           if "R2_PUBLIC_BASE_URL" in script or "Cloudflare R2" in script:
@@ -788,12 +788,12 @@ jobs:
           catalog = json.loads(catalog_path.read_text(encoding="utf-8"))
           catalog["output"] = catalog.get("output", "").replace(
               "no prefixo nwp/ do bucket Cloudflare R2",
-              "dentro do GitHub Actions Artifact com retenção de 1 dia"
+              "dentro do GitHub Release e espelho raw com Release pública atualizada"
           )
           catalog["notes"] = [
               note.replace(
                   "O prefixo nwp/ do Cloudflare R2 mantém apenas a rodada mais recente;",
-                  "Cada execução gera um GitHub Actions Artifact com retenção de 1 dia;"
+                  "Cada execução gera um GitHub Release e espelho raw com Release pública atualizada;"
               )
               for note in catalog.get("notes", [])
           ]
