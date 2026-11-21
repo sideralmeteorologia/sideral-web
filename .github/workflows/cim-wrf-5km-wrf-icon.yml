@@ -2180,6 +2180,14 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+      - name: Restore WRF artifacts after checkout (final CIM verification)
+        shell: bash
+        run: |
+          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
+            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
+              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
+              --workspace "$GITHUB_WORKSPACE"
+          fi
       - name: Baixar artifacts dos 14 segmentos CIM 5 km
         uses: actions/download-artifact@v4
         with:
