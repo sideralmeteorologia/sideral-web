@@ -141,7 +141,7 @@ jobs:
             [[ -n "$INPUT_RUN_DATE" && -n "$INPUT_RUN_CYCLE" ]] || { echo "run_date e run_cycle devem ser informados juntos" >&2; exit 2; }
             date="${INPUT_RUN_DATE//-/}"; cycle="$(printf '%02d' "$((10#$INPUT_RUN_CYCLE))")"
             [[ "$date" =~ ^[0-9]{8}$ ]]
-            if [[ "$SOURCE_MODEL" == ecmwf || "$SOURCE_MODEL" == icon ]]; then [[ "$cycle" == 00 || "$cycle" == 06 || "$cycle" == 12 || "$cycle" == 18 ]]; else [[ "$cycle" == 00 || "$cycle" == 06 || "$cycle" == 12 || "$cycle" == 18 ]]; fi
+            [[ "$cycle" == 00 || "$cycle" == 06 || "$cycle" == 12 || "$cycle" == 18 ]]
           elif [[ "$SOURCE_MODEL" == ecmwf ]]; then
             python3 - <<'PY' > selected-cycle.txt
           import datetime as dt
