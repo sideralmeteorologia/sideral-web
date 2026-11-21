@@ -73,12 +73,17 @@ jobs:
           assert module.supported(".github/workflows/tarc-wrf-3km-wrf-ecmwf.yml", "TARC WRF ECMWF")
           assert module.supported(".github/workflows/sideral-global-nwp-artifact.yml", "SIDERAL GLOBAL NWP")
           assert module.supported(".github/workflows/SIDERAL_MULTIMODELS_05_ICON_HORIZON_FIX (1).yml", "SIDERAL MULTIMODELS")
-          assert module.central_supported(".github/workflows/cbr-wrf-4km-wrf-ecmwf.yml", "CBR WRF ECMWF")
-          assert module.central_supported(".github/workflows/sideral-global-nwp-artifact.yml", "SIDERAL GLOBAL NWP")
-          assert module.central_supported(".github/workflows/SIDERAL_MULTIMODELS_05_ICON_HORIZON_FIX (1).yml", "SIDERAL MULTIMODELS")
-          assert not module.central_supported(".github/workflows/metbr-wrf-4km-wrf-ecmwf.yml", "METBR WRF ECMWF")
-          assert not module.central_supported(".github/workflows/tarc-wrf-3km-wrf-ecmwf.yml", "TARC WRF ECMWF")
-          assert not module.central_supported(".github/workflows/wrf-launchpad.yml", "WRF Launchpad")
+          for path, name in (
+              (".github/workflows/cbr-wrf-4km-wrf-ecmwf.yml", "CBR WRF ECMWF"),
+              (".github/workflows/metbr-wrf-4km-wrf-ecmwf.yml", "METBR WRF ECMWF"),
+              (".github/workflows/tarc-wrf-3km-wrf-ecmwf.yml", "TARC WRF ECMWF"),
+              (".github/workflows/sideral-global-nwp-artifact.yml", "SIDERAL GLOBAL NWP"),
+              (".github/workflows/SIDERAL_MULTIMODELS_05_ICON_HORIZON_FIX (1).yml", "SIDERAL MULTIMODELS"),
+              (".github/workflows/wrf-launchpad.yml", "WRF Launchpad"),
+          ):
+              assert not module.central_supported(path, name), (
+                  f"{path}: the legacy workflow_run publisher must stay disabled"
+              )
 
           with tempfile.TemporaryDirectory() as temp:
               root = Path(temp)
@@ -170,30 +175,38 @@ jobs:
           multimodel = load("SIDERAL_MULTIMODELS_05_ICON_HORIZON_FIX (1).yml")
           assert multimodel["on"].get("schedule"), "Sideral Multimodels must have an automatic schedule"
 
-          publisher = load("publish-model-releases.yml")
-          publisher_trigger = publisher["on"].get("workflow_run", {})
-          assert publisher_trigger.get("workflows") == ["*", "!SIDERAL | Publicar modelos, multimodelos e NWP"], (
-              "The central Release publisher must listen to all completed workflows."
+          # Every model-producing workflow publishes directly from its final job.
+          # Segment/checkpoint Artifacts remain transport only and are not the public product.
+          base_files = [
+              "cbr-wrf.yml", "cim-wrf-5km.yml", "cim-wrf-8km.yml",
+              "metbr-wrf.yml", "sideral-brasil-wrf.yml", "tarc-wrf.yml",
+          ]
+          clone_prefixes = (
+              "cbr-wrf-4km-", "cim-wrf-5km-", "cim-wrf-8km-",
+              "metbr-wrf-4km-", "brasil-wrf-21km-", "sudeste-wrf-4km-",
+              "sudeste-wrf-5km-", "tarc-wrf-3km-",
           )
-          assert publisher_trigger.get("types") == ["completed"], (
-              "The central Release publisher must run after workflow completion."
+          clone_files = sorted(
+              p.name for p in root.glob("*.yml") if p.name.startswith(clone_prefixes)
           )
-          assert publisher_trigger.get("branches") == ["main"], (
-              "The central Release publisher must only process main-branch runs."
+          assert len(clone_files) == 41, f"expected 41 independent model runners, found {len(clone_files)}"
+          model_files = base_files + clone_files + [
+              "sideral-global-nwp-artifact.yml",
+              "SIDERAL_MULTIMODELS_05_ICON_HORIZON_FIX (1).yml",
+          ]
+          assert not (root / "publish-model-releases.yml").exists(), (
+              "The parallel workflow_run Release publisher must not be reintroduced."
           )
-          publisher_if = str(publisher["jobs"]["publish"].get("if", ""))
-          assert "workflow_run.conclusion" not in publisher_if, (
-              "Final valid products must still be mirrored when another model in the run fails."
-          )
-          assert "github.event.workflow.path" not in publisher_if, (
-              "workflow.path is not part of the workflow_run webhook payload; source paths are resolved via the Actions API."
-          )
-          assert "workflow_run.head_branch == 'main'" in publisher_if, (
-              "The central publisher must only process runs from the main branch."
-          )
-          assert "workflow_run.head_repository.full_name == github.repository" in publisher_if, (
-              "The central publisher must only process runs from this repository."
-          )
+          for filename in model_files:
+              workflow = load(filename)
+              contents = (root / filename).read_text(encoding="utf-8")
+              assert "python3 .github/scripts/publish_model_release.py publish" in contents, (
+                  f"{filename}: final JSON products are not published directly by their producer."
+              )
+              assert workflow.get("permissions", {}).get("contents") == "write", (
+                  f"{filename}: contents: write is required for Releases and the raw mirror."
+              )
+          print(f"Direct producer Release publishing validated in {len(model_files)} model workflows.")
 
           print(
               f"Automatic schedules OK: {len(nwp['on']['schedule'])} Global NWP cron(s), "
