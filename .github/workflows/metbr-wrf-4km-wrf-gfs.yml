@@ -3533,6 +3533,7 @@ jobs:
           test -s "$root/metbr_products/metbr_wrf_4km.json"
           test -s "$root/metbr_products/grid.json"
       - name: Publicar Release e espelho raw navegável METBR
+        if: ${{ always() && !cancelled() }}
         env:
           GH_TOKEN: ${{ github.token }}
           SOURCE_RUN_ID: ${{ github.run_id }}
