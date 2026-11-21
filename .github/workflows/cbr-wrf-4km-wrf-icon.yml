@@ -1745,7 +1745,7 @@ jobs:
           (("${#dirs[@]}" == 14)) || { echo "CBR: esperados 14 artifacts de segmentos; encontrados ${#dirs[@]}" >&2; exit 31; }
           for dir in "${dirs[@]}"; do
             [[ -d "$dir" ]] || continue
-            printf '%s\n' 'cbr_segment_artifacts' > "$dir/.restore-to"
+            printf '%s\n' "cbr_segment_artifacts/${dir##*/}" > "$dir/.restore-to"
           done
           python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
             --downloads-root "$CBR_SEGMENT_DOWNLOADS" \
