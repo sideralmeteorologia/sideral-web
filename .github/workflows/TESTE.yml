@@ -171,6 +171,16 @@ jobs:
           assert multimodel["on"].get("schedule"), "Sideral Multimodels must have an automatic schedule"
 
           publisher = load("publish-model-releases.yml")
+          publisher_trigger = publisher["on"].get("workflow_run", {})
+          assert publisher_trigger.get("workflows") == ["*"], (
+              "The central Release publisher must listen to all completed workflows."
+          )
+          assert publisher_trigger.get("types") == ["completed"], (
+              "The central Release publisher must run after workflow completion."
+          )
+          assert publisher_trigger.get("branches") == ["main"], (
+              "The central Release publisher must only process main-branch runs."
+          )
           publisher_if = str(publisher["jobs"]["publish"].get("if", ""))
           assert "workflow_run.conclusion" not in publisher_if, (
               "Final valid products must still be mirrored when another model in the run fails."
