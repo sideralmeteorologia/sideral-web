@@ -2178,6 +2178,8 @@ jobs:
     runs-on: ubuntu-22.04
     needs: [seg00, seg01, seg02, seg03, seg04, seg05, seg06, seg07, seg08, seg09, seg10, seg11, seg12, seg13]
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
       - name: Verificar arquivos do ciclo no R2
         env:
           CHECKPOINT_TAG: cim-${{ 'wrf' }}-5km-checkpoint-${{ github.run_id }}
