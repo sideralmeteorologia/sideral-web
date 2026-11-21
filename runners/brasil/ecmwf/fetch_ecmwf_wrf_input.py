@@ -144,17 +144,19 @@ def validate_pressure_geopotential(pressure: Path, steps: list[int]) -> None:
 
 def main() -> None:
     p = argparse.ArgumentParser()
+    p.add_argument("--start-hour", type=int, default=0, help="First WRF forecast hour requested by this segment")
     p.add_argument("--max-hour", type=int, required=True)
-    p.add_argument("--start-hour", type=int, default=0)
-    p.add_argument("--hour-offset", type=int, default=0, help="Lead-time offset in hours for matching an older IFS run to target valid times")
+    p.add_argument("--hour-offset", type=int, default=0, help="Lead-time offset in hours for matching an older run to target valid times")
     p.add_argument("--output", required=True)
     p.add_argument("--run-env", required=True)
     p.add_argument("--date")
     p.add_argument("--cycle")
     args = p.parse_args()
 
-    if args.start_hour < 0 or args.start_hour > args.max_hour or args.start_hour % 3 or args.max_hour < 0 or args.max_hour % 3:
-        raise SystemExit("--start-hour/--max-hour precisam ser multiplos de 3 e start <= max")
+    if args.start_hour < 0 or args.start_hour % 3:
+        raise SystemExit("--start-hour precisa ser multiplo de 3 e >= 0")
+    if args.max_hour < args.start_hour or args.max_hour % 3:
+        raise SystemExit("--max-hour precisa ser multiplo de 3 e >= --start-hour")
     if args.hour_offset < 0 or args.hour_offset % 3:
         raise SystemExit("--hour-offset precisa ser multiplo de 3 e >= 0")
 
@@ -168,7 +170,7 @@ def main() -> None:
         run = as_utc(
             with_retry(
                 "descoberta da rodada",
-                lambda: client.latest(type="fc", step=args.max_hour, param=["2t"]),
+                lambda: client.latest(type="fc", step=args.max_hour + args.hour_offset, param=["2t"]),
             )
         )
 

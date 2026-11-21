@@ -14,7 +14,7 @@ if [[ "$METBR_COLD_START" == "1" ]]; then BOUNDARY_END_HOUR="${METBR_BOUNDARY_EN
 if [[ "$METBR_COLD_START" == "1" ]] && (( BOUNDARY_END_HOUR < END_HOUR )); then echo "METBR_BOUNDARY_END_HOUR deve cobrir o segmento" >&2; exit 3; fi
 SOURCE_END=$(( ((BOUNDARY_END_HOUR + 2) / 3) * 3 )); BASE_URL="https://noaa-gfs-bdp-pds.s3.amazonaws.com/gfs.${RUN_DATE}/${RUN_CYCLE}/atmos"
 START_ISO="$(date -u -d "${RUN_DATE} ${RUN_CYCLE}:00 UTC +${START_HOUR} hours" +%Y-%m-%d_%H:%M:%S)"; END_ISO="$(date -u -d "${RUN_DATE} ${RUN_CYCLE}:00 UTC +${END_HOUR} hours" +%Y-%m-%d_%H:%M:%S)"; BOUNDARY_END_ISO="$(date -u -d "${RUN_DATE} ${RUN_CYCLE}:00 UTC +${BOUNDARY_END_HOUR} hours" +%Y-%m-%d_%H:%M:%S)"; SOURCE_END_ISO="$(date -u -d "${RUN_DATE} ${RUN_CYCLE}:00 UTC +${SOURCE_END} hours" +%Y-%m-%d_%H:%M:%S)"
-START_Y="$(date -u -d "${RUN_DATE} ${RUN_CYCLE}:00 UTC +${START_HOUR} hours" +%Y)"; START_M="$(date -u -d "${RUN_DATE} ${RUN_CYCLE}:00 UTC +${START_HOUR} hours" +%m)"; START_D="$(date -u -d "${RUN_DATE} ${RUN_CYCLE}:00 UTC +${START_HOUR} hours" +%d)"; START_CLOCK="$(date -u -d "${RUN_DATE} ${RUN_CYCLE}:00 UTC +${START_HOUR} hours" +%H)"; REAL_END_Y="$(date -u -d "${RUN_DATE} ${RUN_CYCLE}:00 UTC +${BOUNDARY_END_HOUR} hours" +%Y)"; REAL_END_M="$(date -u -d "${RUN_DATE} ${RUN_CYCLE}:00 UTC +${BOUNDARY_END_HOUR} hours" +%m)"; REAL_END_D="$(date -u -d "${RUN_DATE} ${RUN_CYCLE}:00 UTC +${BOUNDARY_END_HOUR} hours" +%d)"; REAL_END_CLOCK="$(date -u -d "${RUN_DATE} ${RUN_CYCLE}:00 UTC +${BOUNDARY_END_HOUR} hours" +%H)"; DURATION_HOURS=$((END_HOUR-START_HOUR))
+START_Y="$(date -u -d "${RUN_DATE} ${RUN_CYCLE}:00 UTC +${START_HOUR} hours" +%Y)"; START_M="$(date -u -d "${RUN_DATE} ${RUN_CYCLE}:00 UTC +${START_HOUR} hours" +%m)"; START_D="$(date -u -d "${RUN_DATE} ${RUN_CYCLE}:00 UTC +${START_HOUR} hours" +%d)"; START_CLOCK="$(date -u -d "${RUN_DATE} ${RUN_CYCLE}:00 UTC +${START_HOUR} hours" +%H)"; REAL_END_Y="$(date -u -d "${RUN_DATE} ${RUN_CYCLE}:00 UTC +${END_HOUR} hours" +%Y)"; REAL_END_M="$(date -u -d "${RUN_DATE} ${RUN_CYCLE}:00 UTC +${END_HOUR} hours" +%m)"; REAL_END_D="$(date -u -d "${RUN_DATE} ${RUN_CYCLE}:00 UTC +${END_HOUR} hours" +%d)"; REAL_END_CLOCK="$(date -u -d "${RUN_DATE} ${RUN_CYCLE}:00 UTC +${END_HOUR} hours" +%H)"; DURATION_HOURS=$((END_HOUR-START_HOUR))
 rm -rf "$WORK" "$DIAG"; mkdir -p "$WORK" "$DIAG" "$RESTART_INPUT"
 cat > "$DIAG/run.env" <<EOF
 RUN_DATE=$RUN_DATE
@@ -102,7 +102,7 @@ cat > "$WORK/namelist.input" <<EOF
  io_form_boundary = 2,
 /
 &domains
- time_step = 18,
+ time_step = ${WRF_TIME_STEP:-20},
  time_step_fract_num = 0,
  time_step_fract_den = 1,
  max_dom = 1,
@@ -173,15 +173,38 @@ cat > "$WORK/namelist.input" <<EOF
 EOF
 chmod -R a+rwX "$WORK" "$RESTART_INPUT" 2>/dev/null || true
 docker pull "$IMAGE"
-docker run --rm -e LOCAL_USER_ID="$HOST_UID" -e OMPI_ALLOW_RUN_AS_ROOT=1 -e OMPI_ALLOW_RUN_AS_ROOT_CONFIRM=1 -v "$WORK:/work" -v "$RESTART_INPUT:/restart_input:ro" -v "$ROOT/wrf/ensure_metbr_wrf_runtime.sh:/tmp/ensure_metbr_wrf_runtime.sh:ro" "$IMAGE" /bin/bash -lc '
+docker run --rm -e LOCAL_USER_ID="$HOST_UID" -e METBR_COLD_START="$METBR_COLD_START" -e BOUNDARY_END_HOUR="$BOUNDARY_END_HOUR" -e START_HOUR="$START_HOUR" -e RUN_DATE="$RUN_DATE" -e RUN_CYCLE="$RUN_CYCLE" -e OMPI_ALLOW_RUN_AS_ROOT=1 -e OMPI_ALLOW_RUN_AS_ROOT_CONFIRM=1 -v "$WORK:/work" -v "$RESTART_INPUT:/restart_input:ro" -v "$ROOT/wrf/ensure_metbr_wrf_runtime.sh:/tmp/ensure_metbr_wrf_runtime.sh:ro" "$IMAGE" /bin/bash -lc '
 set -euo pipefail
 cd /work; mkdir -p run
+cp -f namelist.input namelist.segment.input
 if [[ "'"$METBR_COLD_START"'" == "1" ]]; then
  /comsoftware/wrf/WPS-4.3/geogrid.exe > geogrid.stdout 2>&1; test -f geo_em.d01.nc
  ln -sf /comsoftware/wrf/WPS-4.3/ungrib/Variable_Tables/Vtable.GFS Vtable; /comsoftware/wrf/WPS-4.3/ungrib.exe > ungrib.stdout 2>&1; /comsoftware/wrf/WPS-4.3/metgrid.exe > metgrid.stdout 2>&1
  cp -a /comsoftware/wrf/WRF-4.3/run/. run/; cp namelist.input run/namelist.input; cp met_em.d01.*.nc run/; cd run
  /bin/bash /tmp/ensure_metbr_wrf_runtime.sh /work/run
- mpirun --oversubscribe --bind-to none -np 8 /comsoftware/wrf/WRF-4.3/main/real.exe; test -f wrfinput_d01; test -f wrfbdy_d01
+ python3 - <<'PYBOUNDARY'
+import datetime as dt
+import os
+p = "namelist.input"
+lines = open(p, encoding="utf-8").read().splitlines()
+base = dt.datetime.strptime(os.environ["RUN_DATE"] + os.environ["RUN_CYCLE"], "%Y%m%d%H")
+end = base + dt.timedelta(hours=int(os.environ["BOUNDARY_END_HOUR"]))
+values = {
+    "run_hours": int(os.environ["BOUNDARY_END_HOUR"]) - int(os.environ["START_HOUR"]),
+    "end_year": end.year,
+    "end_month": end.month,
+    "end_day": end.day,
+    "end_hour": end.hour,
+}
+for key, value in values.items():
+    matches = [i for i, line in enumerate(lines) if line.strip().startswith(key + " =")]
+    if len(matches) != 1:
+        raise SystemExit(f"expected one {key} entry in GFS boundary namelist, found {len(matches)}")
+    lines[matches[0]] = f" {key} = {value},"
+open(p, "w", encoding="utf-8").write("\n".join(lines) + "\n")
+PYBOUNDARY
+mpirun --oversubscribe --bind-to none -np 8 /comsoftware/wrf/WRF-4.3/main/real.exe; test -f wrfinput_d01; test -f wrfbdy_d01
+cp -f ../namelist.segment.input namelist.input
 else
  cp -a /comsoftware/wrf/WRF-4.3/run/. run/; cp namelist.input run/namelist.input; cp /restart_input/wrfbdy_d01 run/; cp /restart_input/wrfrst_d01_* run/; cd run
  /bin/bash /tmp/ensure_metbr_wrf_runtime.sh /work/run

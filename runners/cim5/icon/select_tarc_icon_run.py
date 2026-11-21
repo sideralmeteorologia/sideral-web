@@ -100,11 +100,6 @@ def main() -> None:
     parser.add_argument("--date", help="If supplied, validate only this pinned run")
     parser.add_argument("--cycle", help="If supplied, validate only this pinned run")
     parser.add_argument("--max-back", type=int, default=8)
-    parser.add_argument(
-        "--allow-fallback",
-        action="store_true",
-        help="If a pinned cycle is incomplete, try earlier complete cycles and report the selected run",
-    )
     parser.add_argument("--output", required=True)
     args = parser.parse_args()
 
@@ -119,18 +114,7 @@ def main() -> None:
         raise SystemExit("Nenhum passo ICON solicitado")
 
     if args.date:
-        pinned_run = dt.datetime.strptime(
-            args.date + args.cycle.zfill(2), "%Y%m%d%H"
-        ).replace(tzinfo=dt.timezone.utc)
-        candidates = [pinned_run]
-        if args.allow_fallback:
-            now = dt.datetime.now(dt.timezone.utc)
-            earlier = candidate_runs(now, max(1, args.max_back))
-            candidates.extend(
-                run for run in earlier
-                if run < pinned_run
-                and (pinned_run - run).total_seconds() / 3600.0 <= 48.0
-            )
+        candidates = [dt.datetime.strptime(args.date + args.cycle.zfill(2), "%Y%m%d%H").replace(tzinfo=dt.timezone.utc)]
         pinned = True
     else:
         now = dt.datetime.now(dt.timezone.utc)
@@ -148,13 +132,13 @@ def main() -> None:
             print(f"ICON probe: RUN completo {date} {cycle}Z — {reason}", flush=True)
             break
         print(f"ICON probe: rejeitando {date} {cycle}Z — {reason}", flush=True)
-        if pinned and not args.allow_fallback:
+        if pinned:
             break
 
     if selected is None:
-        if pinned and not args.allow_fallback:
+        if pinned:
             raise SystemExit(f"RUN ICON fixado {args.date}{args.cycle} incompleto; nao sera trocado silenciosamente")
-        raise SystemExit("Nenhum RUN ICON completo encontrado nos ciclos testados")
+        raise SystemExit("Nenhum RUN ICON completo encontrado nos ciclos recentes")
 
     date, cycle = selected
     out = Path(args.output)

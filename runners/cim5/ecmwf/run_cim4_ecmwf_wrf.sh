@@ -53,6 +53,10 @@ PY
 )
 
 SELECTED_OFFSET=""
+python3 "$ROOT/wrf/fetch_ecmwf_wrf_input.py" --help | grep -q -- "--start-hour" || {
+  echo "ECMWF fetcher incompativel: argumento --start-hour ausente; abortando antes do fallback." >&2
+  exit 2
+}
 log "Tentando ciclos ECMWF IFS compatíveis com a data válida CIM4"
 for CANDIDATE in "${IFS_CANDIDATES[@]}"; do
   read -r SRC_DATE SRC_CYCLE OFFSET <<< "$CANDIDATE"
@@ -64,8 +68,14 @@ for CANDIDATE in "${IFS_CANDIDATES[@]}"; do
       --output "$RAW" --run-env "$ENV_FILE"; then
     SELECTED_OFFSET="$OFFSET"
     break
+  else
+    FETCH_EXIT=$?
+    if [[ "$FETCH_EXIT" -eq 2 ]]; then
+      echo "ECMWF fetcher rejeitou a linha de comando; erro de configuracao nao sera tratado como ciclo indisponivel." >&2
+      exit "$FETCH_EXIT"
+    fi
+    echo "ECMWF ciclo ${SRC_DATE} ${SRC_CYCLE}Z falhou; tentando ciclo anterior"
   fi
-  echo "ECMWF ciclo ${SRC_DATE} ${SRC_CYCLE}Z falhou; tentando ciclo anterior"
 done
 [[ -n "$SELECTED_OFFSET" ]] || { echo "ECMWF IFS indisponivel para todos os ciclos testados" >&2; exit 24; }
 source "$ENV_FILE"

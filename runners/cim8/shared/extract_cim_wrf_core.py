@@ -27,7 +27,7 @@ def main():
     ap.add_argument("--run-dir", default="wrf_work/run")
     ap.add_argument("--run-env", default="wrf_diagnostics/run.env")
     ap.add_argument("--output-dir", required=True)
-    ap.add_argument("--model", choices=("icon", "ecmwf"), required=True)
+    ap.add_argument("--model", choices=("icon", "ecmwf", "gfs"), required=True)
     ap.add_argument("--grid-x", type=int, default=240)
     ap.add_argument("--grid-y", type=int, default=200)
     args = ap.parse_args()

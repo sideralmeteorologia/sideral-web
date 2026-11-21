@@ -68,9 +68,7 @@ if [[ "${WRF2_TOMORROW:-0}" == "1" ]]; then
 else
   SELECTION_ARGS=(--start-hour "$WRF_START_HOUR" --end-hour "$SOURCE_END_HOUR" --output "$ROOT/cim4-icon-run.env")
   if [[ -n "$FORCE_RUN_DATE" && -n "$FORCE_RUN_CYCLE" ]]; then
-    # Preserve the requested cycle when complete; if its ICON fields are still
-    # publishing, fall back only to an earlier fully validated source cycle.
-    SELECTION_ARGS+=(--date "$FORCE_RUN_DATE" --cycle "$FORCE_RUN_CYCLE" --allow-fallback)
+    SELECTION_ARGS+=(--date "$FORCE_RUN_DATE" --cycle "$FORCE_RUN_CYCLE")
   fi
   python3 "$ROOT/wrf/select_tarc_icon_run.py" "${SELECTION_ARGS[@]}"
   source "$ROOT/cim4-icon-run.env"
@@ -136,7 +134,7 @@ for H in $(seq "$WRF_START_HOUR" 3 "$SOURCE_END_HOUR"); do
 done
 
 export SOURCE_MODEL=icon RUN_DATE RUN_CYCLE WRF_START_HOUR WRF_END_HOUR WRF_BOUNDARY_END_HOUR="$SOURCE_END_HOUR"
-export WRF_HISTORY_INTERVAL_MINUTES="${WRF_HISTORY_INTERVAL_MINUTES:-60}"
+export WRF_HISTORY_INTERVAL_MINUTES=60
 export WRF_DX_METERS="${WRF_DX_METERS:-5000}" WRF_DY_METERS="${WRF_DY_METERS:-5000}" WRF_E_WE="${WRF_E_WE:-447}" WRF_E_SN="${WRF_E_SN:-375}" WRF_TIME_STEP="${WRF_TIME_STEP:-25}"
 export WRF_REF_LAT="${WRF_REF_LAT:--23.0}" WRF_REF_LON="${WRF_REF_LON:--45.5}" WRF_STAND_LON="${WRF_STAND_LON:--45.5}"
 export SOURCE_DIR="$REG_DIR"
