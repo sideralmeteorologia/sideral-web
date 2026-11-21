@@ -2293,14 +2293,7 @@ jobs:
         run: |
           set -euo pipefail
           [[ "$SOURCE_BRANCH" == "main" ]] || { echo "Release pública somente no main; branch=$SOURCE_BRANCH"; exit 0; }
-          product_key="$(python3 - <<'PY'
-          import importlib.util, os
-          spec = importlib.util.spec_from_file_location("sideral_release", ".github/scripts/publish_model_release.py")
-          mod = importlib.util.module_from_spec(spec)
-          spec.loader.exec_module(mod)
-          print(mod.product_key(os.environ["SOURCE_WORKFLOW_PATH"], os.environ["SOURCE_WORKFLOW_NAME"]))
-          PY
-          )"
+          product_key="sudeste-wrf-5km-wrf2-gfs"
           tag="sideral-data-$product_key-latest"
           mkdir -p "$RUNNER_TEMP/release-verify"
           gh release download "$tag" --repo "$SOURCE_REPOSITORY" --pattern manifest.json --dir "$RUNNER_TEMP/release-verify"
