@@ -55,7 +55,7 @@ jobs:
         run: |
           set -euo pipefail
           mkdir -p "$(dirname 'wrf/run_metbr_checkpoint_segment.sh')"
-          printf '%s' 'IyEvdXNyL2Jpbi9lbnYgYmFzaApzZXQgLWV1byBwaXBlZmFpbApTVEFSVF9IT1VSPSIkezE6P3N0YXJ0IGhvdXJ9IgpFTkRfSE9VUj0iJHsyOj9lbmQgaG91cn0iClNFR01FTlRfSU5ERVg9IiR7Mzo/c2VnbWVudCBpbmRleH0iCkNPTERfU1RBUlQ9IiR7NDo/Y29sZCBzdGFydCAxLzB9IgpST09UPSIke0dJVEhVQl9XT1JLU1BBQ0U6LSRQV0R9IgpJTlBVVD0iJFJPT1QvbWV0YnJfcmVzdGFydF9pbnB1dCIKU09VUkNFX01PREVMPSIke1NPVVJDRV9NT0RFTDotaWNvbn0iCk1PREVMX1ZBUklBTlQ9IiR7TU9ERUxfVkFSSUFOVDotd3JmfSIKV1JGMl9UT01PUlJPVz0iJHtXUkYyX1RPTU9SUk9XOi0wfSIKQ0hFQ0tQT0lOVF9UQUc9IiR7Q0hFQ0tQT0lOVF9UQUc6P0NIRUNLUE9JTlRfVEFHIGF1c2VudGV9Igpta2RpciAtcCAiJElOUFVUIgoKW1sgIiRTT1VSQ0VfTU9ERUwiID1+IF4oaWNvbnxlY213ZnxnZnMpJCBdXSB8fCB7IGVjaG8gIlNPVVJDRV9NT0RFTCBpbnbDoWxpZG86ICRTT1VSQ0VfTU9ERUwiID4mMjsgZXhpdCAyOyB9CltbICIkTU9ERUxfVkFSSUFOVCIgPX4gXih3cmZ8d3JmMikkIF1dIHx8IHsgZWNobyAiTU9ERUxfVkFSSUFOVCBpbnbDoWxpZG86ICRNT0RFTF9WQVJJQU5UIiA+JjI7IGV4aXQgMjsgfQpbWyAiJENPTERfU1RBUlQiID09IDAgfHwgIiRDT0xEX1NUQVJUIiA9PSAxIF1dIHx8IHsgZWNobyAiQ09MRF9TVEFSVCBpbnbDoWxpZG8iID4mMjsgZXhpdCAyOyB9CigoIFNUQVJUX0hPVVIgPj0gMCAmJiBFTkRfSE9VUiA+IFNUQVJUX0hPVVIgJiYgU1RBUlRfSE9VUiAlIDMgPT0gMCAmJiBFTkRfSE9VUiAlIDMgPT0gMCAmJiBFTkRfSE9VUiA8PSA0MiApKSB8fCB7IGVjaG8gIlNlZ21lbnRvIE1FVEJSIGludsOhbGlkbyBGJHtTVEFSVF9IT1VSfS1GJHtFTkRfSE9VUn0iID4mMjsgZXhpdCAyOyB9Cgpzb3VyY2UgIiRST09UL3dyZi9lbnN1cmVfZWNjb2Rlc190b29scy5zaCIKZm9yIHRvb2wgaW4gZ3JpYl9zZXQgZ3JpYl9jb3B5IGdyaWJfY291bnQ7IGRvCiAgY29tbWFuZCAtdiAiJHRvb2wiID4vZGV2L251bGwgfHwgeyBlY2hvICJlY0NvZGVzLyR0b29sIGluZGlzcG9uw612ZWwiID4mMjsgZXhpdCAxMDsgfQpkb25lCmV4cG9ydCBXUkZfVEFSR0VUX1JFU09MVVRJT05fS009IiR7V1JGX1RBUkdFVF9SRVNPTFVUSU9OX0tNOi00fSIgV1JGX0RYX01FVEVSUz0iJHtXUkZfRFhfTUVURVJTOi00MDAwfSIgV1JGX0RZX01FVEVSUz0iJHtXUkZfRFlfTUVURVJTOi00MDAwfSIKZXhwb3J0IFdSRl9FX1dFPSIke1dSRl9FX1dFOi0zMDB9IiBXUkZfRV9TTj0iJHtXUkZfRV9TTjotMzYwfSIgV1JGX0hJU1RPUllfSU5URVJWQUxfTUlOVVRFUz0iJHtXUkZfSElTVE9SWV9JTlRFUlZBTF9NSU5VVEVTOi02MH0iCmV4cG9ydCBXUkZfTVBJX1BST0NTPSIke1dSRl9NUElfUFJPQ1M6LTh9IiBXUkZfVElNRV9TVEVQPSIke1dSRl9USU1FX1NURVA6LTIwfSIKZXhwb3J0IFdSRl9SRUZfTEFUPSIke1dSRl9SRUZfTEFUOi0tMjguMTB9IiBXUkZfUkVGX0xPTj0iJHtXUkZfUkVGX0xPTjotLTUzLjQ1fSIgV1JGX1NUQU5EX0xPTj0iJHtXUkZfU1RBTkRfTE9OOi0tNTMuNDV9IgpleHBvcnQgV1JGX1JFRkxFQ1RJVklUWV9TT1VSQ0U9UkVGTF8xMENNX05BVElWRSBXUkZfTkFUSVZFX0dSSUQ9dHJ1ZSBXUkZfTk9fRkFMTEJBQ0s9dHJ1ZQpleHBvcnQgV1JGX1JVTl9IT1VSUz0kKChFTkRfSE9VUi1TVEFSVF9IT1VSKSkgV1JGX1NUQVJUX0hPVVI9IiRTVEFSVF9IT1VSIiBXUkZfRU5EX0hPVVI9IiRFTkRfSE9VUiIKZXhwb3J0IFNPVVJDRV9NT0RFTCBNT0RFTF9WQVJJQU5UIFdSRjJfVE9NT1JST1cKCmlmIFtbICIkQ09MRF9TVEFSVCIgPT0gIjAiIF1dOyB0aGVuCiAgcm0gLXJmICIkSU5QVVQiLyoKIDogIyBjaGVja3BvaW50IGhhbmRsZWQgYnkgR2l0SHViIEFjdGlvbnMgYXJ0aWZhY3QKICB0ZXN0IC1zICIkSU5QVVQvbWV0YnItY2hlY2twb2ludC0ke1NUQVJUX0hPVVJ9LnRhci5neiIgfHwgeyBlY2hvICJDaGVja3BvaW50IEYke1NUQVJUX0hPVVJ9IGF1c2VudGUgbm8gUjIiID4mMjsgZXhpdCAyMDsgfQogIHRhciAteHpmICIkSU5QVVQvbWV0YnItY2hlY2twb2ludC0ke1NUQVJUX0hPVVJ9LnRhci5neiIgLUMgIiRJTlBVVCIKICB0ZXN0IC1zICIkSU5QVVQvbWV0YnItcnVuLmVudiIgfHwgeyBlY2hvICJtZXRici1ydW4uZW52IGF1c2VudGUgbm8gY2hlY2twb2ludCIgPiYyOyBleGl0IDIxOyB9CiAgc291cmNlICIkSU5QVVQvbWV0YnItcnVuLmVudiIKICBleHBvcnQgUlVOX0RBVEUgUlVOX0NZQ0xFCiAgbWtkaXIgLXAgIiRJTlBVVC9ub3JtYWxpemVkIgogIG1hcGZpbGUgLXQgUlNUUyA8IDwoZmluZCAiJElOUFVUIiAtbWF4ZGVwdGggMSAtdHlwZSBmIC1uYW1lICd3cmZyc3RfZDAxXyonIC1zaXplICswYyAtcHJpbnQgfCBzb3J0KQogICgoIiR7I1JTVFNbQF19IiA+IDApKSB8fCB7IGVjaG8gIndyZnJzdCBhdXNlbnRlIG5vIGNoZWNrcG9pbnQiID4mMjsgZXhpdCAyMjsgfQogIGNwIC1mICIke1JTVFNbQF19IiAiJElOUFVUL25vcm1hbGl6ZWQvIgogIHRlc3QgLXMgIiRJTlBVVC93cmZiZHlfZDAxIiB8fCB7IGVjaG8gIndyZmJkeSBhdXNlbnRlIG5vIGNoZWNrcG9pbnQiID4mMjsgZXhpdCAyMzsgfQogIGNwIC1mICIkSU5QVVQvd3JmYmR5X2QwMSIgIiRJTlBVVC9ub3JtYWxpemVkL3dyZmJkeV9kMDEiCiAgdGVzdCAtcyAiJElOUFVUL25hbWVsaXN0LmlucHV0IiB8fCB7IGVjaG8gIm5hbWVsaXN0LmlucHV0IGF1c2VudGUgbm8gY2hlY2twb2ludCIgPiYyOyBleGl0IDI0OyB9CiAgY3AgLWYgIiRJTlBVVC9uYW1lbGlzdC5pbnB1dCIgIiRJTlBVVC9ub3JtYWxpemVkL25hbWVsaXN0LmlucHV0IgogIGV4cG9ydCBXUkZfUkVTVEFSVF9ESVI9IiRJTlBVVC9ub3JtYWxpemVkIgplbHNlCiAgaWYgW1sgIiRTT1VSQ0VfTU9ERUwiID09IGdmcyBdXTsgdGhlbgogICAgUlVOX0RBVEU9IiI7IFJVTl9DWUNMRT0iIgogICAgd2hpbGUgcmVhZCAtciBEQVRFIENZQ0xFOyBkbwogICAgICBVUkw9Imh0dHBzOi8vbm9hYS1nZnMtYmRwLXBkcy5zMy5hbWF6b25hd3MuY29tL2dmcy4kREFURS8kQ1lDTEUvYXRtb3MvZ2ZzLnQke0NZQ0xFfXoucGdyYjIuMHAyNS5mMDQyIgogICAgICBpZiBjdXJsIC1mc1NMIC0tcmFuZ2UgMC0wIC0tY29ubmVjdC10aW1lb3V0IDE1IC0tbWF4LXRpbWUgNDUgLW8gL2Rldi9udWxsICIkVVJMIjsgdGhlbiBSVU5fREFURT0iJERBVEUiOyBSVU5fQ1lDTEU9IiRDWUNMRSI7IGJyZWFrOyBmaQogICAgZG9uZSA8IDwocHl0aG9uMyAtIDw8J1BZJwppbXBvcnQgZGF0ZXRpbWUgYXMgZHQKbm93PWR0LmRhdGV0aW1lLm5vdyhkdC50aW1lem9uZS51dGMpCmJhc2U9bm93LnJlcGxhY2UoaG91cj0obm93LmhvdXIvLzYpKjYsbWludXRlPTAsc2Vjb25kPTAsbWljcm9zZWNvbmQ9MCkKZm9yIG4gaW4gcmFuZ2UoMjQpOgogICAgY2FuZGlkYXRlPWJhc2UtZHQudGltZWRlbHRhKGhvdXJzPTYqbikKICAgIHByaW50KGNhbmRpZGF0ZS5zdHJmdGltZSgnJVklbSVkICVIJykpClBZCikKICAgIFtbIC1uICIkUlVOX0RBVEUiIF1dIHx8IHsgZWNobyAiTmVuaHVtIGNpY2xvIEdGUyBjb20gRjA0MiBkaXNwb27DrXZlbCIgPiYyOyBleGl0IDI1OyB9CiAgICBleHBvcnQgRk9SQ0VfUlVOX0RBVEU9IiRSVU5fREFURSIgRk9SQ0VfUlVOX0NZQ0xFPSIkUlVOX0NZQ0xFIgogIGVsc2UKICAgIGV4cG9ydCBGT1JDRV9SVU5fREFURT0iIiBGT1JDRV9SVU5fQ1lDTEU9IiIKICBmaQogOiAjIGNoZWNrcG9pbnQgaGFuZGxlZCBieSBHaXRIdWIgQWN0aW9ucyBhcnRpZmFjdApmaQoKaWYgW1sgIiRTT1VSQ0VfTU9ERUwiID09IGdmcyBdXTsgdGhlbgogIGV4cG9ydCBNRVRCUl9DT0xEX1NUQVJUPSIkQ09MRF9TVEFSVCIgTUVUQlJfQk9VTkRBUllfRU5EX0hPVVI9NDIKICBiYXNoICIkUk9PVC93cmYvcnVuX21ldGJyX2dmc19zZWdtZW50LnNoIgplbHNlCiAgYmFzaCAiJFJPT1Qvd3JmL3J1bl9tZXRicl9zb3VyY2Vfd3JmLnNoIgogIGlmIFtbICIkU09VUkNFX01PREVMIiA9PSBpY29uICYmIC1zICIkUk9PVC9pY29uX3J1bi5lbnYiIF1dOyB0aGVuIHNvdXJjZSAiJFJPT1QvaWNvbl9ydW4uZW52IjsgZmkKICBpZiBbWyAiJFNPVVJDRV9NT0RFTCIgPT0gZWNtd2YgJiYgLXMgIiRST09UL2VjbXdmX3J1bi5lbnYiIF1dOyB0aGVuIHNvdXJjZSAiJFJPT1QvZWNtd2ZfcnVuLmVudiI7IGZpCmZpCgpbWyAiJHtSVU5fREFURTotfSIgPX4gXlswLTldezh9JCBdXSB8fCB7IGVjaG8gIlJVTl9EQVRFIGludsOhbGlkbyBhcMOzcyBvIHJ1bm5lcjogJHtSVU5fREFURTotfSIgPiYyOyBleGl0IDI2OyB9CltbICIke1JVTl9DWUNMRTotfSIgPX4gXigwMHwwNnwxMnwxOCkkIF1dIHx8IHsgZWNobyAiUlVOX0NZQ0xFIGludsOhbGlkbyBhcMOzcyBvIHJ1bm5lcjogJHtSVU5fQ1lDTEU6LX0iID4mMjsgZXhpdCAyNzsgfQpleHBvcnQgUlVOX0RBVEUgUlVOX0NZQ0xFCnByaW50ZiAnUlVOX0RBVEU9JXNcblJVTl9DWUNMRT0lc1xuU09VUkNFX01PREVMPSVzXG5NT0RFTF9WQVJJQU5UPSVzXG5XUkYyX1RPTU9SUk9XPSVzXG4nICIkUlVOX0RBVEUiICIkUlVOX0NZQ0xFIiAiJFNPVVJDRV9NT0RFTCIgIiRNT0RFTF9WQVJJQU5UIiAiJFdSRjJfVE9NT1JST1ciID4gbWV0YnItcnVuLmVudgoKT1VUUFVUX0RJUj0iJFJPT1Qvd3JmX3dvcmsvcnVuIgppZiBbWyAiJFNPVVJDRV9NT0RFTCIgIT0gZ2ZzICYmICIkQ09MRF9TVEFSVCIgPT0gIjAiIF1dOyB0aGVuCiAgT1VUUFVUX0RJUj0iJFJPT1QvbWV0YnJfc2VnbWVudF9vdXRwdXQiCmZpCnRlc3QgLWQgIiRPVVRQVVRfRElSIiB8fCB7IGVjaG8gIk1FVEJSIG91dHB1dCBkaXJlY3RvcnkgYXVzZW50ZTogJE9VVFBVVF9ESVIiID4mMjsgZXhpdCAzMDsgfQpzaG9wdCAtcyBudWxsZ2xvYgpPVVRTPSgiJE9VVFBVVF9ESVIiL3dyZm91dF9kMDFfKikKUlNUUz0oIiRPVVRQVVRfRElSIi93cmZyc3RfZDAxXyopCkJEWVM9KCIkT1VUUFVUX0RJUiIvd3JmYmR5X2QwMSopCnNob3B0IC11IG51bGxnbG9iCigoIiR7I09VVFNbQF19IiA+IDApKSB8fCB7IGVjaG8gIldSRk9VVCBhdXNlbnRlIG5vIHNlZ21lbnRvIEYke1NUQVJUX0hPVVJ9LUYke0VORF9IT1VSfSIgPiYyOyBleGl0IDMxOyB9CigoIiR7I1JTVFNbQF19IiA+IDApKSB8fCB7IGVjaG8gIldSRiByZXN0YXJ0IGF1c2VudGUgbm8gc2VnbWVudG8gRiR7U1RBUlRfSE9VUn0tRiR7RU5EX0hPVVJ9IiA+JjI7IGV4aXQgMzI7IH0KaWYgKCgiJHsjQkRZU1tAXX0iID09IDApKSAmJiBbWyAiJENPTERfU1RBUlQiID09ICIwIiBdXTsgdGhlbgogIHRlc3QgLXMgIiRJTlBVVC93cmZiZHlfZDAxIiB8fCB7IGVjaG8gIldSRiBib3VuZGFyeSBhdXNlbnRlIG5vIHJlc3RhcnQiID4mMjsgZXhpdCAzMzsgfQogIEJEWVM9KCIkSU5QVVQvd3JmYmR5X2QwMSIpCmZpCigoIiR7I0JEWVNbQF19IiA+IDApKSB8fCB7IGVjaG8gIndyZmJkeV9kMDEgYXVzZW50ZSIgPiYyOyBleGl0IDM0OyB9CgpOQU1FTElTVD0iJE9VVFBVVF9ESVIvbmFtZWxpc3QuaW5wdXQiCltbIC1zICIkT1VUUFVUX0RJUi9uYW1lbGlzdC5yZXN0YXJ0LmlucHV0IiBdXSAmJiBOQU1FTElTVD0iJE9VVFBVVF9ESVIvbmFtZWxpc3QucmVzdGFydC5pbnB1dCIKdGVzdCAtcyAiJE5BTUVMSVNUIiB8fCB7IGVjaG8gIm5hbWVsaXN0IGNoZWNrcG9pbnQgYXVzZW50ZSIgPiYyOyBleGl0IDM1OyB9CmZvciBmIGluICIke09VVFNbQF19IjsgZG8KICB0ZXN0IC1zICIkZiIgfHwgeyBlY2hvICJXUkZPVVQgdmF6aW86ICRmIiA+JjI7IGV4aXQgMzY7IH0KICBjcCAtZiAiJGYiICJtZXRici13cmZvdXQtJFNFR01FTlRfSU5ERVgtJChiYXNlbmFtZSAiJGYiKSIKZG9uZQoKcm0gLXJmIGNoZWNrcG9pbnRfcGFjayAmJiBta2RpciBjaGVja3BvaW50X3BhY2sKY3AgLWYgIiR7UlNUU1tAXX0iIGNoZWNrcG9pbnRfcGFjay8KY3AgLWYgIiR7QkRZU1swXX0iIGNoZWNrcG9pbnRfcGFjay93cmZiZHlfZDAxCmNwIC1mICIkTkFNRUxJU1QiIGNoZWNrcG9pbnRfcGFjay9uYW1lbGlzdC5pbnB1dApjcCAtZiBtZXRici1ydW4uZW52IGNoZWNrcG9pbnRfcGFjay9tZXRici1ydW4uZW52CnRhciAtY3pmICJtZXRici1jaGVja3BvaW50LSRFTkRfSE9VUi50YXIuZ3oiIC1DIGNoZWNrcG9pbnRfcGFjayAuCnRlc3QgLXMgIm1ldGJyLWNoZWNrcG9pbnQtJEVORF9IT1VSLnRhci5neiIKIDogIyBjaGVja3BvaW50IGhhbmRsZWQgYnkgR2l0SHViIEFjdGlvbnMgYXJ0aWZhY3QKIDogIyBjaGVja3BvaW50IGhhbmRsZWQgYnkgR2l0SHViIEFjdGlvbnMgYXJ0aWZhY3QKZWNobyAiTUVUQlIgJFNPVVJDRV9NT0RFTCAkTU9ERUxfVkFSSUFOVCBGJFNUQVJUX0hPVVItRiRFTkRfSE9VUjogY2hlY2twb2ludCBzYWx2byBubyBSMi4iCg==' | base64 -d > 'wrf/run_metbr_checkpoint_segment.sh'
+          printf '%s' 'IyEvdXNyL2Jpbi9lbnYgYmFzaApzZXQgLWV1byBwaXBlZmFpbApTVEFSVF9IT1VSPSIkezE6P3N0YXJ0IGhvdXJ9IgpFTkRfSE9VUj0iJHsyOj9lbmQgaG91cn0iClNFR01FTlRfSU5ERVg9IiR7Mzo/c2VnbWVudCBpbmRleH0iCkNPTERfU1RBUlQ9IiR7NDo/Y29sZCBzdGFydCAxLzB9IgpST09UPSIke0dJVEhVQl9XT1JLU1BBQ0U6LSRQV0R9IgpJTlBVVD0iJFJPT1QvbWV0YnJfcmVzdGFydF9pbnB1dCIKU09VUkNFX01PREVMPSIke1NPVVJDRV9NT0RFTDotaWNvbn0iCk1PREVMX1ZBUklBTlQ9IiR7TU9ERUxfVkFSSUFOVDotd3JmfSIKV1JGMl9UT01PUlJPVz0iJHtXUkYyX1RPTU9SUk9XOi0wfSIKQ0hFQ0tQT0lOVF9UQUc9IiR7Q0hFQ0tQT0lOVF9UQUc6P0NIRUNLUE9JTlRfVEFHIGF1c2VudGV9Igpta2RpciAtcCAiJElOUFVUIgoKW1sgIiRTT1VSQ0VfTU9ERUwiID1+IF4oaWNvbnxlY213ZnxnZnMpJCBdXSB8fCB7IGVjaG8gIlNPVVJDRV9NT0RFTCBpbnbDoWxpZG86ICRTT1VSQ0VfTU9ERUwiID4mMjsgZXhpdCAyOyB9CltbICIkTU9ERUxfVkFSSUFOVCIgPX4gXih3cmZ8d3JmMikkIF1dIHx8IHsgZWNobyAiTU9ERUxfVkFSSUFOVCBpbnbDoWxpZG86ICRNT0RFTF9WQVJJQU5UIiA+JjI7IGV4aXQgMjsgfQpbWyAiJENPTERfU1RBUlQiID09IDAgfHwgIiRDT0xEX1NUQVJUIiA9PSAxIF1dIHx8IHsgZWNobyAiQ09MRF9TVEFSVCBpbnbDoWxpZG8iID4mMjsgZXhpdCAyOyB9CigoIFNUQVJUX0hPVVIgPj0gMCAmJiBFTkRfSE9VUiA+IFNUQVJUX0hPVVIgJiYgU1RBUlRfSE9VUiAlIDMgPT0gMCAmJiBFTkRfSE9VUiAlIDMgPT0gMCAmJiBFTkRfSE9VUiA8PSA0MiApKSB8fCB7IGVjaG8gIlNlZ21lbnRvIE1FVEJSIGludsOhbGlkbyBGJHtTVEFSVF9IT1VSfS1GJHtFTkRfSE9VUn0iID4mMjsgZXhpdCAyOyB9Cgpzb3VyY2UgIiRST09UL3dyZi9lbnN1cmVfZWNjb2Rlc190b29scy5zaCIKZm9yIHRvb2wgaW4gZ3JpYl9zZXQgZ3JpYl9jb3B5IGdyaWJfY291bnQ7IGRvCiAgY29tbWFuZCAtdiAiJHRvb2wiID4vZGV2L251bGwgfHwgeyBlY2hvICJlY0NvZGVzLyR0b29sIGluZGlzcG9uw612ZWwiID4mMjsgZXhpdCAxMDsgfQpkb25lCmV4cG9ydCBXUkZfVEFSR0VUX1JFU09MVVRJT05fS009IiR7V1JGX1RBUkdFVF9SRVNPTFVUSU9OX0tNOi00fSIgV1JGX0RYX01FVEVSUz0iJHtXUkZfRFhfTUVURVJTOi00MDAwfSIgV1JGX0RZX01FVEVSUz0iJHtXUkZfRFlfTUVURVJTOi00MDAwfSIKZXhwb3J0IFdSRl9FX1dFPSIke1dSRl9FX1dFOi0zMDB9IiBXUkZfRV9TTj0iJHtXUkZfRV9TTjotMzYwfSIgV1JGX0hJU1RPUllfSU5URVJWQUxfTUlOVVRFUz0iJHtXUkZfSElTVE9SWV9JTlRFUlZBTF9NSU5VVEVTOi02MH0iCmV4cG9ydCBXUkZfTVBJX1BST0NTPSIke1dSRl9NUElfUFJPQ1M6LTh9IiBXUkZfVElNRV9TVEVQPSIke1dSRl9USU1FX1NURVA6LTIwfSIKZXhwb3J0IFdSRl9SRUZfTEFUPSIke1dSRl9SRUZfTEFUOi0tMjguMTB9IiBXUkZfUkVGX0xPTj0iJHtXUkZfUkVGX0xPTjotLTUzLjQ1fSIgV1JGX1NUQU5EX0xPTj0iJHtXUkZfU1RBTkRfTE9OOi0tNTMuNDV9IgpleHBvcnQgV1JGX1JFRkxFQ1RJVklUWV9TT1VSQ0U9UkVGTF8xMENNX05BVElWRSBXUkZfTkFUSVZFX0dSSUQ9dHJ1ZSBXUkZfTk9fRkFMTEJBQ0s9dHJ1ZQpleHBvcnQgV1JGX1JVTl9IT1VSUz0kKChFTkRfSE9VUi1TVEFSVF9IT1VSKSkgV1JGX1NUQVJUX0hPVVI9IiRTVEFSVF9IT1VSIiBXUkZfRU5EX0hPVVI9IiRFTkRfSE9VUiIKZXhwb3J0IFNPVVJDRV9NT0RFTCBNT0RFTF9WQVJJQU5UIFdSRjJfVE9NT1JST1cKCmlmIFtbICIkQ09MRF9TVEFSVCIgPT0gIjAiIF1dOyB0aGVuCiAgcm0gLXJmICIkSU5QVVQvbm9ybWFsaXplZCIKICBta2RpciAtcCAiJElOUFVUL25vcm1hbGl6ZWQiCiA6ICMgY2hlY2twb2ludCBoYW5kbGVkIGJ5IEdpdEh1YiBBY3Rpb25zIGFydGlmYWN0CiAgdGVzdCAtcyAiJElOUFVUL21ldGJyLWNoZWNrcG9pbnQtJHtTVEFSVF9IT1VSfS50YXIuZ3oiIHx8IHsgZWNobyAiQ2hlY2twb2ludCBGJHtTVEFSVF9IT1VSfSBhdXNlbnRlIG5vIFIyIiA+JjI7IGV4aXQgMjA7IH0KICB0YXIgLXh6ZiAiJElOUFVUL21ldGJyLWNoZWNrcG9pbnQtJHtTVEFSVF9IT1VSfS50YXIuZ3oiIC1DICIkSU5QVVQiCiAgdGVzdCAtcyAiJElOUFVUL21ldGJyLXJ1bi5lbnYiIHx8IHsgZWNobyAibWV0YnItcnVuLmVudiBhdXNlbnRlIG5vIGNoZWNrcG9pbnQiID4mMjsgZXhpdCAyMTsgfQogIHNvdXJjZSAiJElOUFVUL21ldGJyLXJ1bi5lbnYiCiAgZXhwb3J0IFJVTl9EQVRFIFJVTl9DWUNMRQogIG1rZGlyIC1wICIkSU5QVVQvbm9ybWFsaXplZCIKICBtYXBmaWxlIC10IFJTVFMgPCA8KGZpbmQgIiRJTlBVVCIgLW1heGRlcHRoIDEgLXR5cGUgZiAtbmFtZSAnd3JmcnN0X2QwMV8qJyAtc2l6ZSArMGMgLXByaW50IHwgc29ydCkKICAoKCIkeyNSU1RTW0BdfSIgPiAwKSkgfHwgeyBlY2hvICJ3cmZyc3QgYXVzZW50ZSBubyBjaGVja3BvaW50IiA+JjI7IGV4aXQgMjI7IH0KICBjcCAtZiAiJHtSU1RTW0BdfSIgIiRJTlBVVC9ub3JtYWxpemVkLyIKICB0ZXN0IC1zICIkSU5QVVQvd3JmYmR5X2QwMSIgfHwgeyBlY2hvICJ3cmZiZHkgYXVzZW50ZSBubyBjaGVja3BvaW50IiA+JjI7IGV4aXQgMjM7IH0KICBjcCAtZiAiJElOUFVUL3dyZmJkeV9kMDEiICIkSU5QVVQvbm9ybWFsaXplZC93cmZiZHlfZDAxIgogIHRlc3QgLXMgIiRJTlBVVC9uYW1lbGlzdC5pbnB1dCIgfHwgeyBlY2hvICJuYW1lbGlzdC5pbnB1dCBhdXNlbnRlIG5vIGNoZWNrcG9pbnQiID4mMjsgZXhpdCAyNDsgfQogIGNwIC1mICIkSU5QVVQvbmFtZWxpc3QuaW5wdXQiICIkSU5QVVQvbm9ybWFsaXplZC9uYW1lbGlzdC5pbnB1dCIKICBleHBvcnQgV1JGX1JFU1RBUlRfRElSPSIkSU5QVVQvbm9ybWFsaXplZCIKZWxzZQogIGlmIFtbICIkU09VUkNFX01PREVMIiA9PSBnZnMgXV07IHRoZW4KICAgIFJVTl9EQVRFPSIiOyBSVU5fQ1lDTEU9IiIKICAgIHdoaWxlIHJlYWQgLXIgREFURSBDWUNMRTsgZG8KICAgICAgVVJMPSJodHRwczovL25vYWEtZ2ZzLWJkcC1wZHMuczMuYW1hem9uYXdzLmNvbS9nZnMuJERBVEUvJENZQ0xFL2F0bW9zL2dmcy50JHtDWUNMRX16LnBncmIyLjBwMjUuZjA0MiIKICAgICAgaWYgY3VybCAtZnNTTCAtLXJhbmdlIDAtMCAtLWNvbm5lY3QtdGltZW91dCAxNSAtLW1heC10aW1lIDQ1IC1vIC9kZXYvbnVsbCAiJFVSTCI7IHRoZW4gUlVOX0RBVEU9IiREQVRFIjsgUlVOX0NZQ0xFPSIkQ1lDTEUiOyBicmVhazsgZmkKICAgIGRvbmUgPCA8KHB5dGhvbjMgLSA8PCdQWScKaW1wb3J0IGRhdGV0aW1lIGFzIGR0Cm5vdz1kdC5kYXRldGltZS5ub3coZHQudGltZXpvbmUudXRjKQpiYXNlPW5vdy5yZXBsYWNlKGhvdXI9KG5vdy5ob3VyLy82KSo2LG1pbnV0ZT0wLHNlY29uZD0wLG1pY3Jvc2Vjb25kPTApCmZvciBuIGluIHJhbmdlKDI0KToKICAgIGNhbmRpZGF0ZT1iYXNlLWR0LnRpbWVkZWx0YShob3Vycz02Km4pCiAgICBwcmludChjYW5kaWRhdGUuc3RyZnRpbWUoJyVZJW0lZCAlSCcpKQpQWQopCiAgICBbWyAtbiAiJFJVTl9EQVRFIiBdXSB8fCB7IGVjaG8gIk5lbmh1bSBjaWNsbyBHRlMgY29tIEYwNDIgZGlzcG9uw612ZWwiID4mMjsgZXhpdCAyNTsgfQogICAgZXhwb3J0IEZPUkNFX1JVTl9EQVRFPSIkUlVOX0RBVEUiIEZPUkNFX1JVTl9DWUNMRT0iJFJVTl9DWUNMRSIKICBlbHNlCiAgICBleHBvcnQgRk9SQ0VfUlVOX0RBVEU9IiIgRk9SQ0VfUlVOX0NZQ0xFPSIiCiAgZmkKIDogIyBjaGVja3BvaW50IGhhbmRsZWQgYnkgR2l0SHViIEFjdGlvbnMgYXJ0aWZhY3QKZmkKCmlmIFtbICIkU09VUkNFX01PREVMIiA9PSBnZnMgXV07IHRoZW4KICBleHBvcnQgTUVUQlJfQ09MRF9TVEFSVD0iJENPTERfU1RBUlQiIE1FVEJSX0JPVU5EQVJZX0VORF9IT1VSPTQyCiAgYmFzaCAiJFJPT1Qvd3JmL3J1bl9tZXRicl9nZnNfc2VnbWVudC5zaCIKZWxzZQogIGJhc2ggIiRST09UL3dyZi9ydW5fbWV0YnJfc291cmNlX3dyZi5zaCIKICBpZiBbWyAiJFNPVVJDRV9NT0RFTCIgPT0gaWNvbiAmJiAtcyAiJFJPT1QvaWNvbl9ydW4uZW52IiBdXTsgdGhlbiBzb3VyY2UgIiRST09UL2ljb25fcnVuLmVudiI7IGZpCiAgaWYgW1sgIiRTT1VSQ0VfTU9ERUwiID09IGVjbXdmICYmIC1zICIkUk9PVC9lY213Zl9ydW4uZW52IiBdXTsgdGhlbiBzb3VyY2UgIiRST09UL2VjbXdmX3J1bi5lbnYiOyBmaQpmaQoKW1sgIiR7UlVOX0RBVEU6LX0iID1+IF5bMC05XXs4fSQgXV0gfHwgeyBlY2hvICJSVU5fREFURSBpbnbDoWxpZG8gYXDDs3MgbyBydW5uZXI6ICR7UlVOX0RBVEU6LX0iID4mMjsgZXhpdCAyNjsgfQpbWyAiJHtSVU5fQ1lDTEU6LX0iID1+IF4oMDB8MDZ8MTJ8MTgpJCBdXSB8fCB7IGVjaG8gIlJVTl9DWUNMRSBpbnbDoWxpZG8gYXDDs3MgbyBydW5uZXI6ICR7UlVOX0NZQ0xFOi19IiA+JjI7IGV4aXQgMjc7IH0KZXhwb3J0IFJVTl9EQVRFIFJVTl9DWUNMRQpwcmludGYgJ1JVTl9EQVRFPSVzXG5SVU5fQ1lDTEU9JXNcblNPVVJDRV9NT0RFTD0lc1xuTU9ERUxfVkFSSUFOVD0lc1xuV1JGMl9UT01PUlJPVz0lc1xuJyAiJFJVTl9EQVRFIiAiJFJVTl9DWUNMRSIgIiRTT1VSQ0VfTU9ERUwiICIkTU9ERUxfVkFSSUFOVCIgIiRXUkYyX1RPTU9SUk9XIiA+IG1ldGJyLXJ1bi5lbnYKCk9VVFBVVF9ESVI9IiRST09UL3dyZl93b3JrL3J1biIKaWYgW1sgIiRTT1VSQ0VfTU9ERUwiICE9IGdmcyAmJiAiJENPTERfU1RBUlQiID09ICIwIiBdXTsgdGhlbgogIE9VVFBVVF9ESVI9IiRST09UL21ldGJyX3NlZ21lbnRfb3V0cHV0IgpmaQp0ZXN0IC1kICIkT1VUUFVUX0RJUiIgfHwgeyBlY2hvICJNRVRCUiBvdXRwdXQgZGlyZWN0b3J5IGF1c2VudGU6ICRPVVRQVVRfRElSIiA+JjI7IGV4aXQgMzA7IH0Kc2hvcHQgLXMgbnVsbGdsb2IKT1VUUz0oIiRPVVRQVVRfRElSIi93cmZvdXRfZDAxXyopClJTVFM9KCIkT1VUUFVUX0RJUiIvd3JmcnN0X2QwMV8qKQpCRFlTPSgiJE9VVFBVVF9ESVIiL3dyZmJkeV9kMDEqKQpzaG9wdCAtdSBudWxsZ2xvYgooKCIkeyNPVVRTW0BdfSIgPiAwKSkgfHwgeyBlY2hvICJXUkZPVVQgYXVzZW50ZSBubyBzZWdtZW50byBGJHtTVEFSVF9IT1VSfS1GJHtFTkRfSE9VUn0iID4mMjsgZXhpdCAzMTsgfQooKCIkeyNSU1RTW0BdfSIgPiAwKSkgfHwgeyBlY2hvICJXUkYgcmVzdGFydCBhdXNlbnRlIG5vIHNlZ21lbnRvIEYke1NUQVJUX0hPVVJ9LUYke0VORF9IT1VSfSIgPiYyOyBleGl0IDMyOyB9CmlmICgoIiR7I0JEWVNbQF19IiA9PSAwKSkgJiYgW1sgIiRDT0xEX1NUQVJUIiA9PSAiMCIgXV07IHRoZW4KICB0ZXN0IC1zICIkSU5QVVQvd3JmYmR5X2QwMSIgfHwgeyBlY2hvICJXUkYgYm91bmRhcnkgYXVzZW50ZSBubyByZXN0YXJ0IiA+JjI7IGV4aXQgMzM7IH0KICBCRFlTPSgiJElOUFVUL3dyZmJkeV9kMDEiKQpmaQooKCIkeyNCRFlTW0BdfSIgPiAwKSkgfHwgeyBlY2hvICJ3cmZiZHlfZDAxIGF1c2VudGUiID4mMjsgZXhpdCAzNDsgfQoKTkFNRUxJU1Q9IiRPVVRQVVRfRElSL25hbWVsaXN0LmlucHV0IgpbWyAtcyAiJE9VVFBVVF9ESVIvbmFtZWxpc3QucmVzdGFydC5pbnB1dCIgXV0gJiYgTkFNRUxJU1Q9IiRPVVRQVVRfRElSL25hbWVsaXN0LnJlc3RhcnQuaW5wdXQiCnRlc3QgLXMgIiROQU1FTElTVCIgfHwgeyBlY2hvICJuYW1lbGlzdCBjaGVja3BvaW50IGF1c2VudGUiID4mMjsgZXhpdCAzNTsgfQpmb3IgZiBpbiAiJHtPVVRTW0BdfSI7IGRvCiAgdGVzdCAtcyAiJGYiIHx8IHsgZWNobyAiV1JGT1VUIHZhemlvOiAkZiIgPiYyOyBleGl0IDM2OyB9CiAgY3AgLWYgIiRmIiAibWV0YnItd3Jmb3V0LSRTRUdNRU5UX0lOREVYLSQoYmFzZW5hbWUgIiRmIikiCmRvbmUKCnJtIC1yZiBjaGVja3BvaW50X3BhY2sgJiYgbWtkaXIgY2hlY2twb2ludF9wYWNrCmNwIC1mICIke1JTVFNbQF19IiBjaGVja3BvaW50X3BhY2svCmNwIC1mICIke0JEWVNbMF19IiBjaGVja3BvaW50X3BhY2svd3JmYmR5X2QwMQpjcCAtZiAiJE5BTUVMSVNUIiBjaGVja3BvaW50X3BhY2svbmFtZWxpc3QuaW5wdXQKY3AgLWYgbWV0YnItcnVuLmVudiBjaGVja3BvaW50X3BhY2svbWV0YnItcnVuLmVudgp0YXIgLWN6ZiAibWV0YnItY2hlY2twb2ludC0kRU5EX0hPVVIudGFyLmd6IiAtQyBjaGVja3BvaW50X3BhY2sgLgp0ZXN0IC1zICJtZXRici1jaGVja3BvaW50LSRFTkRfSE9VUi50YXIuZ3oiCiA6ICMgY2hlY2twb2ludCBoYW5kbGVkIGJ5IEdpdEh1YiBBY3Rpb25zIGFydGlmYWN0CiA6ICMgY2hlY2twb2ludCBoYW5kbGVkIGJ5IEdpdEh1YiBBY3Rpb25zIGFydGlmYWN0CmVjaG8gIk1FVEJSICRTT1VSQ0VfTU9ERUwgJE1PREVMX1ZBUklBTlQgRiRTVEFSVF9IT1VSLUYkRU5EX0hPVVI6IGNoZWNrcG9pbnQgc2Fsdm8gbm8gUjIuIgo=' | base64 -d > 'wrf/run_metbr_checkpoint_segment.sh'
           mkdir -p "$(dirname 'wrf/run_metbr_source_wrf.sh')"
           printf '%s' 'IyEvdXNyL2Jpbi9lbnYgYmFzaApzZXQgLWV1byBwaXBlZmFpbAoKIyBNRVRCUi1vbmx5IElDT04gZGlzcGF0Y2hlci4gQ0lNIG11c3QgbmV2ZXIgZW50ZXIgdGhpcyBwYXRoLgpST09UPSIke0dJVEhVQl9XT1JLU1BBQ0U6LSRQV0R9IgpXUkZfU1RBUlRfSE9VUj0iJHtXUkZfU1RBUlRfSE9VUjotMH0iCldSRl9FTkRfSE9VUj0iJHtXUkZfRU5EX0hPVVI6LSRXUkZfUlVOX0hPVVJTfSIKV1JGX1JVTl9IT1VSUz0iJHtXUkZfUlVOX0hPVVJTOi0kKChXUkZfRU5EX0hPVVItV1JGX1NUQVJUX0hPVVIpKX0iClNPVVJDRV9NT0RFTD0iJHtTT1VSQ0VfTU9ERUw6LWljb259IgpjYXNlICIkU09VUkNFX01PREVMIiBpbiBpY29ufGVjbXdmKSA7OyAqKSBlY2hvICJGb250ZSBNRVRCUiBpbnbDoWxpZGE6ICRTT1VSQ0VfTU9ERUwiID4mMjsgZXhpdCAyIDs7IGVzYWMKZXhwb3J0IFNPVVJDRV9NT0RFTCBXUkZfSU5QVVRfTU9ERUw9IiR7U09VUkNFX01PREVMXl59IiBXUkZfREFUQV9TT1VSQ0U9IiR7U09VUkNFX01PREVMXl59IgpleHBvcnQgV1JGX0lOSVRJQUxJWkFUSU9OX01PREVMPSIke1NPVVJDRV9NT0RFTF5efSIgV1JGX05PX0ZBTExCQUNLPXRydWUKZXhwb3J0IFdSRl9SRUZMRUNUSVZJVFlfU09VUkNFPVJFRkxfMTBDTV9OQVRJVkUgV1JGX05BVElWRV9HUklEPXRydWUKZXhwb3J0IFdSRl9NUElfUFJPQ1M9IiR7V1JGX01QSV9QUk9DUzotOH0iCmV4cG9ydCBXUkZfVElNRV9TVEVQPSIke1dSRl9USU1FX1NURVA6LTIwfSIKCigoIFdSRl9FTkRfSE9VUiA+IFdSRl9TVEFSVF9IT1VSICYmIFdSRl9FTkRfSE9VUiA8PSA0MiApKSB8fCB7IGVjaG8gIk1FVEJSIHNlZ21lbnRvIGludmFsaWRvOiBpbmljaW8vZmltIHByZWNpc2FtIHNlciBtdWx0aXBsb3MgZGUgMyBoIGVudHJlIEYwMDAgZSBGMDQyIiA+JjI7IGV4aXQgMjsgfQoKaWYgKCggV1JGX1NUQVJUX0hPVVIgPiAwICkpOyB0aGVuCiAgOiAiJHtXUkZfUkVTVEFSVF9ESVI6P1dSRl9SRVNUQVJUX0RJUiByZXF1aXJlZCBmb3IgcmVzdGFydH0iCiAgZXhlYyAiJFJPT1Qvd3JmL3J1bl93cmZfcmVzdGFydF9zZWdtZW50LnNoIiAiJFdSRl9TVEFSVF9IT1VSIiAiJFdSRl9FTkRfSE9VUiIgIiRXUkZfUkVTVEFSVF9ESVIiCmZpCgojIEYwMDAtRjAwMyBpcyBvbmx5IHRoZSBmaXJzdCBjb21wdXRlIHNlZ21lbnQuIFRoZSBib3VuZGFyeSBmaWxlIG11c3QgY292ZXIKIyB0aGUgY29tcGxldGUgRjAwMC1GMDQyIGZvcmVjYXN0IGJlY2F1c2UgYWxsIGxhdGVyIHJlc3RhcnQgc2VnbWVudHMgcmV1c2UgaXQuCmV4cG9ydCBXUkZfU0lNX0VORF9IT1VSPSIkV1JGX0VORF9IT1VSIgpleHBvcnQgV1JGX0JPVU5EQVJZX0VORF9IT1VSPTQyCmV4cG9ydCBXUkZfRU5EX0hPVVI9NDIKZXhwb3J0IFdSRl9SVU5fSE9VUlM9NDIKCnB5dGhvbjMgIiRST09UL3dyZi9wcmVwYXJlX3Jlc3RhcnRfc2VnbWVudC5weSIgLS1zdGFydC1ob3VyICIkV1JGX1NUQVJUX0hPVVIiIC0tZW5kLWhvdXIgIiRXUkZfU0lNX0VORF9IT1VSIiAtLXJvb3QgIiRST09UIgoKY2FzZSAiJFNPVVJDRV9NT0RFTCIgaW4KICBpY29uKSBMRUdBQ1k9IiRST09UL3dyZi9ydW5faWNvbl93cmYuc2giIDs7CiAgZWNtd2YpIExFR0FDWT0iJFJPT1Qvd3JmL3J1bl9lY213Zl93cmYuc2giIDs7CmVzYWMKY2htb2QgK3ggIiRMRUdBQ1kiCgpTT1VSQ0VfUlVOPSIkUk9PVC93cmYvcnVuX3dyZl93aXRoX3NvdXJjZS5zaCIKU09VUkNFX1JVTl9PUklHPSIkUk9PVC93cmYvLm1ldGJyX3J1bl93cmZfd2l0aF9zb3VyY2Uub3JpZ2luYWwiClNPVVJDRV9SVU5fOD0iJFJPT1Qvd3JmLy5tZXRicl9ydW5fd3JmX3dpdGhfc291cmNlLjhtcGkiCmNwIC1mICIkU09VUkNFX1JVTiIgIiRTT1VSQ0VfUlVOX09SSUciCmNwIC1mICIkU09VUkNFX1JVTiIgIiRTT1VSQ0VfUlVOXzgiCgojIFBhdGNoIHRoZSB0ZW1wb3Jhcnkgc291cmNlIHJ1bm5lciB3aXRob3V0IG5lc3RlZCBzZWQgcXVvdGluZy4gVGhlIHByZXZpb3VzCiMgaW1wbGVtZW50YXRpb24gaW5qZWN0ZWQgYSBQeXRob24gaGVyZWRvYyB0aHJvdWdoIHNlZCBhbmQgcHJvZHVjZWQgYW4KIyB1bnRlcm1pbmF0ZWQgc2luZ2xlIHF1b3RlIGluc2lkZSBkb2NrZXIncyAvYmluL2Jhc2ggLWMgY29tbWFuZC4KcHl0aG9uMyAtICIkU09VUkNFX1JVTl84IiA8PCdQWV9QQVRDSCcKZnJvbSBwYXRobGliIGltcG9ydCBQYXRoCmltcG9ydCBzeXMKCnAgPSBQYXRoKHN5cy5hcmd2WzFdKQpzID0gcC5yZWFkX3RleHQoKQoKcyA9IHMucmVwbGFjZSgKICAgICdXUkZfU0VHTUVOVF9IT1VSUz0kKChXUkZfRU5EX0hPVVItV1JGX1NUQVJUX0hPVVIpKScsCiAgICAnV1JGX1NFR01FTlRfSE9VUlM9JCgoV1JGX1NJTV9FTkRfSE9VUi1XUkZfU1RBUlRfSE9VUikpJywKICAgIDEsCikKcyA9IHMucmVwbGFjZSgKICAgICctLW1heC1ob3VyICIkV1JGX0VORF9IT1VSIicsCiAgICAnLS1tYXgtaG91ciAiJFdSRl9CT1VOREFSWV9FTkRfSE9VUiInLAogICAgMSwKKQoKbWFya2VyID0gJyAgICBlY2hvICI9PT0gUkVBTC5FWEUgPT09IlxuJwpwYXRjaCA9ICcnJyAgICBjcCBuYW1lbGlzdC5pbnB1dCBuYW1lbGlzdC5zZWdtZW50LmlucHV0CiAgICBweXRob24zIC0gPDwnUFlCT1VOREFSWScKaW1wb3J0IGRhdGV0aW1lIGFzIGR0CmltcG9ydCBvcwppbXBvcnQgcmUKCnAgPSAibmFtZWxpc3QuaW5wdXQiCnMgPSBvcGVuKHAsIGVuY29kaW5nPSJ1dGYtOCIpLnJlYWQoKQpiYXNlID0gZHQuZGF0ZXRpbWUuc3RycHRpbWUob3MuZW52aXJvblsiUlVOX0RBVEUiXSArIG9zLmVudmlyb25bIlJVTl9DWUNMRSJdLCAiJVklbSVkJUgiKQplbmQgPSBiYXNlICsgZHQudGltZWRlbHRhKGhvdXJzPWludChvcy5lbnZpcm9uWyJXUkZfQk9VTkRBUllfRU5EX0hPVVIiXSkpCgpkZWYgcHV0KGtleSwgdmFsdWUpOgogICAgZ2xvYmFsIHMKICAgIHMgPSByZS5zdWIocmYiKD9tKV5cXHMqe3JlLmVzY2FwZShrZXkpfVxccyo9LiokIiwgZiIge2tleX0gPSB7dmFsdWV9LCIsIHMpCgpmb3Iga2V5LCB2YWx1ZSBpbiAoCiAgICAoInJ1bl9kYXlzIiwgMCksCiAgICAoInJ1bl9ob3VycyIsIGludChvcy5lbnZpcm9uWyJXUkZfQk9VTkRBUllfRU5EX0hPVVIiXSkpLAogICAgKCJydW5fbWludXRlcyIsIDApLAogICAgKCJydW5fc2Vjb25kcyIsIDApLAogICAgKCJlbmRfeWVhciIsIGVuZC55ZWFyKSwKICAgICgiZW5kX21vbnRoIiwgZW5kLm1vbnRoKSwKICAgICgiZW5kX2RheSIsIGVuZC5kYXkpLAogICAgKCJlbmRfaG91ciIsIGVuZC5ob3VyKSwKKToKICAgIHB1dChrZXksIHZhbHVlKQoKb3BlbihwLCAidyIsIGVuY29kaW5nPSJ1dGYtOCIpLndyaXRlKHMpClBZQk9VTkRBUlkKJycnCmlmIG1hcmtlciBub3QgaW4gczoKICAgIHJhaXNlIFN5c3RlbUV4aXQoJ21hcmNhZG9yIFJFQUwuRVhFIG5hbyBlbmNvbnRyYWRvIG5vIHJ1bl93cmZfd2l0aF9zb3VyY2Uuc2gnKQpzID0gcy5yZXBsYWNlKG1hcmtlciwgcGF0Y2ggKyBtYXJrZXIsIDEpCgptYXJrZXIyID0gJyAgICB0ZXN0IC1mIHdyZmlucHV0X2QwMVxuJwpwYXRjaDIgPSAnICAgIHRlc3QgLWYgd3JmaW5wdXRfZDAxXG4gICAgaWYgdGVzdCAtZiBuYW1lbGlzdC5zZWdtZW50LmlucHV0OyB0aGVuIGNwIC1mIG5hbWVsaXN0LnNlZ21lbnQuaW5wdXQgbmFtZWxpc3QuaW5wdXQ7IGZpXG4nCmlmIG1hcmtlcjIgbm90IGluIHM6CiAgICByYWlzZSBTeXN0ZW1FeGl0KCdtYXJjYWRvciB3cmZpbnB1dF9kMDEgbmFvIGVuY29udHJhZG8gbm8gcnVuX3dyZl93aXRoX3NvdXJjZS5zaCcpCnMgPSBzLnJlcGxhY2UobWFya2VyMiwgcGF0Y2gyLCAxKQoKb2xkID0gJ0xPQ0FMX1VTRVJfSUQ9IiRIT1NUX1VJRCIgXFxcbicKbmV3ID0gJ0xPQ0FMX1VTRVJfSUQ9IiRIT1NUX1VJRCIgLWUgUlVOX0RBVEU9IiRSVU5fREFURSIgLWUgUlVOX0NZQ0xFPSIkUlVOX0NZQ0xFIiAtZSBXUkZfQk9VTkRBUllfRU5EX0hPVVI9IiRXUkZfQk9VTkRBUllfRU5EX0hPVVIiIC1lIFdSRl9TSU1fRU5EX0hPVVI9IiRXUkZfU0lNX0VORF9IT1VSIiBcXFxuJwppZiBvbGQgbm90IGluIHM6CiAgICByYWlzZSBTeXN0ZW1FeGl0KCdsaW5oYSBMT0NBTF9VU0VSX0lEIG5hbyBlbmNvbnRyYWRhIG5vIHJ1bl93cmZfd2l0aF9zb3VyY2Uuc2gnKQpzID0gcy5yZXBsYWNlKG9sZCwgbmV3LCAxKQoKcC53cml0ZV90ZXh0KHMpClBZX1BBVENICgpSVU5USU1FX0hFTFBFUj0iJFJPT1Qvd3JmL2Vuc3VyZV9tZXRicl93cmZfcnVudGltZS5zaCIKUlVOVElNRV9IRUxQRVJfSU5fV09SSz0iJFJPT1Qvd3JmX3dvcmsvLm1ldGJyX2Vuc3VyZV9ydW50aW1lLnNoIgpta2RpciAtcCAiJFJPT1Qvd3JmX3dvcmsiCmNwIC1mICIkUlVOVElNRV9IRUxQRVIiICIkUlVOVElNRV9IRUxQRVJfSU5fV09SSyIKY2htb2QgK3ggIiRSVU5USU1FX0hFTFBFUl9JTl9XT1JLIgpweXRob24zIC0gIiRTT1VSQ0VfUlVOXzgiIDw8J1BZX1JVTlRJTUUnCmZyb20gcGF0aGxpYiBpbXBvcnQgUGF0aAppbXBvcnQgc3lzCnAgPSBQYXRoKHN5cy5hcmd2WzFdKQpzID0gcC5yZWFkX3RleHQoKQpuZWVkbGUgPSAnICAgIGNkIC93b3JrXG4nCmluc2VydCA9ICcgICAgY2QgL3dvcmtcbiAgICAvYmluL2Jhc2ggL3dvcmsvLm1ldGJyX2Vuc3VyZV9ydW50aW1lLnNoIC93b3JrL3J1blxuJwppZiBuZWVkbGUgbm90IGluIHM6CiAgICByYWlzZSBTeXN0ZW1FeGl0KCdtYXJjYWRvciBjZCAvd29yayBuYW8gZW5jb250cmFkbyBubyBydW5fd3JmX3dpdGhfc291cmNlLnNoJykKcyA9IHMucmVwbGFjZShuZWVkbGUsIGluc2VydCwgMSkKcC53cml0ZV90ZXh0KHMpClBZX1JVTlRJTUUKCmNobW9kICt4ICIkU09VUkNFX1JVTl84IgoKcmVzdG9yZV9zb3VyY2VfcnVuKCl7CiAgaWYgW1sgLWYgIiRTT1VSQ0VfUlVOX09SSUciIF1dOyB0aGVuCiAgICBtdiAtZiAiJFNPVVJDRV9SVU5fT1JJRyIgIiRTT1VSQ0VfUlVOIgogIGZpCiAgcm0gLWYgIiRTT1VSQ0VfUlVOXzgiCn0KdHJhcCByZXN0b3JlX3NvdXJjZV9ydW4gRVhJVAptdiAtZiAiJFNPVVJDRV9SVU5fOCIgIiRTT1VSQ0VfUlVOIgoKc2VkIC1pIC1FICdzLyhtcGlydW5bXlxuXSotbnBbWzpzcGFjZTpdXSspNChbXjAtOV18JCkvXDE4XDIvZzsgcy8obXBpcnVuW15cbl0qLS1ucFs9WzpzcGFjZTpdXSopNChbXjAtOV18JCkvXDE4XDIvZycgIiRTT1VSQ0VfUlVOIgpleHBvcnQgT01QX05VTV9USFJFQURTPSIke09NUF9OVU1fVEhSRUFEUzotMX0iCiIkTEVHQUNZIgo=' | base64 -d > 'wrf/run_metbr_source_wrf.sh'
           mkdir -p "$(dirname 'wrf/run_icon_wrf.sh')"
@@ -189,6 +189,9 @@ jobs:
           python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
             --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
             --workspace "$GITHUB_WORKSPACE"
+          python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
+            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
+            --workspace "$GITHUB_WORKSPACE"
           if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
             python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
               --downloads-root "$RUNNER_TEMP/wrf-downloads" \
@@ -269,6 +272,9 @@ jobs:
         run: |
           mkdir -p "$WRF_ARTIFACT_DOWNLOAD_DIR"
           printf '%s\n' "$WRF_ARTIFACT_RESTORE_TO" > "$WRF_ARTIFACT_DOWNLOAD_DIR/.restore-to"
+          python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
+            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
+            --workspace "$GITHUB_WORKSPACE"
           python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
             --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
             --workspace "$GITHUB_WORKSPACE"
@@ -361,6 +367,9 @@ jobs:
           python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
             --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
             --workspace "$GITHUB_WORKSPACE"
+          python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
+            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
+            --workspace "$GITHUB_WORKSPACE"
           if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
             python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
               --downloads-root "$RUNNER_TEMP/wrf-downloads" \
@@ -441,6 +450,9 @@ jobs:
         run: |
           mkdir -p "$WRF_ARTIFACT_DOWNLOAD_DIR"
           printf '%s\n' "$WRF_ARTIFACT_RESTORE_TO" > "$WRF_ARTIFACT_DOWNLOAD_DIR/.restore-to"
+          python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
+            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
+            --workspace "$GITHUB_WORKSPACE"
           python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
             --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
             --workspace "$GITHUB_WORKSPACE"
@@ -533,6 +545,9 @@ jobs:
           python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
             --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
             --workspace "$GITHUB_WORKSPACE"
+          python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
+            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
+            --workspace "$GITHUB_WORKSPACE"
           if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
             python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
               --downloads-root "$RUNNER_TEMP/wrf-downloads" \
@@ -613,6 +628,9 @@ jobs:
         run: |
           mkdir -p "$WRF_ARTIFACT_DOWNLOAD_DIR"
           printf '%s\n' "$WRF_ARTIFACT_RESTORE_TO" > "$WRF_ARTIFACT_DOWNLOAD_DIR/.restore-to"
+          python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
+            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
+            --workspace "$GITHUB_WORKSPACE"
           python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
             --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
             --workspace "$GITHUB_WORKSPACE"
@@ -705,6 +723,9 @@ jobs:
           python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
             --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
             --workspace "$GITHUB_WORKSPACE"
+          python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
+            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
+            --workspace "$GITHUB_WORKSPACE"
           if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
             python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
               --downloads-root "$RUNNER_TEMP/wrf-downloads" \
@@ -785,6 +806,9 @@ jobs:
         run: |
           mkdir -p "$WRF_ARTIFACT_DOWNLOAD_DIR"
           printf '%s\n' "$WRF_ARTIFACT_RESTORE_TO" > "$WRF_ARTIFACT_DOWNLOAD_DIR/.restore-to"
+          python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
+            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
+            --workspace "$GITHUB_WORKSPACE"
           python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
             --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
             --workspace "$GITHUB_WORKSPACE"
@@ -877,6 +901,9 @@ jobs:
           python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
             --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
             --workspace "$GITHUB_WORKSPACE"
+          python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
+            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
+            --workspace "$GITHUB_WORKSPACE"
           if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
             python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
               --downloads-root "$RUNNER_TEMP/wrf-downloads" \
@@ -957,6 +984,9 @@ jobs:
         run: |
           mkdir -p "$WRF_ARTIFACT_DOWNLOAD_DIR"
           printf '%s\n' "$WRF_ARTIFACT_RESTORE_TO" > "$WRF_ARTIFACT_DOWNLOAD_DIR/.restore-to"
+          python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
+            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
+            --workspace "$GITHUB_WORKSPACE"
           python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
             --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
             --workspace "$GITHUB_WORKSPACE"
@@ -1049,6 +1079,9 @@ jobs:
           python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
             --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
             --workspace "$GITHUB_WORKSPACE"
+          python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
+            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
+            --workspace "$GITHUB_WORKSPACE"
           if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
             python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
               --downloads-root "$RUNNER_TEMP/wrf-downloads" \
@@ -1129,6 +1162,9 @@ jobs:
         run: |
           mkdir -p "$WRF_ARTIFACT_DOWNLOAD_DIR"
           printf '%s\n' "$WRF_ARTIFACT_RESTORE_TO" > "$WRF_ARTIFACT_DOWNLOAD_DIR/.restore-to"
+          python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
+            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
+            --workspace "$GITHUB_WORKSPACE"
           python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
             --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
             --workspace "$GITHUB_WORKSPACE"
@@ -1221,6 +1257,9 @@ jobs:
           python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
             --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
             --workspace "$GITHUB_WORKSPACE"
+          python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
+            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
+            --workspace "$GITHUB_WORKSPACE"
           if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
             python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
               --downloads-root "$RUNNER_TEMP/wrf-downloads" \
@@ -1301,6 +1340,9 @@ jobs:
         run: |
           mkdir -p "$WRF_ARTIFACT_DOWNLOAD_DIR"
           printf '%s\n' "$WRF_ARTIFACT_RESTORE_TO" > "$WRF_ARTIFACT_DOWNLOAD_DIR/.restore-to"
+          python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
+            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
+            --workspace "$GITHUB_WORKSPACE"
           python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
             --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
             --workspace "$GITHUB_WORKSPACE"
@@ -1393,6 +1435,9 @@ jobs:
           python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
             --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
             --workspace "$GITHUB_WORKSPACE"
+          python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
+            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
+            --workspace "$GITHUB_WORKSPACE"
           if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
             python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
               --downloads-root "$RUNNER_TEMP/wrf-downloads" \
@@ -1473,6 +1518,9 @@ jobs:
         run: |
           mkdir -p "$WRF_ARTIFACT_DOWNLOAD_DIR"
           printf '%s\n' "$WRF_ARTIFACT_RESTORE_TO" > "$WRF_ARTIFACT_DOWNLOAD_DIR/.restore-to"
+          python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
+            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
+            --workspace "$GITHUB_WORKSPACE"
           python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
             --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
             --workspace "$GITHUB_WORKSPACE"
@@ -1565,6 +1613,9 @@ jobs:
           python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
             --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
             --workspace "$GITHUB_WORKSPACE"
+          python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
+            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
+            --workspace "$GITHUB_WORKSPACE"
           if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
             python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
               --downloads-root "$RUNNER_TEMP/wrf-downloads" \
@@ -1645,6 +1696,9 @@ jobs:
         run: |
           mkdir -p "$WRF_ARTIFACT_DOWNLOAD_DIR"
           printf '%s\n' "$WRF_ARTIFACT_RESTORE_TO" > "$WRF_ARTIFACT_DOWNLOAD_DIR/.restore-to"
+          python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
+            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
+            --workspace "$GITHUB_WORKSPACE"
           python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
             --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
             --workspace "$GITHUB_WORKSPACE"
@@ -1737,6 +1791,9 @@ jobs:
           python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
             --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
             --workspace "$GITHUB_WORKSPACE"
+          python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
+            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
+            --workspace "$GITHUB_WORKSPACE"
           if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
             python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
               --downloads-root "$RUNNER_TEMP/wrf-downloads" \
@@ -1817,6 +1874,9 @@ jobs:
         run: |
           mkdir -p "$WRF_ARTIFACT_DOWNLOAD_DIR"
           printf '%s\n' "$WRF_ARTIFACT_RESTORE_TO" > "$WRF_ARTIFACT_DOWNLOAD_DIR/.restore-to"
+          python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
+            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
+            --workspace "$GITHUB_WORKSPACE"
           python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
             --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
             --workspace "$GITHUB_WORKSPACE"
@@ -1909,6 +1969,9 @@ jobs:
           python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
             --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
             --workspace "$GITHUB_WORKSPACE"
+          python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
+            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
+            --workspace "$GITHUB_WORKSPACE"
           if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
             python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
               --downloads-root "$RUNNER_TEMP/wrf-downloads" \
@@ -1989,6 +2052,9 @@ jobs:
         run: |
           mkdir -p "$WRF_ARTIFACT_DOWNLOAD_DIR"
           printf '%s\n' "$WRF_ARTIFACT_RESTORE_TO" > "$WRF_ARTIFACT_DOWNLOAD_DIR/.restore-to"
+          python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
+            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
+            --workspace "$GITHUB_WORKSPACE"
           python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
             --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
             --workspace "$GITHUB_WORKSPACE"
@@ -2081,6 +2147,9 @@ jobs:
           python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
             --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
             --workspace "$GITHUB_WORKSPACE"
+          python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
+            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
+            --workspace "$GITHUB_WORKSPACE"
           if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
             python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
               --downloads-root "$RUNNER_TEMP/wrf-downloads" \
@@ -2161,6 +2230,9 @@ jobs:
         run: |
           mkdir -p "$WRF_ARTIFACT_DOWNLOAD_DIR"
           printf '%s\n' "$WRF_ARTIFACT_RESTORE_TO" > "$WRF_ARTIFACT_DOWNLOAD_DIR/.restore-to"
+          python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
+            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
+            --workspace "$GITHUB_WORKSPACE"
           python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
             --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
             --workspace "$GITHUB_WORKSPACE"
@@ -2253,6 +2325,9 @@ jobs:
           python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
             --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
             --workspace "$GITHUB_WORKSPACE"
+          python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
+            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
+            --workspace "$GITHUB_WORKSPACE"
           if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
             python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
               --downloads-root "$RUNNER_TEMP/wrf-downloads" \
@@ -2333,6 +2408,9 @@ jobs:
         run: |
           mkdir -p "$WRF_ARTIFACT_DOWNLOAD_DIR"
           printf '%s\n' "$WRF_ARTIFACT_RESTORE_TO" > "$WRF_ARTIFACT_DOWNLOAD_DIR/.restore-to"
+          python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
+            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
+            --workspace "$GITHUB_WORKSPACE"
           python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
             --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
             --workspace "$GITHUB_WORKSPACE"
@@ -2425,6 +2503,9 @@ jobs:
           python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
             --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
             --workspace "$GITHUB_WORKSPACE"
+          python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
+            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
+            --workspace "$GITHUB_WORKSPACE"
           if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
             python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
               --downloads-root "$RUNNER_TEMP/wrf-downloads" \
@@ -2505,6 +2586,9 @@ jobs:
         run: |
           mkdir -p "$WRF_ARTIFACT_DOWNLOAD_DIR"
           printf '%s\n' "$WRF_ARTIFACT_RESTORE_TO" > "$WRF_ARTIFACT_DOWNLOAD_DIR/.restore-to"
+          python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
+            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
+            --workspace "$GITHUB_WORKSPACE"
           python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
             --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
             --workspace "$GITHUB_WORKSPACE"
@@ -2597,6 +2681,9 @@ jobs:
           python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
             --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
             --workspace "$GITHUB_WORKSPACE"
+          python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
+            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
+            --workspace "$GITHUB_WORKSPACE"
           if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
             python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
               --downloads-root "$RUNNER_TEMP/wrf-downloads" \
@@ -2677,6 +2764,9 @@ jobs:
         run: |
           mkdir -p "$WRF_ARTIFACT_DOWNLOAD_DIR"
           printf '%s\n' "$WRF_ARTIFACT_RESTORE_TO" > "$WRF_ARTIFACT_DOWNLOAD_DIR/.restore-to"
+          python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
+            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
+            --workspace "$GITHUB_WORKSPACE"
           python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
             --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
             --workspace "$GITHUB_WORKSPACE"
@@ -2769,6 +2859,9 @@ jobs:
           python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
             --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
             --workspace "$GITHUB_WORKSPACE"
+          python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
+            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
+            --workspace "$GITHUB_WORKSPACE"
           if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
             python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
               --downloads-root "$RUNNER_TEMP/wrf-downloads" \
@@ -2849,6 +2942,9 @@ jobs:
         run: |
           mkdir -p "$WRF_ARTIFACT_DOWNLOAD_DIR"
           printf '%s\n' "$WRF_ARTIFACT_RESTORE_TO" > "$WRF_ARTIFACT_DOWNLOAD_DIR/.restore-to"
+          python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
+            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
+            --workspace "$GITHUB_WORKSPACE"
           python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
             --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
             --workspace "$GITHUB_WORKSPACE"
@@ -2941,6 +3037,9 @@ jobs:
           python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
             --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
             --workspace "$GITHUB_WORKSPACE"
+          python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
+            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
+            --workspace "$GITHUB_WORKSPACE"
           if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
             python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
               --downloads-root "$RUNNER_TEMP/wrf-downloads" \
@@ -3021,6 +3120,9 @@ jobs:
         run: |
           mkdir -p "$WRF_ARTIFACT_DOWNLOAD_DIR"
           printf '%s\n' "$WRF_ARTIFACT_RESTORE_TO" > "$WRF_ARTIFACT_DOWNLOAD_DIR/.restore-to"
+          python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
+            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
+            --workspace "$GITHUB_WORKSPACE"
           python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
             --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
             --workspace "$GITHUB_WORKSPACE"
@@ -3113,6 +3215,9 @@ jobs:
           python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
             --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
             --workspace "$GITHUB_WORKSPACE"
+          python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
+            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
+            --workspace "$GITHUB_WORKSPACE"
           if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
             python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
               --downloads-root "$RUNNER_TEMP/wrf-downloads" \
@@ -3193,6 +3298,9 @@ jobs:
         run: |
           mkdir -p "$WRF_ARTIFACT_DOWNLOAD_DIR"
           printf '%s\n' "$WRF_ARTIFACT_RESTORE_TO" > "$WRF_ARTIFACT_DOWNLOAD_DIR/.restore-to"
+          python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
+            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
+            --workspace "$GITHUB_WORKSPACE"
           python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
             --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
             --workspace "$GITHUB_WORKSPACE"
@@ -3285,6 +3393,9 @@ jobs:
           python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
             --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
             --workspace "$GITHUB_WORKSPACE"
+          python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
+            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
+            --workspace "$GITHUB_WORKSPACE"
           if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
             python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
               --downloads-root "$RUNNER_TEMP/wrf-downloads" \
@@ -3365,6 +3476,9 @@ jobs:
         run: |
           mkdir -p "$WRF_ARTIFACT_DOWNLOAD_DIR"
           printf '%s\n' "$WRF_ARTIFACT_RESTORE_TO" > "$WRF_ARTIFACT_DOWNLOAD_DIR/.restore-to"
+          python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
+            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
+            --workspace "$GITHUB_WORKSPACE"
           python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
             --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
             --workspace "$GITHUB_WORKSPACE"
@@ -3457,6 +3571,9 @@ jobs:
           python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
             --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
             --workspace "$GITHUB_WORKSPACE"
+          python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
+            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
+            --workspace "$GITHUB_WORKSPACE"
           if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
             python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
               --downloads-root "$RUNNER_TEMP/wrf-downloads" \
@@ -3537,6 +3654,9 @@ jobs:
         run: |
           mkdir -p "$WRF_ARTIFACT_DOWNLOAD_DIR"
           printf '%s\n' "$WRF_ARTIFACT_RESTORE_TO" > "$WRF_ARTIFACT_DOWNLOAD_DIR/.restore-to"
+          python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
+            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
+            --workspace "$GITHUB_WORKSPACE"
           python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
             --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
             --workspace "$GITHUB_WORKSPACE"
@@ -3629,6 +3749,9 @@ jobs:
           python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
             --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
             --workspace "$GITHUB_WORKSPACE"
+          python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
+            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
+            --workspace "$GITHUB_WORKSPACE"
           if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
             python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
               --downloads-root "$RUNNER_TEMP/wrf-downloads" \
@@ -3706,6 +3829,22 @@ jobs:
               --downloads-root "$RUNNER_TEMP/wrf-downloads" \
               --workspace "$GITHUB_WORKSPACE"
           fi
+      - name: Restore WRF artifacts after checkout (complete)
+        shell: bash
+        run: |
+          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
+            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
+              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
+              --workspace "$GITHUB_WORKSPACE"
+          fi
+      - name: Restore WRF artifacts after checkout (complete)
+        shell: bash
+        run: |
+          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
+            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
+              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
+              --workspace "$GITHUB_WORKSPACE"
+          fi
       - name: Restore WRF artifacts after checkout (43)
         shell: bash
         run: |
@@ -3738,6 +3877,7 @@ jobs:
         shell: bash
         env:
           WRF_ARTIFACT_DOWNLOAD_DIR: ${{ runner.temp }}/wrf-downloads/d042
+          WRF_ARTIFACT_RESTORE_TO: metbr_segment_artifacts
           WRF_ARTIFACT_RESTORE_TO: metbr_segment_artifacts
           WRF_ARTIFACT_RESTORE_TO: metbr_segment_artifacts
           WRF_ARTIFACT_RESTORE_TO: metbr_segment_artifacts

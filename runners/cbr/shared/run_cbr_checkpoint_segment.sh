@@ -65,7 +65,7 @@ prepare_source() {
 }
 
 if [[ "$COLD_START" == "0" ]]; then
-  rm -rf "$INPUT"/*
+  rm -rf "$INPUT/normalized"
  : # checkpoint handled by GitHub Actions artifact
   source cbr-run.env
  : # checkpoint handled by GitHub Actions artifact

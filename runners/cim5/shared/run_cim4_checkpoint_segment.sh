@@ -78,7 +78,7 @@ prepare_source() {
 }
 
 if [[ "$COLD_START" == "0" ]]; then
-  rm -rf "$INPUT"/*
+  rm -rf "$INPUT/normalized"
  : # checkpoint handled by GitHub Actions artifact
   source cim4-run.env
   export WRF2_TOMORROW="${WRF2_TOMORROW:-0}"

@@ -187,6 +187,9 @@ jobs:
           python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
             --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
             --workspace "$GITHUB_WORKSPACE"
+          python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
+            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
+            --workspace "$GITHUB_WORKSPACE"
           if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
             python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
               --downloads-root "$RUNNER_TEMP/wrf-downloads" \
@@ -292,6 +295,9 @@ jobs:
         run: |
           mkdir -p "$WRF_ARTIFACT_DOWNLOAD_DIR"
           printf '%s\n' "$WRF_ARTIFACT_RESTORE_TO" > "$WRF_ARTIFACT_DOWNLOAD_DIR/.restore-to"
+          python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
+            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
+            --workspace "$GITHUB_WORKSPACE"
           python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
             --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
             --workspace "$GITHUB_WORKSPACE"
@@ -403,6 +409,9 @@ jobs:
           python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
             --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
             --workspace "$GITHUB_WORKSPACE"
+          python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
+            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
+            --workspace "$GITHUB_WORKSPACE"
           if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
             python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
               --downloads-root "$RUNNER_TEMP/wrf-downloads" \
@@ -508,6 +517,9 @@ jobs:
         run: |
           mkdir -p "$WRF_ARTIFACT_DOWNLOAD_DIR"
           printf '%s\n' "$WRF_ARTIFACT_RESTORE_TO" > "$WRF_ARTIFACT_DOWNLOAD_DIR/.restore-to"
+          python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
+            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
+            --workspace "$GITHUB_WORKSPACE"
           python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
             --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
             --workspace "$GITHUB_WORKSPACE"
@@ -619,6 +631,9 @@ jobs:
           python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
             --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
             --workspace "$GITHUB_WORKSPACE"
+          python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
+            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
+            --workspace "$GITHUB_WORKSPACE"
           if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
             python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
               --downloads-root "$RUNNER_TEMP/wrf-downloads" \
@@ -724,6 +739,9 @@ jobs:
         run: |
           mkdir -p "$WRF_ARTIFACT_DOWNLOAD_DIR"
           printf '%s\n' "$WRF_ARTIFACT_RESTORE_TO" > "$WRF_ARTIFACT_DOWNLOAD_DIR/.restore-to"
+          python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
+            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
+            --workspace "$GITHUB_WORKSPACE"
           python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
             --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
             --workspace "$GITHUB_WORKSPACE"
@@ -835,6 +853,9 @@ jobs:
           python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
             --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
             --workspace "$GITHUB_WORKSPACE"
+          python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
+            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
+            --workspace "$GITHUB_WORKSPACE"
           if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
             python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
               --downloads-root "$RUNNER_TEMP/wrf-downloads" \
@@ -940,6 +961,9 @@ jobs:
         run: |
           mkdir -p "$WRF_ARTIFACT_DOWNLOAD_DIR"
           printf '%s\n' "$WRF_ARTIFACT_RESTORE_TO" > "$WRF_ARTIFACT_DOWNLOAD_DIR/.restore-to"
+          python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
+            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
+            --workspace "$GITHUB_WORKSPACE"
           python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
             --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
             --workspace "$GITHUB_WORKSPACE"
@@ -1051,6 +1075,9 @@ jobs:
           python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
             --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
             --workspace "$GITHUB_WORKSPACE"
+          python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
+            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
+            --workspace "$GITHUB_WORKSPACE"
           if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
             python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
               --downloads-root "$RUNNER_TEMP/wrf-downloads" \
@@ -1156,6 +1183,9 @@ jobs:
         run: |
           mkdir -p "$WRF_ARTIFACT_DOWNLOAD_DIR"
           printf '%s\n' "$WRF_ARTIFACT_RESTORE_TO" > "$WRF_ARTIFACT_DOWNLOAD_DIR/.restore-to"
+          python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
+            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
+            --workspace "$GITHUB_WORKSPACE"
           python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
             --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
             --workspace "$GITHUB_WORKSPACE"
@@ -1267,6 +1297,9 @@ jobs:
           python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
             --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
             --workspace "$GITHUB_WORKSPACE"
+          python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
+            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
+            --workspace "$GITHUB_WORKSPACE"
           if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
             python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
               --downloads-root "$RUNNER_TEMP/wrf-downloads" \
@@ -1372,6 +1405,9 @@ jobs:
         run: |
           mkdir -p "$WRF_ARTIFACT_DOWNLOAD_DIR"
           printf '%s\n' "$WRF_ARTIFACT_RESTORE_TO" > "$WRF_ARTIFACT_DOWNLOAD_DIR/.restore-to"
+          python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
+            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
+            --workspace "$GITHUB_WORKSPACE"
           python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
             --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
             --workspace "$GITHUB_WORKSPACE"
@@ -1483,6 +1519,9 @@ jobs:
           python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
             --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
             --workspace "$GITHUB_WORKSPACE"
+          python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
+            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
+            --workspace "$GITHUB_WORKSPACE"
           if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
             python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
               --downloads-root "$RUNNER_TEMP/wrf-downloads" \
@@ -1588,6 +1627,9 @@ jobs:
         run: |
           mkdir -p "$WRF_ARTIFACT_DOWNLOAD_DIR"
           printf '%s\n' "$WRF_ARTIFACT_RESTORE_TO" > "$WRF_ARTIFACT_DOWNLOAD_DIR/.restore-to"
+          python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
+            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
+            --workspace "$GITHUB_WORKSPACE"
           python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
             --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
             --workspace "$GITHUB_WORKSPACE"
@@ -1699,6 +1741,9 @@ jobs:
           python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
             --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
             --workspace "$GITHUB_WORKSPACE"
+          python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
+            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
+            --workspace "$GITHUB_WORKSPACE"
           if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
             python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
               --downloads-root "$RUNNER_TEMP/wrf-downloads" \
@@ -1804,6 +1849,9 @@ jobs:
         run: |
           mkdir -p "$WRF_ARTIFACT_DOWNLOAD_DIR"
           printf '%s\n' "$WRF_ARTIFACT_RESTORE_TO" > "$WRF_ARTIFACT_DOWNLOAD_DIR/.restore-to"
+          python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
+            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
+            --workspace "$GITHUB_WORKSPACE"
           python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
             --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
             --workspace "$GITHUB_WORKSPACE"
@@ -1915,6 +1963,9 @@ jobs:
           python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
             --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
             --workspace "$GITHUB_WORKSPACE"
+          python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
+            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
+            --workspace "$GITHUB_WORKSPACE"
           if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
             python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
               --downloads-root "$RUNNER_TEMP/wrf-downloads" \
@@ -2020,6 +2071,9 @@ jobs:
         run: |
           mkdir -p "$WRF_ARTIFACT_DOWNLOAD_DIR"
           printf '%s\n' "$WRF_ARTIFACT_RESTORE_TO" > "$WRF_ARTIFACT_DOWNLOAD_DIR/.restore-to"
+          python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
+            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
+            --workspace "$GITHUB_WORKSPACE"
           python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
             --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
             --workspace "$GITHUB_WORKSPACE"
@@ -2131,6 +2185,9 @@ jobs:
           python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
             --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
             --workspace "$GITHUB_WORKSPACE"
+          python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
+            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
+            --workspace "$GITHUB_WORKSPACE"
           if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
             python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
               --downloads-root "$RUNNER_TEMP/wrf-downloads" \
@@ -2236,6 +2293,9 @@ jobs:
         run: |
           mkdir -p "$WRF_ARTIFACT_DOWNLOAD_DIR"
           printf '%s\n' "$WRF_ARTIFACT_RESTORE_TO" > "$WRF_ARTIFACT_DOWNLOAD_DIR/.restore-to"
+          python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
+            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
+            --workspace "$GITHUB_WORKSPACE"
           python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
             --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
             --workspace "$GITHUB_WORKSPACE"
@@ -2347,6 +2407,9 @@ jobs:
           python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
             --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
             --workspace "$GITHUB_WORKSPACE"
+          python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
+            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
+            --workspace "$GITHUB_WORKSPACE"
           if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
             python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
               --downloads-root "$RUNNER_TEMP/wrf-downloads" \
@@ -2452,6 +2515,9 @@ jobs:
         run: |
           mkdir -p "$WRF_ARTIFACT_DOWNLOAD_DIR"
           printf '%s\n' "$WRF_ARTIFACT_RESTORE_TO" > "$WRF_ARTIFACT_DOWNLOAD_DIR/.restore-to"
+          python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
+            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
+            --workspace "$GITHUB_WORKSPACE"
           python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
             --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
             --workspace "$GITHUB_WORKSPACE"
@@ -2563,6 +2629,9 @@ jobs:
           python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
             --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
             --workspace "$GITHUB_WORKSPACE"
+          python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
+            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
+            --workspace "$GITHUB_WORKSPACE"
           if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
             python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
               --downloads-root "$RUNNER_TEMP/wrf-downloads" \
@@ -2668,6 +2737,9 @@ jobs:
         run: |
           mkdir -p "$WRF_ARTIFACT_DOWNLOAD_DIR"
           printf '%s\n' "$WRF_ARTIFACT_RESTORE_TO" > "$WRF_ARTIFACT_DOWNLOAD_DIR/.restore-to"
+          python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
+            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
+            --workspace "$GITHUB_WORKSPACE"
           python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
             --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
             --workspace "$GITHUB_WORKSPACE"
@@ -2779,6 +2851,9 @@ jobs:
           python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
             --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
             --workspace "$GITHUB_WORKSPACE"
+          python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
+            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
+            --workspace "$GITHUB_WORKSPACE"
           if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
             python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
               --downloads-root "$RUNNER_TEMP/wrf-downloads" \
@@ -2884,6 +2959,9 @@ jobs:
         run: |
           mkdir -p "$WRF_ARTIFACT_DOWNLOAD_DIR"
           printf '%s\n' "$WRF_ARTIFACT_RESTORE_TO" > "$WRF_ARTIFACT_DOWNLOAD_DIR/.restore-to"
+          python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
+            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
+            --workspace "$GITHUB_WORKSPACE"
           python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
             --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
             --workspace "$GITHUB_WORKSPACE"
@@ -2995,6 +3073,9 @@ jobs:
           python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
             --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
             --workspace "$GITHUB_WORKSPACE"
+          python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
+            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
+            --workspace "$GITHUB_WORKSPACE"
           if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
             python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
               --downloads-root "$RUNNER_TEMP/wrf-downloads" \
@@ -3100,6 +3181,9 @@ jobs:
         run: |
           mkdir -p "$WRF_ARTIFACT_DOWNLOAD_DIR"
           printf '%s\n' "$WRF_ARTIFACT_RESTORE_TO" > "$WRF_ARTIFACT_DOWNLOAD_DIR/.restore-to"
+          python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
+            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
+            --workspace "$GITHUB_WORKSPACE"
           python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
             --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
             --workspace "$GITHUB_WORKSPACE"
@@ -3211,6 +3295,9 @@ jobs:
           python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
             --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
             --workspace "$GITHUB_WORKSPACE"
+          python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
+            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
+            --workspace "$GITHUB_WORKSPACE"
           if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
             python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
               --downloads-root "$RUNNER_TEMP/wrf-downloads" \
@@ -3316,6 +3403,9 @@ jobs:
         run: |
           mkdir -p "$WRF_ARTIFACT_DOWNLOAD_DIR"
           printf '%s\n' "$WRF_ARTIFACT_RESTORE_TO" > "$WRF_ARTIFACT_DOWNLOAD_DIR/.restore-to"
+          python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
+            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
+            --workspace "$GITHUB_WORKSPACE"
           python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
             --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
             --workspace "$GITHUB_WORKSPACE"
@@ -3427,6 +3517,9 @@ jobs:
           python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
             --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
             --workspace "$GITHUB_WORKSPACE"
+          python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
+            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
+            --workspace "$GITHUB_WORKSPACE"
           if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
             python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
               --downloads-root "$RUNNER_TEMP/wrf-downloads" \
@@ -3532,6 +3625,9 @@ jobs:
         run: |
           mkdir -p "$WRF_ARTIFACT_DOWNLOAD_DIR"
           printf '%s\n' "$WRF_ARTIFACT_RESTORE_TO" > "$WRF_ARTIFACT_DOWNLOAD_DIR/.restore-to"
+          python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
+            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
+            --workspace "$GITHUB_WORKSPACE"
           python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
             --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
             --workspace "$GITHUB_WORKSPACE"
@@ -3643,6 +3739,9 @@ jobs:
           python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
             --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
             --workspace "$GITHUB_WORKSPACE"
+          python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
+            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
+            --workspace "$GITHUB_WORKSPACE"
           if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
             python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
               --downloads-root "$RUNNER_TEMP/wrf-downloads" \
@@ -3748,6 +3847,9 @@ jobs:
         run: |
           mkdir -p "$WRF_ARTIFACT_DOWNLOAD_DIR"
           printf '%s\n' "$WRF_ARTIFACT_RESTORE_TO" > "$WRF_ARTIFACT_DOWNLOAD_DIR/.restore-to"
+          python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
+            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
+            --workspace "$GITHUB_WORKSPACE"
           python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
             --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
             --workspace "$GITHUB_WORKSPACE"
@@ -3859,6 +3961,9 @@ jobs:
           python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
             --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
             --workspace "$GITHUB_WORKSPACE"
+          python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
+            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
+            --workspace "$GITHUB_WORKSPACE"
           if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
             python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
               --downloads-root "$RUNNER_TEMP/wrf-downloads" \
@@ -3964,6 +4069,9 @@ jobs:
         run: |
           mkdir -p "$WRF_ARTIFACT_DOWNLOAD_DIR"
           printf '%s\n' "$WRF_ARTIFACT_RESTORE_TO" > "$WRF_ARTIFACT_DOWNLOAD_DIR/.restore-to"
+          python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
+            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
+            --workspace "$GITHUB_WORKSPACE"
           python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
             --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
             --workspace "$GITHUB_WORKSPACE"
@@ -4075,6 +4183,9 @@ jobs:
           python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
             --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
             --workspace "$GITHUB_WORKSPACE"
+          python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
+            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
+            --workspace "$GITHUB_WORKSPACE"
           if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
             python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
               --downloads-root "$RUNNER_TEMP/wrf-downloads" \
@@ -4180,6 +4291,9 @@ jobs:
         run: |
           mkdir -p "$WRF_ARTIFACT_DOWNLOAD_DIR"
           printf '%s\n' "$WRF_ARTIFACT_RESTORE_TO" > "$WRF_ARTIFACT_DOWNLOAD_DIR/.restore-to"
+          python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
+            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
+            --workspace "$GITHUB_WORKSPACE"
           python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
             --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
             --workspace "$GITHUB_WORKSPACE"
@@ -4291,6 +4405,9 @@ jobs:
           python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
             --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
             --workspace "$GITHUB_WORKSPACE"
+          python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
+            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
+            --workspace "$GITHUB_WORKSPACE"
           if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
             python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
               --downloads-root "$RUNNER_TEMP/wrf-downloads" \
@@ -4396,6 +4513,9 @@ jobs:
         run: |
           mkdir -p "$WRF_ARTIFACT_DOWNLOAD_DIR"
           printf '%s\n' "$WRF_ARTIFACT_RESTORE_TO" > "$WRF_ARTIFACT_DOWNLOAD_DIR/.restore-to"
+          python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
+            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
+            --workspace "$GITHUB_WORKSPACE"
           python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
             --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
             --workspace "$GITHUB_WORKSPACE"
@@ -4507,6 +4627,9 @@ jobs:
           python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
             --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
             --workspace "$GITHUB_WORKSPACE"
+          python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
+            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
+            --workspace "$GITHUB_WORKSPACE"
           if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
             python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
               --downloads-root "$RUNNER_TEMP/wrf-downloads" \
@@ -4610,10 +4733,14 @@ jobs:
           WRF_ARTIFACT_DOWNLOAD_DIR: ${{ runner.temp }}/wrf-downloads/d042
           WRF_ARTIFACT_RESTORE_TO: metbr_segment_artifacts
           WRF_ARTIFACT_RESTORE_TO: metbr_segment_artifacts
+          WRF_ARTIFACT_RESTORE_TO: metbr_segment_artifacts
           WRF_ARTIFACT_RESTORE_TO: 'tarc_restart_input'
         run: |
           mkdir -p "$WRF_ARTIFACT_DOWNLOAD_DIR"
           printf '%s\n' "$WRF_ARTIFACT_RESTORE_TO" > "$WRF_ARTIFACT_DOWNLOAD_DIR/.restore-to"
+          python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
+            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
+            --workspace "$GITHUB_WORKSPACE"
           python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
             --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
             --workspace "$GITHUB_WORKSPACE"
@@ -4725,6 +4852,9 @@ jobs:
           python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
             --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
             --workspace "$GITHUB_WORKSPACE"
+          python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
+            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
+            --workspace "$GITHUB_WORKSPACE"
           if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
             python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
               --downloads-root "$RUNNER_TEMP/wrf-downloads" \
@@ -4830,6 +4960,9 @@ jobs:
         run: |
           mkdir -p "$WRF_ARTIFACT_DOWNLOAD_DIR"
           printf '%s\n' "$WRF_ARTIFACT_RESTORE_TO" > "$WRF_ARTIFACT_DOWNLOAD_DIR/.restore-to"
+          python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
+            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
+            --workspace "$GITHUB_WORKSPACE"
           python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
             --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
             --workspace "$GITHUB_WORKSPACE"
@@ -4941,6 +5074,9 @@ jobs:
           python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
             --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
             --workspace "$GITHUB_WORKSPACE"
+          python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
+            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
+            --workspace "$GITHUB_WORKSPACE"
           if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
             python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
               --downloads-root "$RUNNER_TEMP/wrf-downloads" \
@@ -5049,6 +5185,9 @@ jobs:
           python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
             --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
             --workspace "$GITHUB_WORKSPACE"
+          python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
+            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
+            --workspace "$GITHUB_WORKSPACE"
           if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
             python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
               --downloads-root "$RUNNER_TEMP/wrf-downloads" \
@@ -5154,6 +5293,9 @@ jobs:
         run: |
           mkdir -p "$WRF_ARTIFACT_DOWNLOAD_DIR"
           printf '%s\n' "$WRF_ARTIFACT_RESTORE_TO" > "$WRF_ARTIFACT_DOWNLOAD_DIR/.restore-to"
+          python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
+            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
+            --workspace "$GITHUB_WORKSPACE"
           python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
             --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
             --workspace "$GITHUB_WORKSPACE"
@@ -5269,6 +5411,22 @@ jobs:
               --downloads-root "$RUNNER_TEMP/wrf-downloads" \
               --workspace "$GITHUB_WORKSPACE"
           fi
+      - name: Restore WRF artifacts after checkout (complete)
+        shell: bash
+        run: |
+          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
+            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
+              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
+              --workspace "$GITHUB_WORKSPACE"
+          fi
+      - name: Restore WRF artifacts after checkout (complete)
+        shell: bash
+        run: |
+          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
+            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
+              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
+              --workspace "$GITHUB_WORKSPACE"
+          fi
       - name: Baixar artifacts dos 48 segmentos WRF
         uses: actions/download-artifact@v4
         with:
@@ -5283,6 +5441,9 @@ jobs:
         run: |
           mkdir -p "$WRF_ARTIFACT_DOWNLOAD_DIR"
           printf '%s\n' "$WRF_ARTIFACT_RESTORE_TO" > "$WRF_ARTIFACT_DOWNLOAD_DIR/.restore-to"
+          python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
+            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
+            --workspace "$GITHUB_WORKSPACE"
           python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
             --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
             --workspace "$GITHUB_WORKSPACE"

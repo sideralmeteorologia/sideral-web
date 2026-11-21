@@ -30,7 +30,8 @@ export WRF_RUN_HOURS=$((END_HOUR-START_HOUR)) WRF_START_HOUR="$START_HOUR" WRF_E
 export SOURCE_MODEL MODEL_VARIANT WRF2_TOMORROW
 
 if [[ "$COLD_START" == "0" ]]; then
-  rm -rf "$INPUT"/*
+  rm -rf "$INPUT/normalized"
+  mkdir -p "$INPUT/normalized"
  : # checkpoint handled by GitHub Actions artifact
   test -s "$INPUT/metbr-checkpoint-${START_HOUR}.tar.gz" || { echo "Checkpoint F${START_HOUR} ausente no R2" >&2; exit 20; }
   tar -xzf "$INPUT/metbr-checkpoint-${START_HOUR}.tar.gz" -C "$INPUT"
