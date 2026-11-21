@@ -266,25 +266,6 @@ jobs:
             --require-native-grid \
             --temporal-resolution-minutes 60
 
-      - name: Publicar rodada validada no R2
-        env:
-          SOURCE_MODEL: ${{ env.SOURCE_MODEL }}
-        shell: bash
-        run: |
-          set -euo pipefail
-          command -v aws >/dev/null || { sudo apt-get update -qq && sudo apt-get install -y awscli; }
-          : # artifact-only workflow
-          : # artifact-only workflow
-          prefix="sideral/brasil/21km/wrf/$SOURCE_MODEL/runs/$GITHUB_RUN_ID"
-          latest="sideral/brasil/21km/wrf/$SOURCE_MODEL/latest"
-          : # artifact-only workflow
-          tar -czf wrfout-brasil-21km.tar.gz -C wrf_work/run .
-          : # artifact-only workflow
-          completed_at="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
-          cat > run-manifest.json <<EOF
-          {"schema":"sideral-wrf-run-v1","family":"brasil","resolutionKm":21,"variant":"wrf","source":"$SOURCE_MODEL","runId":"$GITHUB_RUN_ID","completedAt":"$completed_at","artifactPrefix":"$prefix/","latestPrefix":"$latest","publishExtensions":[".json",".npz",".tar.gz"],"frames":49,"grid":"215x215"}
-          EOF
-          : # artifact-only workflow
       - name: Bundle WRF artifact safely (1)
         shell: bash
         env:
