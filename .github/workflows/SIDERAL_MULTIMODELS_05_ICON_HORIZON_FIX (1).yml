@@ -135,12 +135,26 @@ jobs:
             --raw-dir data/raw \
             --output-dir output
 
-      - name: Enviar produtos ao publicador de Release (Artifact intermediário)
-        uses: actions/upload-artifact@v4
-        with:
-          name: sideral-multimodels-05-${{ github.run_id }}
-          path: sideral-multimodels-05/output/
-          if-no-files-found: error
-          retention-days: 14
+      - name: Publicar JSON em GitHub Release e espelho raw (direto no workflow)
+        env:
+          GH_TOKEN: ${{ github.token }}
+          SOURCE_RUN_ID: ${{ github.run_id }}
+          SOURCE_REPOSITORY: ${{ github.repository }}
+          SOURCE_WORKFLOW_PATH: .github/workflows/SIDERAL_MULTIMODELS_05_ICON_HORIZON_FIX (1).yml
+          SOURCE_WORKFLOW_NAME: ${{ github.workflow }}
+          SOURCE_COMMIT_SHA: ${{ github.sha }}
+          SOURCE_RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          SOURCE_BRANCH: ${{ github.ref_name }}
+          SOURCE_ARTIFACTS_DIR: ${{ runner.temp }}/model-artifacts
+          RELEASE_ASSETS_DIR: ${{ runner.temp }}/release-assets
+          FINAL_PRODUCT_DIR: sideral-multimodels-05-${{ github.run_id }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -d sideral-multimodels-05/output
+          mkdir -p "$SOURCE_ARTIFACTS_DIR/$FINAL_PRODUCT_DIR"
+          cp -a sideral-multimodels-05/output/. "$SOURCE_ARTIFACTS_DIR/$FINAL_PRODUCT_DIR/"
+          export SOURCE_COMPLETED_AT="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+          python3 .github/scripts/publish_model_release.py publish
 
 # Runtime payload SHA-256: b2c61474d2aa46d609c3db5dd466f83e22c8321566663340745e620dddde8c82
