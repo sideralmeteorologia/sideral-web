@@ -450,23 +450,6 @@ jobs:
           print('CIM 8 KM VALIDADO:', meta['model'], 'F000-F040 horario', 'grid=279x234')
           PY
 
-      - name: Publicar produtos CIM 8 km no Cloudflare R2
-        shell: bash
-        env:
-          SOURCE_MODEL: ${{ matrix.model }}
-        run: |
-          set -euo pipefail
-          command -v aws >/dev/null || { sudo apt-get update -qq && sudo apt-get install -y awscli; }
-          : # artifact-only workflow
-          : # artifact-only workflow
-          prefix="sideral/cim/8km/wrf/$SOURCE_MODEL/runs/$GITHUB_RUN_ID"
-          latest="sideral/cim/8km/wrf/$SOURCE_MODEL/latest"
-          : # artifact-only workflow
-          completed_at="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
-          cat > run-manifest.json <<EOF
-          {"schema":"sideral-wrf-run-v1","family":"cim","resolutionKm":8,"variant":"wrf","source":"$SOURCE_MODEL","runId":"$GITHUB_RUN_ID","completedAt":"$completed_at","artifactPrefix":"$prefix/","latestPrefix":"$latest","publishExtensions":[".json",".npz"]}
-          EOF
-          : # artifact-only workflow
       - name: Bundle WRF artifact safely (1)
         shell: bash
         env:
