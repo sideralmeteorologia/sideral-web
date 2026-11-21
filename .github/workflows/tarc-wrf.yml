@@ -5281,6 +5281,10 @@ jobs:
           python wrf/extract_wrf_severe.py --run-dir tarc_all_wrfout --run-env tarc-run.env --output-dir tarc_severe --grid-x 361 --grid-y 445 --model "${SOURCE_MODEL:-icon}" --interval-hours 1 --expected-start 0 --expected-end 48
           test -s tarc_severe/metadata.json
           test -s tarc_severe/diagnostics.json
+          cp tarc_products/metadata.json tarc-products-metadata.json
+          cp tarc_products/variable_catalog.json tarc-variable-catalog.json
+          cp tarc_severe/metadata.json tarc-severe-metadata.json
+          cp tarc_severe/diagnostics.json tarc-severe-diagnostics.json
       - name: Validar grade e produtos
         run: |
           python - <<'PY'
@@ -5314,7 +5318,7 @@ jobs:
           test -s tarc_severe/metadata.json
           test -s tarc_severe/diagnostics.json
           cycle_tag="$(printf '%s-%s' "${RUN_DATE:-unknown}" "${RUN_CYCLE:-unknown}" | tr -cs '[:alnum:]._-' '-')"
-          tag="sideral-tarc3-${MODEL_VARIANT}-${SOURCE_MODEL}-${cycle_tag}-run-${GITHUB_RUN_ID}"
+          tag="sideral-tarc3-${MODEL_VARIANT}-${SOURCE_MODEL}-${cycle_tag}-run-${GITHUB_RUN_ID}-attempt-${GITHUB_RUN_ATTEMPT}"
           title="SIDERAL | TARC WRF 3 km | ${MODEL_VARIANT^^} | ${SOURCE_MODEL^^}"
           cat > release-notes.md <<EOF
           ## TARC WRF 3 km
@@ -5339,10 +5343,10 @@ jobs:
             --target "$GITHUB_SHA" \
             tarc-products-3km.tar.gz \
             tarc-severe-3km.tar.gz \
-            tarc_products/metadata.json \
-            tarc_products/variable_catalog.json \
-            tarc_severe/metadata.json \
-            tarc_severe/diagnostics.json
+            tarc-products-metadata.json \
+            tarc-variable-catalog.json \
+            tarc-severe-metadata.json \
+            tarc-severe-diagnostics.json
           url="$(gh release view "$tag" --repo "$GITHUB_REPOSITORY" --json url --jq .url)"
           printf 'tag=%s\nurl=%s\n' "$tag" "$url" >> "$GITHUB_OUTPUT"
   register-run:
