@@ -44,7 +44,7 @@ def supported(path: str, name: str) -> bool:
     workflow_name = name.lower()
     if not path.startswith(".github/workflows/") or "publish-model-releases" in filename:
         return False
-    if any(x in filename for x in ("validate-", "watchdog", "maestro")):
+    if any(x in filename for x in ("validate-", "watchdog", "maestro", "launchpad")):
         return False
     return (
         "wrf" in filename
