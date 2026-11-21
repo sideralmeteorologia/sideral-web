@@ -1702,7 +1702,7 @@ jobs:
           if-no-files-found: ignore
           retention-days: 7
   complete:
-    name: Extrair e validar dados METBR/CBR 4 km
+    name: Reunir os 14 segmentos CBR 4 km e publicar Release
     runs-on: ubuntu-22.04
     needs: [seg00, seg01, seg02, seg03, seg04, seg05, seg06, seg07, seg08, seg09, seg10, seg11, seg12, seg13]
     timeout-minutes: 90
