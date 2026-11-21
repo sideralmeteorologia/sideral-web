@@ -2,6 +2,9 @@ name: SIDERAL | Publicar modelos, multimodelos e NWP
 
 on:
   workflow_run:
+    # Listen to every completed workflow; the source-path allowlist is applied
+    # safely after resolving workflow_id through the Actions API.
+    workflows: ["*"]
     types: [completed]
     branches: [main]
 
