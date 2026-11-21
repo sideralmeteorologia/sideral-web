@@ -54,7 +54,6 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          command -v aws >/dev/null || { sudo apt-get update -qq && sudo apt-get install -y awscli; }
           mkdir -p "$(dirname 'wrf/run_tarc_checkpoint_segment.sh')"
           printf '%s' 'IyEvdXNyL2Jpbi9lbnYgYmFzaApzZXQgLWV1byBwaXBlZmFpbAoKU1RBUlRfSE9VUj0iJDEiCkVORF9IT1VSPSIkMiIKU0VHTUVOVF9JTkRFWD0iJDMiCkNPTERfU1RBUlQ9IiQ0IgpTRUdNRU5UX1NUQVJURURfQVQ9IiQoZGF0ZSArJXMpIgoKOiAiJEdIX1RPS0VOIgo6ICIkQ0hFQ0tQT0lOVF9UQUciCjogIiRHSVRIVUJfUkVQT1NJVE9SWSIKClJPT1Q9IiRHSVRIVUJfV09SS1NQQUNFIgpJTlBVVD0iJFJPT1QvdGFyY19yZXN0YXJ0X2lucHV0Igpta2RpciAtcCAiJElOUFVUIgoKKCggU1RBUlRfSE9VUiA+PSAwICYmIEVORF9IT1VSID4gU1RBUlRfSE9VUiAmJiBFTkRfSE9VUiA8PSA0OCApKSB8fCB7CiAgZWNobyAiRjAwMC1GMDQ4IFRBUkM6IGludGVydmFsbyBpbnZhbGlkbyIgPiYyCiAgZXhpdCAxCn0KY2FzZSAiJENPTERfU1RBUlQiIGluIDB8MSkgOzsgKikgZWNobyAiQ09MRF9TVEFSVCBkZXZlIHNlciAxIG5vIEYwMDAiID4mMjsgZXhpdCAxIDs7IGVzYWMKCnNvdXJjZSAiJFJPT1Qvd3JmL2Vuc3VyZV9lY2NvZGVzX3Rvb2xzLnNoIgpmb3IgdG9vbCBpbiBncmliX3NldCBncmliX2NvcHkgZ3JpYl9jb3VudDsgZG8KICBjb21tYW5kIC12ICIkdG9vbCIgPi9kZXYvbnVsbCB8fCB7IGVjaG8gImVjQ29kZXMvJHRvb2wgaW5kaXNwb25pdmVsIiA+JjI7IGV4aXQgMTA7IH0KZG9uZQoKY2htb2QgK3ggd3JmL3J1bl90YXJjX2NoZWNrcG9pbnRfc2VnbWVudC5zaCB3cmYvcnVuX3RhcmNfaWNvbl93cmYuc2ggd3JmL3J1bl90YXJjX2VjbXdmX3dyZi5zaCB3cmYvcnVuX3RhcmNfZ2ZzX3dyZi5zaCB3cmYvcnVuX3RhcmNfd3JmX3dpdGhfc291cmNlLnNoIHdyZi9ydW5fdGFyY19yZXN0YXJ0X3NlZ21lbnQuc2gKCmV4cG9ydCBXUkZfVEFSR0VUX1JFU09MVVRJT05fS009MwpleHBvcnQgV1JGX0RYX01FVEVSUz0zMDAwIFdSRl9EWV9NRVRFUlM9MzAwMApleHBvcnQgV1JGX0VfV0U9MzYxIFdSRl9FX1NOPTQ0NQpleHBvcnQgV1JGX0hJU1RPUllfSU5URVJWQUxfTUlOVVRFUz02MApleHBvcnQgV1JGX1RJTUVfU1RFUD0xOApleHBvcnQgV1JGX01QSV9QUk9DUz00CkJPVU5EQVJZX0dST1VQX0VORD0kKCggKChTVEFSVF9IT1VSIC8gMykgKyAxKSAqIDMgKSkKKCggQk9VTkRBUllfR1JPVVBfRU5EID4gNDggKSkgJiYgQk9VTkRBUllfR1JPVVBfRU5EPTQ4CmV4cG9ydCBXUkZfQk9VTkRBUllfRU5EX0hPVVI9IiRCT1VOREFSWV9HUk9VUF9FTkQiCmV4cG9ydCBXUkZfUkVGX0xBVD0tMjguMCBXUkZfUkVGX0xPTj0tNTMuNSBXUkZfU1RBTkRfTE9OPS01My41CmV4cG9ydCBXUkZfUlVOX0hPVVJTPSQoKEVORF9IT1VSLVNUQVJUX0hPVVIpKQpleHBvcnQgV1JGX1NUQVJUX0hPVVI9IiRTVEFSVF9IT1VSIiBXUkZfRU5EX0hPVVI9IiRFTkRfSE9VUiIKCgpwcmVwYXJlX3NvdXJjZSgpIHsKICBsb2NhbCBib3VuZGFyeV9vbmx5PSIkezE6P0luZm9ybWUgMCBwYXJhIGNvbGQgc3RhcnQsIDEgcGFyYSBMQkMgZGUgcmVzdGFydH0iCiAgbG9jYWwgbW9kZWw9IiR7U09VUkNFX01PREVMOi1pY29ufSIKICBsb2NhbCBydW5uZXIgcmMKCiAgY2FzZSAiJG1vZGVsIiBpbgogICAgaWNvbikgcnVubmVyPSJ3cmYvcnVuX3RhcmNfaWNvbl93cmYuc2giIDs7CiAgICBlY213ZikgcnVubmVyPSJ3cmYvcnVuX3RhcmNfZWNtd2Zfd3JmLnNoIiA7OwogICAgZ2ZzKSBydW5uZXI9IndyZi9ydW5fdGFyY19nZnNfd3JmLnNoIiA7OwogICAgKikgZWNobyAiU09VUkNFX01PREVMIGludsOhbGlkbyBubyBjaGVja3BvaW50OiAkbW9kZWwiID4mMjsgcmV0dXJuIDIgOzsKICBlc2FjCgogIGV4cG9ydCBXUkZfQk9VTkRBUllfT05MWT0iJGJvdW5kYXJ5X29ubHkiCiAgZWNobyAiPT09PT0gU0lERVJBTC9UQVJDIFNPVVJDRSBGSVhFRDogJHttb2RlbF5efTsgYm91bmRhcnlfb25seT0kYm91bmRhcnlfb25seSA9PT09PSIKICBpZiBiYXNoICIkcnVubmVyIjsgdGhlbgogICAgcmM9MAogIGVsc2UKICAgIHJjPSQ/CiAgICBlY2hvICJFUlJPOiBmb250ZSBleGNsdXNpdmEgJHttb2RlbF5efSBmYWxob3UgKGV4aXQ9JHJjKTsgbmVuaHVtYSBmb250ZSBhbHRlcm5hdGl2YSBzZXLDoSB0ZW50YWRhLiIgPiYyCiAgICByZXR1cm4gIiRyYyIKICBmaQoKICBpZiBbWyAiJG1vZGVsIiA9PSAiaWNvbiIgJiYgLXMgIiRST09UL3RhcmMtaWNvbi1ydW4uZW52IiBdXTsgdGhlbgogICAgc291cmNlICIkUk9PVC90YXJjLWljb24tcnVuLmVudiIKICAgIGV4cG9ydCBSVU5fREFURSBSVU5fQ1lDTEUKICAgIEZPUkNFX1JVTl9EQVRFPSIkUlVOX0RBVEUiCiAgICBGT1JDRV9SVU5fQ1lDTEU9IiRSVU5fQ1lDTEUiCiAgICBleHBvcnQgRk9SQ0VfUlVOX0RBVEUgRk9SQ0VfUlVOX0NZQ0xFCiAgICBlY2hvICJDaWNsbyBJQ09OIHZhbGlkYWRvIGUgZml4YWRvOiAkUlVOX0RBVEUgJFJVTl9DWUNMRSBaIgogIGZpCgogIFNPVVJDRV9NT0RFTD0iJG1vZGVsIgogIHByaW50ZiAnUlVOX0RBVEU9JXNcblJVTl9DWUNMRT0lc1xuU09VUkNFX01PREVMPSVzXG4nICIkUlVOX0RBVEUiICIkUlVOX0NZQ0xFIiAiJFNPVVJDRV9NT0RFTCIgPiB0YXJjLXJ1bi5lbnYKIDogIyBjaGVja3BvaW50IGhhbmRsZWQgYnkgR2l0SHViIEFjdGlvbnMgYXJ0aWZhY3QKfQoKaWYgW1sgIiRDT0xEX1NUQVJUIiA9PSAiMCIgXV07IHRoZW4KICBybSAtcmYgIiRJTlBVVC9ub3JtYWxpemVkIgogOiAjIGNoZWNrcG9pbnQgaGFuZGxlZCBieSBHaXRIdWIgQWN0aW9ucyBhcnRpZmFjdAogIHNvdXJjZSAiJElOUFVUL3RhcmMtcnVuLmVudiIKICBleHBvcnQgUlVOX0RBVEUgUlVOX0NZQ0xFIFNPVVJDRV9NT0RFTAogOiAjIGNoZWNrcG9pbnQgaGFuZGxlZCBieSBHaXRIdWIgQWN0aW9ucyBhcnRpZmFjdAogOiAjIGNoZWNrcG9pbnQgaGFuZGxlZCBieSBHaXRIdWIgQWN0aW9ucyBhcnRpZmFjdAogIG1rZGlyIC1wICIkSU5QVVQvbm9ybWFsaXplZCIKICBmb3IgZiBpbiAiJElOUFVUIi90YXJjLXJlc3RhcnQtIiRTVEFSVF9IT1VSIi0qOyBkbwogICAgW1sgLWYgIiRmIiBdXSB8fCBjb250aW51ZQogICAgY3AgLWYgIiRmIiAiJElOUFVUL25vcm1hbGl6ZWQvJChiYXNlbmFtZSAiJGYiIHwgc2VkIC1FICJzL150YXJjLXJlc3RhcnQtJFNUQVJUX0hPVVItLy87IHMvXyhbMC05XXsyfSlbLl0oWzAtOV17Mn0pWy5dKFswLTldezJ9KSQvX1wxOlwyOlwzLyIpIgogIGRvbmUKICBjcCAtZiAiJElOUFVUL3RhcmMtbmFtZWxpc3QuaW5wdXQiICIkSU5QVVQvbm9ybWFsaXplZC9uYW1lbGlzdC5pbnB1dCIKICB0ZXN0IC1zICIkSU5QVVQvdGFyYy1ib3VuZGFyeS0za20td3JmYmR5X2QwMSIgfHwgeyBlY2hvICJCb3VuZGFyeSBUQVJDIGF1c2VudGUgbm8gY2hlY2twb2ludCIgPiYyOyBleGl0IDI0OyB9CiAgY3AgLWYgIiRJTlBVVC90YXJjLWJvdW5kYXJ5LTNrbS13cmZiZHlfZDAxIiAiJElOUFVUL25vcm1hbGl6ZWQvd3JmYmR5X2QwMSIKICBjcCAtZiAiJElOUFVUL3RhcmMtcnVuLmVudiIgIiRST09UL3RhcmMtcnVuLmVudiIKCiAgaWYgKCggU1RBUlRfSE9VUiAlIDMgPT0gMCApKTsgdGhlbgogICAgZXhwb3J0IEZPUkNFX1JVTl9EQVRFPSIkUlVOX0RBVEUiIEZPUkNFX1JVTl9DWUNMRT0iJFJVTl9DWUNMRSIKICAgIGV4cG9ydCBXUkZfVEFSR0VUX1JFU09MVVRJT05fS009MyBXUkZfRFhfTUVURVJTPTMwMDAgV1JGX0RZX01FVEVSUz0zMDAwCiAgICBleHBvcnQgV1JGX0VfV0U9MzYxIFdSRl9FX1NOPTQ0NQogICAgZXhwb3J0IFdSRl9ISVNUT1JZX0lOVEVSVkFMX01JTlVURVM9NjAgV1JGX1RJTUVfU1RFUD0xOCBXUkZfTVBJX1BST0NTPTQKICAgIGV4cG9ydCBXUkZfU1RBUlRfSE9VUj0iJFNUQVJUX0hPVVIiIFdSRl9FTkRfSE9VUj0iJEVORF9IT1VSIgogICAgZXhwb3J0IFdSRl9CT1VOREFSWV9FTkRfSE9VUj0iJEJPVU5EQVJZX0dST1VQX0VORCIgV1JGX0JPVU5EQVJZX09OTFk9MQogICAgZWNobyAiVEFSQzogcHJlcGFyYW5kbyBMQkMgZG8gZ3J1cG8gRiRTVEFSVF9IT1VSLUYkQk9VTkRBUllfR1JPVVBfRU5EIgogICAgQk9VTkRBUllfUFJFUF9TVEFSVEVEX0FUPSIkKGRhdGUgKyVzKSIKICAgIHByZXBhcmVfc291cmNlIDEKICAgIGVjaG8gIlRBUkNfTUVUUklDIGJvdW5kYXJ5X3ByZXBhcmVfc2Vjb25kcz0kKCggJChkYXRlICslcykgLSBCT1VOREFSWV9QUkVQX1NUQVJURURfQVQgKSkiCiAgICB0ZXN0IC1zICIkUk9PVC93cmZfd29yay9ydW4vd3JmYmR5X2QwMSIgfHwgeyBlY2hvICJMQkMgVEFSQyBhdXNlbnRlIHBhcmEgRiRTVEFSVF9IT1VSLUYkQk9VTkRBUllfR1JPVVBfRU5EIiA+JjI7IGV4aXQgMjc7IH0KICAgIGNwIC1mICIkUk9PVC93cmZfd29yay9ydW4vd3JmYmR5X2QwMSIgIiRJTlBVVC9ub3JtYWxpemVkL3dyZmJkeV9kMDEiCiAgZWxzZQogICAgdGVzdCAtcyAiJElOUFVUL25vcm1hbGl6ZWQvd3JmYmR5X2QwMSIgfHwgeyBlY2hvICJMQkMgVEFSQyBhdXNlbnRlIHBhcmEgRiRTVEFSVF9IT1VSLUYkRU5EX0hPVVIiID4mMjsgZXhpdCAyNzsgfQogICAgZWNobyAiVEFSQzogcmV1dGlsaXphbmRvIExCQyBkbyBjaGVja3BvaW50IGFudGVyaW9yIgogIGZpCiAgdGVzdCAtcyAiJElOUFVUL25vcm1hbGl6ZWQvd3JmYmR5X2QwMSIKICB0ZXN0IC1zICIkSU5QVVQvbm9ybWFsaXplZC9uYW1lbGlzdC5pbnB1dCIKICBleHBvcnQgV1JGX1JFU1RBUlRfRElSPSIkSU5QVVQvbm9ybWFsaXplZCIKICBSRVNUQVJUX1NUQVJURURfQVQ9IiQoZGF0ZSArJXMpIgogIGJhc2ggd3JmL3J1bl90YXJjX3Jlc3RhcnRfc2VnbWVudC5zaCAiJFNUQVJUX0hPVVIiICIkRU5EX0hPVVIiICIkV1JGX1JFU1RBUlRfRElSIgogIGVjaG8gIlRBUkNfTUVUUklDIHJlc3RhcnRfZm9yZWNhc3Rfc2Vjb25kcz0kKCggJChkYXRlICslcykgLSBSRVNUQVJUX1NUQVJURURfQVQgKSkiCiAgY3AgLWYgIiRPVVRQVVRfRElSL25hbWVsaXN0LnJlc3RhcnQuaW5wdXQiICIkUk9PVC90YXJjLW5hbWVsaXN0LmlucHV0IgoKICBPVVRQVVRfRElSPSIkUk9PVC90YXJjX3NlZ21lbnRfb3V0cHV0IgogIHRlc3QgLWQgIiRPVVRQVVRfRElSIgogIFVQTE9BRF9ESVI9IiRST09UL3RhcmNfdXBsb2FkXyRTRUdNRU5UX0lOREVYIgogIHJtIC1yZiAiJFVQTE9BRF9ESVIiOyBta2RpciAtcCAiJFVQTE9BRF9ESVIiCiAgZm9yIGYgaW4gIiRPVVRQVVRfRElSIi93cmZyc3RfZDAxXyo7IGRvIGNwIC1mICIkZiIgIiRVUExPQURfRElSL3RhcmMtcmVzdGFydC0kRU5EX0hPVVItJChiYXNlbmFtZSAiJGYiKSI7IGRvbmUKICBmb3IgZiBpbiAiJE9VVFBVVF9ESVIiL3dyZm91dF9kMDFfKjsgZG8gY3AgLWYgIiRmIiAiJFVQTE9BRF9ESVIvdGFyYy13cmZvdXQtJFNFR01FTlRfSU5ERVgtJChiYXNlbmFtZSAiJGYiKSI7IGRvbmUKICBmb3IgZiBpbiAiJE9VVFBVVF9ESVIiL3dyZmJkeV9kMDE7IGRvIGNwIC1mICIkZiIgIiRVUExPQURfRElSL3RhcmMtYm91bmRhcnktM2ttLSQoYmFzZW5hbWUgIiRmIikiOyBkb25lCiAgY3AgLWYgIiRVUExPQURfRElSIi90YXJjLXJlc3RhcnQtKiAiJFJPT1QvIgogIGNwIC1mICIkVVBMT0FEX0RJUiIvdGFyYy13cmZvdXQtKiAiJFJPT1QvIgogIGNwIC1mICIkVVBMT0FEX0RJUiIvdGFyYy1ib3VuZGFyeS0qICIkUk9PVC8iCiA6ICMgY2hlY2twb2ludCBoYW5kbGVkIGJ5IEdpdEh1YiBBY3Rpb25zIGFydGlmYWN0CmVsc2UKICBweXRob24zIC0gPDwnUFknCmltcG9ydCBkYXRldGltZSBhcyBkdCwgb3MKbm93PWR0LmRhdGV0aW1lLm5vdyhkdC50aW1lem9uZS51dGMpCnJ1bj1ub3cucmVwbGFjZShob3VyPShub3cuaG91ci8vNikqNiwgbWludXRlPTAsIHNlY29uZD0wLCBtaWNyb3NlY29uZD0wKQppZiBvcy5lbnZpcm9uLmdldCgiV1JGMl9UT01PUlJPVyIpID09ICIxIjoKICAgIHJ1biArPSBkdC50aW1lZGVsdGEoaG91cnM9MjQpCm9wZW4oInRhcmMtcnVuLmVudiIsInciKS53cml0ZShmIlJVTl9EQVRFPXtydW46JVklbSVkfVxuUlVOX0NZQ0xFPXtydW46JUh9XG5TT1VSQ0VfTU9ERUw9e29zLmVudmlyb24uZ2V0KCdTT1VSQ0VfTU9ERUwnLCdpY29uJyl9XG5XUkYyX1RPTU9SUk9XPXtvcy5lbnZpcm9uLmdldCgnV1JGMl9UT01PUlJPVycsJzAnKX1cbiIpClBZCiAgc291cmNlIHRhcmMtcnVuLmVudgogOiAjIGNoZWNrcG9pbnQgaGFuZGxlZCBieSBHaXRIdWIgQWN0aW9ucyBhcnRpZmFjdAogOiAjIGNoZWNrcG9pbnQgaGFuZGxlZCBieSBHaXRIdWIgQWN0aW9ucyBhcnRpZmFjdAoKICBleHBvcnQgRk9SQ0VfUlVOX0RBVEU9IiRSVU5fREFURSIgRk9SQ0VfUlVOX0NZQ0xFPSIkUlVOX0NZQ0xFIgogIGV4cG9ydCBUQVJDX0FMTE9XX1JFU0VMRUNUX0lDT049MQogIGV4cG9ydCBXUkZfQk9VTkRBUllfT05MWT0wCiAgQ09MRF9GT1JFQ0FTVF9TVEFSVEVEX0FUPSIkKGRhdGUgKyVzKSIKICBwcmVwYXJlX3NvdXJjZSAwCiAgZWNobyAiVEFSQ19NRVRSSUMgY29sZF9zdGFydF9mb3JlY2FzdF9zZWNvbmRzPSQoKCAkKGRhdGUgKyVzKSAtIENPTERfRk9SRUNBU1RfU1RBUlRFRF9BVCApKSIKICB1bnNldCBUQVJDX0FMTE9XX1JFU0VMRUNUX0lDT04KCiAgdGVzdCAtcyB3cmZfd29yay9ydW4vd3JmaW5wdXRfZDAxCiAgdGVzdCAtcyB3cmZfd29yay9ydW4vd3JmYmR5X2QwMQogIHRlc3QgLW4gIiQoZmluZCB3cmZfd29yay9ydW4gLW1heGRlcHRoIDEgLXR5cGUgZiAtbmFtZSAnd3Jmb3V0X2QwMV8qJyAtc2l6ZSArMGMgLXByaW50IC1xdWl0KSIKICB0ZXN0IC1uICIkKGZpbmQgd3JmX3dvcmsvcnVuIC1tYXhkZXB0aCAxIC10eXBlIGYgLW5hbWUgJ3dyZnJzdF9kMDFfKicgLXNpemUgKzBjIC1wcmludCAtcXVpdCkiCgogIGZvciBmIGluIHdyZl93b3JrL3J1bi93cmZyc3RfZDAxXyo7IGRvIGNwIC1mICIkZiIgInRhcmMtcmVzdGFydC0kRU5EX0hPVVItJChiYXNlbmFtZSAiJGYiKSI7IGRvbmUKICBmb3IgZiBpbiB3cmZfd29yay9ydW4vd3Jmb3V0X2QwMV8qOyBkbyBjcCAtZiAiJGYiICJ0YXJjLXdyZm91dC0kU0VHTUVOVF9JTkRFWC0kKGJhc2VuYW1lICIkZiIpIjsgZG9uZQogIGZvciBmIGluIHdyZl93b3JrL3J1bi93cmZiZHlfZDAxOyBkbyBjcCAtZiAiJGYiICJ0YXJjLWJvdW5kYXJ5LTNrbS0kKGJhc2VuYW1lICIkZiIpIjsgZG9uZQogIGNwIC1mIHdyZl93b3JrL3J1bi9uYW1lbGlzdC5pbnB1dCB0YXJjLW5hbWVsaXN0LmlucHV0CiA6ICMgY2hlY2twb2ludCBoYW5kbGVkIGJ5IEdpdEh1YiBBY3Rpb25zIGFydGlmYWN0CmZpCgoKIyBHZXJhIHByb2R1dG9zIDJEIGNvbXBhY3RvcyBwYXJhIG8gZnJvbnRlbmQgc2VtIHN1YnN0aXR1aXIgb3Mgd3Jmb3V0IG5hdGl2b3MuCmlmIFtbICIkQ09MRF9TVEFSVCIgPT0gIjEiIF1dOyB0aGVuCiAgUE9TVF9JTlBVVD0iJFJPT1Qvd3JmX3dvcmsvcnVuIgplbHNlCiAgUE9TVF9JTlBVVD0iJFJPT1QvdGFyY19zZWdtZW50X291dHB1dCIKZmkKaWYgW1sgLW4gIiQoZmluZCAiJFBPU1RfSU5QVVQiIC1tYXhkZXB0aCAxIC10eXBlIGYgLW5hbWUgJ3dyZm91dF9kMDFfKicgLXNpemUgKzBjIC1wcmludCAtcXVpdCkiIF1dOyB0aGVuCiAgcHl0aG9uMyAtbSBwaXAgaW5zdGFsbCAtLWRpc2FibGUtcGlwLXZlcnNpb24tY2hlY2sgLXEgbmV0Q0RGNCBudW1weQogIFBST0RVQ1RfRElSPSIkUk9PVC90YXJjX3Byb2R1Y3RzXyRTRUdNRU5UX0lOREVYIgogIHJtIC1yZiAiJFBST0RVQ1RfRElSIgogIHB5dGhvbjMgd3JmL3RhcmNfcG9zdHByb2Nlc3MucHkgIiRQT1NUX0lOUFVUIi93cmZvdXRfZDAxXyogLS1vdXRwdXQtZGlyICIkUFJPRFVDVF9ESVIiCiAgbXYgIiRQUk9EVUNUX0RJUi9tZXRhZGF0YS5qc29uIiAidGFyYy1wcm9kdWN0cy0kU0VHTUVOVF9JTkRFWC5qc29uIgogOiAjIGNoZWNrcG9pbnQgaGFuZGxlZCBieSBHaXRIdWIgQWN0aW9ucyBhcnRpZmFjdApmaQoKZWNobyAiVEFSQ19NRVRSSUMgc2VnbWVudD1GJFNUQVJUX0hPVVItRiRFTkRfSE9VUiB0b3RhbF9zZWNvbmRzPSQoKCAkKGRhdGUgKyVzKSAtIFNFR01FTlRfU1RBUlRFRF9BVCApKSIKZWNobyAiVEFSQyBjaGVja3BvaW50IEYkU1RBUlRfSE9VUi1GJEVORF9IT1VSIHB1YmxpY2FkbyBlbSAkQ0hFQ0tQT0lOVF9UQUcuIgo=' | base64 -d > 'wrf/run_tarc_checkpoint_segment.sh'
           mkdir -p "$(dirname 'wrf/run_tarc_icon_wrf.sh')"
@@ -108,7 +107,7 @@ jobs:
         with:
           path: wrf
           key: ${{ runner.os }}-sideral-tarc-runtime-${{ github.sha }}
-      - name: Add R2 adapter to PATH
+      - name: Expose WRF helper adapter to PATH
         run: echo "$GITHUB_WORKSPACE/wrf/bin" >> "$GITHUB_PATH"
       - name: Pré-validar scripts Bash e ShellCheck
         shell: bash
@@ -210,11 +209,10 @@ jobs:
         with:
           path: wrf
           key: ${{ runner.os }}-sideral-tarc-runtime-${{ github.sha }}
-      - name: Install awscli and expose R2 adapter
+      - name: Expose WRF helper adapter to PATH
         shell: bash
         run: |
           set -euo pipefail
-          command -v aws >/dev/null || { sudo apt-get update -qq && sudo apt-get install -y awscli; }
           echo "$GITHUB_WORKSPACE/wrf/bin" >> "$GITHUB_PATH"
       - name: Pré-validar scripts Bash e ShellCheck
         shell: bash
@@ -316,11 +314,10 @@ jobs:
         with:
           path: wrf
           key: ${{ runner.os }}-sideral-tarc-runtime-${{ github.sha }}
-      - name: Install awscli and expose R2 adapter
+      - name: Expose WRF helper adapter to PATH
         shell: bash
         run: |
           set -euo pipefail
-          command -v aws >/dev/null || { sudo apt-get update -qq && sudo apt-get install -y awscli; }
           echo "$GITHUB_WORKSPACE/wrf/bin" >> "$GITHUB_PATH"
       - name: Pré-validar scripts Bash e ShellCheck
         shell: bash
@@ -422,11 +419,10 @@ jobs:
         with:
           path: wrf
           key: ${{ runner.os }}-sideral-tarc-runtime-${{ github.sha }}
-      - name: Install awscli and expose R2 adapter
+      - name: Expose WRF helper adapter to PATH
         shell: bash
         run: |
           set -euo pipefail
-          command -v aws >/dev/null || { sudo apt-get update -qq && sudo apt-get install -y awscli; }
           echo "$GITHUB_WORKSPACE/wrf/bin" >> "$GITHUB_PATH"
       - name: Pré-validar scripts Bash e ShellCheck
         shell: bash
@@ -528,11 +524,10 @@ jobs:
         with:
           path: wrf
           key: ${{ runner.os }}-sideral-tarc-runtime-${{ github.sha }}
-      - name: Install awscli and expose R2 adapter
+      - name: Expose WRF helper adapter to PATH
         shell: bash
         run: |
           set -euo pipefail
-          command -v aws >/dev/null || { sudo apt-get update -qq && sudo apt-get install -y awscli; }
           echo "$GITHUB_WORKSPACE/wrf/bin" >> "$GITHUB_PATH"
       - name: Pré-validar scripts Bash e ShellCheck
         shell: bash
@@ -634,11 +629,10 @@ jobs:
         with:
           path: wrf
           key: ${{ runner.os }}-sideral-tarc-runtime-${{ github.sha }}
-      - name: Install awscli and expose R2 adapter
+      - name: Expose WRF helper adapter to PATH
         shell: bash
         run: |
           set -euo pipefail
-          command -v aws >/dev/null || { sudo apt-get update -qq && sudo apt-get install -y awscli; }
           echo "$GITHUB_WORKSPACE/wrf/bin" >> "$GITHUB_PATH"
       - name: Pré-validar scripts Bash e ShellCheck
         shell: bash
@@ -740,11 +734,10 @@ jobs:
         with:
           path: wrf
           key: ${{ runner.os }}-sideral-tarc-runtime-${{ github.sha }}
-      - name: Install awscli and expose R2 adapter
+      - name: Expose WRF helper adapter to PATH
         shell: bash
         run: |
           set -euo pipefail
-          command -v aws >/dev/null || { sudo apt-get update -qq && sudo apt-get install -y awscli; }
           echo "$GITHUB_WORKSPACE/wrf/bin" >> "$GITHUB_PATH"
       - name: Pré-validar scripts Bash e ShellCheck
         shell: bash
@@ -846,11 +839,10 @@ jobs:
         with:
           path: wrf
           key: ${{ runner.os }}-sideral-tarc-runtime-${{ github.sha }}
-      - name: Install awscli and expose R2 adapter
+      - name: Expose WRF helper adapter to PATH
         shell: bash
         run: |
           set -euo pipefail
-          command -v aws >/dev/null || { sudo apt-get update -qq && sudo apt-get install -y awscli; }
           echo "$GITHUB_WORKSPACE/wrf/bin" >> "$GITHUB_PATH"
       - name: Pré-validar scripts Bash e ShellCheck
         shell: bash
@@ -952,11 +944,10 @@ jobs:
         with:
           path: wrf
           key: ${{ runner.os }}-sideral-tarc-runtime-${{ github.sha }}
-      - name: Install awscli and expose R2 adapter
+      - name: Expose WRF helper adapter to PATH
         shell: bash
         run: |
           set -euo pipefail
-          command -v aws >/dev/null || { sudo apt-get update -qq && sudo apt-get install -y awscli; }
           echo "$GITHUB_WORKSPACE/wrf/bin" >> "$GITHUB_PATH"
       - name: Pré-validar scripts Bash e ShellCheck
         shell: bash
@@ -1058,11 +1049,10 @@ jobs:
         with:
           path: wrf
           key: ${{ runner.os }}-sideral-tarc-runtime-${{ github.sha }}
-      - name: Install awscli and expose R2 adapter
+      - name: Expose WRF helper adapter to PATH
         shell: bash
         run: |
           set -euo pipefail
-          command -v aws >/dev/null || { sudo apt-get update -qq && sudo apt-get install -y awscli; }
           echo "$GITHUB_WORKSPACE/wrf/bin" >> "$GITHUB_PATH"
       - name: Pré-validar scripts Bash e ShellCheck
         shell: bash
@@ -1164,11 +1154,10 @@ jobs:
         with:
           path: wrf
           key: ${{ runner.os }}-sideral-tarc-runtime-${{ github.sha }}
-      - name: Install awscli and expose R2 adapter
+      - name: Expose WRF helper adapter to PATH
         shell: bash
         run: |
           set -euo pipefail
-          command -v aws >/dev/null || { sudo apt-get update -qq && sudo apt-get install -y awscli; }
           echo "$GITHUB_WORKSPACE/wrf/bin" >> "$GITHUB_PATH"
       - name: Pré-validar scripts Bash e ShellCheck
         shell: bash
@@ -1270,11 +1259,10 @@ jobs:
         with:
           path: wrf
           key: ${{ runner.os }}-sideral-tarc-runtime-${{ github.sha }}
-      - name: Install awscli and expose R2 adapter
+      - name: Expose WRF helper adapter to PATH
         shell: bash
         run: |
           set -euo pipefail
-          command -v aws >/dev/null || { sudo apt-get update -qq && sudo apt-get install -y awscli; }
           echo "$GITHUB_WORKSPACE/wrf/bin" >> "$GITHUB_PATH"
       - name: Pré-validar scripts Bash e ShellCheck
         shell: bash
@@ -1376,11 +1364,10 @@ jobs:
         with:
           path: wrf
           key: ${{ runner.os }}-sideral-tarc-runtime-${{ github.sha }}
-      - name: Install awscli and expose R2 adapter
+      - name: Expose WRF helper adapter to PATH
         shell: bash
         run: |
           set -euo pipefail
-          command -v aws >/dev/null || { sudo apt-get update -qq && sudo apt-get install -y awscli; }
           echo "$GITHUB_WORKSPACE/wrf/bin" >> "$GITHUB_PATH"
       - name: Pré-validar scripts Bash e ShellCheck
         shell: bash
@@ -1482,11 +1469,10 @@ jobs:
         with:
           path: wrf
           key: ${{ runner.os }}-sideral-tarc-runtime-${{ github.sha }}
-      - name: Install awscli and expose R2 adapter
+      - name: Expose WRF helper adapter to PATH
         shell: bash
         run: |
           set -euo pipefail
-          command -v aws >/dev/null || { sudo apt-get update -qq && sudo apt-get install -y awscli; }
           echo "$GITHUB_WORKSPACE/wrf/bin" >> "$GITHUB_PATH"
       - name: Pré-validar scripts Bash e ShellCheck
         shell: bash
@@ -1588,11 +1574,10 @@ jobs:
         with:
           path: wrf
           key: ${{ runner.os }}-sideral-tarc-runtime-${{ github.sha }}
-      - name: Install awscli and expose R2 adapter
+      - name: Expose WRF helper adapter to PATH
         shell: bash
         run: |
           set -euo pipefail
-          command -v aws >/dev/null || { sudo apt-get update -qq && sudo apt-get install -y awscli; }
           echo "$GITHUB_WORKSPACE/wrf/bin" >> "$GITHUB_PATH"
       - name: Pré-validar scripts Bash e ShellCheck
         shell: bash
@@ -1694,11 +1679,10 @@ jobs:
         with:
           path: wrf
           key: ${{ runner.os }}-sideral-tarc-runtime-${{ github.sha }}
-      - name: Install awscli and expose R2 adapter
+      - name: Expose WRF helper adapter to PATH
         shell: bash
         run: |
           set -euo pipefail
-          command -v aws >/dev/null || { sudo apt-get update -qq && sudo apt-get install -y awscli; }
           echo "$GITHUB_WORKSPACE/wrf/bin" >> "$GITHUB_PATH"
       - name: Pré-validar scripts Bash e ShellCheck
         shell: bash
@@ -1800,11 +1784,10 @@ jobs:
         with:
           path: wrf
           key: ${{ runner.os }}-sideral-tarc-runtime-${{ github.sha }}
-      - name: Install awscli and expose R2 adapter
+      - name: Expose WRF helper adapter to PATH
         shell: bash
         run: |
           set -euo pipefail
-          command -v aws >/dev/null || { sudo apt-get update -qq && sudo apt-get install -y awscli; }
           echo "$GITHUB_WORKSPACE/wrf/bin" >> "$GITHUB_PATH"
       - name: Pré-validar scripts Bash e ShellCheck
         shell: bash
@@ -1906,11 +1889,10 @@ jobs:
         with:
           path: wrf
           key: ${{ runner.os }}-sideral-tarc-runtime-${{ github.sha }}
-      - name: Install awscli and expose R2 adapter
+      - name: Expose WRF helper adapter to PATH
         shell: bash
         run: |
           set -euo pipefail
-          command -v aws >/dev/null || { sudo apt-get update -qq && sudo apt-get install -y awscli; }
           echo "$GITHUB_WORKSPACE/wrf/bin" >> "$GITHUB_PATH"
       - name: Pré-validar scripts Bash e ShellCheck
         shell: bash
@@ -2012,11 +1994,10 @@ jobs:
         with:
           path: wrf
           key: ${{ runner.os }}-sideral-tarc-runtime-${{ github.sha }}
-      - name: Install awscli and expose R2 adapter
+      - name: Expose WRF helper adapter to PATH
         shell: bash
         run: |
           set -euo pipefail
-          command -v aws >/dev/null || { sudo apt-get update -qq && sudo apt-get install -y awscli; }
           echo "$GITHUB_WORKSPACE/wrf/bin" >> "$GITHUB_PATH"
       - name: Pré-validar scripts Bash e ShellCheck
         shell: bash
@@ -2118,11 +2099,10 @@ jobs:
         with:
           path: wrf
           key: ${{ runner.os }}-sideral-tarc-runtime-${{ github.sha }}
-      - name: Install awscli and expose R2 adapter
+      - name: Expose WRF helper adapter to PATH
         shell: bash
         run: |
           set -euo pipefail
-          command -v aws >/dev/null || { sudo apt-get update -qq && sudo apt-get install -y awscli; }
           echo "$GITHUB_WORKSPACE/wrf/bin" >> "$GITHUB_PATH"
       - name: Pré-validar scripts Bash e ShellCheck
         shell: bash
@@ -2224,11 +2204,10 @@ jobs:
         with:
           path: wrf
           key: ${{ runner.os }}-sideral-tarc-runtime-${{ github.sha }}
-      - name: Install awscli and expose R2 adapter
+      - name: Expose WRF helper adapter to PATH
         shell: bash
         run: |
           set -euo pipefail
-          command -v aws >/dev/null || { sudo apt-get update -qq && sudo apt-get install -y awscli; }
           echo "$GITHUB_WORKSPACE/wrf/bin" >> "$GITHUB_PATH"
       - name: Pré-validar scripts Bash e ShellCheck
         shell: bash
@@ -2330,11 +2309,10 @@ jobs:
         with:
           path: wrf
           key: ${{ runner.os }}-sideral-tarc-runtime-${{ github.sha }}
-      - name: Install awscli and expose R2 adapter
+      - name: Expose WRF helper adapter to PATH
         shell: bash
         run: |
           set -euo pipefail
-          command -v aws >/dev/null || { sudo apt-get update -qq && sudo apt-get install -y awscli; }
           echo "$GITHUB_WORKSPACE/wrf/bin" >> "$GITHUB_PATH"
       - name: Pré-validar scripts Bash e ShellCheck
         shell: bash
@@ -2436,11 +2414,10 @@ jobs:
         with:
           path: wrf
           key: ${{ runner.os }}-sideral-tarc-runtime-${{ github.sha }}
-      - name: Install awscli and expose R2 adapter
+      - name: Expose WRF helper adapter to PATH
         shell: bash
         run: |
           set -euo pipefail
-          command -v aws >/dev/null || { sudo apt-get update -qq && sudo apt-get install -y awscli; }
           echo "$GITHUB_WORKSPACE/wrf/bin" >> "$GITHUB_PATH"
       - name: Pré-validar scripts Bash e ShellCheck
         shell: bash
@@ -2542,11 +2519,10 @@ jobs:
         with:
           path: wrf
           key: ${{ runner.os }}-sideral-tarc-runtime-${{ github.sha }}
-      - name: Install awscli and expose R2 adapter
+      - name: Expose WRF helper adapter to PATH
         shell: bash
         run: |
           set -euo pipefail
-          command -v aws >/dev/null || { sudo apt-get update -qq && sudo apt-get install -y awscli; }
           echo "$GITHUB_WORKSPACE/wrf/bin" >> "$GITHUB_PATH"
       - name: Pré-validar scripts Bash e ShellCheck
         shell: bash
@@ -2648,11 +2624,10 @@ jobs:
         with:
           path: wrf
           key: ${{ runner.os }}-sideral-tarc-runtime-${{ github.sha }}
-      - name: Install awscli and expose R2 adapter
+      - name: Expose WRF helper adapter to PATH
         shell: bash
         run: |
           set -euo pipefail
-          command -v aws >/dev/null || { sudo apt-get update -qq && sudo apt-get install -y awscli; }
           echo "$GITHUB_WORKSPACE/wrf/bin" >> "$GITHUB_PATH"
       - name: Pré-validar scripts Bash e ShellCheck
         shell: bash
@@ -2754,11 +2729,10 @@ jobs:
         with:
           path: wrf
           key: ${{ runner.os }}-sideral-tarc-runtime-${{ github.sha }}
-      - name: Install awscli and expose R2 adapter
+      - name: Expose WRF helper adapter to PATH
         shell: bash
         run: |
           set -euo pipefail
-          command -v aws >/dev/null || { sudo apt-get update -qq && sudo apt-get install -y awscli; }
           echo "$GITHUB_WORKSPACE/wrf/bin" >> "$GITHUB_PATH"
       - name: Pré-validar scripts Bash e ShellCheck
         shell: bash
@@ -2860,11 +2834,10 @@ jobs:
         with:
           path: wrf
           key: ${{ runner.os }}-sideral-tarc-runtime-${{ github.sha }}
-      - name: Install awscli and expose R2 adapter
+      - name: Expose WRF helper adapter to PATH
         shell: bash
         run: |
           set -euo pipefail
-          command -v aws >/dev/null || { sudo apt-get update -qq && sudo apt-get install -y awscli; }
           echo "$GITHUB_WORKSPACE/wrf/bin" >> "$GITHUB_PATH"
       - name: Pré-validar scripts Bash e ShellCheck
         shell: bash
@@ -2966,11 +2939,10 @@ jobs:
         with:
           path: wrf
           key: ${{ runner.os }}-sideral-tarc-runtime-${{ github.sha }}
-      - name: Install awscli and expose R2 adapter
+      - name: Expose WRF helper adapter to PATH
         shell: bash
         run: |
           set -euo pipefail
-          command -v aws >/dev/null || { sudo apt-get update -qq && sudo apt-get install -y awscli; }
           echo "$GITHUB_WORKSPACE/wrf/bin" >> "$GITHUB_PATH"
       - name: Pré-validar scripts Bash e ShellCheck
         shell: bash
@@ -3072,11 +3044,10 @@ jobs:
         with:
           path: wrf
           key: ${{ runner.os }}-sideral-tarc-runtime-${{ github.sha }}
-      - name: Install awscli and expose R2 adapter
+      - name: Expose WRF helper adapter to PATH
         shell: bash
         run: |
           set -euo pipefail
-          command -v aws >/dev/null || { sudo apt-get update -qq && sudo apt-get install -y awscli; }
           echo "$GITHUB_WORKSPACE/wrf/bin" >> "$GITHUB_PATH"
       - name: Pré-validar scripts Bash e ShellCheck
         shell: bash
@@ -3178,11 +3149,10 @@ jobs:
         with:
           path: wrf
           key: ${{ runner.os }}-sideral-tarc-runtime-${{ github.sha }}
-      - name: Install awscli and expose R2 adapter
+      - name: Expose WRF helper adapter to PATH
         shell: bash
         run: |
           set -euo pipefail
-          command -v aws >/dev/null || { sudo apt-get update -qq && sudo apt-get install -y awscli; }
           echo "$GITHUB_WORKSPACE/wrf/bin" >> "$GITHUB_PATH"
       - name: Pré-validar scripts Bash e ShellCheck
         shell: bash
@@ -3284,11 +3254,10 @@ jobs:
         with:
           path: wrf
           key: ${{ runner.os }}-sideral-tarc-runtime-${{ github.sha }}
-      - name: Install awscli and expose R2 adapter
+      - name: Expose WRF helper adapter to PATH
         shell: bash
         run: |
           set -euo pipefail
-          command -v aws >/dev/null || { sudo apt-get update -qq && sudo apt-get install -y awscli; }
           echo "$GITHUB_WORKSPACE/wrf/bin" >> "$GITHUB_PATH"
       - name: Pré-validar scripts Bash e ShellCheck
         shell: bash
@@ -3390,11 +3359,10 @@ jobs:
         with:
           path: wrf
           key: ${{ runner.os }}-sideral-tarc-runtime-${{ github.sha }}
-      - name: Install awscli and expose R2 adapter
+      - name: Expose WRF helper adapter to PATH
         shell: bash
         run: |
           set -euo pipefail
-          command -v aws >/dev/null || { sudo apt-get update -qq && sudo apt-get install -y awscli; }
           echo "$GITHUB_WORKSPACE/wrf/bin" >> "$GITHUB_PATH"
       - name: Pré-validar scripts Bash e ShellCheck
         shell: bash
@@ -3496,11 +3464,10 @@ jobs:
         with:
           path: wrf
           key: ${{ runner.os }}-sideral-tarc-runtime-${{ github.sha }}
-      - name: Install awscli and expose R2 adapter
+      - name: Expose WRF helper adapter to PATH
         shell: bash
         run: |
           set -euo pipefail
-          command -v aws >/dev/null || { sudo apt-get update -qq && sudo apt-get install -y awscli; }
           echo "$GITHUB_WORKSPACE/wrf/bin" >> "$GITHUB_PATH"
       - name: Pré-validar scripts Bash e ShellCheck
         shell: bash
@@ -3602,11 +3569,10 @@ jobs:
         with:
           path: wrf
           key: ${{ runner.os }}-sideral-tarc-runtime-${{ github.sha }}
-      - name: Install awscli and expose R2 adapter
+      - name: Expose WRF helper adapter to PATH
         shell: bash
         run: |
           set -euo pipefail
-          command -v aws >/dev/null || { sudo apt-get update -qq && sudo apt-get install -y awscli; }
           echo "$GITHUB_WORKSPACE/wrf/bin" >> "$GITHUB_PATH"
       - name: Pré-validar scripts Bash e ShellCheck
         shell: bash
@@ -3708,11 +3674,10 @@ jobs:
         with:
           path: wrf
           key: ${{ runner.os }}-sideral-tarc-runtime-${{ github.sha }}
-      - name: Install awscli and expose R2 adapter
+      - name: Expose WRF helper adapter to PATH
         shell: bash
         run: |
           set -euo pipefail
-          command -v aws >/dev/null || { sudo apt-get update -qq && sudo apt-get install -y awscli; }
           echo "$GITHUB_WORKSPACE/wrf/bin" >> "$GITHUB_PATH"
       - name: Pré-validar scripts Bash e ShellCheck
         shell: bash
@@ -3814,11 +3779,10 @@ jobs:
         with:
           path: wrf
           key: ${{ runner.os }}-sideral-tarc-runtime-${{ github.sha }}
-      - name: Install awscli and expose R2 adapter
+      - name: Expose WRF helper adapter to PATH
         shell: bash
         run: |
           set -euo pipefail
-          command -v aws >/dev/null || { sudo apt-get update -qq && sudo apt-get install -y awscli; }
           echo "$GITHUB_WORKSPACE/wrf/bin" >> "$GITHUB_PATH"
       - name: Pré-validar scripts Bash e ShellCheck
         shell: bash
@@ -3920,11 +3884,10 @@ jobs:
         with:
           path: wrf
           key: ${{ runner.os }}-sideral-tarc-runtime-${{ github.sha }}
-      - name: Install awscli and expose R2 adapter
+      - name: Expose WRF helper adapter to PATH
         shell: bash
         run: |
           set -euo pipefail
-          command -v aws >/dev/null || { sudo apt-get update -qq && sudo apt-get install -y awscli; }
           echo "$GITHUB_WORKSPACE/wrf/bin" >> "$GITHUB_PATH"
       - name: Pré-validar scripts Bash e ShellCheck
         shell: bash
@@ -4026,11 +3989,10 @@ jobs:
         with:
           path: wrf
           key: ${{ runner.os }}-sideral-tarc-runtime-${{ github.sha }}
-      - name: Install awscli and expose R2 adapter
+      - name: Expose WRF helper adapter to PATH
         shell: bash
         run: |
           set -euo pipefail
-          command -v aws >/dev/null || { sudo apt-get update -qq && sudo apt-get install -y awscli; }
           echo "$GITHUB_WORKSPACE/wrf/bin" >> "$GITHUB_PATH"
       - name: Pré-validar scripts Bash e ShellCheck
         shell: bash
@@ -4132,11 +4094,10 @@ jobs:
         with:
           path: wrf
           key: ${{ runner.os }}-sideral-tarc-runtime-${{ github.sha }}
-      - name: Install awscli and expose R2 adapter
+      - name: Expose WRF helper adapter to PATH
         shell: bash
         run: |
           set -euo pipefail
-          command -v aws >/dev/null || { sudo apt-get update -qq && sudo apt-get install -y awscli; }
           echo "$GITHUB_WORKSPACE/wrf/bin" >> "$GITHUB_PATH"
       - name: Pré-validar scripts Bash e ShellCheck
         shell: bash
@@ -4238,11 +4199,10 @@ jobs:
         with:
           path: wrf
           key: ${{ runner.os }}-sideral-tarc-runtime-${{ github.sha }}
-      - name: Install awscli and expose R2 adapter
+      - name: Expose WRF helper adapter to PATH
         shell: bash
         run: |
           set -euo pipefail
-          command -v aws >/dev/null || { sudo apt-get update -qq && sudo apt-get install -y awscli; }
           echo "$GITHUB_WORKSPACE/wrf/bin" >> "$GITHUB_PATH"
       - name: Pré-validar scripts Bash e ShellCheck
         shell: bash
@@ -4344,11 +4304,10 @@ jobs:
         with:
           path: wrf
           key: ${{ runner.os }}-sideral-tarc-runtime-${{ github.sha }}
-      - name: Install awscli and expose R2 adapter
+      - name: Expose WRF helper adapter to PATH
         shell: bash
         run: |
           set -euo pipefail
-          command -v aws >/dev/null || { sudo apt-get update -qq && sudo apt-get install -y awscli; }
           echo "$GITHUB_WORKSPACE/wrf/bin" >> "$GITHUB_PATH"
       - name: Pré-validar scripts Bash e ShellCheck
         shell: bash
@@ -4450,11 +4409,10 @@ jobs:
         with:
           path: wrf
           key: ${{ runner.os }}-sideral-tarc-runtime-${{ github.sha }}
-      - name: Install awscli and expose R2 adapter
+      - name: Expose WRF helper adapter to PATH
         shell: bash
         run: |
           set -euo pipefail
-          command -v aws >/dev/null || { sudo apt-get update -qq && sudo apt-get install -y awscli; }
           echo "$GITHUB_WORKSPACE/wrf/bin" >> "$GITHUB_PATH"
       - name: Pré-validar scripts Bash e ShellCheck
         shell: bash
@@ -4556,11 +4514,10 @@ jobs:
         with:
           path: wrf
           key: ${{ runner.os }}-sideral-tarc-runtime-${{ github.sha }}
-      - name: Install awscli and expose R2 adapter
+      - name: Expose WRF helper adapter to PATH
         shell: bash
         run: |
           set -euo pipefail
-          command -v aws >/dev/null || { sudo apt-get update -qq && sudo apt-get install -y awscli; }
           echo "$GITHUB_WORKSPACE/wrf/bin" >> "$GITHUB_PATH"
       - name: Pré-validar scripts Bash e ShellCheck
         shell: bash
@@ -4662,11 +4619,10 @@ jobs:
         with:
           path: wrf
           key: ${{ runner.os }}-sideral-tarc-runtime-${{ github.sha }}
-      - name: Install awscli and expose R2 adapter
+      - name: Expose WRF helper adapter to PATH
         shell: bash
         run: |
           set -euo pipefail
-          command -v aws >/dev/null || { sudo apt-get update -qq && sudo apt-get install -y awscli; }
           echo "$GITHUB_WORKSPACE/wrf/bin" >> "$GITHUB_PATH"
       - name: Pré-validar scripts Bash e ShellCheck
         shell: bash
@@ -4768,11 +4724,10 @@ jobs:
         with:
           path: wrf
           key: ${{ runner.os }}-sideral-tarc-runtime-${{ github.sha }}
-      - name: Install awscli and expose R2 adapter
+      - name: Expose WRF helper adapter to PATH
         shell: bash
         run: |
           set -euo pipefail
-          command -v aws >/dev/null || { sudo apt-get update -qq && sudo apt-get install -y awscli; }
           echo "$GITHUB_WORKSPACE/wrf/bin" >> "$GITHUB_PATH"
       - name: Pré-validar scripts Bash e ShellCheck
         shell: bash
@@ -4874,11 +4829,10 @@ jobs:
         with:
           path: wrf
           key: ${{ runner.os }}-sideral-tarc-runtime-${{ github.sha }}
-      - name: Install awscli and expose R2 adapter
+      - name: Expose WRF helper adapter to PATH
         shell: bash
         run: |
           set -euo pipefail
-          command -v aws >/dev/null || { sudo apt-get update -qq && sudo apt-get install -y awscli; }
           echo "$GITHUB_WORKSPACE/wrf/bin" >> "$GITHUB_PATH"
       - name: Pré-validar scripts Bash e ShellCheck
         shell: bash
@@ -4980,11 +4934,10 @@ jobs:
         with:
           path: wrf
           key: ${{ runner.os }}-sideral-tarc-runtime-${{ github.sha }}
-      - name: Install awscli and expose R2 adapter
+      - name: Expose WRF helper adapter to PATH
         shell: bash
         run: |
           set -euo pipefail
-          command -v aws >/dev/null || { sudo apt-get update -qq && sudo apt-get install -y awscli; }
           echo "$GITHUB_WORKSPACE/wrf/bin" >> "$GITHUB_PATH"
       - name: Pré-validar scripts Bash e ShellCheck
         shell: bash
@@ -5086,11 +5039,10 @@ jobs:
         with:
           path: wrf
           key: ${{ runner.os }}-sideral-tarc-runtime-${{ github.sha }}
-      - name: Install awscli and expose R2 adapter
+      - name: Expose WRF helper adapter to PATH
         shell: bash
         run: |
           set -euo pipefail
-          command -v aws >/dev/null || { sudo apt-get update -qq && sudo apt-get install -y awscli; }
           echo "$GITHUB_WORKSPACE/wrf/bin" >> "$GITHUB_PATH"
       - name: Pré-validar scripts Bash e ShellCheck
         shell: bash
@@ -5188,11 +5140,10 @@ jobs:
         with:
           path: wrf
           key: ${{ runner.os }}-sideral-tarc-runtime-${{ github.sha }}
-      - name: Install awscli and expose R2 adapter
+      - name: Expose WRF helper adapter to PATH
         shell: bash
         run: |
           set -euo pipefail
-          command -v aws >/dev/null || { sudo apt-get update -qq && sudo apt-get install -y awscli; }
           echo "$GITHUB_WORKSPACE/wrf/bin" >> "$GITHUB_PATH"
       - name: Pré-validar scripts Bash e ShellCheck
         shell: bash
