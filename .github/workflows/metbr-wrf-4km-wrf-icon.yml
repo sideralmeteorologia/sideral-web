@@ -3459,16 +3459,19 @@ jobs:
       - name: Register WRF artifact restore target (42)
         shell: bash
         env:
-          WRF_ARTIFACT_DOWNLOAD_DIR: ${{ runner.temp }}/wrf-downloads/d014
-          WRF_ARTIFACT_RESTORE_TO: 'metbr_segment_artifacts'
+          WRF_ARTIFACT_DOWNLOAD_DIR: ${{ runner.temp }}/wrf-downloads/d042
         run: |
-          mkdir -p "$WRF_ARTIFACT_DOWNLOAD_DIR"
-          printf '%s\n' "$WRF_ARTIFACT_RESTORE_TO" > "$WRF_ARTIFACT_DOWNLOAD_DIR/.restore-to"
-          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
-            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
-              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
-              --workspace "$GITHUB_WORKSPACE"
-          fi
+          set -euo pipefail
+          shopt -s nullglob
+          dirs=("$WRF_ARTIFACT_DOWNLOAD_DIR"/*)
+          (("${#dirs[@]}" == 42)) || { echo "METBR: esperados 42 artifacts; encontrados ${#dirs[@]}" >&2; exit 31; }
+          for dir in "${dirs[@]}"; do
+            [[ -d "$dir" ]] || continue
+            printf '%s\n' "metbr_segment_artifacts/${dir##*/}" > "$dir/.restore-to"
+          done
+          python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
+            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
+            --workspace "$GITHUB_WORKSPACE"
       - name: Reunir e validar WRFOUTs dos 42 segmentos
         shell: bash
         run: |
