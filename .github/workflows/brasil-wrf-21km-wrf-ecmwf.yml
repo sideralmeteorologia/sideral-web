@@ -8,7 +8,7 @@ on:
         required: false
         type: string
       run_cycle:
-        description: "Ciclo da fonte selecionada (ICON 00/06/12/18; ECMWF 00/12)"
+        description: "Ciclo da fonte selecionada (ICON/ECMWF 00/06/12/18)"
         required: false
         type: string
   schedule:
@@ -141,7 +141,7 @@ jobs:
             [[ -n "$INPUT_RUN_DATE" && -n "$INPUT_RUN_CYCLE" ]] || { echo "run_date e run_cycle devem ser informados juntos" >&2; exit 2; }
             date="${INPUT_RUN_DATE//-/}"; cycle="$(printf '%02d' "$((10#$INPUT_RUN_CYCLE))")"
             [[ "$date" =~ ^[0-9]{8}$ ]]
-            if [[ "$SOURCE_MODEL" == ecmwf ]]; then [[ "$cycle" == 00 || "$cycle" == 12 ]]; else [[ "$cycle" == 00 || "$cycle" == 06 || "$cycle" == 12 || "$cycle" == 18 ]]; fi
+            if [[ "$SOURCE_MODEL" == ecmwf || "$SOURCE_MODEL" == icon ]]; then [[ "$cycle" == 00 || "$cycle" == 06 || "$cycle" == 12 || "$cycle" == 18 ]]; else [[ "$cycle" == 00 || "$cycle" == 06 || "$cycle" == 12 || "$cycle" == 18 ]]; fi
           elif [[ "$SOURCE_MODEL" == ecmwf ]]; then
             python3 - <<'PY' > selected-cycle.txt
           import datetime as dt
@@ -150,7 +150,7 @@ jobs:
           if not isinstance(v,dt.datetime): v=dt.datetime.fromisoformat(str(v))
           if v.tzinfo is None: v=v.replace(tzinfo=dt.timezone.utc)
           v=v.astimezone(dt.timezone.utc)
-          if v.hour not in (0,12): raise SystemExit(f'ciclo ECMWF invalido: {v:%H}')
+          if v.hour not in (0,6,12,18): raise SystemExit(f'ciclo ECMWF invalido: {v:%H}')
           print(v.strftime('%Y%m%d %H'))
           PY
             read -r date cycle < selected-cycle.txt
