@@ -5333,10 +5333,10 @@ jobs:
             --target "$GITHUB_SHA" \
             tarc-products-3km.tar.gz \
             tarc-severe-3km.tar.gz \
-            tarc_products/metadata.json \
-            tarc_products/variable_catalog.json \
-            tarc_severe/metadata.json \
-            tarc_severe/diagnostics.json
+            tarc-products-metadata.json \
+            tarc-variable-catalog.json \
+            tarc-severe-metadata.json \
+            tarc-severe-diagnostics.json
           url="$(gh release view "$tag" --repo "$GITHUB_REPOSITORY" --json url --jq .url)"
           printf 'tag=%s\nurl=%s\n' "$tag" "$url" >> "$GITHUB_OUTPUT"
   register-run:
