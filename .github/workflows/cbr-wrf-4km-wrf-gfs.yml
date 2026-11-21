@@ -1749,7 +1749,7 @@ jobs:
             printf '%s\n' "cbr_segment_artifacts/${dir##*/}" > "$dir/.restore-to"
           done
           python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
-            --downloads-root "$CBR_SEGMENT_DOWNLOADS" \
+            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
             --workspace "$GITHUB_WORKSPACE"
       - name: Reunir e validar JSON/NPZ nativos dos 14 segmentos CBR
         shell: bash
