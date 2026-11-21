@@ -1,4 +1,4 @@
-name: SIDERAL — Global NWP → GitHub Artifact (1 dia)
+name: SIDERAL — Global NWP | Release pública (Artifact intermediário de 1 dia)
 
 on:
   schedule:
@@ -826,7 +826,7 @@ jobs:
             "${DATE_ARG[@]}" \
             "${CYCLE_ARG[@]}"
 
-      - name: Publicar pacote Global NWP como GitHub Actions Artifact (1 dia)
+      - name: Enviar pacote ao publicador de Release (Artifact intermediário, 1 dia)
         uses: actions/upload-artifact@v4
         with:
           name: sideral-global-nwp-${{ github.run_id }}-${{ github.run_attempt }}
