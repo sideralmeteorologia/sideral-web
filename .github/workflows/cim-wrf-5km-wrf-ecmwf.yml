@@ -15,6 +15,10 @@ permissions:
   contents: write
   actions: read
 
+concurrency:
+  group: sideral-cim-5km-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 env:
   GH_TOKEN: ${{ github.token }}
   PYTHON_VERSION: '3.12'
