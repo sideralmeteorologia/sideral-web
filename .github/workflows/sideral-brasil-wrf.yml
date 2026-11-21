@@ -300,7 +300,7 @@ jobs:
           python3 .github/scripts/wrf_artifact_bundle.py pack \
             --workspace "$GITHUB_WORKSPACE" \
             --output "$GITHUB_WORKSPACE/$WRF_ARTIFACT_OUTPUT"
-      - name: Publicar produtos finais como artifact
+      - name: Enviar produtos finais ao publicador de Release (Artifact intermediário)
         uses: actions/upload-artifact@v4
         with:
           name: wrf-final-brasil21-manual-${{ github.job }}-${{ github.run_id }}
