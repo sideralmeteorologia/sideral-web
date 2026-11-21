@@ -2189,7 +2189,7 @@ jobs:
           (("${#dirs[@]}" == 14)) || { echo "CIM 5 km: esperados 14 artifacts de segmentos; encontrados ${#dirs[@]}" >&2; exit 31; }
           for dir in "${dirs[@]}"; do
             [[ -d "$dir" ]] || continue
-            printf '%s\n' 'cim5_segment_artifacts' > "$dir/.restore-to"
+            printf '%s\n' "cim5_segment_artifacts/${dir##*/}" > "$dir/.restore-to"
           done
           python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
             --downloads-root "$CIM5_SEGMENT_DOWNLOADS" \
