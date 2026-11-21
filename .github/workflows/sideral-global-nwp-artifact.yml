@@ -17,7 +17,7 @@ on:
         default: "auto"
 
 permissions:
-  contents: read
+  contents: write
   actions: read
 
 concurrency:
@@ -639,7 +639,7 @@ jobs:
     runs-on: ubuntu-24.04
     timeout-minutes: 180
     permissions:
-      contents: read
+      contents: write
       actions: read
     steps:
       - name: Reconstruir publicador NWP embutido
@@ -826,11 +826,24 @@ jobs:
             "${DATE_ARG[@]}" \
             "${CYCLE_ARG[@]}"
 
-      - name: Enviar pacote ao publicador de Release (Artifact intermediário, 1 dia)
-        uses: actions/upload-artifact@v4
-        with:
-          name: sideral-global-nwp-${{ github.run_id }}-${{ github.run_attempt }}
-          path: release-assets/
-          if-no-files-found: error
-          retention-days: 1
-          compression-level: 0
+      - name: Publicar JSONs Global NWP em GitHub Release e espelho raw (direto no workflow)
+        env:
+          GH_TOKEN: ${{ github.token }}
+          SOURCE_RUN_ID: ${{ github.run_id }}
+          SOURCE_REPOSITORY: ${{ github.repository }}
+          SOURCE_WORKFLOW_PATH: .github/workflows/sideral-global-nwp-artifact.yml
+          SOURCE_WORKFLOW_NAME: ${{ github.workflow }}
+          SOURCE_COMMIT_SHA: ${{ github.sha }}
+          SOURCE_RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          SOURCE_BRANCH: ${{ github.ref_name }}
+          SOURCE_ARTIFACTS_DIR: ${{ runner.temp }}/model-artifacts
+          RELEASE_ASSETS_DIR: ${{ runner.temp }}/release-assets
+          FINAL_PRODUCT_DIR: sideral-global-nwp-${{ github.run_id }}-${{ github.run_attempt }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -d release-assets
+          mkdir -p "$SOURCE_ARTIFACTS_DIR/$FINAL_PRODUCT_DIR"
+          cp -a release-assets/. "$SOURCE_ARTIFACTS_DIR/$FINAL_PRODUCT_DIR/"
+          export SOURCE_COMPLETED_AT="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+          python3 .github/scripts/publish_model_release.py publish
