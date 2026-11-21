@@ -51,28 +51,6 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 1
-      - name: Baixar artifacts dos 16 segmentos WRF Sudeste
-        uses: actions/download-artifact@v4
-        with:
-          pattern: wrf-sudeste-${{ env.RESOLUTION_KM }}km-${{ env.MODEL_VARIANT }}-${{ env.SOURCE_MODEL }}-seg??-${{ github.run_id }}
-          path: ${{ runner.temp }}/wrf-downloads/sudeste-segments
-          merge-multiple: false
-      - name: Restaurar payloads locais dos segmentos Sudeste
-        shell: bash
-        env:
-          WRF_ARTIFACT_DOWNLOAD_DIR: ${{ runner.temp }}/wrf-downloads/sudeste-segments
-        run: |
-          set -euo pipefail
-          shopt -s nullglob
-          dirs=("$WRF_ARTIFACT_DOWNLOAD_DIR"/*)
-          (("${#dirs[@]}" == 16)) || { echo "Sudeste: esperados 16 artifacts; encontrados ${#dirs[@]}" >&2; exit 31; }
-          for dir in "${dirs[@]}"; do
-            [[ -d "$dir" ]] || continue
-            printf '%s\n' "tarc_segment_artifacts/${dir##*/}" > "$dir/.restore-to"
-          done
-          python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
-            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
-            --workspace "$GITHUB_WORKSPACE"
       - name: Restore WRF artifacts after checkout (1)
         shell: bash
         run: |
@@ -2103,6 +2081,28 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 1
+      - name: Baixar artifacts dos 16 segmentos WRF Sudeste
+        uses: actions/download-artifact@v4
+        with:
+          pattern: wrf-sudeste-${{ env.RESOLUTION_KM }}km-${{ env.MODEL_VARIANT }}-${{ env.SOURCE_MODEL }}-seg??-${{ github.run_id }}
+          path: ${{ runner.temp }}/wrf-downloads/sudeste-segments
+          merge-multiple: false
+      - name: Restaurar payloads locais dos segmentos Sudeste
+        shell: bash
+        env:
+          WRF_ARTIFACT_DOWNLOAD_DIR: ${{ runner.temp }}/wrf-downloads/sudeste-segments
+        run: |
+          set -euo pipefail
+          shopt -s nullglob
+          dirs=("$WRF_ARTIFACT_DOWNLOAD_DIR"/*)
+          (("${#dirs[@]}" == 16)) || { echo "Sudeste: esperados 16 artifacts; encontrados ${#dirs[@]}" >&2; exit 31; }
+          for dir in "${dirs[@]}"; do
+            [[ -d "$dir" ]] || continue
+            printf '%s\n' "tarc_segment_artifacts/${dir##*/}" > "$dir/.restore-to"
+          done
+          python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
+            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
+            --workspace "$GITHUB_WORKSPACE"
       - name: Restore WRF artifacts after checkout (9)
         shell: bash
         run: |
