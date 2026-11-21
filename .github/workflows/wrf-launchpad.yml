@@ -1,17 +1,8 @@
 name: SIDERAL — WRF Launchpad
 
+# Individual workflows retain their own schedules.
+# Code pushes must never start dozens of expensive forecasts.
 on:
-  push:
-    branches:
-      - main
-    paths:
-      - ".github/scripts/restore_wrf_runtime.py"
-      - ".github/workflows/*wrf*.yml"
-      - ".github/workflows/*WRF*.yml"
-      - ".github/workflows/sideral-global-nwp-artifact.yml"
-      - ".github/workflows/SIDERAL_MULTIMODELS_05_ICON_HORIZON_FIX (1).yml"
-      - ".github/workflows/wrf-launchpad.yml"
-      - "runners/**"
   workflow_dispatch:
     inputs:
       scope:
@@ -28,6 +19,11 @@ on:
         required: true
         type: boolean
         default: true
+      max_dispatches:
+        description: "Máximo de novos workflows por lote (1-51)"
+        required: true
+        type: number
+        default: 6
 
 permissions:
   contents: read
@@ -47,8 +43,9 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           GH_REPOSITORY: ${{ github.repository }}
           GH_REF: ${{ github.ref_name }}
-          SCOPE: ${{ github.event_name == 'push' && 'all' || inputs.scope || 'all' }}
-          SKIP_ACTIVE: ${{ github.event_name == 'push' && 'true' || (inputs.skip_active == true && 'true' || 'false') }}
+          SCOPE: ${{ inputs.scope || 'all' }}
+          SKIP_ACTIVE: ${{ inputs.skip_active == true && 'true' || 'false' }}
+          MAX_DISPATCHES: ${{ inputs.max_dispatches || 6 }}
         run: |
           python - <<'PY'
           import json, os, time, urllib.request, urllib.error, urllib.parse
@@ -78,26 +75,21 @@ jobs:
               "cbr-wrf-4km-wrf2-ecmwf.yml",
               "cbr-wrf-4km-wrf2-gfs.yml",
               "cbr-wrf-4km-wrf2-icon.yml",
-              "cbr-wrf.yml",
               "cim-wrf-5km-wrf-ecmwf.yml",
               "cim-wrf-5km-wrf-gfs.yml",
               "cim-wrf-5km-wrf-icon.yml",
               "cim-wrf-5km-wrf2-ecmwf.yml",
               "cim-wrf-5km-wrf2-gfs.yml",
               "cim-wrf-5km-wrf2-icon.yml",
-              "cim-wrf-5km.yml",
               "cim-wrf-8km-wrf-ecmwf.yml",
               "cim-wrf-8km-wrf-gfs.yml",
               "cim-wrf-8km-wrf-icon.yml",
-              "cim-wrf-8km.yml",
               "metbr-wrf-4km-wrf-ecmwf.yml",
               "metbr-wrf-4km-wrf-gfs.yml",
               "metbr-wrf-4km-wrf-icon.yml",
               "metbr-wrf-4km-wrf2-ecmwf.yml",
               "metbr-wrf-4km-wrf2-gfs.yml",
               "metbr-wrf-4km-wrf2-icon.yml",
-              "metbr-wrf.yml",
-              "sideral-brasil-wrf.yml",
               "sudeste-wrf-4km-wrf-ecmwf.yml",
               "sudeste-wrf-4km-wrf-gfs.yml",
               "sudeste-wrf-4km-wrf-icon.yml",
@@ -117,8 +109,6 @@ jobs:
               "tarc-wrf-3km-wrf2-gfs.yml",
               "tarc-wrf-3km-wrf2-icon.yml",
               "tarc-wrf.yml",
-              "wrf-maestro.yml",
-              "wrf-watchdog.yml",
           ]
           numerical = [
               "sideral-global-nwp-artifact.yml",
@@ -126,7 +116,16 @@ jobs:
           ]
 
           targets = (wrf if scope == "wrf" else numerical if scope == "numerical" else wrf + numerical)
-          print(f"Escopo={scope}; workflows alvo={len(targets)}; ref={ref}")
+          try:
+              max_dispatches = int(os.environ.get("MAX_DISPATCHES", "6"))
+          except ValueError:
+              raise SystemExit("max_dispatches deve ser um inteiro entre 1 e 51.")
+          if not 1 <= max_dispatches <= 51:
+              raise SystemExit("max_dispatches deve estar entre 1 e 51.")
+          print(
+              f"Escopo={scope}; workflows alvo={len(targets)}; "
+              f"lote máximo={max_dispatches}; ref={ref}"
+          )
 
           def api(path, method="GET", body=None):
               data = json.dumps(body).encode() if body is not None else None
@@ -136,6 +135,9 @@ jobs:
 
           launched, skipped, failed = [], [], []
           for filename in targets:
+              if len(launched) >= max_dispatches:
+                  skipped.append((filename, f"adiado: limite do lote ({max_dispatches})"))
+                  continue
               try:
                   if skip_active:
                       runs = api(f"/actions/workflows/{urllib.parse.quote(filename, safe='')}/runs?per_page=100")
@@ -157,9 +159,16 @@ jobs:
                   print(f"ERRO {filename}: {e}")
 
           print("\n=== RESUMO ===")
+          print(f"Limite por lote: {max_dispatches}")
           print(f"Disparados: {len(launched)}")
-          print(f"Pulados: {len(skipped)}")
+          print(f"Pulados/adiados: {len(skipped)}")
           print(f"Falhas: {len(failed)}")
+          if any("limite do lote" in reason for _, reason in skipped):
+              print(
+                  "Lote limitado para proteger a fila do GitHub Actions. "
+                  "Os demais workflows continuam disponíveis pelos seus crons "
+                  "ou podem ser iniciados manualmente em outro lote."
+              )
           if failed:
               print("\nFalhas:")
               for name, why in failed:
