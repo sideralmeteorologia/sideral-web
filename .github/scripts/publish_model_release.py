@@ -320,8 +320,18 @@ def run() -> int:
     artifacts_root = Path(get("SOURCE_ARTIFACTS_DIR", "model-artifacts")).resolve()
     files = collect(artifacts_root)
     if not files:
-        print("No final product files detected; no empty Release or raw branch will be created.")
-        return 0
+        raise RuntimeError(
+            f"No final product files found for {path or name}; refusing to report a successful Release."
+        )
+    json_products = [
+        logical for _, logical in files
+        if Path(logical).suffix.lower() in {".json", ".geojson"}
+    ]
+    if not json_products:
+        raise RuntimeError(
+            f"No JSON products found for {path or name}; refusing to publish a data-only Release."
+        )
+    print(f"Validated {len(json_products)} JSON product(s) among {len(files)} final files.")
 
     key = product_key(path, name)
     tag = f"sideral-data-{key}-latest"
