@@ -22,6 +22,21 @@ SOURCE_MAP = {
 
 def replace_embedded_scripts(text: str) -> tuple[str, list[str]]:
     changed: list[str] = []
+    replacements = (
+        (re.compile(r"timeout-minutes:\s*(?:355|350|360|480)", re.I),
+         "timeout-minutes: 330",
+         "operational timeout"),
+        (re.compile(r"retention-days:\s*7", re.I),
+         "retention-days: 1",
+         "intermediate artifact retention"),
+        (re.compile(r"if-no-files-found:\s*ignore", re.I),
+         "if-no-files-found: error",
+         "empty artifact policy"),
+    )
+    for pattern, replacement, label in replacements:
+        text, count = pattern.subn(replacement, text)
+        if count:
+            changed.append(f"{label}: {count} replacement(s)")
     for embedded, source_rel in SOURCE_MAP.items():
         resolved_source_rel = source_rel
         if embedded == "wrf/run_tarc_checkpoint_segment.sh" and "Sudeste" in text:

@@ -45,7 +45,7 @@ jobs:
   seg00:
     name: SIDERAL 4 KM wrf2 ecmwf F000-F003
     runs-on: ubuntu-22.04
-    timeout-minutes: 355
+    timeout-minutes: 330
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -230,13 +230,13 @@ jobs:
           name: wrf-sudeste-4km-wrf2-ecmwf-${{ github.job }}-${{ github.run_id }}
           path: |
             .wrf-artifact-safe/wrf-payload-001.tar
-          if-no-files-found: ignore
-          retention-days: 7
+          if-no-files-found: error
+          retention-days: 1
   seg01:
     name: SIDERAL 4 KM wrf2 ecmwf F003-F006
     runs-on: ubuntu-22.04
     needs: seg00
-    timeout-minutes: 355
+    timeout-minutes: 330
     steps:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
@@ -359,13 +359,13 @@ jobs:
           name: wrf-sudeste-4km-wrf2-ecmwf-${{ github.job }}-${{ github.run_id }}
           path: |
             .wrf-artifact-safe/wrf-payload-002.tar
-          if-no-files-found: ignore
-          retention-days: 7
+          if-no-files-found: error
+          retention-days: 1
   seg02:
     name: SIDERAL 4 KM wrf2 ecmwf F006-F009
     runs-on: ubuntu-22.04
     needs: seg01
-    timeout-minutes: 355
+    timeout-minutes: 330
     steps:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
@@ -488,13 +488,13 @@ jobs:
           name: wrf-sudeste-4km-wrf2-ecmwf-${{ github.job }}-${{ github.run_id }}
           path: |
             .wrf-artifact-safe/wrf-payload-002.tar
-          if-no-files-found: ignore
-          retention-days: 7
+          if-no-files-found: error
+          retention-days: 1
   seg03:
     name: SIDERAL 4 KM wrf2 ecmwf F009-F012
     runs-on: ubuntu-22.04
     needs: seg02
-    timeout-minutes: 355
+    timeout-minutes: 330
     steps:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
@@ -617,13 +617,13 @@ jobs:
           name: wrf-sudeste-4km-wrf2-ecmwf-${{ github.job }}-${{ github.run_id }}
           path: |
             .wrf-artifact-safe/wrf-payload-002.tar
-          if-no-files-found: ignore
-          retention-days: 7
+          if-no-files-found: error
+          retention-days: 1
   seg04:
     name: SIDERAL 4 KM wrf2 ecmwf F012-F015
     runs-on: ubuntu-22.04
     needs: seg03
-    timeout-minutes: 355
+    timeout-minutes: 330
     steps:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
@@ -746,13 +746,13 @@ jobs:
           name: wrf-sudeste-4km-wrf2-ecmwf-${{ github.job }}-${{ github.run_id }}
           path: |
             .wrf-artifact-safe/wrf-payload-002.tar
-          if-no-files-found: ignore
-          retention-days: 7
+          if-no-files-found: error
+          retention-days: 1
   seg05:
     name: SIDERAL 4 KM wrf2 ecmwf F015-F018
     runs-on: ubuntu-22.04
     needs: seg04
-    timeout-minutes: 355
+    timeout-minutes: 330
     steps:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
@@ -875,13 +875,13 @@ jobs:
           name: wrf-sudeste-4km-wrf2-ecmwf-${{ github.job }}-${{ github.run_id }}
           path: |
             .wrf-artifact-safe/wrf-payload-002.tar
-          if-no-files-found: ignore
-          retention-days: 7
+          if-no-files-found: error
+          retention-days: 1
   seg06:
     name: SIDERAL 4 KM wrf2 ecmwf F018-F021
     runs-on: ubuntu-22.04
     needs: seg05
-    timeout-minutes: 355
+    timeout-minutes: 330
     steps:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
@@ -1004,13 +1004,13 @@ jobs:
           name: wrf-sudeste-4km-wrf2-ecmwf-${{ github.job }}-${{ github.run_id }}
           path: |
             .wrf-artifact-safe/wrf-payload-002.tar
-          if-no-files-found: ignore
-          retention-days: 7
+          if-no-files-found: error
+          retention-days: 1
   seg07:
     name: SIDERAL 4 KM wrf2 ecmwf F021-F024
     runs-on: ubuntu-22.04
     needs: seg06
-    timeout-minutes: 355
+    timeout-minutes: 330
     steps:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
@@ -1133,13 +1133,13 @@ jobs:
           name: wrf-sudeste-4km-wrf2-ecmwf-${{ github.job }}-${{ github.run_id }}
           path: |
             .wrf-artifact-safe/wrf-payload-002.tar
-          if-no-files-found: ignore
-          retention-days: 7
+          if-no-files-found: error
+          retention-days: 1
   seg08:
     name: SIDERAL 4 KM wrf2 ecmwf F024-F027
     runs-on: ubuntu-22.04
     needs: seg07
-    timeout-minutes: 355
+    timeout-minutes: 330
     steps:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
@@ -1262,13 +1262,13 @@ jobs:
           name: wrf-sudeste-4km-wrf2-ecmwf-${{ github.job }}-${{ github.run_id }}
           path: |
             .wrf-artifact-safe/wrf-payload-002.tar
-          if-no-files-found: ignore
-          retention-days: 7
+          if-no-files-found: error
+          retention-days: 1
   seg09:
     name: SIDERAL 4 KM wrf2 ecmwf F027-F030
     runs-on: ubuntu-22.04
     needs: seg08
-    timeout-minutes: 355
+    timeout-minutes: 330
     steps:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
@@ -1391,13 +1391,13 @@ jobs:
           name: wrf-sudeste-4km-wrf2-ecmwf-${{ github.job }}-${{ github.run_id }}
           path: |
             .wrf-artifact-safe/wrf-payload-002.tar
-          if-no-files-found: ignore
-          retention-days: 7
+          if-no-files-found: error
+          retention-days: 1
   seg10:
     name: SIDERAL 4 KM wrf2 ecmwf F030-F033
     runs-on: ubuntu-22.04
     needs: seg09
-    timeout-minutes: 355
+    timeout-minutes: 330
     steps:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
@@ -1520,13 +1520,13 @@ jobs:
           name: wrf-sudeste-4km-wrf2-ecmwf-${{ github.job }}-${{ github.run_id }}
           path: |
             .wrf-artifact-safe/wrf-payload-002.tar
-          if-no-files-found: ignore
-          retention-days: 7
+          if-no-files-found: error
+          retention-days: 1
   seg11:
     name: SIDERAL 4 KM wrf2 ecmwf F033-F036
     runs-on: ubuntu-22.04
     needs: seg10
-    timeout-minutes: 355
+    timeout-minutes: 330
     steps:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
@@ -1649,13 +1649,13 @@ jobs:
           name: wrf-sudeste-4km-wrf2-ecmwf-${{ github.job }}-${{ github.run_id }}
           path: |
             .wrf-artifact-safe/wrf-payload-002.tar
-          if-no-files-found: ignore
-          retention-days: 7
+          if-no-files-found: error
+          retention-days: 1
   seg12:
     name: SIDERAL 4 KM wrf2 ecmwf F036-F039
     runs-on: ubuntu-22.04
     needs: seg11
-    timeout-minutes: 355
+    timeout-minutes: 330
     steps:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
@@ -1778,13 +1778,13 @@ jobs:
           name: wrf-sudeste-4km-wrf2-ecmwf-${{ github.job }}-${{ github.run_id }}
           path: |
             .wrf-artifact-safe/wrf-payload-002.tar
-          if-no-files-found: ignore
-          retention-days: 7
+          if-no-files-found: error
+          retention-days: 1
   seg13:
     name: SIDERAL 4 KM wrf2 ecmwf F039-F042
     runs-on: ubuntu-22.04
     needs: seg12
-    timeout-minutes: 355
+    timeout-minutes: 330
     steps:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
@@ -1907,13 +1907,13 @@ jobs:
           name: wrf-sudeste-4km-wrf2-ecmwf-${{ github.job }}-${{ github.run_id }}
           path: |
             .wrf-artifact-safe/wrf-payload-002.tar
-          if-no-files-found: ignore
-          retention-days: 7
+          if-no-files-found: error
+          retention-days: 1
   seg14:
     name: SIDERAL 4 KM wrf2 ecmwf F042-F045
     runs-on: ubuntu-22.04
     needs: seg13
-    timeout-minutes: 355
+    timeout-minutes: 330
     steps:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
@@ -2036,13 +2036,13 @@ jobs:
           name: wrf-sudeste-4km-wrf2-ecmwf-${{ github.job }}-${{ github.run_id }}
           path: |
             .wrf-artifact-safe/wrf-payload-002.tar
-          if-no-files-found: ignore
-          retention-days: 7
+          if-no-files-found: error
+          retention-days: 1
   seg15:
     name: SIDERAL 4 KM wrf2 ecmwf F045-F048
     runs-on: ubuntu-22.04
     needs: seg14
-    timeout-minutes: 355
+    timeout-minutes: 330
     steps:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
@@ -2165,13 +2165,13 @@ jobs:
           name: wrf-sudeste-4km-wrf2-ecmwf-${{ github.job }}-${{ github.run_id }}
           path: |
             .wrf-artifact-safe/wrf-payload-002.tar
-          if-no-files-found: ignore
-          retention-days: 7
+          if-no-files-found: error
+          retention-days: 1
   complete:
     name: WRF Sudeste ${{ env.RESOLUTION_KM }} km ${{ env.MODEL_VARIANT }} ${{ env.SOURCE_MODEL }} F000-F048 completo e pós-processado
     runs-on: ubuntu-22.04
     needs: [seg00, seg01, seg02, seg03, seg04, seg05, seg06, seg07, seg08, seg09, seg10, seg11, seg12, seg13, seg14, seg15]
-    timeout-minutes: 355
+    timeout-minutes: 330
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4

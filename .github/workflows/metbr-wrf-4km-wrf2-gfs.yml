@@ -27,7 +27,7 @@ jobs:
   seg00:
     name: METBR GFS F000-F001
     runs-on: ubuntu-22.04
-    timeout-minutes: 355
+    timeout-minutes: 330
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -134,11 +134,11 @@ jobs:
           path: |
             .wrf-artifact-safe/wrf-payload-001.tar
           if-no-files-found: error
-          retention-days: 7
+          retention-days: 1
   seg01:
     name: METBR GFS F001-F002
     runs-on: ubuntu-22.04
-    timeout-minutes: 355
+    timeout-minutes: 330
     needs: seg00
     steps:
       - name: Checkout repository
@@ -223,11 +223,11 @@ jobs:
           path: |
             .wrf-artifact-safe/wrf-payload-002.tar
           if-no-files-found: error
-          retention-days: 7
+          retention-days: 1
   seg02:
     name: METBR GFS F002-F003
     runs-on: ubuntu-22.04
-    timeout-minutes: 355
+    timeout-minutes: 330
     needs: seg01
     steps:
       - name: Checkout repository
@@ -312,11 +312,11 @@ jobs:
           path: |
             .wrf-artifact-safe/wrf-payload-003.tar
           if-no-files-found: error
-          retention-days: 7
+          retention-days: 1
   seg03:
     name: METBR GFS F003-F004
     runs-on: ubuntu-22.04
-    timeout-minutes: 355
+    timeout-minutes: 330
     needs: seg02
     steps:
       - name: Checkout repository
@@ -401,11 +401,11 @@ jobs:
           path: |
             .wrf-artifact-safe/wrf-payload-004.tar
           if-no-files-found: error
-          retention-days: 7
+          retention-days: 1
   seg04:
     name: METBR GFS F004-F005
     runs-on: ubuntu-22.04
-    timeout-minutes: 355
+    timeout-minutes: 330
     needs: seg03
     steps:
       - name: Checkout repository
@@ -490,11 +490,11 @@ jobs:
           path: |
             .wrf-artifact-safe/wrf-payload-005.tar
           if-no-files-found: error
-          retention-days: 7
+          retention-days: 1
   seg05:
     name: METBR GFS F005-F006
     runs-on: ubuntu-22.04
-    timeout-minutes: 355
+    timeout-minutes: 330
     needs: seg04
     steps:
       - name: Checkout repository
@@ -579,11 +579,11 @@ jobs:
           path: |
             .wrf-artifact-safe/wrf-payload-006.tar
           if-no-files-found: error
-          retention-days: 7
+          retention-days: 1
   seg06:
     name: METBR GFS F006-F007
     runs-on: ubuntu-22.04
-    timeout-minutes: 355
+    timeout-minutes: 330
     needs: seg05
     steps:
       - name: Checkout repository
@@ -668,11 +668,11 @@ jobs:
           path: |
             .wrf-artifact-safe/wrf-payload-007.tar
           if-no-files-found: error
-          retention-days: 7
+          retention-days: 1
   seg07:
     name: METBR GFS F007-F008
     runs-on: ubuntu-22.04
-    timeout-minutes: 355
+    timeout-minutes: 330
     needs: seg06
     steps:
       - name: Checkout repository
@@ -757,11 +757,11 @@ jobs:
           path: |
             .wrf-artifact-safe/wrf-payload-008.tar
           if-no-files-found: error
-          retention-days: 7
+          retention-days: 1
   seg08:
     name: METBR GFS F008-F009
     runs-on: ubuntu-22.04
-    timeout-minutes: 355
+    timeout-minutes: 330
     needs: seg07
     steps:
       - name: Checkout repository
@@ -846,11 +846,11 @@ jobs:
           path: |
             .wrf-artifact-safe/wrf-payload-009.tar
           if-no-files-found: error
-          retention-days: 7
+          retention-days: 1
   seg09:
     name: METBR GFS F009-F010
     runs-on: ubuntu-22.04
-    timeout-minutes: 355
+    timeout-minutes: 330
     needs: seg08
     steps:
       - name: Checkout repository
@@ -935,11 +935,11 @@ jobs:
           path: |
             .wrf-artifact-safe/wrf-payload-010.tar
           if-no-files-found: error
-          retention-days: 7
+          retention-days: 1
   seg10:
     name: METBR GFS F010-F011
     runs-on: ubuntu-22.04
-    timeout-minutes: 355
+    timeout-minutes: 330
     needs: seg09
     steps:
       - name: Checkout repository
@@ -1024,11 +1024,11 @@ jobs:
           path: |
             .wrf-artifact-safe/wrf-payload-011.tar
           if-no-files-found: error
-          retention-days: 7
+          retention-days: 1
   seg11:
     name: METBR GFS F011-F012
     runs-on: ubuntu-22.04
-    timeout-minutes: 355
+    timeout-minutes: 330
     needs: seg10
     steps:
       - name: Checkout repository
@@ -1113,11 +1113,11 @@ jobs:
           path: |
             .wrf-artifact-safe/wrf-payload-012.tar
           if-no-files-found: error
-          retention-days: 7
+          retention-days: 1
   seg12:
     name: METBR GFS F012-F013
     runs-on: ubuntu-22.04
-    timeout-minutes: 355
+    timeout-minutes: 330
     needs: seg11
     steps:
       - name: Checkout repository
@@ -1202,11 +1202,11 @@ jobs:
           path: |
             .wrf-artifact-safe/wrf-payload-013.tar
           if-no-files-found: error
-          retention-days: 7
+          retention-days: 1
   seg13:
     name: METBR GFS F013-F014
     runs-on: ubuntu-22.04
-    timeout-minutes: 355
+    timeout-minutes: 330
     needs: seg12
     steps:
       - name: Checkout repository
@@ -1291,11 +1291,11 @@ jobs:
           path: |
             .wrf-artifact-safe/wrf-payload-014.tar
           if-no-files-found: error
-          retention-days: 7
+          retention-days: 1
   seg14:
     name: METBR GFS F014-F015
     runs-on: ubuntu-22.04
-    timeout-minutes: 355
+    timeout-minutes: 330
     needs: seg13
     steps:
       - name: Checkout repository
@@ -1380,11 +1380,11 @@ jobs:
           path: |
             .wrf-artifact-safe/wrf-payload-015.tar
           if-no-files-found: error
-          retention-days: 7
+          retention-days: 1
   seg15:
     name: METBR GFS F015-F016
     runs-on: ubuntu-22.04
-    timeout-minutes: 355
+    timeout-minutes: 330
     needs: seg14
     steps:
       - name: Checkout repository
@@ -1469,11 +1469,11 @@ jobs:
           path: |
             .wrf-artifact-safe/wrf-payload-016.tar
           if-no-files-found: error
-          retention-days: 7
+          retention-days: 1
   seg16:
     name: METBR GFS F016-F017
     runs-on: ubuntu-22.04
-    timeout-minutes: 355
+    timeout-minutes: 330
     needs: seg15
     steps:
       - name: Checkout repository
@@ -1558,11 +1558,11 @@ jobs:
           path: |
             .wrf-artifact-safe/wrf-payload-017.tar
           if-no-files-found: error
-          retention-days: 7
+          retention-days: 1
   seg17:
     name: METBR GFS F017-F018
     runs-on: ubuntu-22.04
-    timeout-minutes: 355
+    timeout-minutes: 330
     needs: seg16
     steps:
       - name: Checkout repository
@@ -1647,11 +1647,11 @@ jobs:
           path: |
             .wrf-artifact-safe/wrf-payload-018.tar
           if-no-files-found: error
-          retention-days: 7
+          retention-days: 1
   seg18:
     name: METBR GFS F018-F019
     runs-on: ubuntu-22.04
-    timeout-minutes: 355
+    timeout-minutes: 330
     needs: seg17
     steps:
       - name: Checkout repository
@@ -1736,11 +1736,11 @@ jobs:
           path: |
             .wrf-artifact-safe/wrf-payload-019.tar
           if-no-files-found: error
-          retention-days: 7
+          retention-days: 1
   seg19:
     name: METBR GFS F019-F020
     runs-on: ubuntu-22.04
-    timeout-minutes: 355
+    timeout-minutes: 330
     needs: seg18
     steps:
       - name: Checkout repository
@@ -1825,11 +1825,11 @@ jobs:
           path: |
             .wrf-artifact-safe/wrf-payload-020.tar
           if-no-files-found: error
-          retention-days: 7
+          retention-days: 1
   seg20:
     name: METBR GFS F020-F021
     runs-on: ubuntu-22.04
-    timeout-minutes: 355
+    timeout-minutes: 330
     needs: seg19
     steps:
       - name: Checkout repository
@@ -1914,11 +1914,11 @@ jobs:
           path: |
             .wrf-artifact-safe/wrf-payload-021.tar
           if-no-files-found: error
-          retention-days: 7
+          retention-days: 1
   seg21:
     name: METBR GFS F021-F022
     runs-on: ubuntu-22.04
-    timeout-minutes: 355
+    timeout-minutes: 330
     needs: seg20
     steps:
       - name: Checkout repository
@@ -2003,11 +2003,11 @@ jobs:
           path: |
             .wrf-artifact-safe/wrf-payload-022.tar
           if-no-files-found: error
-          retention-days: 7
+          retention-days: 1
   seg22:
     name: METBR GFS F022-F023
     runs-on: ubuntu-22.04
-    timeout-minutes: 355
+    timeout-minutes: 330
     needs: seg21
     steps:
       - name: Checkout repository
@@ -2092,11 +2092,11 @@ jobs:
           path: |
             .wrf-artifact-safe/wrf-payload-023.tar
           if-no-files-found: error
-          retention-days: 7
+          retention-days: 1
   seg23:
     name: METBR GFS F023-F024
     runs-on: ubuntu-22.04
-    timeout-minutes: 355
+    timeout-minutes: 330
     needs: seg22
     steps:
       - name: Checkout repository
@@ -2181,11 +2181,11 @@ jobs:
           path: |
             .wrf-artifact-safe/wrf-payload-024.tar
           if-no-files-found: error
-          retention-days: 7
+          retention-days: 1
   seg24:
     name: METBR GFS F024-F025
     runs-on: ubuntu-22.04
-    timeout-minutes: 355
+    timeout-minutes: 330
     needs: seg23
     steps:
       - name: Checkout repository
@@ -2270,11 +2270,11 @@ jobs:
           path: |
             .wrf-artifact-safe/wrf-payload-025.tar
           if-no-files-found: error
-          retention-days: 7
+          retention-days: 1
   seg25:
     name: METBR GFS F025-F026
     runs-on: ubuntu-22.04
-    timeout-minutes: 355
+    timeout-minutes: 330
     needs: seg24
     steps:
       - name: Checkout repository
@@ -2359,11 +2359,11 @@ jobs:
           path: |
             .wrf-artifact-safe/wrf-payload-026.tar
           if-no-files-found: error
-          retention-days: 7
+          retention-days: 1
   seg26:
     name: METBR GFS F026-F027
     runs-on: ubuntu-22.04
-    timeout-minutes: 355
+    timeout-minutes: 330
     needs: seg25
     steps:
       - name: Checkout repository
@@ -2448,11 +2448,11 @@ jobs:
           path: |
             .wrf-artifact-safe/wrf-payload-027.tar
           if-no-files-found: error
-          retention-days: 7
+          retention-days: 1
   seg27:
     name: METBR GFS F027-F028
     runs-on: ubuntu-22.04
-    timeout-minutes: 355
+    timeout-minutes: 330
     needs: seg26
     steps:
       - name: Checkout repository
@@ -2537,11 +2537,11 @@ jobs:
           path: |
             .wrf-artifact-safe/wrf-payload-028.tar
           if-no-files-found: error
-          retention-days: 7
+          retention-days: 1
   seg28:
     name: METBR GFS F028-F029
     runs-on: ubuntu-22.04
-    timeout-minutes: 355
+    timeout-minutes: 330
     needs: seg27
     steps:
       - name: Checkout repository
@@ -2626,11 +2626,11 @@ jobs:
           path: |
             .wrf-artifact-safe/wrf-payload-029.tar
           if-no-files-found: error
-          retention-days: 7
+          retention-days: 1
   seg29:
     name: METBR GFS F029-F030
     runs-on: ubuntu-22.04
-    timeout-minutes: 355
+    timeout-minutes: 330
     needs: seg28
     steps:
       - name: Checkout repository
@@ -2715,11 +2715,11 @@ jobs:
           path: |
             .wrf-artifact-safe/wrf-payload-030.tar
           if-no-files-found: error
-          retention-days: 7
+          retention-days: 1
   seg30:
     name: METBR GFS F030-F031
     runs-on: ubuntu-22.04
-    timeout-minutes: 355
+    timeout-minutes: 330
     needs: seg29
     steps:
       - name: Checkout repository
@@ -2804,11 +2804,11 @@ jobs:
           path: |
             .wrf-artifact-safe/wrf-payload-031.tar
           if-no-files-found: error
-          retention-days: 7
+          retention-days: 1
   seg31:
     name: METBR GFS F031-F032
     runs-on: ubuntu-22.04
-    timeout-minutes: 355
+    timeout-minutes: 330
     needs: seg30
     steps:
       - name: Checkout repository
@@ -2893,11 +2893,11 @@ jobs:
           path: |
             .wrf-artifact-safe/wrf-payload-032.tar
           if-no-files-found: error
-          retention-days: 7
+          retention-days: 1
   seg32:
     name: METBR GFS F032-F033
     runs-on: ubuntu-22.04
-    timeout-minutes: 355
+    timeout-minutes: 330
     needs: seg31
     steps:
       - name: Checkout repository
@@ -2982,11 +2982,11 @@ jobs:
           path: |
             .wrf-artifact-safe/wrf-payload-033.tar
           if-no-files-found: error
-          retention-days: 7
+          retention-days: 1
   seg33:
     name: METBR GFS F033-F034
     runs-on: ubuntu-22.04
-    timeout-minutes: 355
+    timeout-minutes: 330
     needs: seg32
     steps:
       - name: Checkout repository
@@ -3071,11 +3071,11 @@ jobs:
           path: |
             .wrf-artifact-safe/wrf-payload-034.tar
           if-no-files-found: error
-          retention-days: 7
+          retention-days: 1
   seg34:
     name: METBR GFS F034-F035
     runs-on: ubuntu-22.04
-    timeout-minutes: 355
+    timeout-minutes: 330
     needs: seg33
     steps:
       - name: Checkout repository
@@ -3160,11 +3160,11 @@ jobs:
           path: |
             .wrf-artifact-safe/wrf-payload-035.tar
           if-no-files-found: error
-          retention-days: 7
+          retention-days: 1
   seg35:
     name: METBR GFS F035-F036
     runs-on: ubuntu-22.04
-    timeout-minutes: 355
+    timeout-minutes: 330
     needs: seg34
     steps:
       - name: Checkout repository
@@ -3249,11 +3249,11 @@ jobs:
           path: |
             .wrf-artifact-safe/wrf-payload-036.tar
           if-no-files-found: error
-          retention-days: 7
+          retention-days: 1
   seg36:
     name: METBR GFS F036-F037
     runs-on: ubuntu-22.04
-    timeout-minutes: 355
+    timeout-minutes: 330
     needs: seg35
     steps:
       - name: Checkout repository
@@ -3338,11 +3338,11 @@ jobs:
           path: |
             .wrf-artifact-safe/wrf-payload-037.tar
           if-no-files-found: error
-          retention-days: 7
+          retention-days: 1
   seg37:
     name: METBR GFS F037-F038
     runs-on: ubuntu-22.04
-    timeout-minutes: 355
+    timeout-minutes: 330
     needs: seg36
     steps:
       - name: Checkout repository
@@ -3427,11 +3427,11 @@ jobs:
           path: |
             .wrf-artifact-safe/wrf-payload-038.tar
           if-no-files-found: error
-          retention-days: 7
+          retention-days: 1
   seg38:
     name: METBR GFS F038-F039
     runs-on: ubuntu-22.04
-    timeout-minutes: 355
+    timeout-minutes: 330
     needs: seg37
     steps:
       - name: Checkout repository
@@ -3516,11 +3516,11 @@ jobs:
           path: |
             .wrf-artifact-safe/wrf-payload-039.tar
           if-no-files-found: error
-          retention-days: 7
+          retention-days: 1
   seg39:
     name: METBR GFS F039-F040
     runs-on: ubuntu-22.04
-    timeout-minutes: 355
+    timeout-minutes: 330
     needs: seg38
     steps:
       - name: Checkout repository
@@ -3605,11 +3605,11 @@ jobs:
           path: |
             .wrf-artifact-safe/wrf-payload-040.tar
           if-no-files-found: error
-          retention-days: 7
+          retention-days: 1
   seg40:
     name: METBR GFS F040-F041
     runs-on: ubuntu-22.04
-    timeout-minutes: 355
+    timeout-minutes: 330
     needs: seg39
     steps:
       - name: Checkout repository
@@ -3694,11 +3694,11 @@ jobs:
           path: |
             .wrf-artifact-safe/wrf-payload-041.tar
           if-no-files-found: error
-          retention-days: 7
+          retention-days: 1
   seg41:
     name: METBR GFS F041-F042
     runs-on: ubuntu-22.04
-    timeout-minutes: 355
+    timeout-minutes: 330
     needs: seg40
     steps:
       - name: Checkout repository
@@ -3783,7 +3783,7 @@ jobs:
           path: |
             .wrf-artifact-safe/wrf-payload-042.tar
           if-no-files-found: error
-          retention-days: 7
+          retention-days: 1
   complete:
     name: Extrair e validar METBR WRF 4 km
     runs-on: ubuntu-22.04

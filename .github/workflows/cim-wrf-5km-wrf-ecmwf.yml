@@ -54,7 +54,7 @@ jobs:
   seg00:
     name: CIM WRF 5 km ${{ 'wrf' == 'wrf2' && 'WRF2' || 'principal' }} · F000-F003
     runs-on: ubuntu-22.04
-    timeout-minutes: 350
+    timeout-minutes: 330
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -213,8 +213,8 @@ jobs:
           name: cim5-diagnostics-seg00-${{ github.run_id }}
           path: |
             .wrf-artifact-safe/wrf-payload-001.tar
-          if-no-files-found: ignore
-          retention-days: 7
+          if-no-files-found: error
+          retention-days: 1
       - name: Bundle WRF artifact safely (2)
         shell: bash
         env:
@@ -238,12 +238,12 @@ jobs:
           name: wrf-cim5-wrf-ecmwf-${{ github.job }}-${{ github.run_id }}
           path: |
             .wrf-artifact-safe/wrf-payload-002.tar
-          if-no-files-found: ignore
-          retention-days: 7
+          if-no-files-found: error
+          retention-days: 1
   seg01:
     name: CIM WRF 5 km ${{ 'wrf' == 'wrf2' && 'WRF2' || 'principal' }} · F003-F006
     runs-on: ubuntu-22.04
-    timeout-minutes: 350
+    timeout-minutes: 330
     needs: seg00
     steps:
       - name: Restaurar checkpoint do segmento anterior
@@ -364,8 +364,8 @@ jobs:
           name: cim5-diagnostics-seg01-${{ github.run_id }}
           path: |
             .wrf-artifact-safe/wrf-payload-003.tar
-          if-no-files-found: ignore
-          retention-days: 7
+          if-no-files-found: error
+          retention-days: 1
       - name: Bundle WRF artifact safely (4)
         shell: bash
         env:
@@ -389,12 +389,12 @@ jobs:
           name: wrf-cim5-wrf-ecmwf-${{ github.job }}-${{ github.run_id }}
           path: |
             .wrf-artifact-safe/wrf-payload-004.tar
-          if-no-files-found: ignore
-          retention-days: 7
+          if-no-files-found: error
+          retention-days: 1
   seg02:
     name: CIM WRF 5 km ${{ 'wrf' == 'wrf2' && 'WRF2' || 'principal' }} · F006-F009
     runs-on: ubuntu-22.04
-    timeout-minutes: 350
+    timeout-minutes: 330
     needs: seg01
     steps:
       - name: Restaurar checkpoint do segmento anterior
@@ -515,8 +515,8 @@ jobs:
           name: cim5-diagnostics-seg02-${{ github.run_id }}
           path: |
             .wrf-artifact-safe/wrf-payload-005.tar
-          if-no-files-found: ignore
-          retention-days: 7
+          if-no-files-found: error
+          retention-days: 1
       - name: Bundle WRF artifact safely (6)
         shell: bash
         env:
@@ -540,12 +540,12 @@ jobs:
           name: wrf-cim5-wrf-ecmwf-${{ github.job }}-${{ github.run_id }}
           path: |
             .wrf-artifact-safe/wrf-payload-006.tar
-          if-no-files-found: ignore
-          retention-days: 7
+          if-no-files-found: error
+          retention-days: 1
   seg03:
     name: CIM WRF 5 km ${{ 'wrf' == 'wrf2' && 'WRF2' || 'principal' }} · F009-F012
     runs-on: ubuntu-22.04
-    timeout-minutes: 350
+    timeout-minutes: 330
     needs: seg02
     steps:
       - name: Restaurar checkpoint do segmento anterior
@@ -666,8 +666,8 @@ jobs:
           name: cim5-diagnostics-seg03-${{ github.run_id }}
           path: |
             .wrf-artifact-safe/wrf-payload-007.tar
-          if-no-files-found: ignore
-          retention-days: 7
+          if-no-files-found: error
+          retention-days: 1
       - name: Bundle WRF artifact safely (8)
         shell: bash
         env:
@@ -691,12 +691,12 @@ jobs:
           name: wrf-cim5-wrf-ecmwf-${{ github.job }}-${{ github.run_id }}
           path: |
             .wrf-artifact-safe/wrf-payload-008.tar
-          if-no-files-found: ignore
-          retention-days: 7
+          if-no-files-found: error
+          retention-days: 1
   seg04:
     name: CIM WRF 5 km ${{ 'wrf' == 'wrf2' && 'WRF2' || 'principal' }} · F012-F015
     runs-on: ubuntu-22.04
-    timeout-minutes: 350
+    timeout-minutes: 330
     needs: seg03
     steps:
       - name: Restaurar checkpoint do segmento anterior
@@ -817,8 +817,8 @@ jobs:
           name: cim5-diagnostics-seg04-${{ github.run_id }}
           path: |
             .wrf-artifact-safe/wrf-payload-009.tar
-          if-no-files-found: ignore
-          retention-days: 7
+          if-no-files-found: error
+          retention-days: 1
       - name: Bundle WRF artifact safely (10)
         shell: bash
         env:
@@ -842,12 +842,12 @@ jobs:
           name: wrf-cim5-wrf-ecmwf-${{ github.job }}-${{ github.run_id }}
           path: |
             .wrf-artifact-safe/wrf-payload-010.tar
-          if-no-files-found: ignore
-          retention-days: 7
+          if-no-files-found: error
+          retention-days: 1
   seg05:
     name: CIM WRF 5 km ${{ 'wrf' == 'wrf2' && 'WRF2' || 'principal' }} · F015-F018
     runs-on: ubuntu-22.04
-    timeout-minutes: 350
+    timeout-minutes: 330
     needs: seg04
     steps:
       - name: Restaurar checkpoint do segmento anterior
@@ -968,8 +968,8 @@ jobs:
           name: cim5-diagnostics-seg05-${{ github.run_id }}
           path: |
             .wrf-artifact-safe/wrf-payload-011.tar
-          if-no-files-found: ignore
-          retention-days: 7
+          if-no-files-found: error
+          retention-days: 1
       - name: Bundle WRF artifact safely (12)
         shell: bash
         env:
@@ -993,12 +993,12 @@ jobs:
           name: wrf-cim5-wrf-ecmwf-${{ github.job }}-${{ github.run_id }}
           path: |
             .wrf-artifact-safe/wrf-payload-012.tar
-          if-no-files-found: ignore
-          retention-days: 7
+          if-no-files-found: error
+          retention-days: 1
   seg06:
     name: CIM WRF 5 km ${{ 'wrf' == 'wrf2' && 'WRF2' || 'principal' }} · F018-F021
     runs-on: ubuntu-22.04
-    timeout-minutes: 350
+    timeout-minutes: 330
     needs: seg05
     steps:
       - name: Restaurar checkpoint do segmento anterior
@@ -1119,8 +1119,8 @@ jobs:
           name: cim5-diagnostics-seg06-${{ github.run_id }}
           path: |
             .wrf-artifact-safe/wrf-payload-013.tar
-          if-no-files-found: ignore
-          retention-days: 7
+          if-no-files-found: error
+          retention-days: 1
       - name: Bundle WRF artifact safely (14)
         shell: bash
         env:
@@ -1144,12 +1144,12 @@ jobs:
           name: wrf-cim5-wrf-ecmwf-${{ github.job }}-${{ github.run_id }}
           path: |
             .wrf-artifact-safe/wrf-payload-014.tar
-          if-no-files-found: ignore
-          retention-days: 7
+          if-no-files-found: error
+          retention-days: 1
   seg07:
     name: CIM WRF 5 km ${{ 'wrf' == 'wrf2' && 'WRF2' || 'principal' }} · F021-F024
     runs-on: ubuntu-22.04
-    timeout-minutes: 350
+    timeout-minutes: 330
     needs: seg06
     steps:
       - name: Restaurar checkpoint do segmento anterior
@@ -1270,8 +1270,8 @@ jobs:
           name: cim5-diagnostics-seg07-${{ github.run_id }}
           path: |
             .wrf-artifact-safe/wrf-payload-015.tar
-          if-no-files-found: ignore
-          retention-days: 7
+          if-no-files-found: error
+          retention-days: 1
       - name: Bundle WRF artifact safely (16)
         shell: bash
         env:
@@ -1295,12 +1295,12 @@ jobs:
           name: wrf-cim5-wrf-ecmwf-${{ github.job }}-${{ github.run_id }}
           path: |
             .wrf-artifact-safe/wrf-payload-016.tar
-          if-no-files-found: ignore
-          retention-days: 7
+          if-no-files-found: error
+          retention-days: 1
   seg08:
     name: CIM WRF 5 km ${{ 'wrf' == 'wrf2' && 'WRF2' || 'principal' }} · F024-F027
     runs-on: ubuntu-22.04
-    timeout-minutes: 350
+    timeout-minutes: 330
     needs: seg07
     steps:
       - name: Restaurar checkpoint do segmento anterior
@@ -1421,8 +1421,8 @@ jobs:
           name: cim5-diagnostics-seg08-${{ github.run_id }}
           path: |
             .wrf-artifact-safe/wrf-payload-017.tar
-          if-no-files-found: ignore
-          retention-days: 7
+          if-no-files-found: error
+          retention-days: 1
       - name: Bundle WRF artifact safely (18)
         shell: bash
         env:
@@ -1446,12 +1446,12 @@ jobs:
           name: wrf-cim5-wrf-ecmwf-${{ github.job }}-${{ github.run_id }}
           path: |
             .wrf-artifact-safe/wrf-payload-018.tar
-          if-no-files-found: ignore
-          retention-days: 7
+          if-no-files-found: error
+          retention-days: 1
   seg09:
     name: CIM WRF 5 km ${{ 'wrf' == 'wrf2' && 'WRF2' || 'principal' }} · F027-F030
     runs-on: ubuntu-22.04
-    timeout-minutes: 350
+    timeout-minutes: 330
     needs: seg08
     steps:
       - name: Restaurar checkpoint do segmento anterior
@@ -1572,8 +1572,8 @@ jobs:
           name: cim5-diagnostics-seg09-${{ github.run_id }}
           path: |
             .wrf-artifact-safe/wrf-payload-019.tar
-          if-no-files-found: ignore
-          retention-days: 7
+          if-no-files-found: error
+          retention-days: 1
       - name: Bundle WRF artifact safely (20)
         shell: bash
         env:
@@ -1597,12 +1597,12 @@ jobs:
           name: wrf-cim5-wrf-ecmwf-${{ github.job }}-${{ github.run_id }}
           path: |
             .wrf-artifact-safe/wrf-payload-020.tar
-          if-no-files-found: ignore
-          retention-days: 7
+          if-no-files-found: error
+          retention-days: 1
   seg10:
     name: CIM WRF 5 km ${{ 'wrf' == 'wrf2' && 'WRF2' || 'principal' }} · F030-F033
     runs-on: ubuntu-22.04
-    timeout-minutes: 350
+    timeout-minutes: 330
     needs: seg09
     steps:
       - name: Restaurar checkpoint do segmento anterior
@@ -1723,8 +1723,8 @@ jobs:
           name: cim5-diagnostics-seg10-${{ github.run_id }}
           path: |
             .wrf-artifact-safe/wrf-payload-021.tar
-          if-no-files-found: ignore
-          retention-days: 7
+          if-no-files-found: error
+          retention-days: 1
       - name: Bundle WRF artifact safely (22)
         shell: bash
         env:
@@ -1748,12 +1748,12 @@ jobs:
           name: wrf-cim5-wrf-ecmwf-${{ github.job }}-${{ github.run_id }}
           path: |
             .wrf-artifact-safe/wrf-payload-022.tar
-          if-no-files-found: ignore
-          retention-days: 7
+          if-no-files-found: error
+          retention-days: 1
   seg11:
     name: CIM WRF 5 km ${{ 'wrf' == 'wrf2' && 'WRF2' || 'principal' }} · F033-F036
     runs-on: ubuntu-22.04
-    timeout-minutes: 350
+    timeout-minutes: 330
     needs: seg10
     steps:
       - name: Restaurar checkpoint do segmento anterior
@@ -1874,8 +1874,8 @@ jobs:
           name: cim5-diagnostics-seg11-${{ github.run_id }}
           path: |
             .wrf-artifact-safe/wrf-payload-023.tar
-          if-no-files-found: ignore
-          retention-days: 7
+          if-no-files-found: error
+          retention-days: 1
       - name: Bundle WRF artifact safely (24)
         shell: bash
         env:
@@ -1899,12 +1899,12 @@ jobs:
           name: wrf-cim5-wrf-ecmwf-${{ github.job }}-${{ github.run_id }}
           path: |
             .wrf-artifact-safe/wrf-payload-024.tar
-          if-no-files-found: ignore
-          retention-days: 7
+          if-no-files-found: error
+          retention-days: 1
   seg12:
     name: CIM WRF 5 km ${{ 'wrf' == 'wrf2' && 'WRF2' || 'principal' }} · F036-F039
     runs-on: ubuntu-22.04
-    timeout-minutes: 350
+    timeout-minutes: 330
     needs: seg11
     steps:
       - name: Restaurar checkpoint do segmento anterior
@@ -2025,8 +2025,8 @@ jobs:
           name: cim5-diagnostics-seg12-${{ github.run_id }}
           path: |
             .wrf-artifact-safe/wrf-payload-025.tar
-          if-no-files-found: ignore
-          retention-days: 7
+          if-no-files-found: error
+          retention-days: 1
       - name: Bundle WRF artifact safely (26)
         shell: bash
         env:
@@ -2050,12 +2050,12 @@ jobs:
           name: wrf-cim5-wrf-ecmwf-${{ github.job }}-${{ github.run_id }}
           path: |
             .wrf-artifact-safe/wrf-payload-026.tar
-          if-no-files-found: ignore
-          retention-days: 7
+          if-no-files-found: error
+          retention-days: 1
   seg13:
     name: CIM WRF 5 km ${{ 'wrf' == 'wrf2' && 'WRF2' || 'principal' }} · F039-F042
     runs-on: ubuntu-22.04
-    timeout-minutes: 350
+    timeout-minutes: 330
     needs: seg12
     steps:
       - name: Restaurar checkpoint do segmento anterior
@@ -2176,8 +2176,8 @@ jobs:
           name: cim5-diagnostics-seg13-${{ github.run_id }}
           path: |
             .wrf-artifact-safe/wrf-payload-027.tar
-          if-no-files-found: ignore
-          retention-days: 7
+          if-no-files-found: error
+          retention-days: 1
       - name: Bundle WRF artifact safely (28)
         shell: bash
         env:
@@ -2201,8 +2201,8 @@ jobs:
           name: wrf-cim5-wrf-ecmwf-${{ github.job }}-${{ github.run_id }}
           path: |
             .wrf-artifact-safe/wrf-payload-028.tar
-          if-no-files-found: ignore
-          retention-days: 7
+          if-no-files-found: error
+          retention-days: 1
   verify:
     name: Validar os 14 segmentos CIM 5 km e a Release
     runs-on: ubuntu-22.04

@@ -41,7 +41,7 @@ jobs:
     name: CBR GFS F000-F003
     runs-on: ubuntu-22.04
     
-    timeout-minutes: 355
+    timeout-minutes: 330
     steps:
       - name: Checkout CBR
         uses: actions/checkout@v4
@@ -172,14 +172,14 @@ jobs:
           name: wrf-cbr4-wrf-gfs-${{ github.job }}-${{ github.run_id }}
           path: |
             .wrf-artifact-safe/wrf-payload-001.tar
-          if-no-files-found: ignore
-          retention-days: 7
+          if-no-files-found: error
+          retention-days: 1
   seg01:
     name: CBR GFS F003-F006
     runs-on: ubuntu-22.04
     needs: seg00
     
-    timeout-minutes: 355
+    timeout-minutes: 330
     steps:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
@@ -300,13 +300,13 @@ jobs:
           name: wrf-cbr4-wrf-gfs-${{ github.job }}-${{ github.run_id }}
           path: |
             .wrf-artifact-safe/wrf-payload-002.tar
-          if-no-files-found: ignore
-          retention-days: 7
+          if-no-files-found: error
+          retention-days: 1
   seg02:
     name: CBR GFS F006-F009
     runs-on: ubuntu-22.04
     needs: seg01
-    timeout-minutes: 355
+    timeout-minutes: 330
     steps:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
@@ -420,13 +420,13 @@ jobs:
           name: wrf-cbr4-wrf-gfs-${{ github.job }}-${{ github.run_id }}
           path: |
             .wrf-artifact-safe/wrf-payload-003.tar
-          if-no-files-found: ignore
-          retention-days: 7
+          if-no-files-found: error
+          retention-days: 1
   seg03:
     name: CBR GFS F009-F012
     runs-on: ubuntu-22.04
     needs: seg02
-    timeout-minutes: 355
+    timeout-minutes: 330
     steps:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
@@ -540,13 +540,13 @@ jobs:
           name: wrf-cbr4-wrf-gfs-${{ github.job }}-${{ github.run_id }}
           path: |
             .wrf-artifact-safe/wrf-payload-004.tar
-          if-no-files-found: ignore
-          retention-days: 7
+          if-no-files-found: error
+          retention-days: 1
   seg04:
     name: CBR GFS F012-F015
     runs-on: ubuntu-22.04
     needs: seg03
-    timeout-minutes: 355
+    timeout-minutes: 330
     steps:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
@@ -660,13 +660,13 @@ jobs:
           name: wrf-cbr4-wrf-gfs-${{ github.job }}-${{ github.run_id }}
           path: |
             .wrf-artifact-safe/wrf-payload-005.tar
-          if-no-files-found: ignore
-          retention-days: 7
+          if-no-files-found: error
+          retention-days: 1
   seg05:
     name: CBR GFS F015-F018
     runs-on: ubuntu-22.04
     needs: seg04
-    timeout-minutes: 355
+    timeout-minutes: 330
     steps:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
@@ -780,13 +780,13 @@ jobs:
           name: wrf-cbr4-wrf-gfs-${{ github.job }}-${{ github.run_id }}
           path: |
             .wrf-artifact-safe/wrf-payload-006.tar
-          if-no-files-found: ignore
-          retention-days: 7
+          if-no-files-found: error
+          retention-days: 1
   seg06:
     name: CBR GFS F018-F021
     runs-on: ubuntu-22.04
     needs: seg05
-    timeout-minutes: 355
+    timeout-minutes: 330
     steps:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
@@ -900,13 +900,13 @@ jobs:
           name: wrf-cbr4-wrf-gfs-${{ github.job }}-${{ github.run_id }}
           path: |
             .wrf-artifact-safe/wrf-payload-007.tar
-          if-no-files-found: ignore
-          retention-days: 7
+          if-no-files-found: error
+          retention-days: 1
   seg07:
     name: CBR GFS F021-F024
     runs-on: ubuntu-22.04
     needs: seg06
-    timeout-minutes: 355
+    timeout-minutes: 330
     steps:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
@@ -1020,13 +1020,13 @@ jobs:
           name: wrf-cbr4-wrf-gfs-${{ github.job }}-${{ github.run_id }}
           path: |
             .wrf-artifact-safe/wrf-payload-008.tar
-          if-no-files-found: ignore
-          retention-days: 7
+          if-no-files-found: error
+          retention-days: 1
   seg08:
     name: CBR GFS F024-F027
     runs-on: ubuntu-22.04
     needs: seg07
-    timeout-minutes: 355
+    timeout-minutes: 330
     steps:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
@@ -1140,13 +1140,13 @@ jobs:
           name: wrf-cbr4-wrf-gfs-${{ github.job }}-${{ github.run_id }}
           path: |
             .wrf-artifact-safe/wrf-payload-009.tar
-          if-no-files-found: ignore
-          retention-days: 7
+          if-no-files-found: error
+          retention-days: 1
   seg09:
     name: CBR GFS F027-F030
     runs-on: ubuntu-22.04
     needs: seg08
-    timeout-minutes: 355
+    timeout-minutes: 330
     steps:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
@@ -1260,13 +1260,13 @@ jobs:
           name: wrf-cbr4-wrf-gfs-${{ github.job }}-${{ github.run_id }}
           path: |
             .wrf-artifact-safe/wrf-payload-010.tar
-          if-no-files-found: ignore
-          retention-days: 7
+          if-no-files-found: error
+          retention-days: 1
   seg10:
     name: CBR GFS F030-F033
     runs-on: ubuntu-22.04
     needs: seg09
-    timeout-minutes: 355
+    timeout-minutes: 330
     steps:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
@@ -1380,13 +1380,13 @@ jobs:
           name: wrf-cbr4-wrf-gfs-${{ github.job }}-${{ github.run_id }}
           path: |
             .wrf-artifact-safe/wrf-payload-011.tar
-          if-no-files-found: ignore
-          retention-days: 7
+          if-no-files-found: error
+          retention-days: 1
   seg11:
     name: CBR GFS F033-F036
     runs-on: ubuntu-22.04
     needs: seg10
-    timeout-minutes: 355
+    timeout-minutes: 330
     steps:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
@@ -1500,13 +1500,13 @@ jobs:
           name: wrf-cbr4-wrf-gfs-${{ github.job }}-${{ github.run_id }}
           path: |
             .wrf-artifact-safe/wrf-payload-012.tar
-          if-no-files-found: ignore
-          retention-days: 7
+          if-no-files-found: error
+          retention-days: 1
   seg12:
     name: CBR GFS F036-F039
     runs-on: ubuntu-22.04
     needs: seg11
-    timeout-minutes: 355
+    timeout-minutes: 330
     steps:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
@@ -1620,13 +1620,13 @@ jobs:
           name: wrf-cbr4-wrf-gfs-${{ github.job }}-${{ github.run_id }}
           path: |
             .wrf-artifact-safe/wrf-payload-013.tar
-          if-no-files-found: ignore
-          retention-days: 7
+          if-no-files-found: error
+          retention-days: 1
   seg13:
     name: CBR GFS F039-F042
     runs-on: ubuntu-22.04
     needs: seg12
-    timeout-minutes: 355
+    timeout-minutes: 330
     steps:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
@@ -1740,8 +1740,8 @@ jobs:
           name: wrf-cbr4-wrf-gfs-${{ github.job }}-${{ github.run_id }}
           path: |
             .wrf-artifact-safe/wrf-payload-014.tar
-          if-no-files-found: ignore
-          retention-days: 7
+          if-no-files-found: error
+          retention-days: 1
   complete:
     name: Reunir os 14 segmentos CBR 4 km e publicar Release
     runs-on: ubuntu-22.04
