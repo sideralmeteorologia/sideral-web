@@ -2116,10 +2116,14 @@ jobs:
           set -euo pipefail
           rm -rf tarc_all_wrfout tarc_products tarc_severe
           mkdir -p tarc_all_wrfout
-          mapfile -t files < <(find tarc_segment_artifacts -type f -name 'tarc-wrfout-*' -size +0c -print | sort)
-          (("${#files[@]}" >= 49)) || { echo "Sudeste: esperados ao menos 49 WRFOUTs de segmentos; encontrados ${#files[@]}" >&2; exit 3; }
+          mapfile -t files < <(find tarc_segment_artifacts -type f \\( -name 'wrfout_d01_*' -o -name 'tarc-wrfout-*' \\) -size +0c -print | sort)
+          (("${#files[@]}" >= 49)) || { echo "Sudeste: esperados ao menos 49 WRFOUTs dos 16 artifacts; encontrados ${#files[@]}" >&2; exit 3; }
           for f in "${files[@]}"; do
-            name="$(basename "$f" | sed -E 's/^tarc-wrfout-[0-9]+-//; s/_([0-9]{2})[.]([0-9]{2})[.]([0-9]{2})$/_\1:\2:\3/')"
+            name="${f##*/}"
+            if [[ "$name" == tarc-wrfout-* ]]; then
+              name="$(printf '%s' "$name" | sed -E 's/^tarc-wrfout-[0-9]+-//')"
+            fi
+            name="$(printf '%s' "$name" | sed -E 's/_([0-9]{2})[.]([0-9]{2})[.]([0-9]{2})$/_\\1:\\2:\\3/')"
             [[ "$name" == wrfout_d01_* ]] || { echo "Nome WRFOUT inválido no artifact: $f" >&2; exit 4; }
             cp -f "$f" "tarc_all_wrfout/$name"
           done
@@ -2131,32 +2135,6 @@ jobs:
           source tarc-run.env
           export SOURCE_MODEL
           echo "Sudeste: 16 segmentos restaurados, 49 WRFOUTs horários prontos para pós-processamento."
-: script não executável após chmod: $f" >&2; exit 1; }
-            bash -n "$f"
-          done
-          shellcheck -S error -s bash "${scripts[@]}"
-      - name: Baixar WRFOUT da rodada completa
-        env:
-          CHECKPOINT_TAG: sideral-wrf-5km-wrf-sudeste-checkpoint-${{ github.run_id }}
-          SOURCE_MODEL: icon
-          WRF_NO_FALLBACK: '1'
-        run: |
-          set -euo pipefail
-          rm -rf tarc_all_wrfout tarc_raw_wrfout tarc_products tarc_severe
-          mkdir -p tarc_all_wrfout
-          : # artifact-only workflow
-          mkdir -p tarc_raw_wrfout
-          : # artifact-only workflow
-          for f in tarc_raw_wrfout/tarc-wrfout-*; do
-            [[ -f "$f" ]] || continue
-            n="$(basename "$f" | sed -E 's/^tarc-wrfout-[0-9]+-//; s/_([0-9]{2})[.]([0-9]{2})[.]([0-9]{2})$/_\1:\2:\3/')"
-            mv -f "$f" "tarc_all_wrfout/$n"
-          done
-          : # artifact-only workflow
-          test -n "$(find tarc_all_wrfout -maxdepth 1 -type f -name 'wrfout_d01_*' -size +0c -print -quit)"
-          test -s tarc-run.env
-          source tarc-run.env
-          export SOURCE_MODEL
       - name: Instalar dependências
         run: |
           python -m pip install --upgrade pip
