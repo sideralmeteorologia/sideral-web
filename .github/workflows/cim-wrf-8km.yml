@@ -493,6 +493,7 @@ jobs:
           SOURCE_REPOSITORY: ${{ github.repository }}
           SOURCE_WORKFLOW_PATH: .github/workflows/cim-wrf-8km.yml
           SOURCE_WORKFLOW_NAME: ${{ github.workflow }}
+          SOURCE_MODEL: ${{ matrix.model }}
           SOURCE_COMMIT_SHA: ${{ github.sha }}
           SOURCE_RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
           SOURCE_BRANCH: ${{ github.ref_name }}
