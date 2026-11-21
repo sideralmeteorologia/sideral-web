@@ -2180,26 +2180,70 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-      - name: Verificar arquivos do ciclo no R2
+      - name: Baixar artifacts dos 14 segmentos CIM 5 km
+        uses: actions/download-artifact@v4
+        with:
+          pattern: wrf-cim5-${{ env.MODEL_VARIANT }}-${{ env.SOURCE_MODEL }}-seg??-${{ github.run_id }}
+          path: ${{ runner.temp }}/cim5-segment-downloads
+          merge-multiple: false
+      - name: Restaurar payloads dos segmentos CIM 5 km
+        shell: bash
         env:
-          CHECKPOINT_TAG: cim-${{ 'wrf' }}-5km-checkpoint-${{ github.run_id }}
+          CIM5_SEGMENT_DOWNLOADS: ${{ runner.temp }}/cim5-segment-downloads
+        run: |
+          set -euo pipefail
+          shopt -s nullglob
+          dirs=("$CIM5_SEGMENT_DOWNLOADS"/*)
+          (("${#dirs[@]}" == 14)) || { echo "CIM 5 km: esperados 14 artifacts de segmentos; encontrados ${#dirs[@]}" >&2; exit 31; }
+          for dir in "${dirs[@]}"; do
+            [[ -d "$dir" ]] || continue
+            printf '%s\n' 'cim5_segment_artifacts' > "$dir/.restore-to"
+          done
+          python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
+            --downloads-root "$CIM5_SEGMENT_DOWNLOADS" \
+            --workspace "$GITHUB_WORKSPACE"
+      - name: Reunir e validar JSON/NPZ nativos dos 14 segmentos CIM 5 km
         shell: bash
         run: |
           set -euo pipefail
-          command -v aws >/dev/null || { sudo apt-get update -qq && sudo apt-get install -y awscli; }
-          : # artifact-only workflow
-          : # artifact-only workflow
-          : # artifact-only workflow
-          : # artifact-only workflow
           python3 - <<'PY'
-          import json
+          import json, re, shutil
           from pathlib import Path
-          items=json.loads(Path('r2-objects.json').read_text()).get('Contents',[])
-          npz=sum(x['Key'].endswith('.npz') for x in items)
-          wrfout=sum('/wrfout_d01_' in x['Key'] or x['Key'].endswith('.nc') for x in items)
-          if npz < 41 or wrfout < 5:
-              raise SystemExit(f'Checkpoint CIM 5 km incompleto no R2: NPZ={npz}; WRFOUT={wrfout}')
-          print(f'Checkpoint CIM 5 km validado no R2: NPZ={npz}; WRFOUT={wrfout}')
+
+          root = Path("cim5_segment_artifacts")
+          target = Path("cim5_release_products")
+          if target.exists():
+              shutil.rmtree(target)
+          target.mkdir(parents=True)
+          metadata = sorted(root.rglob("cim4-products-*.json"))
+          if len(metadata) != 14:
+              raise SystemExit(f"CIM 5 km: esperados 14 JSONs de segmento; encontrados {len(metadata)}")
+          seen = set()
+          total_npz = 0
+          for meta in metadata:
+              match = re.fullmatch(r"cim4-products-(\d+)\.json", meta.name)
+              if not match:
+                  raise SystemExit(f"Nome de metadados CIM inválido: {meta}")
+              index = match.group(1)
+              if index in seen:
+                  raise SystemExit(f"Segmento CIM duplicado: {index}")
+              seen.add(index)
+              product_dir = meta.parent / f"cim4_products_{index}"
+              if not product_dir.is_dir():
+                  raise SystemExit(f"Diretório de produtos ausente para o segmento CIM {index}")
+              product_npz = list(product_dir.rglob("*.npz"))
+              if not product_npz:
+                  raise SystemExit(f"Segmento CIM {index} não contém NPZ")
+              data = json.loads(meta.read_text(encoding="utf-8"))
+              if not isinstance(data, dict) or not data:
+                  raise SystemExit(f"JSON CIM vazio ou inválido: {meta}")
+              shutil.copytree(product_dir, target / product_dir.name)
+              shutil.copy2(meta, target / meta.name)
+              total_npz += len(product_npz)
+          if len(seen) != 14 or total_npz < 14:
+              raise SystemExit(f"CIM 5 km incompleto: segmentos={len(seen)}; NPZ={total_npz}")
+          shutil.rmtree(root)
+          print(f"CIM 5 km: 14 segmentos validados; {len(metadata)} JSONs e {total_npz} NPZs prontos para Release.")
           PY
       - name: Bundle WRF artifact safely (29)
         shell: bash
