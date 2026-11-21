@@ -5152,9 +5152,6 @@ jobs:
     name: TARC 3 KM F000-F048 completo e pós-processado
     runs-on: ubuntu-22.04
     needs: [seg00, seg01, seg02, seg03, seg04, seg05, seg06, seg07, seg08, seg09, seg10, seg11, seg12, seg13, seg14, seg15, seg16, seg17, seg18, seg19, seg20, seg21, seg22, seg23, seg24, seg25, seg26, seg27, seg28, seg29, seg30, seg31, seg32, seg33, seg34, seg35, seg36, seg37, seg38, seg39, seg40, seg41, seg42, seg43, seg44, seg45, seg46, seg47]
-    outputs:
-      release_tag: ${{ steps.publish_release.outputs.tag }}
-      release_url: ${{ steps.publish_release.outputs.url }}
     timeout-minutes: 55
     steps:
       - name: Checkout repository
@@ -5287,99 +5284,51 @@ jobs:
           print('TARC severo:', s['frameCount'], 'frames')
           print('Status severo:', s['status'])
           PY
-      - name: Publicar produtos no GitHub Release
-        id: publish_release
-        env:
-          GH_TOKEN: ${{ github.token }}
+      - name: Preparar produtos TARC para o publicador comum
         shell: bash
         run: |
           set -euo pipefail
+          root="$RUNNER_TEMP/model-artifacts/wrf-final-tarc3-${MODEL_VARIANT}-${SOURCE_MODEL}-${GITHUB_RUN_ID}"
+          rm -rf "$root"
+          mkdir -p "$root"
+          cp -a tarc_products "$root/tarc_products"
+          cp -a tarc_severe "$root/tarc_severe"
           source tarc-run.env
-          tar -czf tarc-products-3km.tar.gz -C tarc_products .
-          tar -czf tarc-severe-3km.tar.gz -C tarc_severe .
-          test -s tarc-products-3km.tar.gz
-          test -s tarc-severe-3km.tar.gz
-          test -s tarc_products/metadata.json
-          test -s tarc_products/variable_catalog.json
-          test -s tarc_severe/metadata.json
-          test -s tarc_severe/diagnostics.json
-          cp tarc_products/metadata.json tarc-products-metadata.json
-          cp tarc_products/variable_catalog.json tarc-variable-catalog.json
-          cp tarc_severe/metadata.json tarc-severe-metadata.json
-          cp tarc_severe/diagnostics.json tarc-severe-diagnostics.json
-          cycle_tag="$(printf '%s-%s' "${RUN_DATE:-unknown}" "${RUN_CYCLE:-unknown}" | tr -cs '[:alnum:]._-' '-')"
-          tag="sideral-tarc3-${MODEL_VARIANT}-${SOURCE_MODEL}-${cycle_tag}-run-${GITHUB_RUN_ID}-attempt-${GITHUB_RUN_ATTEMPT}"
-          title="SIDERAL | TARC WRF 3 km | ${MODEL_VARIANT^^} | ${SOURCE_MODEL^^}"
-          cat > release-notes.md <<EOF
-          ## TARC WRF 3 km
-
-          Previsão e diagnósticos severos publicados como GitHub Release.
-
-          - Variante: ${MODEL_VARIANT^^}
-          - Fonte: ${SOURCE_MODEL^^}
-          - Ciclo UTC: ${RUN_DATE:-desconhecida} ${RUN_CYCLE:-?}Z
-          - Execução: ${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}
-          - Commit: ${GITHUB_SHA}
-
-          Arquivos:
-          - `tarc-products-3km.tar.gz`: todos os produtos principais.
-          - `tarc-severe-3km.tar.gz`: todos os diagnósticos severos.
-          - Metadados JSON e catálogo de variáveis anexados individualmente.
-          EOF
-          gh release create "$tag" \
-            --repo "$GITHUB_REPOSITORY" \
-            --title "$title" \
-            --notes-file release-notes.md \
-            --target "$GITHUB_SHA" \
-            tarc-products-3km.tar.gz \
-            tarc-severe-3km.tar.gz \
-            tarc-products-metadata.json \
-            tarc-variable-catalog.json \
-            tarc-severe-metadata.json \
-            tarc-severe-diagnostics.json
-          url="$(gh release view "$tag" --repo "$GITHUB_REPOSITORY" --json url --jq .url)"
-          printf 'tag=%s\nurl=%s\n' "$tag" "$url" >> "$GITHUB_OUTPUT"
-  register-run:
-    name: Registrar metadados da rodada no GitHub Release
-    runs-on: ubuntu-22.04
-    needs: complete
-    steps:
-      - name: Anexar manifesto legível ao Release
+          export RUN_DATE RUN_CYCLE
+          ROOT="$root" python3 - <<'PY'
+          import json, os
+          from pathlib import Path
+          p = Path(os.environ["ROOT"]) / "tarc-run.json"
+          p.write_text(json.dumps({
+              "model": "TARC WRF 3 km",
+              "variant": os.environ.get("MODEL_VARIANT", "wrf"),
+              "source_model": os.environ.get("SOURCE_MODEL", "icon"),
+              "run_date": os.environ.get("RUN_DATE"),
+              "run_cycle": os.environ.get("RUN_CYCLE"),
+              "run_id": int(os.environ["GITHUB_RUN_ID"]),
+              "commit": os.environ["GITHUB_SHA"],
+              "workflow": os.environ.get("GITHUB_WORKFLOW", ""),
+              "run_url": os.environ["GITHUB_SERVER_URL"] + "/" + os.environ["GITHUB_REPOSITORY"] + "/actions/runs/" + os.environ["GITHUB_RUN_ID"],
+          }, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+          PY
+          test -s "$root/tarc_products/metadata.json"
+          test -s "$root/tarc_products/variable_catalog.json"
+          test -s "$root/tarc_severe/metadata.json"
+          test -s "$root/tarc_severe/diagnostics.json"
+      - name: Publicar Release e espelho raw navegável TARC
         env:
           GH_TOKEN: ${{ github.token }}
-          RELEASE_TAG: ${{ needs.complete.outputs.release_tag }}
-          RELEASE_URL: ${{ needs.complete.outputs.release_url }}
-          RUN_ID: ${{ github.run_id }}
-          RUN_NUMBER: ${{ github.run_number }}
-          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
-          COMMIT_SHA: ${{ github.sha }}
-          WORKFLOW_NAME: ${{ github.workflow }}
-          MODEL_VARIANT: ${{ env.MODEL_VARIANT }}
-          SOURCE_MODEL: ${{ env.SOURCE_MODEL }}
+          SOURCE_RUN_ID: ${{ github.run_id }}
+          SOURCE_REPOSITORY: ${{ github.repository }}
+          SOURCE_WORKFLOW_PATH: .github/workflows/tarc-wrf-3km-wrf-icon.yml
+          SOURCE_WORKFLOW_NAME: ${{ github.workflow }}
+          SOURCE_COMMIT_SHA: ${{ github.sha }}
+          SOURCE_RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          SOURCE_BRANCH: ${{ github.ref_name }}
+          SOURCE_ARTIFACTS_DIR: ${{ runner.temp }}/model-artifacts
+          RELEASE_ASSETS_DIR: ${{ runner.temp }}/release-assets
         shell: bash
         run: |
           set -euo pipefail
-          test -n "$RELEASE_TAG"
-          test -n "$RELEASE_URL"
-          python3 - <<'PY'
-          import datetime, json, os
-          payload = {
-              "model": "TARC WRF 3 km",
-              "model_variant": os.environ["MODEL_VARIANT"],
-              "source_model": os.environ["SOURCE_MODEL"],
-              "run_id": int(os.environ["RUN_ID"]),
-              "run_number": int(os.environ["RUN_NUMBER"]),
-              "workflow": os.environ["WORKFLOW_NAME"],
-              "commit": os.environ["COMMIT_SHA"],
-              "workflow_run_url": os.environ["RUN_URL"],
-              "release_url": os.environ["RELEASE_URL"],
-              "registered_at_utc": datetime.datetime.now(datetime.timezone.utc).isoformat(),
-              "publication": "github-release",
-          }
-          with open("tarc-run.json", "w", encoding="utf-8") as f:
-              json.dump(payload, f, ensure_ascii=False, indent=2)
-              f.write("\n")
-          PY
-          gh release upload "$RELEASE_TAG" tarc-run.json \
-            --repo "$GITHUB_REPOSITORY" \
-            --clobber
+          export SOURCE_COMPLETED_AT="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+          python3 .github/scripts/publish_model_release.py publish
