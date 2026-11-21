@@ -34,6 +34,11 @@ env:
   WRF_REF_LAT: -23.0
   WRF_REF_LON: -45.5
   WRF_STAND_LON: -45.5
+  # ECMWF input box padded around the full Sudeste Lambert grid (4/5 km).
+  ECMWF_SOURCE_WEST: '-58'
+  ECMWF_SOURCE_EAST: '-32'
+  ECMWF_SOURCE_SOUTH: '-38'
+  ECMWF_SOURCE_NORTH: '-8'
 
 jobs:
 
