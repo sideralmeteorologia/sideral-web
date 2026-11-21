@@ -642,6 +642,8 @@ jobs:
       contents: write
       actions: read
     steps:
+      - name: Checkout repository (scripts e publicador compartilhado)
+        uses: actions/checkout@v4
       - name: Reconstruir publicador NWP embutido
         shell: bash
         run: |
