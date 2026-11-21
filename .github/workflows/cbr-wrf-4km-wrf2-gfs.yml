@@ -1726,38 +1726,71 @@ jobs:
       - name: Instalar dependências dos extratores
         run: |
           python3 -m pip install --disable-pip-version-check 'numpy>=1.24,<3' 'netCDF4>=1.6,<2' 'xarray>=2024.1,<2027' 'scipy>=1.11,<2'
-      - name: Baixar WRFOUTs do checkpoint R2
+      - name: Baixar artifacts dos 14 segmentos CBR
+        uses: actions/download-artifact@v4
+        with:
+          pattern: wrf-cbr4-${{ env.MODEL_VARIANT }}-${{ env.SOURCE_MODEL }}-seg??-${{ github.run_id }}
+          path: ${{ runner.temp }}/cbr-segment-downloads
+          merge-multiple: false
+      - name: Restaurar payloads de produtos CBR dos segmentos
+        shell: bash
         env:
-          CHECKPOINT_TAG: cbr-${{ env.MODEL_VARIANT }}-4km-checkpoint-${{ github.run_id }}
+          CBR_SEGMENT_DOWNLOADS: ${{ runner.temp }}/cbr-segment-downloads
+        run: |
+          set -euo pipefail
+          shopt -s nullglob
+          dirs=("$CBR_SEGMENT_DOWNLOADS"/*)
+          (("${#dirs[@]}" == 14)) || { echo "CBR: esperados 14 artifacts de segmentos; encontrados ${#dirs[@]}" >&2; exit 31; }
+          for dir in "${dirs[@]}"; do
+            [[ -d "$dir" ]] || continue
+            printf '%s\n' 'cbr_segment_artifacts' > "$dir/.restore-to"
+          done
+          python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
+            --downloads-root "$CBR_SEGMENT_DOWNLOADS" \
+            --workspace "$GITHUB_WORKSPACE"
+      - name: Reunir e validar JSON/NPZ nativos dos 14 segmentos CBR
         shell: bash
         run: |
           set -euo pipefail
-          : # artifact-only workflow
-          : # artifact-only workflow
-          : # artifact-only workflow
-          mkdir -p cbr_raw_wrfout cbr_all_wrfout
-          : # artifact-only workflow
-          for f in cbr_raw_wrfout/cbr-wrfout-*; do
-            [[ -f "$f" ]] || continue
-            n="$(basename "$f" | sed -E 's/^cbr-wrfout-[0-9]+-//; s/_([0-9]{2})[.]([0-9]{2})[.]([0-9]{2})$/_\1:\2:\3/')"
-            mv -f "$f" "cbr_all_wrfout/$n"
-          done
-          test "$(find cbr_all_wrfout -maxdepth 1 -type f -name 'wrfout_d01_*' -size +0c | wc -l)" -ge 15
-          : # artifact-only workflow
-      - name: Gerar produtos meteorológicos compactos
-        run: |
-          set -euo pipefail
-          python3 wrf/cbr_extract_json.py --run-dir cbr_all_wrfout --output-dir cbr_json --run-env cbr-run.env --catalog wrf/cbr_variable_catalog.json --expected-start 0 --expected-end 42
-          test -s cbr_json/metadata.json
-      - name: Validar e publicar produtos no R2
-        env:
-          CHECKPOINT_TAG: cbr-${{ env.MODEL_VARIANT }}-4km-checkpoint-${{ github.run_id }}
-        run: |
-          set -euo pipefail
-          test -s cbr_json/metadata.json
-          : # artifact-only workflow
-          : # artifact-only workflow
-          : # artifact-only workflow
+          python3 - <<'PY'
+          import json, re, shutil
+          from pathlib import Path
+
+          root = Path("cbr_segment_artifacts")
+          target = Path("cbr_release_products")
+          if target.exists():
+              shutil.rmtree(target)
+          target.mkdir(parents=True)
+          metadata = sorted(root.rglob("cbr-products-*.json"))
+          if len(metadata) != 14:
+              raise SystemExit(f"CBR: esperados 14 JSONs de segmento; encontrados {len(metadata)}")
+          seen = set()
+          total_npz = 0
+          for meta in metadata:
+              match = re.fullmatch(r"cbr-products-(\d+)\.json", meta.name)
+              if not match:
+                  raise SystemExit(f"Nome de metadados CBR inválido: {meta}")
+              index = match.group(1)
+              if index in seen:
+                  raise SystemExit(f"Segmento CBR duplicado: {index}")
+              seen.add(index)
+              product_dir = meta.parent / f"cbr_products_{index}"
+              if not product_dir.is_dir():
+                  raise SystemExit(f"Diretório de produtos ausente para o segmento CBR {index}")
+              product_npz = list(product_dir.rglob("*.npz"))
+              if not product_npz:
+                  raise SystemExit(f"Segmento CBR {index} não contém NPZ")
+              data = json.loads(meta.read_text(encoding="utf-8"))
+              if not isinstance(data, dict) or not data:
+                  raise SystemExit(f"JSON CBR vazio ou inválido: {meta}")
+              shutil.copytree(product_dir, target / product_dir.name)
+              shutil.copy2(meta, target / meta.name)
+              total_npz += len(product_npz)
+          if len(seen) != 14 or total_npz < 14:
+              raise SystemExit(f"CBR incompleto: segmentos={len(seen)}; NPZ={total_npz}")
+          shutil.rmtree(root)
+          print(f"CBR: 14 segmentos validados; {len(metadata)} JSONs e {total_npz} NPZs prontos para Release.")
+          PY
       - name: Bundle WRF artifact safely (15)
         shell: bash
         env:
