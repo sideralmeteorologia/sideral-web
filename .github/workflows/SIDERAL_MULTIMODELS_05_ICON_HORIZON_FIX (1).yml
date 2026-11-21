@@ -135,7 +135,7 @@ jobs:
             --raw-dir data/raw \
             --output-dir output
 
-      - name: Publicar artefato multimodelo
+      - name: Enviar produtos ao publicador de Release (Artifact intermediário)
         uses: actions/upload-artifact@v4
         with:
           name: sideral-multimodels-05-${{ github.run_id }}
