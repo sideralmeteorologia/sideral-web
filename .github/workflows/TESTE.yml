@@ -69,8 +69,16 @@ jobs:
           spec.loader.exec_module(module)
 
           assert module.supported(".github/workflows/cbr-wrf-4km-wrf-ecmwf.yml", "CBR WRF ECMWF")
+          assert module.supported(".github/workflows/metbr-wrf-4km-wrf-ecmwf.yml", "METBR WRF ECMWF")
+          assert module.supported(".github/workflows/tarc-wrf-3km-wrf-ecmwf.yml", "TARC WRF ECMWF")
           assert module.supported(".github/workflows/sideral-global-nwp-artifact.yml", "SIDERAL GLOBAL NWP")
           assert module.supported(".github/workflows/SIDERAL_MULTIMODELS_05_ICON_HORIZON_FIX (1).yml", "SIDERAL MULTIMODELS")
+          assert module.central_supported(".github/workflows/cbr-wrf-4km-wrf-ecmwf.yml", "CBR WRF ECMWF")
+          assert module.central_supported(".github/workflows/sideral-global-nwp-artifact.yml", "SIDERAL GLOBAL NWP")
+          assert module.central_supported(".github/workflows/SIDERAL_MULTIMODELS_05_ICON_HORIZON_FIX (1).yml", "SIDERAL MULTIMODELS")
+          assert not module.central_supported(".github/workflows/metbr-wrf-4km-wrf-ecmwf.yml", "METBR WRF ECMWF")
+          assert not module.central_supported(".github/workflows/tarc-wrf-3km-wrf-ecmwf.yml", "TARC WRF ECMWF")
+          assert not module.central_supported(".github/workflows/wrf-launchpad.yml", "WRF Launchpad")
 
           with tempfile.TemporaryDirectory() as temp:
               root = Path(temp)
@@ -164,14 +172,17 @@ jobs:
 
           publisher = load("publish-model-releases.yml")
           publisher_if = str(publisher["jobs"]["publish"].get("if", ""))
-          assert "workflow_run.conclusion == 'success'" not in publisher_if, (
+          assert "workflow_run.conclusion" not in publisher_if, (
               "Final valid products must still be mirrored when another model in the run fails."
           )
-          assert "github.event.workflow.path" in publisher_if, (
-              "The release publisher must filter source workflow paths and avoid recursion."
+          assert "github.event.workflow.path" not in publisher_if, (
+              "workflow.path is not part of the workflow_run webhook payload; source paths are resolved via the Actions API."
           )
-          assert "global-nwp" in publisher_if and "MULTIMODELS" in publisher_if and "wrf" in publisher_if, (
-              "The release publisher must cover all WRF, Global NWP and Multimodel workflows."
+          assert "workflow_run.head_branch == 'main'" in publisher_if, (
+              "The central publisher must only process runs from the main branch."
+          )
+          assert "workflow_run.head_repository.full_name == github.repository" in publisher_if, (
+              "The central publisher must only process runs from this repository."
           )
 
           print(
