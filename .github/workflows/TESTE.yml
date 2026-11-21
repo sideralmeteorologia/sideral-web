@@ -172,7 +172,7 @@ jobs:
 
           publisher = load("publish-model-releases.yml")
           publisher_trigger = publisher["on"].get("workflow_run", {})
-          assert publisher_trigger.get("workflows") == ["*"], (
+          assert publisher_trigger.get("workflows") == ["*", "!SIDERAL | Publicar modelos, multimodelos e NWP"], (
               "The central Release publisher must listen to all completed workflows."
           )
           assert publisher_trigger.get("types") == ["completed"], (
