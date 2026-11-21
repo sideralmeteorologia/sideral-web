@@ -57,11 +57,10 @@ jobs:
       - name: Restore WRF runtime files from runners catalog
         shell: bash
         run: python3 .github/scripts/restore_wrf_runtime.py
-      - name: Embed Sudeste executors and R2 adapter
+      - name: Embed Sudeste executors and GitHub artifact helper
         shell: bash
         run: |
           set -euo pipefail
-          command -v aws >/dev/null || { sudo apt-get update -qq && sudo apt-get install -y awscli; }
           mkdir -p "$(dirname 'wrf/run_tarc_checkpoint_segment.sh')"
           printf '%s' 'IyEvdXNyL2Jpbi9lbnYgYmFzaApzZXQgLWV1byBwaXBlZmFpbAoKU1RBUlRfSE9VUj0iJDEiCkVORF9IT1VSPSIkMiIKU0VHTUVOVF9JTkRFWD0iJDMiCkNPTERfU1RBUlQ9IiQ0IgpTRUdNRU5UX1NUQVJURURfQVQ9IiQoZGF0ZSArJXMpIgoKOiAiJEdIX1RPS0VOIgo6ICIkQ0hFQ0tQT0lOVF9UQUciCjogIiRHSVRIVUJfUkVQT1NJVE9SWSIKClJPT1Q9IiRHSVRIVUJfV09SS1NQQUNFIgpJTlBVVD0iJFJPT1QvdGFyY19yZXN0YXJ0X2lucHV0Igpta2RpciAtcCAiJElOUFVUIgoKKCggU1RBUlRfSE9VUiA+PSAwICYmIEVORF9IT1VSID4gU1RBUlRfSE9VUiAmJiBTVEFSVF9IT1VSICUgMyA9PSAwICYmIEVORF9IT1VSICUgMyA9PSAwICYmIEVORF9IT1VSIDw9IDQ4ICkpIHx8IHsKICBlY2hvICJGMDAwLUYwNDggVEFSQzogaW50ZXJ2YWxvIGludmFsaWRvIiA+JjIKICBleGl0IDEKfQpjYXNlICIkQ09MRF9TVEFSVCIgaW4gMHwxKSA7OyAqKSBlY2hvICJDT0xEX1NUQVJUIGRldmUgc2VyIDEgbm8gRjAwMCIgPiYyOyBleGl0IDEgOzsgZXNhYwoKc291cmNlICIkUk9PVC93cmYvZW5zdXJlX2VjY29kZXNfdG9vbHMuc2giCmZvciB0b29sIGluIGdyaWJfc2V0IGdyaWJfY29weSBncmliX2NvdW50OyBkbwogIGNvbW1hbmQgLXYgIiR0b29sIiA+L2Rldi9udWxsIHx8IHsgZWNobyAiZWNDb2Rlcy8kdG9vbCBpbmRpc3Bvbml2ZWwiID4mMjsgZXhpdCAxMDsgfQpkb25lCgpjaG1vZCAreCB3cmYvcnVuX3RhcmNfY2hlY2twb2ludF9zZWdtZW50LnNoIHdyZi9ydW5fdGFyY19pY29uX3dyZi5zaCB3cmYvcnVuX3RhcmNfZWNtd2Zfd3JmLnNoIHdyZi9ydW5fdGFyY19nZnNfd3JmLnNoIHdyZi9ydW5fdGFyY193cmZfd2l0aF9zb3VyY2Uuc2ggd3JmL3J1bl90YXJjX3Jlc3RhcnRfc2VnbWVudC5zaAoKZXhwb3J0IFdSRl9UQVJHRVRfUkVTT0xVVElPTl9LTT0iJHtXUkZfVEFSR0VUX1JFU09MVVRJT05fS006LTN9IgpleHBvcnQgV1JGX0RYX01FVEVSUz0iJHtXUkZfRFhfTUVURVJTOi0zMDAwfSIgV1JGX0RZX01FVEVSUz0iJHtXUkZfRFlfTUVURVJTOi0ke1dSRl9EWF9NRVRFUlM6LTMwMDB9fSIKZXhwb3J0IFdSRl9FX1dFPSIke1dSRl9FX1dFOi0zNjF9IiBXUkZfRV9TTj0iJHtXUkZfRV9TTjotNDQ1fSIKZXhwb3J0IFdSRl9ISVNUT1JZX0lOVEVSVkFMX01JTlVURVM9IiR7V1JGX0hJU1RPUllfSU5URVJWQUxfTUlOVVRFUzotNjB9IgpleHBvcnQgV1JGX1RJTUVfU1RFUD0iJHtXUkZfVElNRV9TVEVQOi0xOH0iCmV4cG9ydCBXUkZfTVBJX1BST0NTPSIke1dSRl9NUElfUFJPQ1M6LTR9IgpleHBvcnQgV1JGX0JPVU5EQVJZX0VORF9IT1VSPSIkRU5EX0hPVVIiCmV4cG9ydCBXUkZfUkVGX0xBVD0iJHtXUkZfUkVGX0xBVDotLTI4LjB9IiBXUkZfUkVGX0xPTj0iJHtXUkZfUkVGX0xPTjotLTUzLjV9IiBXUkZfU1RBTkRfTE9OPSIke1dSRl9TVEFORF9MT046LS01My41fSIKZXhwb3J0IFdSRl9SVU5fSE9VUlM9JCgoRU5EX0hPVVItU1RBUlRfSE9VUikpCmV4cG9ydCBXUkZfU1RBUlRfSE9VUj0iJFNUQVJUX0hPVVIiIFdSRl9FTkRfSE9VUj0iJEVORF9IT1VSIgoKCnByZXBhcmVfc291cmNlKCkgewogIGxvY2FsIGJvdW5kYXJ5X29ubHk9IiR7MTo/SW5mb3JtZSAwIHBhcmEgY29sZCBzdGFydCwgMSBwYXJhIExCQyBkZSByZXN0YXJ0fSIKICBsb2NhbCBtb2RlbD0iJHtTT1VSQ0VfTU9ERUw6LWljb259IgogIGxvY2FsIHJ1bm5lciByYwoKICBjYXNlICIkbW9kZWwiIGluCiAgICBpY29uKSBydW5uZXI9IndyZi9ydW5fdGFyY19pY29uX3dyZi5zaCIgOzsKICAgIGVjbXdmKSBydW5uZXI9IndyZi9ydW5fdGFyY19lY213Zl93cmYuc2giIDs7CiAgICBnZnMpIHJ1bm5lcj0id3JmL3J1bl90YXJjX2dmc193cmYuc2giIDs7CiAgICAqKSBlY2hvICJTT1VSQ0VfTU9ERUwgaW52w6FsaWRvIG5vIGNoZWNrcG9pbnQ6ICRtb2RlbCIgPiYyOyByZXR1cm4gMiA7OwogIGVzYWMKCiAgZXhwb3J0IFdSRl9CT1VOREFSWV9PTkxZPSIkYm91bmRhcnlfb25seSIKICBlY2hvICI9PT09PSBTSURFUkFML1RBUkMgU09VUkNFIEZJWEVEOiAke21vZGVsXl59OyBib3VuZGFyeV9vbmx5PSRib3VuZGFyeV9vbmx5ID09PT09IgogIGlmIGJhc2ggIiRydW5uZXIiOyB0aGVuCiAgICByYz0wCiAgZWxzZQogICAgcmM9JD8KICAgIGVjaG8gIkVSUk86IGZvbnRlIGV4Y2x1c2l2YSAke21vZGVsXl59IGZhbGhvdSAoZXhpdD0kcmMpOyBuZW5odW1hIGZvbnRlIGFsdGVybmF0aXZhIHNlcsOhIHRlbnRhZGEuIiA+JjIKICAgIHJldHVybiAiJHJjIgogIGZpCgogIGlmIFtbICIkbW9kZWwiID09ICJpY29uIiAmJiAtcyAiJFJPT1QvdGFyYy1pY29uLXJ1bi5lbnYiIF1dOyB0aGVuCiAgICBzb3VyY2UgIiRST09UL3RhcmMtaWNvbi1ydW4uZW52IgogICAgZXhwb3J0IFJVTl9EQVRFIFJVTl9DWUNMRQogICAgRk9SQ0VfUlVOX0RBVEU9IiRSVU5fREFURSIKICAgIEZPUkNFX1JVTl9DWUNMRT0iJFJVTl9DWUNMRSIKICAgIGV4cG9ydCBGT1JDRV9SVU5fREFURSBGT1JDRV9SVU5fQ1lDTEUKICAgIGVjaG8gIkNpY2xvIElDT04gdmFsaWRhZG8gZSBmaXhhZG86ICRSVU5fREFURSAkUlVOX0NZQ0xFIFoiCiAgZmkKCiAgU09VUkNFX01PREVMPSIkbW9kZWwiCiAgcHJpbnRmICdSVU5fREFURT0lc1xuUlVOX0NZQ0xFPSVzXG5TT1VSQ0VfTU9ERUw9JXNcbicgIiRSVU5fREFURSIgIiRSVU5fQ1lDTEUiICIkU09VUkNFX01PREVMIiA+IHRhcmMtcnVuLmVudgogOiAjIGNoZWNrcG9pbnQgaGFuZGxlZCBieSBHaXRIdWIgQWN0aW9ucyBhcnRpZmFjdAp9CgppZiBbWyAiJENPTERfU1RBUlQiID09ICIwIiBdXTsgdGhlbgogIHJtIC1yZiAiJElOUFVUIi8qCiA6ICMgY2hlY2twb2ludCBoYW5kbGVkIGJ5IEdpdEh1YiBBY3Rpb25zIGFydGlmYWN0CiAgc291cmNlIHRhcmMtcnVuLmVudgogOiAjIGNoZWNrcG9pbnQgaGFuZGxlZCBieSBHaXRIdWIgQWN0aW9ucyBhcnRpZmFjdAogOiAjIGNoZWNrcG9pbnQgaGFuZGxlZCBieSBHaXRIdWIgQWN0aW9ucyBhcnRpZmFjdAogIG1rZGlyIC1wICIkSU5QVVQvbm9ybWFsaXplZCIKICBmb3IgZiBpbiAiJElOUFVUIi90YXJjLXJlc3RhcnQtIiRTVEFSVF9IT1VSIi0qOyBkbwogICAgW1sgLWYgIiRmIiBdXSB8fCBjb250aW51ZQogICAgY3AgLWYgIiRmIiAiJElOUFVUL25vcm1hbGl6ZWQvJChiYXNlbmFtZSAiJGYiIHwgc2VkIC1FICJzL150YXJjLXJlc3RhcnQtJFNUQVJUX0hPVVItLy87IHMvXyhbMC05XXsyfSlbLl0oWzAtOV17Mn0pWy5dKFswLTldezJ9KSQvX1wxOlwyOlwzLyIpIgogIGRvbmUKICBjcCAtZiAiJElOUFVUL3RhcmMtbmFtZWxpc3QuaW5wdXQiICIkSU5QVVQvbm9ybWFsaXplZC9uYW1lbGlzdC5pbnB1dCIKCiAgIyBUaGUgcHJldmlvdXMgY2hlY2twb2ludCBib3VuZGFyeSBlbmRzIGF0IFNUQVJUX0hPVVIsIHNvIGJ1aWxkIGEgZnJlc2gKICAjIElDT04gTEJDIGNvdmVyaW5nIFNUQVJUX0hPVVIuLkVORF9IT1VSIGJlZm9yZSByZXN0YXJ0aW5nIFdSRi4KICBleHBvcnQgUlVOX0RBVEUgUlVOX0NZQ0xFCiAgZXhwb3J0IEZPUkNFX1JVTl9EQVRFPSIkUlVOX0RBVEUiIEZPUkNFX1JVTl9DWUNMRT0iJFJVTl9DWUNMRSIKICBleHBvcnQgV1JGX1RBUkdFVF9SRVNPTFVUSU9OX0tNPSIke1dSRl9UQVJHRVRfUkVTT0xVVElPTl9LTTotM30iIFdSRl9EWF9NRVRFUlM9IiR7V1JGX0RYX01FVEVSUzotMzAwMH0iIFdSRl9EWV9NRVRFUlM9IiR7V1JGX0RZX01FVEVSUzotJHtXUkZfRFhfTUVURVJTOi0zMDAwfX0iCiAgZXhwb3J0IFdSRl9FX1dFPSIke1dSRl9FX1dFOi0zNjF9IiBXUkZfRV9TTj0iJHtXUkZfRV9TTjotNDQ1fSIKICBleHBvcnQgV1JGX0hJU1RPUllfSU5URVJWQUxfTUlOVVRFUz0iJHtXUkZfSElTVE9SWV9JTlRFUlZBTF9NSU5VVEVTOi02MH0iIFdSRl9USU1FX1NURVA9IiR7V1JGX1RJTUVfU1RFUDotMTh9IiBXUkZfTVBJX1BST0NTPSIke1dSRl9NUElfUFJPQ1M6LTR9IgogIGV4cG9ydCBXUkZfU1RBUlRfSE9VUj0iJFNUQVJUX0hPVVIiIFdSRl9FTkRfSE9VUj0iJEVORF9IT1VSIgogIGV4cG9ydCBXUkZfQk9VTkRBUllfRU5EX0hPVVI9IiRFTkRfSE9VUiIgV1JGX0JPVU5EQVJZX09OTFk9MQogIGVjaG8gIlRBUkM6IHByZXBhcmFuZG8gTEJDIGV4Y2x1c2l2YW1lbnRlIGNvbSBhIGZvbnRlIHNlbGVjaW9uYWRhIEYkU1RBUlRfSE9VUi1GJEVORF9IT1VSIgogIEJPVU5EQVJZX1BSRVBfU1RBUlRFRF9BVD0iJChkYXRlICslcykiCiAgcHJlcGFyZV9zb3VyY2UgMQogIGVjaG8gIlRBUkNfTUVUUklDIGJvdW5kYXJ5X3ByZXBhcmVfc2Vjb25kcz0kKCggJChkYXRlICslcykgLSBCT1VOREFSWV9QUkVQX1NUQVJURURfQVQgKSkiCiAgdGVzdCAtcyAiJFJPT1Qvd3JmX3dvcmsvcnVuL3dyZmJkeV9kMDEiIHx8IHsgZWNobyAiTEJDIFRBUkMgYXVzZW50ZSBwYXJhIEYkU1RBUlRfSE9VUi1GJEVORF9IT1VSIiA+JjI7IGV4aXQgMjc7IH0KICBjcCAtZiAiJFJPT1Qvd3JmX3dvcmsvcnVuL3dyZmJkeV9kMDEiICIkSU5QVVQvbm9ybWFsaXplZC93cmZiZHlfZDAxIgogIHRlc3QgLXMgIiRJTlBVVC9ub3JtYWxpemVkL3dyZmJkeV9kMDEiCiAgdGVzdCAtcyAiJElOUFVUL25vcm1hbGl6ZWQvbmFtZWxpc3QuaW5wdXQiCiAgZXhwb3J0IFdSRl9SRVNUQVJUX0RJUj0iJElOUFVUL25vcm1hbGl6ZWQiCiAgUkVTVEFSVF9TVEFSVEVEX0FUPSIkKGRhdGUgKyVzKSIKICBiYXNoIHdyZi9ydW5fdGFyY19yZXN0YXJ0X3NlZ21lbnQuc2ggIiRTVEFSVF9IT1VSIiAiJEVORF9IT1VSIiAiJFdSRl9SRVNUQVJUX0RJUiIKICBlY2hvICJUQVJDX01FVFJJQyByZXN0YXJ0X2ZvcmVjYXN0X3NlY29uZHM9JCgoICQoZGF0ZSArJXMpIC0gUkVTVEFSVF9TVEFSVEVEX0FUICkpIgoKICBPVVRQVVRfRElSPSIkUk9PVC90YXJjX3NlZ21lbnRfb3V0cHV0IgogIHRlc3QgLWQgIiRPVVRQVVRfRElSIgogIFVQTE9BRF9ESVI9IiRST09UL3RhcmNfdXBsb2FkXyRTRUdNRU5UX0lOREVYIgogIHJtIC1yZiAiJFVQTE9BRF9ESVIiOyBta2RpciAtcCAiJFVQTE9BRF9ESVIiCiAgZm9yIGYgaW4gIiRPVVRQVVRfRElSIi93cmZyc3RfZDAxXyo7IGRvIGNwIC1mICIkZiIgIiRVUExPQURfRElSL3RhcmMtcmVzdGFydC0kRU5EX0hPVVItJChiYXNlbmFtZSAiJGYiKSI7IGRvbmUKICBmb3IgZiBpbiAiJE9VVFBVVF9ESVIiL3dyZm91dF9kMDFfKjsgZG8gY3AgLWYgIiRmIiAiJFVQTE9BRF9ESVIvdGFyYy13cmZvdXQtJFNFR01FTlRfSU5ERVgtJChiYXNlbmFtZSAiJGYiKSI7IGRvbmUKIDogIyBjaGVja3BvaW50IGhhbmRsZWQgYnkgR2l0SHViIEFjdGlvbnMgYXJ0aWZhY3QKZWxzZQogIHB5dGhvbjMgLSA8PCdQWScKaW1wb3J0IGRhdGV0aW1lIGFzIGR0LCBvcwpub3c9ZHQuZGF0ZXRpbWUubm93KGR0LnRpbWV6b25lLnV0YykKc2NoZWR1bGVkPW9zLmVudmlyb24uZ2V0KCJXUkZfU0NIRURVTEVEX0NZQ0xFIiwiIikuc3RyaXAoKQppZiBzY2hlZHVsZWQgaW4geyIwMCIsIjA2IiwiMTIiLCIxOCJ9OgogICAgcnVuPW5vdy5yZXBsYWNlKGhvdXI9aW50KHNjaGVkdWxlZCksIG1pbnV0ZT0wLCBzZWNvbmQ9MCwgbWljcm9zZWNvbmQ9MCkKICAgIGlmIHJ1biA+IG5vdzoKICAgICAgICBydW4gLT0gZHQudGltZWRlbHRhKGhvdXJzPTYpCmVsc2U6CiAgICBydW49bm93LnJlcGxhY2UoaG91cj0obm93LmhvdXIvLzYpKjYsIG1pbnV0ZT0wLCBzZWNvbmQ9MCwgbWljcm9zZWNvbmQ9MCkKaWYgb3MuZW52aXJvbi5nZXQoIldSRjJfVE9NT1JST1ciKSA9PSAiMSI6CiAgICBydW4gKz0gZHQudGltZWRlbHRhKGhvdXJzPTI0KQpvcGVuKCJ0YXJjLXJ1bi5lbnYiLCJ3Iikud3JpdGUoZiJSVU5fREFURT17cnVuOiVZJW0lZH1cblJVTl9DWUNMRT17cnVuOiVIfVxuU09VUkNFX01PREVMPXtvcy5lbnZpcm9uLmdldCgnU09VUkNFX01PREVMJywnaWNvbicpfVxuV1JGMl9UT01PUlJPVz17b3MuZW52aXJvbi5nZXQoJ1dSRjJfVE9NT1JST1cnLCcwJyl9XG4iKQpQWQogIHNvdXJjZSB0YXJjLXJ1bi5lbnYKIDogIyBjaGVja3BvaW50IGhhbmRsZWQgYnkgR2l0SHViIEFjdGlvbnMgYXJ0aWZhY3QKIDogIyBjaGVja3BvaW50IGhhbmRsZWQgYnkgR2l0SHViIEFjdGlvbnMgYXJ0aWZhY3QKCiAgZXhwb3J0IEZPUkNFX1JVTl9EQVRFPSIkUlVOX0RBVEUiIEZPUkNFX1JVTl9DWUNMRT0iJFJVTl9DWUNMRSIKICBleHBvcnQgVEFSQ19BTExPV19SRVNFTEVDVF9JQ09OPTEKICBleHBvcnQgV1JGX0JPVU5EQVJZX09OTFk9MAogIENPTERfRk9SRUNBU1RfU1RBUlRFRF9BVD0iJChkYXRlICslcykiCiAgcHJlcGFyZV9zb3VyY2UgMAogIGVjaG8gIlRBUkNfTUVUUklDIGNvbGRfc3RhcnRfZm9yZWNhc3Rfc2Vjb25kcz0kKCggJChkYXRlICslcykgLSBDT0xEX0ZPUkVDQVNUX1NUQVJURURfQVQgKSkiCiAgdW5zZXQgVEFSQ19BTExPV19SRVNFTEVDVF9JQ09OCgogIHRlc3QgLXMgd3JmX3dvcmsvcnVuL3dyZmlucHV0X2QwMQogIHRlc3QgLXMgd3JmX3dvcmsvcnVuL3dyZmJkeV9kMDEKICB0ZXN0IC1uICIkKGZpbmQgd3JmX3dvcmsvcnVuIC1tYXhkZXB0aCAxIC10eXBlIGYgLW5hbWUgJ3dyZm91dF9kMDFfKicgLXNpemUgKzBjIC1wcmludCAtcXVpdCkiCiAgdGVzdCAtbiAiJChmaW5kIHdyZl93b3JrL3J1biAtbWF4ZGVwdGggMSAtdHlwZSBmIC1uYW1lICd3cmZyc3RfZDAxXyonIC1zaXplICswYyAtcHJpbnQgLXF1aXQpIgoKICBmb3IgZiBpbiB3cmZfd29yay9ydW4vd3JmcnN0X2QwMV8qOyBkbyBjcCAtZiAiJGYiICJ0YXJjLXJlc3RhcnQtJEVORF9IT1VSLSQoYmFzZW5hbWUgIiRmIikiOyBkb25lCiAgZm9yIGYgaW4gd3JmX3dvcmsvcnVuL3dyZm91dF9kMDFfKjsgZG8gY3AgLWYgIiRmIiAidGFyYy13cmZvdXQtJFNFR01FTlRfSU5ERVgtJChiYXNlbmFtZSAiJGYiKSI7IGRvbmUKICBmb3IgZiBpbiB3cmZfd29yay9ydW4vd3JmYmR5X2QwMTsgZG8gY3AgLWYgIiRmIiAidGFyYy1ib3VuZGFyeS0za20tJChiYXNlbmFtZSAiJGYiKSI7IGRvbmUKICBjcCAtZiB3cmZfd29yay9ydW4vbmFtZWxpc3QuaW5wdXQgdGFyYy1uYW1lbGlzdC5pbnB1dAogOiAjIGNoZWNrcG9pbnQgaGFuZGxlZCBieSBHaXRIdWIgQWN0aW9ucyBhcnRpZmFjdApmaQoKCiMgR2VyYSBwcm9kdXRvcyAyRCBjb21wYWN0b3MgcGFyYSBvIGZyb250ZW5kIHNlbSBzdWJzdGl0dWlyIG9zIHdyZm91dCBuYXRpdm9zLgppZiBbWyAiJENPTERfU1RBUlQiID09ICIxIiBdXTsgdGhlbgogIFBPU1RfSU5QVVQ9IiRST09UL3dyZl93b3JrL3J1biIKZWxzZQogIFBPU1RfSU5QVVQ9IiRST09UL3RhcmNfc2VnbWVudF9vdXRwdXQiCmZpCmlmIFtbIC1uICIkKGZpbmQgIiRQT1NUX0lOUFVUIiAtbWF4ZGVwdGggMSAtdHlwZSBmIC1uYW1lICd3cmZvdXRfZDAxXyonIC1zaXplICswYyAtcHJpbnQgLXF1aXQpIiBdXTsgdGhlbgogIHB5dGhvbjMgLW0gcGlwIGluc3RhbGwgLS1kaXNhYmxlLXBpcC12ZXJzaW9uLWNoZWNrIC1xIG5ldENERjQgbnVtcHkKICBQUk9EVUNUX0RJUj0iJFJPT1QvdGFyY19wcm9kdWN0c18kU0VHTUVOVF9JTkRFWCIKICBybSAtcmYgIiRQUk9EVUNUX0RJUiIKICBweXRob24zIHdyZi90YXJjX3Bvc3Rwcm9jZXNzLnB5ICIkUE9TVF9JTlBVVCIvd3Jmb3V0X2QwMV8qIC0tb3V0cHV0LWRpciAiJFBST0RVQ1RfRElSIgogIG12ICIkUFJPRFVDVF9ESVIvbWV0YWRhdGEuanNvbiIgInRhcmMtcHJvZHVjdHMtJFNFR01FTlRfSU5ERVguanNvbiIKIDogIyBjaGVja3BvaW50IGhhbmRsZWQgYnkgR2l0SHViIEFjdGlvbnMgYXJ0aWZhY3QKZmkKCmVjaG8gIlRBUkNfTUVUUklDIHNlZ21lbnQ9RiRTVEFSVF9IT1VSLUYkRU5EX0hPVVIgdG90YWxfc2Vjb25kcz0kKCggJChkYXRlICslcykgLSBTRUdNRU5UX1NUQVJURURfQVQgKSkiCmVjaG8gIlRBUkMgY2hlY2twb2ludCBGJFNUQVJUX0hPVVItRiRFTkRfSE9VUiBwdWJsaWNhZG8gZW0gJENIRUNLUE9JTlRfVEFHLiIK' | base64 -d > 'wrf/run_tarc_checkpoint_segment.sh'
           mkdir -p "$(dirname 'wrf/run_tarc_icon_wrf.sh')"
@@ -146,7 +145,7 @@ jobs:
         with:
           path: wrf
           key: ${{ runner.os }}-sideral-sudeste-runtime-${{ github.sha }}
-      - name: Add R2 adapter to PATH
+      - name: Expose WRF helper adapter to PATH
         run: echo "$GITHUB_WORKSPACE/wrf/bin" >> "$GITHUB_PATH"
       - name: Configure Python for ECMWF Open Data
         if: ${{ 'icon' == 'ecmwf' }}
@@ -272,11 +271,10 @@ jobs:
         with:
           path: wrf
           key: ${{ runner.os }}-sideral-sudeste-runtime-${{ github.sha }}
-      - name: Install awscli and expose R2 adapter
+      - name: Expose WRF helper adapter to PATH
         shell: bash
         run: |
           set -euo pipefail
-          command -v aws >/dev/null || { sudo apt-get update -qq && sudo apt-get install -y awscli; }
           echo "$GITHUB_WORKSPACE/wrf/bin" >> "$GITHUB_PATH"
       - name: Configure Python for ECMWF Open Data
         if: ${{ 'icon' == 'ecmwf' }}
@@ -396,11 +394,10 @@ jobs:
         with:
           path: wrf
           key: ${{ runner.os }}-sideral-sudeste-runtime-${{ github.sha }}
-      - name: Install awscli and expose R2 adapter
+      - name: Expose WRF helper adapter to PATH
         shell: bash
         run: |
           set -euo pipefail
-          command -v aws >/dev/null || { sudo apt-get update -qq && sudo apt-get install -y awscli; }
           echo "$GITHUB_WORKSPACE/wrf/bin" >> "$GITHUB_PATH"
       - name: Configure Python for ECMWF Open Data
         if: ${{ 'icon' == 'ecmwf' }}
@@ -520,11 +517,10 @@ jobs:
         with:
           path: wrf
           key: ${{ runner.os }}-sideral-sudeste-runtime-${{ github.sha }}
-      - name: Install awscli and expose R2 adapter
+      - name: Expose WRF helper adapter to PATH
         shell: bash
         run: |
           set -euo pipefail
-          command -v aws >/dev/null || { sudo apt-get update -qq && sudo apt-get install -y awscli; }
           echo "$GITHUB_WORKSPACE/wrf/bin" >> "$GITHUB_PATH"
       - name: Configure Python for ECMWF Open Data
         if: ${{ 'icon' == 'ecmwf' }}
@@ -644,11 +640,10 @@ jobs:
         with:
           path: wrf
           key: ${{ runner.os }}-sideral-sudeste-runtime-${{ github.sha }}
-      - name: Install awscli and expose R2 adapter
+      - name: Expose WRF helper adapter to PATH
         shell: bash
         run: |
           set -euo pipefail
-          command -v aws >/dev/null || { sudo apt-get update -qq && sudo apt-get install -y awscli; }
           echo "$GITHUB_WORKSPACE/wrf/bin" >> "$GITHUB_PATH"
       - name: Configure Python for ECMWF Open Data
         if: ${{ 'icon' == 'ecmwf' }}
@@ -768,11 +763,10 @@ jobs:
         with:
           path: wrf
           key: ${{ runner.os }}-sideral-sudeste-runtime-${{ github.sha }}
-      - name: Install awscli and expose R2 adapter
+      - name: Expose WRF helper adapter to PATH
         shell: bash
         run: |
           set -euo pipefail
-          command -v aws >/dev/null || { sudo apt-get update -qq && sudo apt-get install -y awscli; }
           echo "$GITHUB_WORKSPACE/wrf/bin" >> "$GITHUB_PATH"
       - name: Configure Python for ECMWF Open Data
         if: ${{ 'icon' == 'ecmwf' }}
@@ -892,11 +886,10 @@ jobs:
         with:
           path: wrf
           key: ${{ runner.os }}-sideral-sudeste-runtime-${{ github.sha }}
-      - name: Install awscli and expose R2 adapter
+      - name: Expose WRF helper adapter to PATH
         shell: bash
         run: |
           set -euo pipefail
-          command -v aws >/dev/null || { sudo apt-get update -qq && sudo apt-get install -y awscli; }
           echo "$GITHUB_WORKSPACE/wrf/bin" >> "$GITHUB_PATH"
       - name: Configure Python for ECMWF Open Data
         if: ${{ 'icon' == 'ecmwf' }}
@@ -1016,11 +1009,10 @@ jobs:
         with:
           path: wrf
           key: ${{ runner.os }}-sideral-sudeste-runtime-${{ github.sha }}
-      - name: Install awscli and expose R2 adapter
+      - name: Expose WRF helper adapter to PATH
         shell: bash
         run: |
           set -euo pipefail
-          command -v aws >/dev/null || { sudo apt-get update -qq && sudo apt-get install -y awscli; }
           echo "$GITHUB_WORKSPACE/wrf/bin" >> "$GITHUB_PATH"
       - name: Configure Python for ECMWF Open Data
         if: ${{ 'icon' == 'ecmwf' }}
@@ -1140,11 +1132,10 @@ jobs:
         with:
           path: wrf
           key: ${{ runner.os }}-sideral-sudeste-runtime-${{ github.sha }}
-      - name: Install awscli and expose R2 adapter
+      - name: Expose WRF helper adapter to PATH
         shell: bash
         run: |
           set -euo pipefail
-          command -v aws >/dev/null || { sudo apt-get update -qq && sudo apt-get install -y awscli; }
           echo "$GITHUB_WORKSPACE/wrf/bin" >> "$GITHUB_PATH"
       - name: Configure Python for ECMWF Open Data
         if: ${{ 'icon' == 'ecmwf' }}
@@ -1264,11 +1255,10 @@ jobs:
         with:
           path: wrf
           key: ${{ runner.os }}-sideral-sudeste-runtime-${{ github.sha }}
-      - name: Install awscli and expose R2 adapter
+      - name: Expose WRF helper adapter to PATH
         shell: bash
         run: |
           set -euo pipefail
-          command -v aws >/dev/null || { sudo apt-get update -qq && sudo apt-get install -y awscli; }
           echo "$GITHUB_WORKSPACE/wrf/bin" >> "$GITHUB_PATH"
       - name: Configure Python for ECMWF Open Data
         if: ${{ 'icon' == 'ecmwf' }}
@@ -1388,11 +1378,10 @@ jobs:
         with:
           path: wrf
           key: ${{ runner.os }}-sideral-sudeste-runtime-${{ github.sha }}
-      - name: Install awscli and expose R2 adapter
+      - name: Expose WRF helper adapter to PATH
         shell: bash
         run: |
           set -euo pipefail
-          command -v aws >/dev/null || { sudo apt-get update -qq && sudo apt-get install -y awscli; }
           echo "$GITHUB_WORKSPACE/wrf/bin" >> "$GITHUB_PATH"
       - name: Configure Python for ECMWF Open Data
         if: ${{ 'icon' == 'ecmwf' }}
@@ -1512,11 +1501,10 @@ jobs:
         with:
           path: wrf
           key: ${{ runner.os }}-sideral-sudeste-runtime-${{ github.sha }}
-      - name: Install awscli and expose R2 adapter
+      - name: Expose WRF helper adapter to PATH
         shell: bash
         run: |
           set -euo pipefail
-          command -v aws >/dev/null || { sudo apt-get update -qq && sudo apt-get install -y awscli; }
           echo "$GITHUB_WORKSPACE/wrf/bin" >> "$GITHUB_PATH"
       - name: Configure Python for ECMWF Open Data
         if: ${{ 'icon' == 'ecmwf' }}
@@ -1636,11 +1624,10 @@ jobs:
         with:
           path: wrf
           key: ${{ runner.os }}-sideral-sudeste-runtime-${{ github.sha }}
-      - name: Install awscli and expose R2 adapter
+      - name: Expose WRF helper adapter to PATH
         shell: bash
         run: |
           set -euo pipefail
-          command -v aws >/dev/null || { sudo apt-get update -qq && sudo apt-get install -y awscli; }
           echo "$GITHUB_WORKSPACE/wrf/bin" >> "$GITHUB_PATH"
       - name: Configure Python for ECMWF Open Data
         if: ${{ 'icon' == 'ecmwf' }}
@@ -1760,11 +1747,10 @@ jobs:
         with:
           path: wrf
           key: ${{ runner.os }}-sideral-sudeste-runtime-${{ github.sha }}
-      - name: Install awscli and expose R2 adapter
+      - name: Expose WRF helper adapter to PATH
         shell: bash
         run: |
           set -euo pipefail
-          command -v aws >/dev/null || { sudo apt-get update -qq && sudo apt-get install -y awscli; }
           echo "$GITHUB_WORKSPACE/wrf/bin" >> "$GITHUB_PATH"
       - name: Configure Python for ECMWF Open Data
         if: ${{ 'icon' == 'ecmwf' }}
@@ -1884,11 +1870,10 @@ jobs:
         with:
           path: wrf
           key: ${{ runner.os }}-sideral-sudeste-runtime-${{ github.sha }}
-      - name: Install awscli and expose R2 adapter
+      - name: Expose WRF helper adapter to PATH
         shell: bash
         run: |
           set -euo pipefail
-          command -v aws >/dev/null || { sudo apt-get update -qq && sudo apt-get install -y awscli; }
           echo "$GITHUB_WORKSPACE/wrf/bin" >> "$GITHUB_PATH"
       - name: Configure Python for ECMWF Open Data
         if: ${{ 'icon' == 'ecmwf' }}
@@ -2008,11 +1993,10 @@ jobs:
         with:
           path: wrf
           key: ${{ runner.os }}-sideral-sudeste-runtime-${{ github.sha }}
-      - name: Install awscli and expose R2 adapter
+      - name: Expose WRF helper adapter to PATH
         shell: bash
         run: |
           set -euo pipefail
-          command -v aws >/dev/null || { sudo apt-get update -qq && sudo apt-get install -y awscli; }
           echo "$GITHUB_WORKSPACE/wrf/bin" >> "$GITHUB_PATH"
       - name: Configure Python for ECMWF Open Data
         if: ${{ 'icon' == 'ecmwf' }}
@@ -2114,11 +2098,10 @@ jobs:
         with:
           path: wrf
           key: ${{ runner.os }}-sideral-sudeste-runtime-${{ github.sha }}
-      - name: Install awscli and expose R2 adapter
+      - name: Expose WRF helper adapter to PATH
         shell: bash
         run: |
           set -euo pipefail
-          command -v aws >/dev/null || { sudo apt-get update -qq && sudo apt-get install -y awscli; }
           echo "$GITHUB_WORKSPACE/wrf/bin" >> "$GITHUB_PATH"
       - name: Pré-validar scripts Bash e ShellCheck
         shell: bash
