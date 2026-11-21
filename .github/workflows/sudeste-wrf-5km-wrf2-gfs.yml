@@ -11,7 +11,7 @@ permissions:
 
 concurrency:
   group: sideral-sudeste-5km-wrf2-gfs-${{ github.ref }}
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 env:
   GH_TOKEN: ${{ github.token }}
