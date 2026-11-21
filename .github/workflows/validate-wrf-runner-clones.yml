@@ -356,6 +356,60 @@ jobs:
                   f"{filename}: GFS initial boundary is not extended independently of the 3-hour segment"
               )
 
+          # TARC checkpoint artifacts must survive download/unpack and match the
+          # same canonical script that is restored from runners/tarc/shared.
+          tarc_files = sorted(root.glob("tarc-wrf-3km-*.yml"))
+          assert len(tarc_files) == 6, (
+              f"expected six independent TARC workflows, got {len(tarc_files)}"
+          )
+          tarc_catalog = Path("runners/tarc/shared/run_tarc_checkpoint_segment.sh").read_text(
+              encoding="utf-8"
+          )
+          for tarc_path in tarc_files:
+              tarc_content = tarc_path.read_text(encoding="utf-8")
+              tarc_cfg = yaml.load(tarc_content, Loader=yaml.BaseLoader)
+              checkpoint_script = None
+              restore_targets = []
+              for line in tarc_content.splitlines():
+                  if "base64 -d > 'wrf/run_tarc_checkpoint_segment.sh'" in line:
+                      encoded = line.split("printf '%s' '", 1)[1].split("' | base64 -d >", 1)[0]
+                      checkpoint_script = base64.b64decode(encoded).decode("utf-8")
+              for job in (tarc_cfg.get("jobs") or {}).values():
+                  for step in job.get("steps", []) or []:
+                      if (step.get("name") or "").startswith("Register WRF artifact restore target"):
+                          restore_targets.append((step.get("env") or {}).get("WRF_ARTIFACT_RESTORE_TO"))
+              assert checkpoint_script, (
+                  f"{tarc_path.name}: embedded TARC checkpoint runner is missing"
+              )
+              assert checkpoint_script == tarc_catalog, (
+                  f"{tarc_path.name}: embedded TARC runner differs from the canonical runners catalog"
+              )
+              assert 'rm -rf "$INPUT/normalized"' in checkpoint_script, (
+                  f"{tarc_path.name}: TARC restart must clean only its normalized work directory"
+              )
+              assert 'rm -rf "$INPUT"/*' not in checkpoint_script, (
+                  f"{tarc_path.name}: TARC restart deletes the downloaded checkpoint"
+              )
+              assert 'source "$INPUT/tarc-run.env"' in checkpoint_script, (
+                  f"{tarc_path.name}: TARC restart must read tarc-run.env from its checkpoint"
+              )
+              assert "tarc-namelist.input" in checkpoint_script, (
+                  f"{tarc_path.name}: TARC restart namelist is not restored"
+              )
+              assert "tarc_restart_input" in restore_targets, (
+                  f"{tarc_path.name}: checkpoint TAR is not restored to tarc_restart_input"
+              )
+              result = subprocess.run(
+                  ["bash", "-n"],
+                  input=checkpoint_script,
+                  text=True,
+                  capture_output=True,
+                  check=False,
+              )
+              assert result.returncode == 0, (
+                  f"{tarc_path.name}: embedded TARC shell syntax failed: {result.stderr}"
+              )
+
           # The CBR extractor must exist in seg00, before its first py_compile.
           cbr_steps = configs["cbr-wrf.yml"]["jobs"]["seg00"]["steps"]
           assert any(
