@@ -2166,7 +2166,7 @@ jobs:
           if-no-files-found: ignore
           retention-days: 7
   verify:
-    name: Validar checkpoint CIM 5 km no R2
+    name: Validar os 14 segmentos CIM 5 km e a Release
     runs-on: ubuntu-22.04
     needs: [seg00, seg01, seg02, seg03, seg04, seg05, seg06, seg07, seg08, seg09, seg10, seg11, seg12, seg13]
     steps:
