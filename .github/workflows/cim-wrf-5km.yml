@@ -2189,16 +2189,17 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           pattern: wrf-cim5-manual-seg??-${{ github.run_id }}
-          path: ${{ runner.temp }}/cim5-segment-downloads
+          path: ${{ runner.temp }}/wrf-downloads/cim5-segments
           merge-multiple: false
-      - name: Restaurar payloads dos segmentos CIM 5 km
+      - name: Register WRF artifact restore target (CIM 5 km final products)
         shell: bash
         env:
-          CIM5_SEGMENT_DOWNLOADS: ${{ runner.temp }}/cim5-segment-downloads
+          WRF_ARTIFACT_DOWNLOAD_DIR: ${{ runner.temp }}/wrf-downloads/cim5-segments
+          WRF_ARTIFACT_RESTORE_TO: 'cim5_segment_artifacts'
         run: |
           set -euo pipefail
           shopt -s nullglob
-          dirs=("$CIM5_SEGMENT_DOWNLOADS"/*)
+          dirs=("$WRF_ARTIFACT_DOWNLOAD_DIR"/*)
           (("${#dirs[@]}" == 14)) || { echo "CIM 5 km: esperados 14 artifacts de segmentos; encontrados ${#dirs[@]}" >&2; exit 31; }
           for dir in "${dirs[@]}"; do
             [[ -d "$dir" ]] || continue
