@@ -28,9 +28,23 @@ END_ISO=$END_ISO
 BOUNDARY_END_ISO=$BOUNDARY_END_ISO
 EOF
 if [[ "$METBR_COLD_START" == "1" ]]; then
-  echo "METBR: cold start F$(printf '%03d' "$START_HOUR")-F$(printf '%03d' "$END_HOUR"), boundary through F$(printf '%03d' "$BOUNDARY_END_HOUR")" | tee "$DIAG/segment.log"; mkdir -p "$WORK/gfs" "$WORK/WPS_GEOG"
+  echo "METBR: cold start F$(printf '%03d' "$START_HOUR")-F$(printf '%03d' "$END_HOUR"), boundary through F$(printf '%03d' "$BOUNDARY_END_HOUR")" | tee "$DIAG/segment.log"
+  mkdir -p "$WORK/gfs" "$WORK/geog_extract" "$WORK/WPS_GEOG"
   for H in $(seq 0 3 "$SOURCE_END"); do printf -v FH '%03d' "$H"; FILE="gfs.t${RUN_CYCLE}z.pgrb2.0p25.f${FH}"; curl -fL --retry 4 --retry-delay 5 --connect-timeout 20 --max-time 900 -o "$WORK/gfs/$FILE" "$BASE_URL/$FILE"; done
-  curl -fL --retry 3 --connect-timeout 20 --max-time 900 -o "$WORK/geog.tar.gz" https://www2.mmm.ucar.edu/wrf/src/wps_files/geog_low_res_mandatory.tar.gz; tar -xzf "$WORK/geog.tar.gz" -C "$WORK/WPS_GEOG"
+
+  # The UCAR TAR may contain a WPS_GEOG/ top-level directory. Extract to a
+  # staging directory, locate the actual low-res dataset root, then flatten
+  # that root into the exact path configured in namelist.wps.
+  curl -fL --retry 3 --connect-timeout 20 --max-time 900 -o "$WORK/geog.tar.gz" https://www2.mmm.ucar.edu/wrf/src/wps_files/geog_low_res_mandatory.tar.gz
+  tar -xzf "$WORK/geog.tar.gz" -C "$WORK/geog_extract"
+  TOPO_INDEX="$(find "$WORK/geog_extract" -type f -path '*/topo_gmted2010_5m/index' -print -quit)"
+  test -n "$TOPO_INDEX" || { echo "ERRO: geog_low_res_mandatory.tar.gz nao contem topo_gmted2010_5m/index" >&2; exit 31; }
+  GEOG_ROOT="$(dirname "$(dirname "$TOPO_INDEX")")"
+  cp -a "$GEOG_ROOT/." "$WORK/WPS_GEOG/"
+  REQUIRED_GEOG=(topo_gmted2010_5m modis_landuse_20class_5m_with_lakes soiltype_top_5m soiltype_bot_5m greenfrac_fpar_modis_5m soiltemp_1deg albedo_modis maxsnowalb_modis lai_modis_10m)
+  for DATASET in "${REQUIRED_GEOG[@]}"; do
+    test -f "$WORK/WPS_GEOG/$DATASET/index" || { echo "ERRO: dataset geografico METBR ausente: $DATASET/index" >&2; exit 32; }
+  done
   cat > "$WORK/namelist.wps" <<EOF
 &share
  wrf_core = 'ARW',
