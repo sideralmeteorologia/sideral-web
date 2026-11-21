@@ -3504,23 +3504,42 @@ jobs:
           assert m['reflectivitySource']
           print(f"METBR validado: {m['frameCount']} quadros; grade {g['nx']}x{g['ny']}")
           PY
-      - name: Bundle WRF artifact safely (15)
+      - name: Compactar produtos METBR para o GitHub Release
         shell: bash
-        env:
-          WRF_ARTIFACT_PATTERNS: |
-            metbr_products/**
-            metbr_all_wrfout/wrfout_d01_*
-          WRF_ARTIFACT_REQUIRE_FILES: '1'
-          WRF_ARTIFACT_OUTPUT: .wrf-artifact-safe/wrf-payload-015.tar
         run: |
-          python3 .github/scripts/wrf_artifact_bundle.py pack \
-            --workspace "$GITHUB_WORKSPACE" \
-            --output "$GITHUB_WORKSPACE/$WRF_ARTIFACT_OUTPUT"
-      - name: Publicar produtos finais como artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: wrf-final-metbr4-${{ env.MODEL_VARIANT }}-${{ env.SOURCE_MODEL }}-complete-${{ github.run_id }}
-          path: |
-            .wrf-artifact-safe/wrf-payload-015.tar
-          if-no-files-found: error
-          retention-days: 1
+          set -euo pipefail
+          tar -czf metbr-products-4km.tar.gz -C metbr_products .
+          test -s metbr-products-4km.tar.gz
+          test -s metbr_products/metadata.json
+          test -s metbr_products/metbr_wrf_4km.json
+          test -s metbr_products/grid.json
+      - name: Publicar previsão no GitHub Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          tag="sideral-metbr4-${MODEL_VARIANT}-${SOURCE_MODEL}-run-${GITHUB_RUN_ID}"
+          title="SIDERAL | METBR WRF 4 km | ${SOURCE_MODEL^^} | ${MODEL_VARIANT^^}"
+          cat > release-notes.md <<EOF
+          ## METBR WRF 4 km
+
+          Previsão validada publicada como GitHub Release.
+
+          - Fonte: ${SOURCE_MODEL^^}
+          - Variante: ${MODEL_VARIANT^^}
+          - Execução: ${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}
+          - Commit: ${GITHUB_SHA}
+
+          O arquivo `metbr-products-4km.tar.gz` contém os produtos JSON e NPZ.
+          Os arquivos `metadata.json`, `grid.json` e `metbr_wrf_4km.json` também estão anexados individualmente para leitura direta.
+          EOF
+          assets=(metbr-products-4km.tar.gz metbr_products/metadata.json metbr_products/grid.json metbr_products/metbr_wrf_4km.json)
+          [[ ! -s metbr_products/vertical-f000.npz ]] || assets+=(metbr_products/vertical-f000.npz)
+          gh release create "$tag" \
+            --repo "$GITHUB_REPOSITORY" \
+            --title "$title" \
+            --notes-file release-notes.md \
+            --target "$GITHUB_SHA" \
+            "${assets[@]}"
+          gh release view "$tag" --repo "$GITHUB_REPOSITORY" --json url --jq .url
