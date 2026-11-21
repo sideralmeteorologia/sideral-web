@@ -6,7 +6,7 @@ on:
       retention_days:
         description: Dias de retenção dos artifacts WRF
         required: true
-        default: '7'
+        default: '1'
         type: string
   schedule:
     - cron: '15 * * * *'
