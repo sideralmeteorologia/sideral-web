@@ -5303,8 +5303,12 @@ jobs:
           test -s tarc_products/variable_catalog.json
           test -s tarc_severe/metadata.json
           test -s tarc_severe/diagnostics.json
+          cp tarc_products/metadata.json tarc-products-metadata.json
+          cp tarc_products/variable_catalog.json tarc-variable-catalog.json
+          cp tarc_severe/metadata.json tarc-severe-metadata.json
+          cp tarc_severe/diagnostics.json tarc-severe-diagnostics.json
           cycle_tag="$(printf '%s-%s' "${RUN_DATE:-unknown}" "${RUN_CYCLE:-unknown}" | tr -cs '[:alnum:]._-' '-')"
-          tag="sideral-tarc3-${MODEL_VARIANT}-${SOURCE_MODEL}-${cycle_tag}-run-${GITHUB_RUN_ID}"
+          tag="sideral-tarc3-${MODEL_VARIANT}-${SOURCE_MODEL}-${cycle_tag}-run-${GITHUB_RUN_ID}-attempt-${GITHUB_RUN_ATTEMPT}"
           title="SIDERAL | TARC WRF 3 km | ${MODEL_VARIANT^^} | ${SOURCE_MODEL^^}"
           cat > release-notes.md <<EOF
           ## TARC WRF 3 km
