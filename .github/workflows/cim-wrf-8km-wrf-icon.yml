@@ -482,11 +482,27 @@ jobs:
           python3 .github/scripts/wrf_artifact_bundle.py pack \
             --workspace "$GITHUB_WORKSPACE" \
             --output "$GITHUB_WORKSPACE/$WRF_ARTIFACT_OUTPUT"
-      - name: Publicar produtos finais como artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: wrf-final-cim8-wrf-icon-${{ github.job }}-${{ github.run_id }}
-          path: |
-            .wrf-artifact-safe/wrf-payload-001.tar
-          if-no-files-found: ignore
-          retention-days: 7
+      - name: Publicar JSON em GitHub Release e espelho raw (direto no workflow)
+        env:
+          GH_TOKEN: ${{ github.token }}
+          SOURCE_RUN_ID: ${{ github.run_id }}
+          SOURCE_REPOSITORY: ${{ github.repository }}
+          SOURCE_WORKFLOW_PATH: .github/workflows/cim-wrf-8km-wrf-icon.yml
+          SOURCE_WORKFLOW_NAME: ${{ github.workflow }}
+          SOURCE_COMMIT_SHA: ${{ github.sha }}
+          SOURCE_RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          SOURCE_BRANCH: ${{ github.ref_name }}
+          SOURCE_ARTIFACTS_DIR: ${{ runner.temp }}/model-artifacts
+          RELEASE_ASSETS_DIR: ${{ runner.temp }}/release-assets
+          FINAL_PRODUCT_TAR: .wrf-artifact-safe/wrf-payload-001.tar
+          FINAL_PRODUCT_DIR: wrf-final-cim-wrf-8km-wrf-icon-${{ github.job }}-${{ github.run_id }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -s "$GITHUB_WORKSPACE/$FINAL_PRODUCT_TAR"
+          product_dir="$SOURCE_ARTIFACTS_DIR/$FINAL_PRODUCT_DIR"
+          rm -rf "$product_dir"
+          mkdir -p "$product_dir"
+          tar -xf "$GITHUB_WORKSPACE/$FINAL_PRODUCT_TAR" -C "$product_dir"
+          export SOURCE_COMPLETED_AT="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+          python3 .github/scripts/publish_model_release.py publish
