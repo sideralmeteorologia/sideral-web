@@ -3504,42 +3504,45 @@ jobs:
           assert m['reflectivitySource']
           print(f"METBR validado: {m['frameCount']} quadros; grade {g['nx']}x{g['ny']}")
           PY
-      - name: Compactar produtos METBR para o GitHub Release
+      - name: Preparar produtos METBR para o publicador comum
         shell: bash
         run: |
           set -euo pipefail
-          tar -czf metbr-products-4km.tar.gz -C metbr_products .
-          test -s metbr-products-4km.tar.gz
-          test -s metbr_products/metadata.json
-          test -s metbr_products/metbr_wrf_4km.json
-          test -s metbr_products/grid.json
-      - name: Publicar previsão no GitHub Release
+          root="$RUNNER_TEMP/model-artifacts/wrf-final-metbr4-${MODEL_VARIANT}-${SOURCE_MODEL}-${GITHUB_RUN_ID}"
+          rm -rf "$root"
+          mkdir -p "$root"
+          cp -a metbr_products "$root/metbr_products"
+          ROOT="$root" python3 - <<'PY'
+          import json, os
+          from pathlib import Path
+          p = Path(os.environ["ROOT"]) / "metbr-run.json"
+          p.write_text(json.dumps({
+              "model": "METBR WRF 4 km",
+              "variant": os.environ.get("MODEL_VARIANT", "wrf"),
+              "source_model": os.environ.get("SOURCE_MODEL", "icon"),
+              "run_id": int(os.environ["GITHUB_RUN_ID"]),
+              "commit": os.environ["GITHUB_SHA"],
+              "workflow": os.environ.get("GITHUB_WORKFLOW", ""),
+              "run_url": os.environ["GITHUB_SERVER_URL"] + "/" + os.environ["GITHUB_REPOSITORY"] + "/actions/runs/" + os.environ["GITHUB_RUN_ID"],
+          }, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+          PY
+          test -s "$root/metbr_products/metadata.json"
+          test -s "$root/metbr_products/metbr_wrf_4km.json"
+          test -s "$root/metbr_products/grid.json"
+      - name: Publicar Release e espelho raw navegável METBR
         env:
           GH_TOKEN: ${{ github.token }}
+          SOURCE_RUN_ID: ${{ github.run_id }}
+          SOURCE_REPOSITORY: ${{ github.repository }}
+          SOURCE_WORKFLOW_PATH: .github/workflows/metbr-wrf-4km-wrf2-ecmwf.yml
+          SOURCE_WORKFLOW_NAME: ${{ github.workflow }}
+          SOURCE_COMMIT_SHA: ${{ github.sha }}
+          SOURCE_RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          SOURCE_BRANCH: ${{ github.ref_name }}
+          SOURCE_ARTIFACTS_DIR: ${{ runner.temp }}/model-artifacts
+          RELEASE_ASSETS_DIR: ${{ runner.temp }}/release-assets
         shell: bash
         run: |
           set -euo pipefail
-          tag="sideral-metbr4-${MODEL_VARIANT}-${SOURCE_MODEL}-run-${GITHUB_RUN_ID}-attempt-${GITHUB_RUN_ATTEMPT}"
-          title="SIDERAL | METBR WRF 4 km | ${SOURCE_MODEL^^} | ${MODEL_VARIANT^^}"
-          cat > release-notes.md <<EOF
-          ## METBR WRF 4 km
-
-          Previsão validada publicada como GitHub Release.
-
-          - Fonte: ${SOURCE_MODEL^^}
-          - Variante: ${MODEL_VARIANT^^}
-          - Execução: ${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}
-          - Commit: ${GITHUB_SHA}
-
-          O arquivo `metbr-products-4km.tar.gz` contém os produtos JSON e NPZ.
-          Os arquivos `metadata.json`, `grid.json` e `metbr_wrf_4km.json` também estão anexados individualmente para leitura direta.
-          EOF
-          assets=(metbr-products-4km.tar.gz metbr_products/metadata.json metbr_products/grid.json metbr_products/metbr_wrf_4km.json)
-          [[ ! -s metbr_products/vertical-f000.npz ]] || assets+=(metbr_products/vertical-f000.npz)
-          gh release create "$tag" \
-            --repo "$GITHUB_REPOSITORY" \
-            --title "$title" \
-            --notes-file release-notes.md \
-            --target "$GITHUB_SHA" \
-            "${assets[@]}"
-          gh release view "$tag" --repo "$GITHUB_REPOSITORY" --json url --jq .url
+          export SOURCE_COMPLETED_AT="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+          python3 .github/scripts/publish_model_release.py publish
