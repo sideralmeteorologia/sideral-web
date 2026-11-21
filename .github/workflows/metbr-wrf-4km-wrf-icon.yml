@@ -3522,7 +3522,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          tag="sideral-metbr4-${MODEL_VARIANT}-${SOURCE_MODEL}-run-${GITHUB_RUN_ID}"
+          tag="sideral-metbr4-${MODEL_VARIANT}-${SOURCE_MODEL}-run-${GITHUB_RUN_ID}-attempt-${GITHUB_RUN_ATTEMPT}"
           title="SIDERAL | METBR WRF 4 km | ${SOURCE_MODEL^^} | ${MODEL_VARIANT^^}"
           cat > release-notes.md <<EOF
           ## METBR WRF 4 km
