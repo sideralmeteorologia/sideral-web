@@ -71,11 +71,10 @@ jobs:
       - name: Restore WRF runtime files from runners catalog
         shell: bash
         run: python3 .github/scripts/restore_wrf_runtime.py
-      - name: Incorporar executores CIM 5 km e adaptador R2
+      - name: Incorporar executores CIM 5 km e adaptador GitHub Actions
         shell: bash
         run: |
           set -euo pipefail
-          command -v aws >/dev/null || { sudo apt-get update -qq && sudo apt-get install -y awscli; }
           mkdir -p "$(dirname 'wrf/run_cim4_checkpoint_segment.sh')"
           printf '%s' 'IyEvdXNyL2Jpbi9lbnYgYmFzaApzZXQgLWV1byBwaXBlZmFpbAoKU1RBUlRfSE9VUj0iJDEiCkVORF9IT1VSPSIkMiIKU0VHTUVOVF9JTkRFWD0iJDMiCkNPTERfU1RBUlQ9IiQ0IgpTRUdNRU5UX1NUQVJURURfQVQ9IiQoZGF0ZSArJXMpIgoKOiAiJEdIX1RPS0VOIgo6ICIkQ0hFQ0tQT0lOVF9UQUciCjogIiRHSVRIVUJfUkVQT1NJVE9SWSIKClJPT1Q9IiRHSVRIVUJfV09SS1NQQUNFIgpJTlBVVD0iJFJPT1QvY2ltNF9yZXN0YXJ0X2lucHV0Igpta2RpciAtcCAiJElOUFVUIgoKKCggU1RBUlRfSE9VUiA+PSAwICYmIEVORF9IT1VSID4gU1RBUlRfSE9VUiAmJiBTVEFSVF9IT1VSICUgMyA9PSAwICYmIEVORF9IT1VSICUgMyA9PSAwICYmIEVORF9IT1VSIDw9IDQyICkpIHx8IHsKICBlY2hvICJGMDAwLUYwNDIgQ0lNNDogaW50ZXJ2YWxvIGludmFsaWRvIiA+JjIKICBleGl0IDEKfQpjYXNlICIkQ09MRF9TVEFSVCIgaW4gMHwxKSA7OyAqKSBlY2hvICJDT0xEX1NUQVJUIGRldmUgc2VyIDEgbm8gRjAwMCIgPiYyOyBleGl0IDEgOzsgZXNhYwoKc291cmNlICIkUk9PVC93cmYvZW5zdXJlX2VjY29kZXNfdG9vbHMuc2giCmZvciB0b29sIGluIGdyaWJfc2V0IGdyaWJfY29weSBncmliX2NvdW50OyBkbwogIGNvbW1hbmQgLXYgIiR0b29sIiA+L2Rldi9udWxsIHx8IHsgZWNobyAiZWNDb2Rlcy8kdG9vbCBpbmRpc3Bvbml2ZWwiID4mMjsgZXhpdCAxMDsgfQpkb25lCgpjaG1vZCAreCB3cmYvcnVuX2NpbTRfY2hlY2twb2ludF9zZWdtZW50LnNoIHdyZi9ydW5fY2ltNF9pY29uX3dyZi5zaCB3cmYvcnVuX2NpbTRfZWNtd2Zfd3JmLnNoIHdyZi9ydW5fY2ltNF9nZnNfd3JmLnNoIHdyZi9ydW5fY2ltNF93cmZfd2l0aF9zb3VyY2Uuc2ggd3JmL3J1bl9jaW00X3Jlc3RhcnRfc2VnbWVudC5zaAoKZXhwb3J0IFdSRl9UQVJHRVRfUkVTT0xVVElPTl9LTT0iJHtXUkZfVEFSR0VUX1JFU09MVVRJT05fS006LTV9IgpleHBvcnQgV1JGX0RYX01FVEVSUz0iJHtXUkZfRFhfTUVURVJTOi01MDAwfSIgV1JGX0RZX01FVEVSUz0iJHtXUkZfRFlfTUVURVJTOi01MDAwfSIKZXhwb3J0IFdSRl9FX1dFPSIke1dSRl9FX1dFOi00NDd9IiBXUkZfRV9TTj0iJHtXUkZfRV9TTjotMzc1fSIKZXhwb3J0IFdSRl9ISVNUT1JZX0lOVEVSVkFMX01JTlVURVM9IiR7V1JGX0hJU1RPUllfSU5URVJWQUxfTUlOVVRFUzotNjB9IgpleHBvcnQgV1JGX1RJTUVfU1RFUD0iJHtXUkZfVElNRV9TVEVQOi0yNX0iCmV4cG9ydCBXUkZfTVBJX1BST0NTPSIke1dSRl9NUElfUFJPQ1M6LTR9IgpleHBvcnQgV1JGX0JPVU5EQVJZX0VORF9IT1VSPSIkRU5EX0hPVVIiCmV4cG9ydCBXUkZfUkVGX0xBVD0iJHtXUkZfUkVGX0xBVDotLTIzLjB9IiBXUkZfUkVGX0xPTj0iJHtXUkZfUkVGX0xPTjotLTQ1LjV9IiBXUkZfU1RBTkRfTE9OPSIke1dSRl9TVEFORF9MT046LS00NS41fSIKZXhwb3J0IFdSRl9SVU5fSE9VUlM9JCgoRU5EX0hPVVItU1RBUlRfSE9VUikpCmV4cG9ydCBXUkZfU1RBUlRfSE9VUj0iJFNUQVJUX0hPVVIiIFdSRl9FTkRfSE9VUj0iJEVORF9IT1VSIgoKCnByZXBhcmVfc291cmNlKCkgewogIGxvY2FsIGJvdW5kYXJ5X29ubHk9IiR7MTo/SW5mb3JtZSAwIHBhcmEgY29sZCBzdGFydCwgMSBwYXJhIExCQyBkZSByZXN0YXJ0fSIKICBsb2NhbCBtb2RlbD0iJHtTT1VSQ0VfTU9ERUw6LWljb259IgogIGxvY2FsIHJ1bm5lciByYwogIGNhc2UgIiRtb2RlbCIgaW4KICAgIGljb24pIHJ1bm5lcj0id3JmL3J1bl9jaW00X2ljb25fd3JmLnNoIiA7OwogICAgZWNtd2YpIHJ1bm5lcj0id3JmL3J1bl9jaW00X2VjbXdmX3dyZi5zaCIgOzsKICAgIGdmcykgcnVubmVyPSJ3cmYvcnVuX2NpbTRfZ2ZzX3dyZi5zaCIgOzsKICAgICopIGVjaG8gIlNPVVJDRV9NT0RFTCBpbnbDoWxpZG8gbm8gY2hlY2twb2ludCBDSU00OiAkbW9kZWwiID4mMjsgcmV0dXJuIDIgOzsKICBlc2FjCiAgZXhwb3J0IFdSRl9CT1VOREFSWV9PTkxZPSIkYm91bmRhcnlfb25seSIKICBlY2hvICI9PT09PSBDSU0gNSBLTSBTT1VSQ0UgRklYRUQ6ICR7bW9kZWxeXn07IGJvdW5kYXJ5X29ubHk9JGJvdW5kYXJ5X29ubHkgPT09PT0iCiAgaWYgYmFzaCAiJHJ1bm5lciI7IHRoZW4KICAgIHJjPTAKICBlbHNlCiAgICByYz0kPwogICAgZWNobyAiRVJSTzogZm9udGUgQ0lNNCBleGNsdXNpdmEgJHttb2RlbF5efSBmYWxob3UgKGV4aXQ9JHJjKTsgbmVuaHVtYSBmb250ZSBhbHRlcm5hdGl2YSBzZXLDoSB0ZW50YWRhLiIgPiYyCiAgICByZXR1cm4gIiRyYyIKICBmaQogIElDT05fU09VUkNFX0RBVEU9IiR7SUNPTl9TT1VSQ0VfREFURTotfSIKICBJQ09OX1NPVVJDRV9DWUNMRT0iJHtJQ09OX1NPVVJDRV9DWUNMRTotfSIKICBJQ09OX09GRlNFVF9IT1VSUz0iJHtJQ09OX09GRlNFVF9IT1VSUzotfSIKICBpZiBbWyAiJG1vZGVsIiA9PSAiaWNvbiIgJiYgLXMgIiRST09UL2NpbTQtaWNvbi1ydW4uZW52IiBdXTsgdGhlbgogICAgc291cmNlICIkUk9PVC9jaW00LWljb24tcnVuLmVudiIKICAgIGV4cG9ydCBSVU5fREFURSBSVU5fQ1lDTEUKICAgIEZPUkNFX1JVTl9EQVRFPSIkUlVOX0RBVEUiCiAgICBGT1JDRV9SVU5fQ1lDTEU9IiRSVU5fQ1lDTEUiCiAgICBleHBvcnQgRk9SQ0VfUlVOX0RBVEUgRk9SQ0VfUlVOX0NZQ0xFCiAgICBJQ09OX1NPVVJDRV9EQVRFPSIke0lDT05fU09VUkNFX0RBVEU6LSRSVU5fREFURX0iCiAgICBJQ09OX1NPVVJDRV9DWUNMRT0iJHtJQ09OX1NPVVJDRV9DWUNMRTotJFJVTl9DWUNMRX0iCiAgICBJQ09OX09GRlNFVF9IT1VSUz0iJHtJQ09OX09GRlNFVF9IT1VSUzotMH0iCiAgZmkKICBTT1VSQ0VfTU9ERUw9IiRtb2RlbCIKICBwcmludGYgJ1JVTl9EQVRFPSVzXG5SVU5fQ1lDTEU9JXNcblNPVVJDRV9NT0RFTD0lc1xuV1JGMl9UT01PUlJPVz0lc1xuSUNPTl9TT1VSQ0VfREFURT0lc1xuSUNPTl9TT1VSQ0VfQ1lDTEU9JXNcbklDT05fT0ZGU0VUX0hPVVJTPSVzXG4nICIkUlVOX0RBVEUiICIkUlVOX0NZQ0xFIiAiJFNPVVJDRV9NT0RFTCIgIiR7V1JGMl9UT01PUlJPVzotMH0iICIkSUNPTl9TT1VSQ0VfREFURSIgIiRJQ09OX1NPVVJDRV9DWUNMRSIgIiRJQ09OX09GRlNFVF9IT1VSUyIgPiBjaW00LXJ1bi5lbnYKIDogIyBjaGVja3BvaW50IGhhbmRsZWQgYnkgR2l0SHViIEFjdGlvbnMgYXJ0aWZhY3QKfQoKaWYgW1sgIiRDT0xEX1NUQVJUIiA9PSAiMCIgXV07IHRoZW4KICBybSAtcmYgIiRJTlBVVCIvKgogOiAjIGNoZWNrcG9pbnQgaGFuZGxlZCBieSBHaXRIdWIgQWN0aW9ucyBhcnRpZmFjdAogIHNvdXJjZSBjaW00LXJ1bi5lbnYKICBleHBvcnQgV1JGMl9UT01PUlJPVz0iJHtXUkYyX1RPTU9SUk9XOi0wfSIKIDogIyBjaGVja3BvaW50IGhhbmRsZWQgYnkgR2l0SHViIEFjdGlvbnMgYXJ0aWZhY3QKIDogIyBjaGVja3BvaW50IGhhbmRsZWQgYnkgR2l0SHViIEFjdGlvbnMgYXJ0aWZhY3QKICBta2RpciAtcCAiJElOUFVUL25vcm1hbGl6ZWQiCiAgZm9yIGYgaW4gIiRJTlBVVCIvY2ltNC1yZXN0YXJ0LSIkU1RBUlRfSE9VUiItKjsgZG8KICAgIFtbIC1mICIkZiIgXV0gfHwgY29udGludWUKICAgIGNwIC1mICIkZiIgIiRJTlBVVC9ub3JtYWxpemVkLyQoYmFzZW5hbWUgIiRmIiB8IHNlZCAtRSAicy9eY2ltNC1yZXN0YXJ0LSRTVEFSVF9IT1VSLS8vOyBzL18oWzAtOV17Mn0pWy5dKFswLTldezJ9KVsuXShbMC05XXsyfSkkL19cMTpcMjpcMy8iKSIKICBkb25lCiAgY3AgLWYgIiRJTlBVVC9jaW00LW5hbWVsaXN0LmlucHV0IiAiJElOUFVUL25vcm1hbGl6ZWQvbmFtZWxpc3QuaW5wdXQiCgogICMgVGhlIHByZXZpb3VzIGNoZWNrcG9pbnQgYm91bmRhcnkgZW5kcyBhdCBTVEFSVF9IT1VSLCBzbyBidWlsZCBhIGZyZXNoCiAgIyBJQ09OIExCQyBjb3ZlcmluZyBTVEFSVF9IT1VSLi5FTkRfSE9VUiBiZWZvcmUgcmVzdGFydGluZyBXUkYuCiAgZXhwb3J0IFJVTl9EQVRFIFJVTl9DWUNMRQogIGV4cG9ydCBGT1JDRV9SVU5fREFURT0iJFJVTl9EQVRFIiBGT1JDRV9SVU5fQ1lDTEU9IiRSVU5fQ1lDTEUiCiAgZXhwb3J0IFdSRl9UQVJHRVRfUkVTT0xVVElPTl9LTT0iJHtXUkZfVEFSR0VUX1JFU09MVVRJT05fS006LTV9IiBXUkZfRFhfTUVURVJTPSIke1dSRl9EWF9NRVRFUlM6LTUwMDB9IiBXUkZfRFlfTUVURVJTPSIke1dSRl9EWV9NRVRFUlM6LTUwMDB9IgogIGV4cG9ydCBXUkZfRV9XRT0iJHtXUkZfRV9XRTotNDQ3fSIgV1JGX0VfU049IiR7V1JGX0VfU046LTM3NX0iCiAgZXhwb3J0IFdSRl9ISVNUT1JZX0lOVEVSVkFMX01JTlVURVM9IiR7V1JGX0hJU1RPUllfSU5URVJWQUxfTUlOVVRFUzotNjB9IiBXUkZfVElNRV9TVEVQPSIke1dSRl9USU1FX1NURVA6LTI1fSIgV1JGX01QSV9QUk9DUz0iJHtXUkZfTVBJX1BST0NTOi00fSIKICBleHBvcnQgV1JGX1NUQVJUX0hPVVI9IiRTVEFSVF9IT1VSIiBXUkZfRU5EX0hPVVI9IiRFTkRfSE9VUiIKICBleHBvcnQgV1JGX0JPVU5EQVJZX0VORF9IT1VSPSIkRU5EX0hPVVIiIFdSRl9CT1VOREFSWV9PTkxZPTEKICBlY2hvICJDSU06IHByZXBhcmFuZG8gTEJDIGNvbSBmb250ZSBzZWxlY2lvbmFkYSBGJFNUQVJUX0hPVVItRiRFTkRfSE9VUiIKICBCT1VOREFSWV9QUkVQX1NUQVJURURfQVQ9IiQoZGF0ZSArJXMpIgogIHByZXBhcmVfc291cmNlIDEKICBlY2hvICJDSU00X01FVFJJQyBib3VuZGFyeV9wcmVwYXJlX3NlY29uZHM9JCgoICQoZGF0ZSArJXMpIC0gQk9VTkRBUllfUFJFUF9TVEFSVEVEX0FUICkpIgogIHRlc3QgLXMgIiRST09UL3dyZl93b3JrL3J1bi93cmZiZHlfZDAxIiB8fCB7IGVjaG8gIkxCQyBDSU00IGF1c2VudGUgcGFyYSBGJFNUQVJUX0hPVVItRiRFTkRfSE9VUiIgPiYyOyBleGl0IDI3OyB9CiAgY3AgLWYgIiRST09UL3dyZl93b3JrL3J1bi93cmZiZHlfZDAxIiAiJElOUFVUL25vcm1hbGl6ZWQvd3JmYmR5X2QwMSIKICB0ZXN0IC1zICIkSU5QVVQvbm9ybWFsaXplZC93cmZiZHlfZDAxIgogIHRlc3QgLXMgIiRJTlBVVC9ub3JtYWxpemVkL25hbWVsaXN0LmlucHV0IgogIGV4cG9ydCBXUkZfUkVTVEFSVF9ESVI9IiRJTlBVVC9ub3JtYWxpemVkIgogIFJFU1RBUlRfU1RBUlRFRF9BVD0iJChkYXRlICslcykiCiAgYmFzaCB3cmYvcnVuX2NpbTRfcmVzdGFydF9zZWdtZW50LnNoICIkU1RBUlRfSE9VUiIgIiRFTkRfSE9VUiIgIiRXUkZfUkVTVEFSVF9ESVIiCiAgZWNobyAiQ0lNNF9NRVRSSUMgcmVzdGFydF9mb3JlY2FzdF9zZWNvbmRzPSQoKCAkKGRhdGUgKyVzKSAtIFJFU1RBUlRfU1RBUlRFRF9BVCApKSIKCiAgT1VUUFVUX0RJUj0iJFJPT1QvY2ltNF9zZWdtZW50X291dHB1dCIKICB0ZXN0IC1kICIkT1VUUFVUX0RJUiIKICBVUExPQURfRElSPSIkUk9PVC9jaW00X3VwbG9hZF8kU0VHTUVOVF9JTkRFWCIKICBybSAtcmYgIiRVUExPQURfRElSIjsgbWtkaXIgLXAgIiRVUExPQURfRElSIgogIGZvciBmIGluICIkT1VUUFVUX0RJUiIvd3JmcnN0X2QwMV8qOyBkbyBjcCAtZiAiJGYiICIkVVBMT0FEX0RJUi9jaW00LXJlc3RhcnQtJEVORF9IT1VSLSQoYmFzZW5hbWUgIiRmIikiOyBkb25lCiAgZm9yIGYgaW4gIiRPVVRQVVRfRElSIi93cmZvdXRfZDAxXyo7IGRvIGNwIC1mICIkZiIgIiRVUExPQURfRElSL2NpbTQtd3Jmb3V0LSRTRUdNRU5UX0lOREVYLSQoYmFzZW5hbWUgIiRmIikiOyBkb25lCiA6ICMgY2hlY2twb2ludCBoYW5kbGVkIGJ5IEdpdEh1YiBBY3Rpb25zIGFydGlmYWN0CmVsc2UKICBweXRob24zIC0gPDwnUFknCmltcG9ydCBkYXRldGltZSBhcyBkdCwgb3MKbm93PWR0LmRhdGV0aW1lLm5vdyhkdC50aW1lem9uZS51dGMpCnNjaGVkdWxlZF9jeWNsZT1vcy5lbnZpcm9uLmdldCgiV1JGX1NDSEVEVUxFRF9DWUNMRSIsIiIpCmlmIHNjaGVkdWxlZF9jeWNsZSBpbiB7IjAwIiwiMTIifToKICAgIHJ1bj1ub3cucmVwbGFjZShob3VyPWludChzY2hlZHVsZWRfY3ljbGUpLCBtaW51dGU9MCwgc2Vjb25kPTAsIG1pY3Jvc2Vjb25kPTApCmVsc2U6CiAgICBydW49bm93LnJlcGxhY2UoaG91cj0obm93LmhvdXIvLzYpKjYsIG1pbnV0ZT0wLCBzZWNvbmQ9MCwgbWljcm9zZWNvbmQ9MCkKaWYgb3MuZW52aXJvbi5nZXQoIldSRjJfVE9NT1JST1ciKSA9PSAiMSI6CiAgICBydW4gKz0gZHQudGltZWRlbHRhKGhvdXJzPTI0KQpzb3VyY2VfbW9kZWw9b3MuZW52aXJvbi5nZXQoIlNPVVJDRV9NT0RFTCIsImljb24iKQpvcGVuKCJjaW00LXJ1bi5lbnYiLCJ3Iikud3JpdGUoZiJSVU5fREFURT17cnVuOiVZJW0lZH1cblJVTl9DWUNMRT17cnVuOiVIfVxuU09VUkNFX01PREVMPXtzb3VyY2VfbW9kZWx9XG5XUkYyX1RPTU9SUk9XPXtvcy5lbnZpcm9uLmdldCgnV1JGMl9UT01PUlJPVycsJzAnKX1cbiIpClBZCiAgc291cmNlIGNpbTQtcnVuLmVudgogOiAjIGNoZWNrcG9pbnQgaGFuZGxlZCBieSBHaXRIdWIgQWN0aW9ucyBhcnRpZmFjdAogOiAjIGNoZWNrcG9pbnQgaGFuZGxlZCBieSBHaXRIdWIgQWN0aW9ucyBhcnRpZmFjdAoKICBleHBvcnQgRk9SQ0VfUlVOX0RBVEU9IiRSVU5fREFURSIgRk9SQ0VfUlVOX0NZQ0xFPSIkUlVOX0NZQ0xFIgogIHVuc2V0IENJTTRfQUxMT1dfUkVTRUxFQ1RfSUNPTgogIGV4cG9ydCBXUkZfQk9VTkRBUllfT05MWT0wCiAgQ09MRF9GT1JFQ0FTVF9TVEFSVEVEX0FUPSIkKGRhdGUgKyVzKSIKICBwcmVwYXJlX3NvdXJjZSAwCiAgZWNobyAiU0lERVJBTF9NRVRSSUMgY29sZF9zdGFydF9mb3JlY2FzdF9zZWNvbmRzPSQoKCAkKGRhdGUgKyVzKSAtIENPTERfRk9SRUNBU1RfU1RBUlRFRF9BVCApKSIKICB0ZXN0IC1zIHdyZl93b3JrL3J1bi93cmZpbnB1dF9kMDEKICB0ZXN0IC1zIHdyZl93b3JrL3J1bi93cmZiZHlfZDAxCiAgdGVzdCAtbiAiJChmaW5kIHdyZl93b3JrL3J1biAtbWF4ZGVwdGggMSAtdHlwZSBmIC1uYW1lICd3cmZvdXRfZDAxXyonIC1zaXplICswYyAtcHJpbnQgLXF1aXQpIgogIHRlc3QgLW4gIiQoZmluZCB3cmZfd29yay9ydW4gLW1heGRlcHRoIDEgLXR5cGUgZiAtbmFtZSAnd3JmcnN0X2QwMV8qJyAtc2l6ZSArMGMgLXByaW50IC1xdWl0KSIKCiAgZm9yIGYgaW4gd3JmX3dvcmsvcnVuL3dyZnJzdF9kMDFfKjsgZG8gY3AgLWYgIiRmIiAiY2ltNC1yZXN0YXJ0LSRFTkRfSE9VUi0kKGJhc2VuYW1lICIkZiIpIjsgZG9uZQogIGZvciBmIGluIHdyZl93b3JrL3J1bi93cmZvdXRfZDAxXyo7IGRvIGNwIC1mICIkZiIgImNpbTQtd3Jmb3V0LSRTRUdNRU5UX0lOREVYLSQoYmFzZW5hbWUgIiRmIikiOyBkb25lCiAgZm9yIGYgaW4gd3JmX3dvcmsvcnVuL3dyZmJkeV9kMDE7IGRvIGNwIC1mICIkZiIgImNpbTQtYm91bmRhcnktJChiYXNlbmFtZSAiJGYiKSI7IGRvbmUKICBjcCAtZiB3cmZfd29yay9ydW4vbmFtZWxpc3QuaW5wdXQgY2ltNC1uYW1lbGlzdC5pbnB1dAogOiAjIGNoZWNrcG9pbnQgaGFuZGxlZCBieSBHaXRIdWIgQWN0aW9ucyBhcnRpZmFjdApmaQoKCiMgR2VyYSBwcm9kdXRvcyAyRCBjb21wYWN0b3MgcGFyYSBvIGZyb250ZW5kIHNlbSBzdWJzdGl0dWlyIG9zIHdyZm91dCBuYXRpdm9zLgppZiBbWyAiJENPTERfU1RBUlQiID09ICIxIiBdXTsgdGhlbgogIFBPU1RfSU5QVVQ9IiRST09UL3dyZl93b3JrL3J1biIKZWxzZQogIFBPU1RfSU5QVVQ9IiRST09UL2NpbTRfc2VnbWVudF9vdXRwdXQiCmZpCmlmIFtbIC1uICIkKGZpbmQgIiRQT1NUX0lOUFVUIiAtbWF4ZGVwdGggMSAtdHlwZSBmIC1uYW1lICd3cmZvdXRfZDAxXyonIC1zaXplICswYyAtcHJpbnQgLXF1aXQpIiBdXTsgdGhlbgogIHB5dGhvbjMgLW0gcGlwIGluc3RhbGwgLS1kaXNhYmxlLXBpcC12ZXJzaW9uLWNoZWNrIC1xIG5ldENERjQgbnVtcHkKICBQUk9EVUNUX0RJUj0iJFJPT1QvY2ltNF9wcm9kdWN0c18kU0VHTUVOVF9JTkRFWCIKICBybSAtcmYgIiRQUk9EVUNUX0RJUiIKICBweXRob24zIHdyZi9jaW00X3Bvc3Rwcm9jZXNzLnB5ICIkUE9TVF9JTlBVVCIvd3Jmb3V0X2QwMV8qIC0tb3V0cHV0LWRpciAiJFBST0RVQ1RfRElSIgogIGlmIFtbICIke1dSRjJfVE9NT1JST1c6LTB9IiA9PSAiMSIgXV07IHRoZW4KICAgIENBVEFMT0dfUEFUSD0iJFJPT1Qvd3JmL2NpbTRfd3JmMl92YXJpYWJsZV9jYXRhbG9nLmpzb24iCiAgZWxzZQogICAgQ0FUQUxPR19QQVRIPSIkUk9PVC93cmYvY2ltNF92YXJpYWJsZV9jYXRhbG9nLmpzb24iCiAgZmkKICB0ZXN0IC1zICIkQ0FUQUxPR19QQVRIIiB8fCB7IGVjaG8gIkNhdO+/vWxvZ28gQ0lNIGF1c2VudGU6ICRDQVRBTE9HX1BBVEgiID4mMjsgZXhpdCAzMTsgfQogIGNwIC1mICIkQ0FUQUxPR19QQVRIIiAiJFBST0RVQ1RfRElSL3ZhcmlhYmxlX2NhdGFsb2cuanNvbiIKICBtdiAiJFBST0RVQ1RfRElSL21ldGFkYXRhLmpzb24iICJjaW00LXByb2R1Y3RzLSRTRUdNRU5UX0lOREVYLmpzb24iCiA6ICMgY2hlY2twb2ludCBoYW5kbGVkIGJ5IEdpdEh1YiBBY3Rpb25zIGFydGlmYWN0CmZpCgplY2hvICJTSURFUkFMX01FVFJJQyBzZWdtZW50PUYkU1RBUlRfSE9VUi1GJEVORF9IT1VSIHRvdGFsX3NlY29uZHM9JCgoICQoZGF0ZSArJXMpIC0gU0VHTUVOVF9TVEFSVEVEX0FUICkpIgplY2hvICJDSU01IGNoZWNrcG9pbnQgRiRTVEFSVF9IT1VSLUYkRU5EX0hPVVIgcHVibGljYWRvIGVtICRDSEVDS1BPSU5UX1RBRy4iCiMgQSBwdWJsaWNhw6fDo28gb3BlcmFjaW9uYWwgw6kgZGlzcGFyYWRhIHBlbG8gam9iIHZlcmlmeSBzb21lbnRlIGRlcG9pcyBkZSBGMDQyCiMgZSBkYSBjb250YWdlbSBtw61uaW1hIGRlIFdSRk9VVC9OUFpzLiBBc3NpbSBhIGJyYW5jaCByZWNlYmUgYSByb2RhZGEgY29tcGxldGEu' | base64 -d > 'wrf/run_cim4_checkpoint_segment.sh'
           mkdir -p "$(dirname 'wrf/run_cim4_icon_wrf.sh')"
@@ -132,14 +131,14 @@ jobs:
         with:
           path: wrf
           key: ${{ runner.os }}-sideral-cim5-runtime-${{ github.sha }}
-      - name: Configurar adaptador R2
+      - name: Expose WRF helper adapter to PATH
         run: echo "$GITHUB_WORKSPACE/wrf/bin" >> "$GITHUB_PATH"
       - name: Restore embedded scientific runtime
         uses: actions/cache@v4
         with:
           path: wrf
           key: ${{ runner.os }}-sideral-cim5-runtime-${{ github.sha }}
-      - name: Add R2 adapter to PATH
+      - name: Expose WRF helper adapter to PATH
         run: echo "$GITHUB_WORKSPACE/wrf/bin" >> "$GITHUB_PATH"
 
       - name: Install WRF input and validation dependencies
@@ -285,7 +284,7 @@ jobs:
         with:
           path: wrf
           key: ${{ runner.os }}-sideral-cim5-runtime-${{ github.sha }}
-      - name: Add R2 adapter to PATH
+      - name: Expose WRF helper adapter to PATH
         run: echo "$GITHUB_WORKSPACE/wrf/bin" >> "$GITHUB_PATH"
 
       - name: Install WRF input and validation dependencies
@@ -433,7 +432,7 @@ jobs:
         with:
           path: wrf
           key: ${{ runner.os }}-sideral-cim5-runtime-${{ github.sha }}
-      - name: Add R2 adapter to PATH
+      - name: Expose WRF helper adapter to PATH
         run: echo "$GITHUB_WORKSPACE/wrf/bin" >> "$GITHUB_PATH"
 
       - name: Install WRF input and validation dependencies
@@ -581,7 +580,7 @@ jobs:
         with:
           path: wrf
           key: ${{ runner.os }}-sideral-cim5-runtime-${{ github.sha }}
-      - name: Add R2 adapter to PATH
+      - name: Expose WRF helper adapter to PATH
         run: echo "$GITHUB_WORKSPACE/wrf/bin" >> "$GITHUB_PATH"
 
       - name: Install WRF input and validation dependencies
@@ -729,7 +728,7 @@ jobs:
         with:
           path: wrf
           key: ${{ runner.os }}-sideral-cim5-runtime-${{ github.sha }}
-      - name: Add R2 adapter to PATH
+      - name: Expose WRF helper adapter to PATH
         run: echo "$GITHUB_WORKSPACE/wrf/bin" >> "$GITHUB_PATH"
 
       - name: Install WRF input and validation dependencies
@@ -877,7 +876,7 @@ jobs:
         with:
           path: wrf
           key: ${{ runner.os }}-sideral-cim5-runtime-${{ github.sha }}
-      - name: Add R2 adapter to PATH
+      - name: Expose WRF helper adapter to PATH
         run: echo "$GITHUB_WORKSPACE/wrf/bin" >> "$GITHUB_PATH"
 
       - name: Install WRF input and validation dependencies
@@ -1025,7 +1024,7 @@ jobs:
         with:
           path: wrf
           key: ${{ runner.os }}-sideral-cim5-runtime-${{ github.sha }}
-      - name: Add R2 adapter to PATH
+      - name: Expose WRF helper adapter to PATH
         run: echo "$GITHUB_WORKSPACE/wrf/bin" >> "$GITHUB_PATH"
 
       - name: Install WRF input and validation dependencies
@@ -1173,7 +1172,7 @@ jobs:
         with:
           path: wrf
           key: ${{ runner.os }}-sideral-cim5-runtime-${{ github.sha }}
-      - name: Add R2 adapter to PATH
+      - name: Expose WRF helper adapter to PATH
         run: echo "$GITHUB_WORKSPACE/wrf/bin" >> "$GITHUB_PATH"
 
       - name: Install WRF input and validation dependencies
@@ -1321,7 +1320,7 @@ jobs:
         with:
           path: wrf
           key: ${{ runner.os }}-sideral-cim5-runtime-${{ github.sha }}
-      - name: Add R2 adapter to PATH
+      - name: Expose WRF helper adapter to PATH
         run: echo "$GITHUB_WORKSPACE/wrf/bin" >> "$GITHUB_PATH"
 
       - name: Install WRF input and validation dependencies
@@ -1469,7 +1468,7 @@ jobs:
         with:
           path: wrf
           key: ${{ runner.os }}-sideral-cim5-runtime-${{ github.sha }}
-      - name: Add R2 adapter to PATH
+      - name: Expose WRF helper adapter to PATH
         run: echo "$GITHUB_WORKSPACE/wrf/bin" >> "$GITHUB_PATH"
 
       - name: Install WRF input and validation dependencies
@@ -1617,7 +1616,7 @@ jobs:
         with:
           path: wrf
           key: ${{ runner.os }}-sideral-cim5-runtime-${{ github.sha }}
-      - name: Add R2 adapter to PATH
+      - name: Expose WRF helper adapter to PATH
         run: echo "$GITHUB_WORKSPACE/wrf/bin" >> "$GITHUB_PATH"
 
       - name: Install WRF input and validation dependencies
@@ -1765,7 +1764,7 @@ jobs:
         with:
           path: wrf
           key: ${{ runner.os }}-sideral-cim5-runtime-${{ github.sha }}
-      - name: Add R2 adapter to PATH
+      - name: Expose WRF helper adapter to PATH
         run: echo "$GITHUB_WORKSPACE/wrf/bin" >> "$GITHUB_PATH"
 
       - name: Install WRF input and validation dependencies
@@ -1913,7 +1912,7 @@ jobs:
         with:
           path: wrf
           key: ${{ runner.os }}-sideral-cim5-runtime-${{ github.sha }}
-      - name: Add R2 adapter to PATH
+      - name: Expose WRF helper adapter to PATH
         run: echo "$GITHUB_WORKSPACE/wrf/bin" >> "$GITHUB_PATH"
 
       - name: Install WRF input and validation dependencies
@@ -2061,7 +2060,7 @@ jobs:
         with:
           path: wrf
           key: ${{ runner.os }}-sideral-cim5-runtime-${{ github.sha }}
-      - name: Add R2 adapter to PATH
+      - name: Expose WRF helper adapter to PATH
         run: echo "$GITHUB_WORKSPACE/wrf/bin" >> "$GITHUB_PATH"
 
       - name: Install WRF input and validation dependencies
