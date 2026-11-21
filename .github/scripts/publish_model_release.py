@@ -293,10 +293,24 @@ def publish_release(repo: str, tag: str, title: str, notes_path: Path,
         ])
 
 
+def central_supported(path: str, name: str) -> bool:
+    """Workflows handled by the workflow_run publisher.
+
+    METBR and TARC publish directly inside their runner so the central
+    workflow must not race them or overwrite their product-specific Releases.
+    Direct calls to run()/publish remain enabled through supported().
+    """
+    filename = Path(path).name.lower()
+    workflow_name = name.lower()
+    if any(token in filename or token in workflow_name for token in ("metbr", "tarc")):
+        return False
+    return supported(path, name)
+
+
 def check() -> int:
     path, name = get("SOURCE_WORKFLOW_PATH"), get("SOURCE_WORKFLOW_NAME")
-    enabled = supported(path, name)
-    print(f"Release publishing enabled={enabled}: {path or name}")
+    enabled = central_supported(path, name)
+    print(f"Central Release publishing enabled={enabled}: {path or name}")
     if get("GITHUB_OUTPUT"):
         with open(get("GITHUB_OUTPUT"), "a", encoding="utf-8") as stream:
             stream.write(f"enabled={'true' if enabled else 'false'}\n")
