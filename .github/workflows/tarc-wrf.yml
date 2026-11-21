@@ -5162,6 +5162,9 @@ jobs:
     name: TARC 3 KM F000-F048 completo e pós-processado
     runs-on: ubuntu-22.04
     needs: [seg00, seg01, seg02, seg03, seg04, seg05, seg06, seg07, seg08, seg09, seg10, seg11, seg12, seg13, seg14, seg15, seg16, seg17, seg18, seg19, seg20, seg21, seg22, seg23, seg24, seg25, seg26, seg27, seg28, seg29, seg30, seg31, seg32, seg33, seg34, seg35, seg36, seg37, seg38, seg39, seg40, seg41, seg42, seg43, seg44, seg45, seg46, seg47]
+    outputs:
+      release_tag: ${{ steps.publish_release.outputs.tag }}
+      release_url: ${{ steps.publish_release.outputs.url }}
     timeout-minutes: 55
     steps:
       - name: Checkout repository
@@ -5294,81 +5297,95 @@ jobs:
           print('TARC severo:', s['frameCount'], 'frames')
           print('Status severo:', s['status'])
           PY
-      - name: Publicar produtos no Release
+      - name: Publicar produtos no GitHub Release
+        id: publish_release
         env:
-          CHECKPOINT_TAG: tarc-${{ env.MODEL_VARIANT }}-3km-checkpoint-${{ github.run_id }}
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
         run: |
           set -euo pipefail
+          source tarc-run.env
           tar -czf tarc-products-3km.tar.gz -C tarc_products .
           tar -czf tarc-severe-3km.tar.gz -C tarc_severe .
           test -s tarc-products-3km.tar.gz
           test -s tarc-severe-3km.tar.gz
-          : # artifact-only workflow
-          : # artifact-only workflow
-          echo "TARC 3 KM: produtos e diagnósticos publicados."
-      - name: Bundle WRF artifact safely (17)
-        shell: bash
-        env:
-          WRF_ARTIFACT_PATTERNS: |
-            **/*products*/**
-            **/*publish*/**
-            **/*.json
-            **/*.npz
-            **/*.tar.gz
-            **/wrfout_d01_*
-          WRF_ARTIFACT_OUTPUT: .wrf-artifact-safe/wrf-payload-017.tar
-        run: |
-          python3 .github/scripts/wrf_artifact_bundle.py pack \
-            --workspace "$GITHUB_WORKSPACE" \
-            --output "$GITHUB_WORKSPACE/$WRF_ARTIFACT_OUTPUT"
-      - name: Publicar produtos finais como artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: wrf-final-tarc3-manual-${{ github.job }}-${{ github.run_id }}
-          path: |
-            .wrf-artifact-safe/wrf-payload-017.tar
-          if-no-files-found: ignore
-          retention-days: 1
+          test -s tarc_products/metadata.json
+          test -s tarc_products/variable_catalog.json
+          test -s tarc_severe/metadata.json
+          test -s tarc_severe/diagnostics.json
+          cycle_tag="$(printf '%s-%s' "${RUN_DATE:-unknown}" "${RUN_CYCLE:-unknown}" | tr -cs '[:alnum:]._-' '-')"
+          tag="sideral-tarc3-${MODEL_VARIANT}-${SOURCE_MODEL}-${cycle_tag}-run-${GITHUB_RUN_ID}"
+          title="SIDERAL | TARC WRF 3 km | ${MODEL_VARIANT^^} | ${SOURCE_MODEL^^}"
+          cat > release-notes.md <<EOF
+          ## TARC WRF 3 km
+
+          Previsão e diagnósticos severos publicados como GitHub Release.
+
+          - Variante: ${MODEL_VARIANT^^}
+          - Fonte: ${SOURCE_MODEL^^}
+          - Ciclo UTC: ${RUN_DATE:-desconhecida} ${RUN_CYCLE:-?}Z
+          - Execução: ${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}
+          - Commit: ${GITHUB_SHA}
+
+          Arquivos:
+          - `tarc-products-3km.tar.gz`: todos os produtos principais.
+          - `tarc-severe-3km.tar.gz`: todos os diagnósticos severos.
+          - Metadados JSON e catálogo de variáveis anexados individualmente.
+          EOF
+          gh release create "$tag" \
+            --repo "$GITHUB_REPOSITORY" \
+            --title "$title" \
+            --notes-file release-notes.md \
+            --target "$GITHUB_SHA" \
+            tarc-products-3km.tar.gz \
+            tarc-severe-3km.tar.gz \
+            tarc_products/metadata.json \
+            tarc_products/variable_catalog.json \
+            tarc_severe/metadata.json \
+            tarc_severe/diagnostics.json
+          url="$(gh release view "$tag" --repo "$GITHUB_REPOSITORY" --json url --jq .url)"
+          printf 'tag=%s\nurl=%s\n' "$tag" "$url" >> "$GITHUB_OUTPUT"
   register-run:
-    name: Registrar rodada validada para o maestro global
+    name: Registrar metadados da rodada no GitHub Release
     runs-on: ubuntu-22.04
     needs: complete
     steps:
-      - name: Registrar metadados da rodada concluída no R2
+      - name: Anexar manifesto legível ao Release
         env:
-          CHECKPOINT_TAG: tarc-${{ env.MODEL_VARIANT }}-3km-checkpoint-${{ github.run_id }}
+          GH_TOKEN: ${{ github.token }}
+          RELEASE_TAG: ${{ needs.complete.outputs.release_tag }}
+          RELEASE_URL: ${{ needs.complete.outputs.release_url }}
+          RUN_ID: ${{ github.run_id }}
+          RUN_NUMBER: ${{ github.run_number }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          COMMIT_SHA: ${{ github.sha }}
+          WORKFLOW_NAME: ${{ github.workflow }}
           MODEL_VARIANT: ${{ env.MODEL_VARIANT }}
           SOURCE_MODEL: ${{ env.SOURCE_MODEL }}
         shell: bash
         run: |
           set -euo pipefail
-          command -v aws >/dev/null || { sudo apt-get update -qq && sudo apt-get install -y awscli; }
-          : # artifact-only workflow
-          : # artifact-only workflow
-          : # artifact-only workflow
-          latest_prefix="sideral/tarc/3km/$MODEL_VARIANT/$SOURCE_MODEL/latest"
-          [[ "$count" != 0 && "$count" != None ]] || { echo "Nenhum produto validado no prefixo: $artifact_prefix" >&2; exit 41; }
-          completed_at="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
-      - name: Bundle WRF artifact safely (18)
-        shell: bash
-        env:
-          WRF_ARTIFACT_PATTERNS: |
-            **/*products*/**
-            **/*publish*/**
-            **/*.json
-            **/*.npz
-            **/*.tar.gz
-            **/wrfout_d01_*
-          WRF_ARTIFACT_OUTPUT: .wrf-artifact-safe/wrf-payload-018.tar
-        run: |
-          python3 .github/scripts/wrf_artifact_bundle.py pack \
-            --workspace "$GITHUB_WORKSPACE" \
-            --output "$GITHUB_WORKSPACE/$WRF_ARTIFACT_OUTPUT"
-      - name: Publicar produtos finais como artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: wrf-final-tarc3-manual-${{ github.job }}-${{ github.run_id }}
-          path: |
-            .wrf-artifact-safe/wrf-payload-018.tar
-          if-no-files-found: ignore
-          retention-days: 7
+          test -n "$RELEASE_TAG"
+          test -n "$RELEASE_URL"
+          python3 - <<'PY'
+          import datetime, json, os
+          payload = {
+              "model": "TARC WRF 3 km",
+              "model_variant": os.environ["MODEL_VARIANT"],
+              "source_model": os.environ["SOURCE_MODEL"],
+              "run_id": int(os.environ["RUN_ID"]),
+              "run_number": int(os.environ["RUN_NUMBER"]),
+              "workflow": os.environ["WORKFLOW_NAME"],
+              "commit": os.environ["COMMIT_SHA"],
+              "workflow_run_url": os.environ["RUN_URL"],
+              "release_url": os.environ["RELEASE_URL"],
+              "registered_at_utc": datetime.datetime.now(datetime.timezone.utc).isoformat(),
+              "publication": "github-release",
+          }
+          with open("tarc-run.json", "w", encoding="utf-8") as f:
+              json.dump(payload, f, ensure_ascii=False, indent=2)
+              f.write("\n")
+          PY
+          gh release upload "$RELEASE_TAG" tarc-run.json \
+            --repo "$GITHUB_REPOSITORY" \
+            --clobber
