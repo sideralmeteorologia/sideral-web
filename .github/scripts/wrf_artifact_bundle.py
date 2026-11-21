@@ -63,6 +63,14 @@ def pack(workspace: Path, output: Path) -> int:
                     if child.is_file() and not child.is_symlink() and _inside(child, workspace):
                         selected.add(child.relative_to(workspace))
 
+    # Checkpoint namelists are written at the workspace root, outside the
+    # restart directories matched by the standard artifact patterns. Always
+    # carry these small control files with the safe TAR so the next segment
+    # can rebuild its normalized namelist after download.
+    for candidate in workspace.glob("*-namelist.input"):
+        if candidate.is_file() and not candidate.is_symlink() and _inside(candidate, workspace):
+            selected.add(candidate.relative_to(workspace))
+
     for pattern in excludes:
         for match in glob.glob(pattern, root_dir=str(workspace), recursive=True):
             candidate = Path(match)
@@ -222,6 +230,7 @@ def self_test() -> int:
         restored = root / "restored"
         (workspace / "cbr_restart").mkdir(parents=True)
         (workspace / "cbr_products").mkdir(parents=True)
+        (workspace / "cbr-namelist.input").write_text("&domains\n/\n", encoding="utf-8")
 
         restart_name = "cbr-restart-3-wrfrst_d01_2026-11-20_15:00:00"
         product_name = "metadata.json"
@@ -242,6 +251,7 @@ def self_test() -> int:
         actual = restored / "cbr_restart" / restart_name
         assert actual.read_bytes() == b"WRF-RESTART"
         assert (restored / "cbr_products" / product_name).read_text(encoding="utf-8") == '{"ok":true}'
+        assert (restored / "cbr-namelist.input").read_text(encoding="utf-8") == "&domains\n/\n"
 
         release_root = root / "release-downloads"
         final_dir = release_root / "wrf-final-cim4-run"

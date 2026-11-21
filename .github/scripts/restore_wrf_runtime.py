@@ -84,12 +84,24 @@ def main() -> None:
         copied += copy_flat(base / "wrf2", WRF)
 
     # Sudeste/TARC and a few older profiles share the same WRF2-compatible
-    # front-end wrapper; keep the region-specific core copied above.
-    if not (WRF / "extract_wrf_severe.py").exists():
-        fallback = RUNNERS / "cim5" / "shared" / "extract_wrf_severe.py"
-        if fallback.is_file():
-            shutil.copy2(fallback, WRF / fallback.name)
+    # front-end wrapper. Restore both the wrapper and its core from the
+    # versioned CIM shared implementation if a regional profile omits either.
+    fallback_shared = RUNNERS / "cim5" / "shared"
+    for filename in ("extract_wrf_severe_core.py", "extract_wrf_severe.py"):
+        target = WRF / filename
+        fallback = fallback_shared / filename
+        if not target.is_file() and fallback.is_file():
+            shutil.copy2(fallback, target)
             copied += 1
+    missing_extractors = [
+        name for name in ("extract_wrf_severe.py", "extract_wrf_severe_core.py")
+        if not (WRF / name).is_file()
+    ]
+    if missing_extractors:
+        raise SystemExit(
+            "Extrator severo incompleto após restaurar runtime: "
+            + ", ".join(missing_extractors)
+        )
 
     required = []
     if source_model == "icon":
