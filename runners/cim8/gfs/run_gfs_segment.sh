@@ -47,9 +47,9 @@ text,n=re.subn(r'log "Escolhendo rodada GFS mais recente com F006 disponível".*
 if n!=1: raise SystemExit('Falha ao fixar rodada GFS')
 base='${RUN_DATE} ${RUN_CYCLE}:00 UTC'; seg=f'${{RUN_DATE}} ${{FORCE_RUN_CYCLE}}:00 UTC +{start} hours'
 text=text.replace('+6 hours',f'+{end} hours')
-needle = 'END_ISO=$(date -u -d "${RUN_DATE} ${FORCE_RUN_CYCLE}:00 UTC +'+str(end)+' hours" +%Y-%m-%d_%H:%M:%S)'
+needle = 'END_ISO=$(date -u -d "${RUN_DATE} ${RUN_CYCLE}:00 UTC +'+str(end)+' hours" +%Y-%m-%d_%H:%M:%S)'
 if needle not in text: raise SystemExit('END_ISO generator line not found')
-boundary_line = 'BOUNDARY_END_ISO=$(date -u -d "${RUN_DATE} ${FORCE_RUN_CYCLE}:00 UTC +'+str(boundary)+' hours" +%Y-%m-%d_%H:%M:%S)'
+boundary_line = 'BOUNDARY_END_ISO=$(date -u -d "${RUN_DATE} ${RUN_CYCLE}:00 UTC +'+str(boundary)+' hours" +%Y-%m-%d_%H:%M:%S)'
 text = text.replace(needle, needle+'\n'+boundary_line, 1)
 text = text.replace("end_date   = '${END_ISO}',", "end_date   = '${BOUNDARY_END_ISO}',", 1)
 for suffix in ('+%Y-%m-%d_%H:%M:%S','+%Y','+%m','+%d','+%H'): text=text.replace(f'date -u -d "{base}" {suffix}',f'date -u -d "{seg}" {suffix}')
