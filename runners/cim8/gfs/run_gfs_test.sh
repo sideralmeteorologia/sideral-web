@@ -246,7 +246,6 @@ ls -ld "$WORK" "$WORK/WPS_GEOG" "$WORK/gfs"
 log "Rodando WPS + real.exe + WRF"
 docker run --rm \
   -e LOCAL_USER_ID="$HOST_UID" \
-  -e WRF_BOUNDARY_ONLY="${WRF_BOUNDARY_ONLY:-0}" \
   -e BOUNDARY_RUN_HOURS="$BOUNDARY_RUN_HOURS" \
   -e BOUNDARY_END_Y="$BOUNDARY_END_Y" -e BOUNDARY_END_M="$BOUNDARY_END_M" -e BOUNDARY_END_D="$BOUNDARY_END_D" -e BOUNDARY_END_H="$BOUNDARY_END_H" \
   -e OMPI_ALLOW_RUN_AS_ROOT=1 \
@@ -326,10 +325,6 @@ docker run --rm \
     test -f wrfinput_d01
     test -f wrfbdy_d01
     cp -f namelist.segment.input namelist.input
-    if [[ "${WRF_BOUNDARY_ONLY:-0}" == "1" ]]; then
-      echo "CIM 8 KM: LBC F${WRF_START_HOUR}-F${WRF_BOUNDARY_END_HOUR} preparada; forecast sera retomado do checkpoint."
-      exit 0
-    fi
 
     echo "=== WRF 8 KM F${WRF_START_HOUR}-F${WRF_END_HOUR} ==="
     START_TS=$(date +%s)
