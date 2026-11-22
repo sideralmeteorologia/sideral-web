@@ -102,6 +102,8 @@ docker run --rm \
   "$IMAGE" -lc '
     set -euo pipefail
     cd /work/run
+    # Rebuild any runtime files omitted from the checkpoint TAR (symlinks are intentionally excluded).
+    cp -an /comsoftware/wrf/WRF-4.3/run/. .
     test -s wrfbdy_d01
     test -s "$1"
     echo "=== WRF CIM 8 KM RESTART ==="
