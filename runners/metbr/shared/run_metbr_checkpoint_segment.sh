@@ -37,7 +37,10 @@ if [[ "$COLD_START" == "0" ]]; then
   tar -xzf "$INPUT/metbr-checkpoint-${START_HOUR}.tar.gz" -C "$INPUT"
   test -s "$INPUT/metbr-run.env" || { echo "metbr-run.env ausente no checkpoint" >&2; exit 21; }
   source "$INPUT/metbr-run.env"
-  export RUN_DATE RUN_CYCLE
+  export RUN_DATE RUN_CYCLE FORCE_RUN_DATE="$RUN_DATE" FORCE_RUN_CYCLE="$RUN_CYCLE"
+  if [[ "$SOURCE_MODEL" == "gfs" ]]; then
+    export FORCE_RUN_DATE="$RUN_DATE" FORCE_RUN_CYCLE="$RUN_CYCLE"
+  fi
   mkdir -p "$INPUT/normalized"
   mapfile -t RSTS < <(find "$INPUT" -maxdepth 1 -type f -name 'wrfrst_d01_*' -size +0c -print | sort)
   (("${#RSTS[@]}" > 0)) || { echo "wrfrst ausente no checkpoint" >&2; exit 22; }

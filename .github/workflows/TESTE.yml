@@ -2,6 +2,11 @@
 
 name: CI
 
+# Keep only the newest validation for each PR/branch; avoid a backlog after rapid fixes.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
 # Controls when the workflow will run
 on:
   # Triggers the workflow on push or pull request events but only for the "main" branch
@@ -74,7 +79,41 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          python3 -m py_compile .github/scripts/publish_model_release.py
+          python3 -m py_compile \
+            .github/scripts/publish_model_release.py \
+            runners/brasil/shared/extract_wrf_brasil_21km.py \
+            runners/brasil/shared/extract_wrf_severe_core.py
+          python3 - <<'PY'
+          import base64
+          from pathlib import Path
+
+          embedded_files = (
+              "extract_wrf_brasil_21km.py",
+              "extract_wrf_severe_core.py",
+          )
+          workflows = (
+              "brasil-wrf-21km-wrf-ecmwf.yml",
+              "brasil-wrf-21km-wrf-icon.yml",
+          )
+          for workflow in workflows:
+              body = Path(".github/workflows", workflow).read_text(encoding="utf-8")
+              for name in embedded_files:
+                  suffix = f"base64 -d > 'wrf/{name}'"
+                  lines = [
+                      line for line in body.splitlines()
+                      if "printf '%s' '" in line and suffix in line
+                  ]
+                  assert len(lines) == 1, (
+                      f"{workflow}: expected one Base64 copy of {name}, found {len(lines)}"
+                  )
+                  encoded_copy = lines[0].split("printf '%s' '", 1)[1].split("' | base64 -d", 1)[0]
+                  embedded = base64.b64decode(encoded_copy).decode("utf-8")
+                  source = Path("runners/brasil/shared", name).read_text(encoding="utf-8")
+                  assert embedded == source, (
+                      f"{workflow}: embedded {name} differs from runners/brasil/shared/{name}"
+                  )
+          print("Brasil 21 km embedded executors match their shared runner sources.")
+          PY
           python3 - <<'PY'
           import importlib.util
           import tempfile

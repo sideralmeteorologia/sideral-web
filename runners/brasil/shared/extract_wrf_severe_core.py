@@ -10,13 +10,14 @@ if not hasattr(np, "trapezoid"):
 
 G,RD,CP,EPS=9.80665,287.05,1004.0,0.622
 K=RD/CP
-FIELDS=["stp","scp","srh01","srh03","bulkShear06","effectiveBulkShear","lclHeight","cin","sbcape","mlcape","mucapeWrf2","pwat","thetaE850","thetaEAdvection","wind850","wind500","vorticity500","omega700","mslp","thickness","dewpoint2m","kIndex","totalTotals","wind10mMax","windGust10m","updraftHelicityMax","updraftVelocityMax","downdraftVelocityMax","columnMeanVerticalVelocity","hourlyMeanVerticalVelocity","graupelColumnMax","graupelColumnIntegral","hailDiameterLowestLevelMax","hailDiameterColumnMax","reflectivityColumnMax"]
+FIELDS=["stp","scp","srh01","srh03","bulkShear06","shearDirection","effectiveBulkShear","lclHeight","cin","sbcape","mlcape","mucapeWrf2","pwat","thetaE850","thetaEAdvection","wind850","wind500","vorticity500","omega700","mslp","thickness","dewpoint2m","kIndex","totalTotals","wind10mMax","windGust10m","updraftHelicityMax","updraftVelocityMax","downdraftVelocityMax","columnMeanVerticalVelocity","hourlyMeanVerticalVelocity","graupelColumnMax","graupelColumnIntegral","hailDiameterLowestLevelMax","hailDiameterColumnMax","reflectivityColumnMax"]
 METHODS={
 "stp":{"classification":"derived","method":"fixed-layer STP","components":["MLCAPE","surface LCL height","cyclonic SRH 0-1 km","bulk shear 0-6 km","MLCIN"],"rule":"Only calculated where CAPE, LCL, SRH, shear and CIN components are finite."},
 "scp":{"classification":"derived","method":"SCP","components":["MUCAPE","cyclonic SRH 0-3 km","effective bulk shear proxy"],"rule":"Only calculated where MUCAPE, SRH 0-3 km and shear are finite."},
 "srh01":"Bunkers cyclonic motion; 250 m hodograph; 0-1 km AGL",
 "srh03":"Bunkers cyclonic motion; 250 m hodograph; 0-3 km AGL",
-"bulkShear06":"10 m to 6 km AGL vector difference",
+"bulkShear06":"10 m to 6 km AGL vector-difference magnitude",
+"shearDirection":"meteorological direction of the 10 m to 6 km AGL bulk-shear vector, in degrees",
 "effectiveBulkShear":"derived 0-6 km bulk-shear proxy; never native",
 "lclHeight":"Bolton surface parcel",
 "pwat":"vertical integral QVAPOR dp/g","thetaE850":"Bolton theta-e at 850 hPa",
@@ -180,7 +181,7 @@ def compute(ds,r,c):
         elif f in {"wind10mMax","updraftHelicityMax","updraftVelocityMax","downdraftVelocityMax","columnMeanVerticalVelocity","hourlyMeanVerticalVelocity","graupelColumnMax","graupelColumnIntegral","hailDiameterLowestLevelMax","hailDiameterColumnMax","reflectivityColumnMax"}: note([f],"NWP_DIAGNOSTICS ausente/desativado ou variável não gravada neste wrfout.")
     req=["P","PB","T","QVAPOR","PH","PHB","U","V"]; missing=[x for x in req if x not in ds]
     if missing:
-        affected=["srh01","srh03","bulkShear06","effectiveBulkShear","pwat","thetaE850","thetaEAdvection","wind850","wind500","vorticity500","thickness","kIndex","totalTotals","stp","scp"]
+        affected=["srh01","srh03","bulkShear06","shearDirection","effectiveBulkShear","pwat","thetaE850","thetaEAdvection","wind850","wind500","vorticity500","thickness","kIndex","totalTotals","stp","scp"]
         note(affected,"Perfis verticais ausentes: "+", ".join(missing))
         for f in ("sbcape","cin","mlcape","mucapeWrf2"):
             if nsrc[f] is None: note([f],"Campo nativo ausente e perfil vertical insuficiente para derivação.")
@@ -200,8 +201,12 @@ def compute(ds,r,c):
             tv=t2*(1+.61*q2);z1000=hgt+RD*tv/G*np.log(psfc/100000);out["thickness"]=(z500-z1000)/10
         else: note(["thickness"],"HGT/T2/Q2/PSFC incompletos.")
         if hgt is not None and u10 is not None and v10 is not None:
-            hs=[0.]+[float(x) for x in range(250,6001,250)];up,vp=profile(zagl,u,v,u10,v10,hs);su,sv=bunkers(lat,up,vp,hs);out["srh01"]=srh(up,vp,hs,su,sv,1000);out["srh03"]=srh(up,vp,hs,su,sv,3000);out["bulkShear06"]=np.hypot(up[-1]-u10,vp[-1]-v10);out["effectiveBulkShear"]=out["bulkShear06"].copy()
-        else: note(["srh01","srh03","bulkShear06","effectiveBulkShear","stp","scp"],"HGT/U10/V10 incompletos; perfil AGL indisponível.")
+            hs=[0.]+[float(x) for x in range(250,6001,250)];up,vp=profile(zagl,u,v,u10,v10,hs);su,sv=bunkers(lat,up,vp,hs);out["srh01"]=srh(up,vp,hs,su,sv,1000);out["srh03"]=srh(up,vp,hs,su,sv,3000)
+            du6,dv6=up[-1]-u10,vp[-1]-v10
+            out["bulkShear06"]=np.hypot(du6,dv6)
+            out["shearDirection"]=(270-np.degrees(np.arctan2(dv6,du6)))%360
+            out["effectiveBulkShear"]=out["bulkShear06"].copy()
+        else: note(["srh01","srh03","bulkShear06","shearDirection","effectiveBulkShear","stp","scp"],"HGT/U10/V10 incompletos; perfil AGL indisponível.")
         if all(x is not None for x in (psfc,t2,q2,hgt)):
             z0=hgt+2; sb,sbcin=cape_cin(p,t,q,z,psfc,t2,q2,z0)
             if nsrc["sbcape"] is None:out["sbcape"]=sb
@@ -226,7 +231,7 @@ def compute(ds,r,c):
 
 def payload(model,date,cycle,init,fh,valid,fields,vars,methods,dx,dy):
     lat,lon=fields["lat"],fields["lon"]
-    specs={"stp":(2,0,10),"scp":(2,0,50),"srh01":(0,-1000,1000),"srh03":(0,-1500,1500),"bulkShear06":(1,0,100),"effectiveBulkShear":(1,0,100),"lclHeight":(0,0,5000),"cin":(0,-600,0),"sbcape":(0,0,8000),"mlcape":(0,0,8000),"mucapeWrf2":(0,0,8000),"pwat":(1,0,100),"thetaE850":(1,250,400),"thetaEAdvection":(2,-20,20),"wind850":(1,0,100),"wind500":(1,0,120),"vorticity500":(7,-.002,.002),"omega700":(3,-20,20),"mslp":(1,850,1080),"thickness":(1,450,650),"dewpoint2m":(1,-80,40),"kIndex":(1,-50,70),"totalTotals":(1,-20,80),"wind10mMax":(1,0,100),"windGust10m":(1,0,120),"updraftHelicityMax":(0,None,None),"updraftVelocityMax":(1,None,None),"downdraftVelocityMax":(1,None,None),"columnMeanVerticalVelocity":(2,None,None),"hourlyMeanVerticalVelocity":(2,None,None),"graupelColumnMax":(3,None,None),"graupelColumnIntegral":(3,None,None),"hailDiameterLowestLevelMax":(4,None,None),"hailDiameterColumnMax":(4,None,None),"reflectivityColumnMax":(1,-30,100)}
+    specs={"stp":(2,0,10),"scp":(2,0,50),"srh01":(0,-1000,1000),"srh03":(0,-1500,1500),"bulkShear06":(1,0,100),"shearDirection":(0,0,360),"effectiveBulkShear":(1,0,100),"lclHeight":(0,0,5000),"cin":(0,-600,0),"sbcape":(0,0,8000),"mlcape":(0,0,8000),"mucapeWrf2":(0,0,8000),"pwat":(1,0,100),"thetaE850":(1,250,400),"thetaEAdvection":(2,-20,20),"wind850":(1,0,100),"wind500":(1,0,120),"vorticity500":(7,-.002,.002),"omega700":(3,-20,20),"mslp":(1,850,1080),"thickness":(1,450,650),"dewpoint2m":(1,-80,40),"kIndex":(1,-50,70),"totalTotals":(1,-20,80),"wind10mMax":(1,0,100),"windGust10m":(1,0,120),"updraftHelicityMax":(0,None,None),"updraftVelocityMax":(1,None,None),"downdraftVelocityMax":(1,None,None),"columnMeanVerticalVelocity":(2,None,None),"hourlyMeanVerticalVelocity":(2,None,None),"graupelColumnMax":(3,None,None),"graupelColumnIntegral":(3,None,None),"hailDiameterLowestLevelMax":(4,None,None),"hailDiameterColumnMax":(4,None,None),"reflectivityColumnMax":(1,-30,100)}
     fld={"lat":flat(lat,4),"lon":flat(lon,4)}
     for f,(d,lo,hi) in specs.items():fld[f]=flat(fields[f],d,lo,hi)
     return {"schema":"sideral-wrf2-severe-grid-v2","model":model,"source":f"WRF 2 Sudeste 4 km {model.upper()} · diagnósticos severos","runDate":date,"runCycle":f"{cycle}Z" if cycle else None,"initTime":init,"forecastHour":fh,"validTime":valid,"dxMeters":round(dx),"dyMeters":round(dy),"gridX":lat.shape[1],"gridY":lat.shape[0],"bounds":{"south":round(float(np.nanmin(lat)),4),"west":round(float(np.nanmin(lon)),4),"north":round(float(np.nanmax(lat)),4),"east":round(float(np.nanmax(lon)),4)},"variables":vars,"diagnosticMethods":methods,"fields":fld}

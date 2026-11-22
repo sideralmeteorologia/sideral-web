@@ -12,17 +12,18 @@ set -euo pipefail
 WRF_HISTORY_INTERVAL_MINUTES="${WRF_HISTORY_INTERVAL_MINUTES:-60}"
 WRF_START_HOUR="${WRF_START_HOUR:-0}"
 WRF_END_HOUR="${WRF_END_HOUR:-$WRF_RUN_HOURS}"
+WRF_BOUNDARY_END_HOUR="${WRF_BOUNDARY_END_HOUR:-$WRF_END_HOUR}"
 case "$WRF_HISTORY_INTERVAL_MINUTES" in
   60|180) ;;
   *) echo "WRF_HISTORY_INTERVAL_MINUTES precisa ser 60 ou 180" >&2; exit 2 ;;
 esac
-for VALUE in "$WRF_START_HOUR" "$WRF_END_HOUR"; do
+for VALUE in "$WRF_START_HOUR" "$WRF_END_HOUR" "$WRF_BOUNDARY_END_HOUR"; do
   [[ "$VALUE" =~ ^[0-9]+$ ]] || { echo "Inicio/fim WRF invalidos" >&2; exit 2; }
 done
-(( WRF_START_HOUR % 3 == 0 && WRF_END_HOUR % 3 == 0 )) || {
+(( WRF_START_HOUR % 3 == 0 && WRF_BOUNDARY_END_HOUR % 3 == 0 )) || {
   echo "Inicio/fim WRF precisam ser multiplos de 3 h" >&2; exit 2;
 }
-(( WRF_END_HOUR > WRF_START_HOUR && WRF_END_HOUR <= 72 )) || {
+(( WRF_END_HOUR > WRF_START_HOUR && WRF_END_HOUR <= 72 && WRF_BOUNDARY_END_HOUR >= WRF_END_HOUR && WRF_BOUNDARY_END_HOUR <= 72 )) || {
   echo "Segmento WRF invalido: F${WRF_START_HOUR}-F${WRF_END_HOUR}" >&2; exit 2;
 }
 WRF_SEGMENT_HOURS=$((WRF_END_HOUR - WRF_START_HOUR))
@@ -89,7 +90,7 @@ log "Baixando apenas solo/superficie GFS de suporte"
 python3 "$ROOT/wrf/fetch_gfs_land_support.py" \
   --date "$RUN_DATE" \
   --cycle "$RUN_CYCLE" \
-  --max-hour "$WRF_END_HOUR" \
+  --max-hour "$WRF_BOUNDARY_END_HOUR" \
   --output-dir "$WORK/soil"
 
 printf 'RUN_DATE=%s\nRUN_CYCLE=%s\nSOURCE_MODEL=%s\n' \
@@ -97,6 +98,7 @@ printf 'RUN_DATE=%s\nRUN_CYCLE=%s\nSOURCE_MODEL=%s\n' \
 
 START_ISO=$(date -u -d "${RUN_DATE} ${RUN_CYCLE}:00 UTC +${WRF_START_HOUR} hours" +%Y-%m-%d_%H:%M:%S)
 END_ISO=$(date -u -d "${RUN_DATE} ${RUN_CYCLE}:00 UTC +${WRF_END_HOUR} hours" +%Y-%m-%d_%H:%M:%S)
+BOUNDARY_END_ISO=$(date -u -d "${RUN_DATE} ${RUN_CYCLE}:00 UTC +${WRF_BOUNDARY_END_HOUR} hours" +%Y-%m-%d_%H:%M:%S)
 START_Y=$(date -u -d "${RUN_DATE} ${RUN_CYCLE}:00 UTC +${WRF_START_HOUR} hours" +%Y)
 START_M=$(date -u -d "${RUN_DATE} ${RUN_CYCLE}:00 UTC +${WRF_START_HOUR} hours" +%m)
 START_D=$(date -u -d "${RUN_DATE} ${RUN_CYCLE}:00 UTC +${WRF_START_HOUR} hours" +%d)
@@ -128,7 +130,7 @@ cat > "$WORK/namelist.wps" <<EOF
  wrf_core = 'ARW',
  max_dom = 1,
  start_date = '${START_ISO}',
- end_date   = '${END_ISO}',
+ end_date   = '${BOUNDARY_END_ISO}',
  interval_seconds = 10800,
  io_form_geogrid = 2,
 /

@@ -1,5 +1,10 @@
 name: Validate independent WRF runners
 
+# Keep only the newest validation for each PR/branch; avoid a backlog after rapid fixes.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
 on:
   pull_request:
     paths:
@@ -141,9 +146,43 @@ jobs:
                           assert restore_env.get("WRF_ARTIFACT_RESTORE_TO") is not None, (
                               f"{filename}/{job_name}: restored artifact destination is not declared"
                           )
-                          assert "unpack-downloads" in (restore_step.get("run") or ""), (
-                              f"{filename}/{job_name}: restore step does not unpack the safe WRF TAR"
+                          restore_run = restore_step.get("run") or ""
+                          assert ".restore-to" in restore_run, (
+                              f"{filename}/{job_name}: restore target marker is not written"
                           )
+                          checkout_before = any(
+                              (candidate.get("uses") or "").startswith("actions/checkout@")
+                              for candidate in steps[:step_index]
+                          )
+                          if checkout_before:
+                              assert "unpack-downloads" in restore_run, (
+                                  f"{filename}/{job_name}: downloaded WRF TAR is not restored after checkout"
+                              )
+                          else:
+                              assert "unpack-downloads" not in restore_run, (
+                                  f"{filename}/{job_name}: TAR unpack must be deferred until after checkout"
+                              )
+                              checkout_index = next(
+                                  (
+                                      j for j, candidate in enumerate(steps)
+                                      if j > step_index
+                                      and (candidate.get("uses") or "").startswith("actions/checkout@")
+                                  ),
+                                  -1,
+                              )
+                              assert checkout_index > step_index, (
+                                  f"{filename}/{job_name}: checkout is missing after checkpoint download"
+                              )
+                              assert checkout_index + 1 < len(steps), (
+                                  f"{filename}/{job_name}: post-checkout WRF artifact restore step is missing"
+                              )
+                              after_checkout = steps[checkout_index + 1]
+                              assert (after_checkout.get("name") or "").startswith("Restore WRF artifacts after checkout"), (
+                                  f"{filename}/{job_name}: artifact TAR must be restored after checkout"
+                              )
+                              assert "unpack-downloads" in (after_checkout.get("run") or ""), (
+                                  f"{filename}/{job_name}: post-checkout step does not unpack WRF TAR bundles"
+                              )
 
                       elif uses.startswith("actions/checkout@"):
                           assert step_index + 1 < len(steps), (
