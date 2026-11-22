@@ -25,8 +25,9 @@ fi
 # the complete F000-F042 forecast because all later restart segments reuse it.
 export WRF_SIM_END_HOUR="$WRF_END_HOUR"
 export WRF_BOUNDARY_END_HOUR=42
-export WRF_END_HOUR=42
-export WRF_RUN_HOURS=42
+# Keep the forecast segment at its requested end hour; only WPS/REAL use F042.
+export WRF_END_HOUR="$WRF_SIM_END_HOUR"
+export WRF_RUN_HOURS=$((WRF_SIM_END_HOUR-WRF_START_HOUR))
 
 python3 "$ROOT/wrf/prepare_restart_segment.py" --start-hour "$WRF_START_HOUR" --end-hour "$WRF_SIM_END_HOUR" --root "$ROOT"
 
