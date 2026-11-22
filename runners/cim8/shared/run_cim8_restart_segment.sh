@@ -51,7 +51,7 @@ PY
 
 rm -rf "$WORK"
 mkdir -p "$CHECKPOINT" "$RUN_DIR"
-cp -f "$EXPECTED_RESTART" "$CHECKPOINT/" 2>/dev/null || cp -f "${RESTARTS[0]}" "$CHECKPOINT/$EXPECTED_RESTART"
+cp -f "${RESTARTS[0]}" "$CHECKPOINT/$EXPECTED_RESTART"
 cp -f "$RESTART_DIR/wrfbdy_d01" "$RESTART_DIR/namelist.input" "$CHECKPOINT/"
 chmod -R a+rwX "$WORK"
 
