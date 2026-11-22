@@ -79,7 +79,10 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          python3 -m py_compile .github/scripts/publish_model_release.py
+          python3 -m py_compile \
+            .github/scripts/publish_model_release.py \
+            runners/brasil/shared/extract_wrf_brasil_21km.py \
+            runners/brasil/shared/extract_wrf_severe_core.py
           python3 - <<'PY'
           import importlib.util
           import tempfile
