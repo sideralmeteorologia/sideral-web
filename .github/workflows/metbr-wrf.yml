@@ -3889,9 +3889,6 @@ jobs:
         env:
           WRF_ARTIFACT_DOWNLOAD_DIR: ${{ runner.temp }}/wrf-downloads/d042
           WRF_ARTIFACT_RESTORE_TO: metbr_segment_artifacts
-          WRF_ARTIFACT_RESTORE_TO: metbr_segment_artifacts
-          WRF_ARTIFACT_RESTORE_TO: metbr_segment_artifacts
-          WRF_ARTIFACT_RESTORE_TO: metbr_segment_artifacts
         run: |
           set -euo pipefail
           shopt -s nullglob

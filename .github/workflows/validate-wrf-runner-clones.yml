@@ -206,6 +206,7 @@ jobs:
               if name == "metbr-wrf.yml" or name.startswith("metbr-wrf-4km-")
           )
           assert len(metbr_files) == 7, f"expected seven METBR workflows, got {metbr_files}"
+          expression_start = "$" + "{{"
           for filename in metbr_files:
               cfg = configs[filename]
               content = (root / filename).read_text(encoding="utf-8")
@@ -275,10 +276,15 @@ jobs:
                       assert "/wrf-downloads/" in str(download_with.get("path", "")), (
                           f"{filename}/{job_name}: download must first use a temporary safe location"
                       )
-                      assert download_with.get("name") == (
-                           f"wrf-metbr4-${{{{ env.MODEL_VARIANT }}}}-${{{{ env.SOURCE_MODEL }}}}-"
-                          f"seg{i - 1:02d}-${{{{ github.run_id }}}}"
-                      ), f"{filename}/{job_name}: wrong predecessor checkpoint artifact"
+                      expected_checkpoint = (
+                          "wrf-metbr4-" + expression_start + " env.MODEL_VARIANT }}-"
+                          + expression_start + " env.SOURCE_MODEL }}-"
+                          + f"seg{i - 1:02d}-"
+                          + expression_start + " github.run_id }}"
+                      )
+                      assert download_with.get("name") == expected_checkpoint, (
+                          f"{filename}/{job_name}: wrong predecessor checkpoint artifact"
+                      )
               complete = cfg["jobs"].get("complete")
               assert complete, f"{filename}: complete job is missing"
               complete_steps = complete.get("steps", [])
@@ -288,10 +294,14 @@ jobs:
               ]
               assert len(aggregate) == 1, f"{filename}: complete must download the 14 segment artifacts"
               aggregate_with = aggregate[0].get("with") or {}
-              assert aggregate_with.get("pattern") == (
-                   "wrf-metbr4-${{ env.MODEL_VARIANT }}-${{ env.SOURCE_MODEL }}-"
-                  "seg??-${{ github.run_id }}"
-              ), f"{filename}: complete artifact pattern is incorrect"
+              expected_pattern = (
+                  "wrf-metbr4-" + expression_start + " env.MODEL_VARIANT }}-"
+                  + expression_start + " env.SOURCE_MODEL }}-seg??-"
+                  + expression_start + " github.run_id }}"
+              )
+              assert aggregate_with.get("pattern") == expected_pattern, (
+                  f"{filename}: complete artifact pattern is incorrect"
+              )
               assert any("metbr_all_wrfout" in (step.get("run") or "") for step in complete_steps), (
                   f"{filename}: WRFOUT aggregation step is missing"
               )
