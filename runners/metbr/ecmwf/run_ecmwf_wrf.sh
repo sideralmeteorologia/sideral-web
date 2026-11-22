@@ -20,7 +20,7 @@ ECMWF_SOURCE_NORTH="${ECMWF_SOURCE_NORTH:--18}"
 
 log(){ printf '\n===== %s =====\n' "$*"; }
 (( WRF_START_HOUR >= 0 && WRF_END_HOUR > WRF_START_HOUR && WRF_END_HOUR <= 72 )) || {
-  echo "Segmento ECMWF invalido: F${WRF_START_HOUR}-F${WRF_END_HOUR}" >&2; exit 2;
+  echo "Segmento ECMWF invalido: fonte F${WRF_START_HOUR}-F${SOURCE_END_HOUR}" >&2; exit 2;
 }
 for VALUE in "$ECMWF_SOURCE_WEST" "$ECMWF_SOURCE_EAST" "$ECMWF_SOURCE_SOUTH" "$ECMWF_SOURCE_NORTH"; do
   [[ "$VALUE" =~ ^-?[0-9]+([.][0-9]+)?$ ]] || { echo "Recorte ECMWF invalido: $VALUE" >&2; exit 2; }
