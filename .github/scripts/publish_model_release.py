@@ -353,6 +353,14 @@ def run() -> int:
         raise RuntimeError(
             f"No JSON products found for {path or name}; refusing to publish a data-only Release."
         )
+    for logical in json_products:
+        source = next(source for source, chosen in files if chosen == logical)
+        try:
+            json.loads(source.read_text(encoding="utf-8"))
+        except json.JSONDecodeError as exc:
+            raise RuntimeError(
+                f"Invalid JSON product before Release publication: {logical}: {exc}"
+            ) from exc
     print(f"Validated {len(json_products)} JSON product(s) among {len(files)} final files.")
 
     key = product_key(path, name)

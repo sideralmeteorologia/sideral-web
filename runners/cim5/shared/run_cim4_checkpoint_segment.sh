@@ -78,7 +78,7 @@ prepare_source() {
 }
 
 if [[ "$COLD_START" == "0" ]]; then
-  rm -rf "$INPUT"/*
+  rm -rf "$INPUT/normalized"
  : # checkpoint handled by GitHub Actions artifact
   source cim4-run.env
   export WRF2_TOMORROW="${WRF2_TOMORROW:-0}"
@@ -89,7 +89,14 @@ if [[ "$COLD_START" == "0" ]]; then
     [[ -f "$f" ]] || continue
     cp -f "$f" "$INPUT/normalized/$(basename "$f" | sed -E "s/^cim4-restart-$START_HOUR-//; s/_([0-9]{2})[.]([0-9]{2})[.]([0-9]{2})$/_\1:\2:\3/")"
   done
-  cp -f "$INPUT/cim4-namelist.input" "$INPUT/normalized/namelist.input"
+  if [[ -f "$INPUT/cim4-namelist.input" ]]; then
+    cp -f "$INPUT/cim4-namelist.input" "$INPUT/normalized/namelist.input"
+  elif [[ -f "$INPUT/normalized/namelist.input" ]]; then
+    : # checkpoint already restored the normalized namelist
+  else
+    echo "Namelist do checkpoint CIM4 ausente em $INPUT" >&2
+    exit 24
+  fi
 
   # The previous checkpoint boundary ends at START_HOUR, so build a fresh
   # ICON LBC covering START_HOUR..END_HOUR before restarting WRF.

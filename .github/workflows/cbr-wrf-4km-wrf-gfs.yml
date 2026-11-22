@@ -41,7 +41,7 @@ jobs:
     name: CBR GFS F000-F003
     runs-on: ubuntu-22.04
     
-    timeout-minutes: 355
+    timeout-minutes: 330
     steps:
       - name: Checkout CBR
         uses: actions/checkout@v4
@@ -63,7 +63,7 @@ jobs:
         run: |
           set -euo pipefail
           mkdir -p "$(dirname 'wrf/run_cbr_checkpoint_segment.sh')"
-          printf '%s' 'IyEvdXNyL2Jpbi9lbnYgYmFzaApzZXQgLWV1byBwaXBlZmFpbAoKU1RBUlRfSE9VUj0iJDEiCkVORF9IT1VSPSIkMiIKU0VHTUVOVF9JTkRFWD0iJDMiCkNPTERfU1RBUlQ9IiQ0IgoKOiAiJEdIX1RPS0VOIgo6ICIkQ0hFQ0tQT0lOVF9UQUciCjogIiRHSVRIVUJfUkVQT1NJVE9SWSIKClJPT1Q9IiRHSVRIVUJfV09SS1NQQUNFIgpJTlBVVD0iJFJPT1QvY2JyX3Jlc3RhcnRfaW5wdXQiCm1rZGlyIC1wICIkSU5QVVQiCgooKCBTVEFSVF9IT1VSID49IDAgJiYgRU5EX0hPVVIgPiBTVEFSVF9IT1VSICYmIFNUQVJUX0hPVVIgJSAzID09IDAgJiYgRU5EX0hPVVIgJSAzID09IDAgJiYgRU5EX0hPVVIgPD0gNDIgKSkgfHwgewogIGVjaG8gIkYwMDAtRjA0MiBDQlI6IGludGVydmFsbyBpbnZhbGlkbyIgPiYyCiAgZXhpdCAxCn0KY2FzZSAiJENPTERfU1RBUlQiIGluIDB8MSkgOzsgKikgZWNobyAiQ09MRF9TVEFSVCBkZXZlIHNlciAxIG5vIEYwMDAiID4mMjsgZXhpdCAxIDs7IGVzYWMKCnNvdXJjZSAiJFJPT1Qvd3JmL2Vuc3VyZV9lY2NvZGVzX3Rvb2xzLnNoIgpmb3IgdG9vbCBpbiBncmliX3NldCBncmliX2NvcHkgZ3JpYl9jb3VudDsgZG8KICBjb21tYW5kIC12ICIkdG9vbCIgPi9kZXYvbnVsbCB8fCB7IGVjaG8gImVjQ29kZXMvJHRvb2wgaW5kaXNwb25pdmVsIiA+JjI7IGV4aXQgMTA7IH0KZG9uZQoKY2htb2QgK3ggd3JmL3J1bl9jYnJfY2hlY2twb2ludF9zZWdtZW50LnNoIHdyZi9ydW5fY2JyX2ljb25fd3JmLnNoIHdyZi9ydW5fY2JyX2VjbXdmX3dyZi5zaCB3cmYvcnVuX2Nicl9nZnNfd3JmLnNoIHdyZi9ydW5fY2JyX3dyZl93aXRoX3NvdXJjZS5zaCB3cmYvcnVuX2Nicl9yZXN0YXJ0X3NlZ21lbnQuc2gKCmV4cG9ydCBXUkZfVEFSR0VUX1JFU09MVVRJT05fS009NApleHBvcnQgV1JGX0RYX01FVEVSUz00MDAwIFdSRl9EWV9NRVRFUlM9NDAwMApleHBvcnQgV1JGX0VfV0U9NDAxIFdSRl9FX1NOPTUwMQpleHBvcnQgV1JGX0hJU1RPUllfSU5URVJWQUxfTUlOVVRFUz02MApleHBvcnQgV1JGX1RJTUVfU1RFUD0yMApleHBvcnQgV1JGX01QSV9QUk9DUz04CmV4cG9ydCBXUkZfUkVGX0xBVD0tMTAuNSBXUkZfUkVGX0xPTj0tNDAuMCBXUkZfU1RBTkRfTE9OPS00MC4wCmV4cG9ydCBXUkZfUlVOX0hPVVJTPSQoKEVORF9IT1VSLVNUQVJUX0hPVVIpKQpleHBvcnQgV1JGX1NUQVJUX0hPVVI9IiRTVEFSVF9IT1VSIiBXUkZfRU5EX0hPVVI9IiRFTkRfSE9VUiIKCnByZXBhcmVfc291cmNlKCkgewogIGxvY2FsIGJvdW5kYXJ5X29ubHk9IiR7MTo/SW5mb3JtZSAwIHBhcmEgY29sZCBzdGFydCwgMSBwYXJhIExCQyBkZSByZXN0YXJ0fSIKICBsb2NhbCBtb2RlbD0iJHtTT1VSQ0VfTU9ERUw6LWljb259IgogIGxvY2FsIHJ1bm5lciByYwoKICBjYXNlICIkbW9kZWwiIGluCiAgICBpY29uKSBydW5uZXI9IndyZi9ydW5fY2JyX2ljb25fd3JmLnNoIiA7OwogICAgZWNtd2YpIHJ1bm5lcj0id3JmL3J1bl9jYnJfZWNtd2Zfd3JmLnNoIiA7OwogICAgZ2ZzKSBydW5uZXI9IndyZi9ydW5fY2JyX2dmc193cmYuc2giIDs7CiAgICAqKSBlY2hvICJTT1VSQ0VfTU9ERUwgaW52w6FsaWRvIG5vIGNoZWNrcG9pbnQgQ0JSOiAkbW9kZWwiID4mMjsgcmV0dXJuIDIgOzsKICBlc2FjCgogIGV4cG9ydCBXUkZfQk9VTkRBUllfT05MWT0iJGJvdW5kYXJ5X29ubHkiCiAgZWNobyAiPT09PT0gQ0JSIFNPVVJDRSBGSVhFRDogJHttb2RlbF5efTsgYm91bmRhcnlfb25seT0kYm91bmRhcnlfb25seSA9PT09PSIKICBpZiBiYXNoICIkcnVubmVyIjsgdGhlbgogICAgcmM9MAogIGVsc2UKICAgIHJjPSQ/CiAgICBlY2hvICJFUlJPOiBmb250ZSBDQlIgZXhjbHVzaXZhICR7bW9kZWxeXn0gZmFsaG91IChleGl0PSRyYyk7IG5lbmh1bWEgZm9udGUgYWx0ZXJuYXRpdmEgc2Vyw6EgdGVudGFkYS4iID4mMgogICAgcmV0dXJuICIkcmMiCiAgZmkKCiAgU09VUkNFX01PREVMPSIkbW9kZWwiCiAgcHJpbnRmICdSVU5fREFURT0lc1xuUlVOX0NZQ0xFPSVzXG5TT1VSQ0VfTU9ERUw9JXNcbicgIiRSVU5fREFURSIgIiRSVU5fQ1lDTEUiICIkU09VUkNFX01PREVMIiA+IGNici1ydW4uZW52CiA6ICMgY2hlY2twb2ludCBoYW5kbGVkIGJ5IEdpdEh1YiBBY3Rpb25zIGFydGlmYWN0Cn0KCmlmIFtbICIkQ09MRF9TVEFSVCIgPT0gIjAiIF1dOyB0aGVuCiAgcm0gLXJmICIkSU5QVVQiLyoKIDogIyBjaGVja3BvaW50IGhhbmRsZWQgYnkgR2l0SHViIEFjdGlvbnMgYXJ0aWZhY3QKICBzb3VyY2UgY2JyLXJ1bi5lbnYKIDogIyBjaGVja3BvaW50IGhhbmRsZWQgYnkgR2l0SHViIEFjdGlvbnMgYXJ0aWZhY3QKIDogIyBjaGVja3BvaW50IGhhbmRsZWQgYnkgR2l0SHViIEFjdGlvbnMgYXJ0aWZhY3QKICBta2RpciAtcCAiJElOUFVUL25vcm1hbGl6ZWQiCiAgZm9yIGYgaW4gIiRJTlBVVCIvY2JyLXJlc3RhcnQtIiRTVEFSVF9IT1VSIi0qOyBkbwogICAgW1sgLWYgIiRmIiBdXSB8fCBjb250aW51ZQogICAgY3AgLWYgIiRmIiAiJElOUFVUL25vcm1hbGl6ZWQvJChiYXNlbmFtZSAiJGYiIHwgc2VkIC1FICJzL15jYnItcmVzdGFydC0kU1RBUlRfSE9VUi0vLzsgcy9fKFswLTldezJ9KVsuXShbMC05XXsyfSlbLl0oWzAtOV17Mn0pJC9fXDE6XDI6XDMvIikiCiAgZG9uZQogIGNwIC1mICIkSU5QVVQvY2JyLW5hbWVsaXN0LmlucHV0IiAiJElOUFVUL25vcm1hbGl6ZWQvbmFtZWxpc3QuaW5wdXQiCgogICMgUmVidWlsZCB0aGUgbGF0ZXJhbCBib3VuZGFyeSBjb25kaXRpb25zIGZvciB0aGUgZXhhY3QgcmVzdGFydCBpbnRlcnZhbC4KICBleHBvcnQgUlVOX0RBVEUgUlVOX0NZQ0xFCiAgZXhwb3J0IEZPUkNFX1JVTl9EQVRFPSIkUlVOX0RBVEUiIEZPUkNFX1JVTl9DWUNMRT0iJFJVTl9DWUNMRSIKICBleHBvcnQgV1JGX1RBUkdFVF9SRVNPTFVUSU9OX0tNPTQKICBleHBvcnQgV1JGX0RYX01FVEVSUz00MDAwIFdSRl9EWV9NRVRFUlM9NDAwMAogIGV4cG9ydCBXUkZfRV9XRT00MDEgV1JGX0VfU049NTAxCiAgZXhwb3J0IFdSRl9ISVNUT1JZX0lOVEVSVkFMX01JTlVURVM9NjAKICBleHBvcnQgV1JGX1RJTUVfU1RFUD0yMAogIGV4cG9ydCBXUkZfTVBJX1BST0NTPTgKICBleHBvcnQgV1JGX1NUQVJUX0hPVVI9IiRTVEFSVF9IT1VSIiBXUkZfRU5EX0hPVVI9IiRFTkRfSE9VUiIKICBleHBvcnQgV1JGX0JPVU5EQVJZX0VORF9IT1VSPSIkRU5EX0hPVVIiIFdSRl9CT1VOREFSWV9PTkxZPTEKICBlY2hvICJDQlI6IHByZXBhcmFuZG8gTEJDIGV4Y2x1c2l2YW1lbnRlIGNvbSBhIGZvbnRlIHNlbGVjaW9uYWRhIEYkU1RBUlRfSE9VUi1GJEVORF9IT1VSIgogIHByZXBhcmVfc291cmNlIDEKICB0ZXN0IC1zICIkUk9PVC9jYnJfd3JmX3dvcmsvcnVuL3dyZmJkeV9kMDEiIHx8IHsgZWNobyAiTEJDIENCUiBhdXNlbnRlIHBhcmEgRiRTVEFSVF9IT1VSLUYkRU5EX0hPVVIiID4mMjsgZXhpdCAyNzsgfQogIGNwIC1mICIkUk9PVC9jYnJfd3JmX3dvcmsvcnVuL3dyZmJkeV9kMDEiICIkSU5QVVQvbm9ybWFsaXplZC93cmZiZHlfZDAxIgoKICB0ZXN0IC1zICIkSU5QVVQvbm9ybWFsaXplZC93cmZiZHlfZDAxIgogIHRlc3QgLXMgIiRJTlBVVC9ub3JtYWxpemVkL25hbWVsaXN0LmlucHV0IgogIGV4cG9ydCBXUkZfUkVTVEFSVF9ESVI9IiRJTlBVVC9ub3JtYWxpemVkIgogIGJhc2ggd3JmL3J1bl9jYnJfcmVzdGFydF9zZWdtZW50LnNoICIkU1RBUlRfSE9VUiIgIiRFTkRfSE9VUiIgIiRXUkZfUkVTVEFSVF9ESVIiCgogIE9VVFBVVF9ESVI9IiRST09UL2Nicl9zZWdtZW50X291dHB1dCIKICB0ZXN0IC1kICIkT1VUUFVUX0RJUiIKICBVUExPQURfRElSPSIkUk9PVC9jYnJfdXBsb2FkXyRTRUdNRU5UX0lOREVYIgogIHJtIC1yZiAiJFVQTE9BRF9ESVIiOyBta2RpciAtcCAiJFVQTE9BRF9ESVIiCiAgZm9yIGYgaW4gIiRPVVRQVVRfRElSIi93cmZyc3RfZDAxXyo7IGRvIGNwIC1mICIkZiIgIiRVUExPQURfRElSL2Nici1yZXN0YXJ0LSRFTkRfSE9VUi0kKGJhc2VuYW1lICIkZiIpIjsgZG9uZQogIGZvciBmIGluICIkT1VUUFVUX0RJUiIvd3Jmb3V0X2QwMV8qOyBkbyBjcCAtZiAiJGYiICIkVVBMT0FEX0RJUi9jYnItd3Jmb3V0LSRTRUdNRU5UX0lOREVYLSQoYmFzZW5hbWUgIiRmIikiOyBkb25lCiA6ICMgY2hlY2twb2ludCBoYW5kbGVkIGJ5IEdpdEh1YiBBY3Rpb25zIGFydGlmYWN0CmVsc2UKICAjIFRpbWVsaW5lIGJhc2UgZm9yIFdSRi4gVGhlIElDT04gc2VsZWN0b3IgY2hlY2tzIGFjdHVhbCBmaWxlcyBhbmQgY2FuIHVzZQogICMgYW55IHB1Ymxpc2hlZCBJQ09OIGN5Y2xlIHRoYXQgY292ZXJzIHRoaXMgc2VnbWVudCdzIHZhbGlkLXRpbWUgd2luZG93LgogIHB5dGhvbjMgLSA8PCdQWScKaW1wb3J0IGRhdGV0aW1lIGFzIGR0LCBvcwpub3c9ZHQuZGF0ZXRpbWUubm93KGR0LnRpbWV6b25lLnV0YykKcnVuPW5vdy5yZXBsYWNlKGhvdXI9KG5vdy5ob3VyLy82KSo2LCBtaW51dGU9MCwgc2Vjb25kPTAsIG1pY3Jvc2Vjb25kPTApCmlmIG9zLmVudmlyb24uZ2V0KCJXUkYyX1RPTU9SUk9XIikgPT0gIjEiOgogICAgcnVuICs9IGR0LnRpbWVkZWx0YShob3Vycz0yNCkKb3BlbigiY2JyLXJ1bi5lbnYiLCJ3Iikud3JpdGUoZiJSVU5fREFURT17cnVuOiVZJW0lZH1cblJVTl9DWUNMRT17cnVuOiVIfVxuU09VUkNFX01PREVMPXtvcy5lbnZpcm9uLmdldCgnU09VUkNFX01PREVMJywnaWNvbicpfVxuIikKUFkKICBzb3VyY2UgY2JyLXJ1bi5lbnYKIDogIyBjaGVja3BvaW50IGhhbmRsZWQgYnkgR2l0SHViIEFjdGlvbnMgYXJ0aWZhY3QKIDogIyBjaGVja3BvaW50IGhhbmRsZWQgYnkgR2l0SHViIEFjdGlvbnMgYXJ0aWZhY3QKCiAgZXhwb3J0IEZPUkNFX1JVTl9EQVRFPSIkUlVOX0RBVEUiIEZPUkNFX1JVTl9DWUNMRT0iJFJVTl9DWUNMRSIKICBwcmVwYXJlX3NvdXJjZSAwCgogIHRlc3QgLXMgY2JyX3dyZl93b3JrL3J1bi93cmZpbnB1dF9kMDEKICB0ZXN0IC1zIGNicl93cmZfd29yay9ydW4vd3JmYmR5X2QwMQogIHRlc3QgLW4gIiQoZmluZCBjYnJfd3JmX3dvcmsvcnVuIC1tYXhkZXB0aCAxIC10eXBlIGYgLW5hbWUgJ3dyZm91dF9kMDFfKicgLXNpemUgKzBjIC1wcmludCAtcXVpdCkiCiAgdGVzdCAtbiAiJChmaW5kIGNicl93cmZfd29yay9ydW4gLW1heGRlcHRoIDEgLXR5cGUgZiAtbmFtZSAnd3JmcnN0X2QwMV8qJyAtc2l6ZSArMGMgLXByaW50IC1xdWl0KSIKCiAgZm9yIGYgaW4gY2JyX3dyZl93b3JrL3J1bi93cmZyc3RfZDAxXyo7IGRvIGNwIC1mICIkZiIgImNici1yZXN0YXJ0LSRFTkRfSE9VUi0kKGJhc2VuYW1lICIkZiIpIjsgZG9uZQogIGZvciBmIGluIGNicl93cmZfd29yay9ydW4vd3Jmb3V0X2QwMV8qOyBkbyBjcCAtZiAiJGYiICJjYnItd3Jmb3V0LSRTRUdNRU5UX0lOREVYLSQoYmFzZW5hbWUgIiRmIikiOyBkb25lCiAgZm9yIGYgaW4gY2JyX3dyZl93b3JrL3J1bi93cmZiZHlfZDAxOyBkbyBjcCAtZiAiJGYiICJjYnItYm91bmRhcnktNGttLSQoYmFzZW5hbWUgIiRmIikiOyBkb25lCiAgY3AgLWYgY2JyX3dyZl93b3JrL3J1bi9uYW1lbGlzdC5pbnB1dCBjYnItbmFtZWxpc3QuaW5wdXQKIDogIyBjaGVja3BvaW50IGhhbmRsZWQgYnkgR2l0SHViIEFjdGlvbnMgYXJ0aWZhY3QKZmkKCgojIEdlcmEgcHJvZHV0b3MgMkQgY29tcGFjdG9zIHBhcmEgbyBmcm9udGVuZCBzZW0gc3Vic3RpdHVpciBvcyB3cmZvdXQgbmF0aXZvcy4KaWYgW1sgIiRDT0xEX1NUQVJUIiA9PSAiMSIgXV07IHRoZW4KICBQT1NUX0lOUFVUPSIkUk9PVC9jYnJfd3JmX3dvcmsvcnVuIgplbHNlCiAgUE9TVF9JTlBVVD0iJFJPT1QvY2JyX3NlZ21lbnRfb3V0cHV0IgpmaQppZiBbWyAtbiAiJChmaW5kICIkUE9TVF9JTlBVVCIgLW1heGRlcHRoIDEgLXR5cGUgZiAtbmFtZSAnd3Jmb3V0X2QwMV8qJyAtc2l6ZSArMGMgLXByaW50IC1xdWl0KSIgXV07IHRoZW4KICBweXRob24zIC1tIHBpcCBpbnN0YWxsIC0tZGlzYWJsZS1waXAtdmVyc2lvbi1jaGVjayAtcSBuZXRDREY0IG51bXB5CiAgUFJPRFVDVF9ESVI9IiRST09UL2Nicl9wcm9kdWN0c18kU0VHTUVOVF9JTkRFWCIKICBybSAtcmYgIiRQUk9EVUNUX0RJUiIKICBweXRob24zIHdyZi9jYnJfcG9zdHByb2Nlc3MucHkgIiRQT1NUX0lOUFVUIi93cmZvdXRfZDAxXyogLS1vdXRwdXQtZGlyICIkUFJPRFVDVF9ESVIiCiAgbXYgIiRQUk9EVUNUX0RJUi9tZXRhZGF0YS5qc29uIiAiY2JyLXByb2R1Y3RzLSRTRUdNRU5UX0lOREVYLmpzb24iCiA6ICMgY2hlY2twb2ludCBoYW5kbGVkIGJ5IEdpdEh1YiBBY3Rpb25zIGFydGlmYWN0CmZpCgplY2hvICJDQlIgY2hlY2twb2ludCBGJFNUQVJUX0hPVVItRiRFTkRfSE9VUiBwdWJsaWNhZG8gZW0gJENIRUNLUE9JTlRfVEFHLiIK' | base64 -d > 'wrf/run_cbr_checkpoint_segment.sh'
+          printf '%s' 'IyEvdXNyL2Jpbi9lbnYgYmFzaA0Kc2V0IC1ldW8gcGlwZWZhaWwNCg0KU1RBUlRfSE9VUj0iJDEiDQpFTkRfSE9VUj0iJDIiDQpTRUdNRU5UX0lOREVYPSIkMyINCkNPTERfU1RBUlQ9IiQ0Ig0KDQo6ICIkR0hfVE9LRU4iDQo6ICIkQ0hFQ0tQT0lOVF9UQUciDQo6ICIkR0lUSFVCX1JFUE9TSVRPUlkiDQoNClJPT1Q9IiRHSVRIVUJfV09SS1NQQUNFIg0KSU5QVVQ9IiRST09UL2Nicl9yZXN0YXJ0X2lucHV0Ig0KbWtkaXIgLXAgIiRJTlBVVCINCg0KKCggU1RBUlRfSE9VUiA+PSAwICYmIEVORF9IT1VSID4gU1RBUlRfSE9VUiAmJiBTVEFSVF9IT1VSICUgMyA9PSAwICYmIEVORF9IT1VSICUgMyA9PSAwICYmIEVORF9IT1VSIDw9IDQyICkpIHx8IHsNCiAgZWNobyAiRjAwMC1GMDQyIENCUjogaW50ZXJ2YWxvIGludmFsaWRvIiA+JjINCiAgZXhpdCAxDQp9DQpjYXNlICIkQ09MRF9TVEFSVCIgaW4gMHwxKSA7OyAqKSBlY2hvICJDT0xEX1NUQVJUIGRldmUgc2VyIDEgbm8gRjAwMCIgPiYyOyBleGl0IDEgOzsgZXNhYw0KDQpzb3VyY2UgIiRST09UL3dyZi9lbnN1cmVfZWNjb2Rlc190b29scy5zaCINCmZvciB0b29sIGluIGdyaWJfc2V0IGdyaWJfY29weSBncmliX2NvdW50OyBkbw0KICBjb21tYW5kIC12ICIkdG9vbCIgPi9kZXYvbnVsbCB8fCB7IGVjaG8gImVjQ29kZXMvJHRvb2wgaW5kaXNwb25pdmVsIiA+JjI7IGV4aXQgMTA7IH0NCmRvbmUNCg0KY2htb2QgK3ggd3JmL3J1bl9jYnJfY2hlY2twb2ludF9zZWdtZW50LnNoIHdyZi9ydW5fY2JyX2ljb25fd3JmLnNoIHdyZi9ydW5fY2JyX2VjbXdmX3dyZi5zaCB3cmYvcnVuX2Nicl9nZnNfd3JmLnNoIHdyZi9ydW5fY2JyX3dyZl93aXRoX3NvdXJjZS5zaCB3cmYvcnVuX2Nicl9yZXN0YXJ0X3NlZ21lbnQuc2gNCg0KZXhwb3J0IFdSRl9UQVJHRVRfUkVTT0xVVElPTl9LTT0iJHtXUkZfVEFSR0VUX1JFU09MVVRJT05fS006LTR9Ig0KZXhwb3J0IFdSRl9EWF9NRVRFUlM9IiR7V1JGX0RYX01FVEVSUzotNDAwMH0iIFdSRl9EWV9NRVRFUlM9IiR7V1JGX0RZX01FVEVSUzotNDAwMH0iDQpleHBvcnQgV1JGX0VfV0U9IiR7V1JGX0VfV0U6LTQwMX0iIFdSRl9FX1NOPSIke1dSRl9FX1NOOi01MDF9Ig0KZXhwb3J0IFdSRl9ISVNUT1JZX0lOVEVSVkFMX01JTlVURVM9IiR7V1JGX0hJU1RPUllfSU5URVJWQUxfTUlOVVRFUzotNjB9Ig0KZXhwb3J0IFdSRl9USU1FX1NURVA9IiR7V1JGX1RJTUVfU1RFUDotMjB9Ig0KZXhwb3J0IFdSRl9NUElfUFJPQ1M9IiR7V1JGX01QSV9QUk9DUzotOH0iDQpleHBvcnQgV1JGX1JFRl9MQVQ9IiR7V1JGX1JFRl9MQVQ6LS0xMC41fSIgV1JGX1JFRl9MT049IiR7V1JGX1JFRl9MT046LS00MC4wfSIgV1JGX1NUQU5EX0xPTj0iJHtXUkZfU1RBTkRfTE9OOi0tNDAuMH0iDQpleHBvcnQgV1JGX1JVTl9IT1VSUz0kKChFTkRfSE9VUi1TVEFSVF9IT1VSKSkNCmV4cG9ydCBXUkZfU1RBUlRfSE9VUj0iJFNUQVJUX0hPVVIiIFdSRl9FTkRfSE9VUj0iJEVORF9IT1VSIg0KDQpwcmVwYXJlX3NvdXJjZSgpIHsNCiAgbG9jYWwgYm91bmRhcnlfb25seT0iJHsxOj9JbmZvcm1lIDAgcGFyYSBjb2xkIHN0YXJ0LCAxIHBhcmEgTEJDIGRlIHJlc3RhcnR9Ig0KICBsb2NhbCBtb2RlbD0iJHtTT1VSQ0VfTU9ERUw6LWljb259Ig0KICBsb2NhbCBydW5uZXIgcmMNCg0KICBjYXNlICIkbW9kZWwiIGluDQogICAgaWNvbikgcnVubmVyPSJ3cmYvcnVuX2Nicl9pY29uX3dyZi5zaCIgOzsNCiAgICBlY213ZikgcnVubmVyPSJ3cmYvcnVuX2Nicl9lY213Zl93cmYuc2giIDs7DQogICAgZ2ZzKSBydW5uZXI9IndyZi9ydW5fY2JyX2dmc193cmYuc2giIDs7DQogICAgKikgZWNobyAiU09VUkNFX01PREVMIGludsOhbGlkbyBubyBjaGVja3BvaW50IENCUjogJG1vZGVsIiA+JjI7IHJldHVybiAyIDs7DQogIGVzYWMNCg0KICBleHBvcnQgV1JGX0JPVU5EQVJZX09OTFk9IiRib3VuZGFyeV9vbmx5Ig0KICBlY2hvICI9PT09PSBDQlIgU09VUkNFIEZJWEVEOiAke21vZGVsXl59OyBib3VuZGFyeV9vbmx5PSRib3VuZGFyeV9vbmx5ID09PT09Ig0KICBpZiBiYXNoICIkcnVubmVyIjsgdGhlbg0KICAgIHJjPTANCiAgZWxzZQ0KICAgIHJjPSQ/DQogICAgZWNobyAiRVJSTzogZm9udGUgQ0JSIGV4Y2x1c2l2YSAke21vZGVsXl59IGZhbGhvdSAoZXhpdD0kcmMpOyBuZW5odW1hIGZvbnRlIGFsdGVybmF0aXZhIHNlcsOhIHRlbnRhZGEuIiA+JjINCiAgICByZXR1cm4gIiRyYyINCiAgZmkNCg0KICBTT1VSQ0VfTU9ERUw9IiRtb2RlbCINCiAgcHJpbnRmICdSVU5fREFURT0lc1xuUlVOX0NZQ0xFPSVzXG5TT1VSQ0VfTU9ERUw9JXNcbicgIiRSVU5fREFURSIgIiRSVU5fQ1lDTEUiICIkU09VUkNFX01PREVMIiA+IGNici1ydW4uZW52DQogOiAjIGNoZWNrcG9pbnQgaGFuZGxlZCBieSBHaXRIdWIgQWN0aW9ucyBhcnRpZmFjdA0KfQ0KDQppZiBbWyAiJENPTERfU1RBUlQiID09ICIwIiBdXTsgdGhlbg0KICBybSAtcmYgIiRJTlBVVC9ub3JtYWxpemVkIg0KIDogIyBjaGVja3BvaW50IGhhbmRsZWQgYnkgR2l0SHViIEFjdGlvbnMgYXJ0aWZhY3QNCiAgc291cmNlIGNici1ydW4uZW52DQogOiAjIGNoZWNrcG9pbnQgaGFuZGxlZCBieSBHaXRIdWIgQWN0aW9ucyBhcnRpZmFjdA0KIDogIyBjaGVja3BvaW50IGhhbmRsZWQgYnkgR2l0SHViIEFjdGlvbnMgYXJ0aWZhY3QNCiAgbWtkaXIgLXAgIiRJTlBVVC9ub3JtYWxpemVkIg0KICBmb3IgZiBpbiAiJElOUFVUIi9jYnItcmVzdGFydC0iJFNUQVJUX0hPVVIiLSo7IGRvDQogICAgW1sgLWYgIiRmIiBdXSB8fCBjb250aW51ZQ0KICAgIGNwIC1mICIkZiIgIiRJTlBVVC9ub3JtYWxpemVkLyQoYmFzZW5hbWUgIiRmIiB8IHNlZCAtRSAicy9eY2JyLXJlc3RhcnQtJFNUQVJUX0hPVVItLy87IHMvXyhbMC05XXsyfSlbLl0oWzAtOV17Mn0pWy5dKFswLTldezJ9KSQvX1wxOlwyOlwzLyIpIg0KICBkb25lDQogIGNwIC1mICIkSU5QVVQvY2JyLW5hbWVsaXN0LmlucHV0IiAiJElOUFVUL25vcm1hbGl6ZWQvbmFtZWxpc3QuaW5wdXQiDQoNCiAgIyBSZWJ1aWxkIHRoZSBsYXRlcmFsIGJvdW5kYXJ5IGNvbmRpdGlvbnMgZm9yIHRoZSBleGFjdCByZXN0YXJ0IGludGVydmFsLg0KICBleHBvcnQgUlVOX0RBVEUgUlVOX0NZQ0xFDQogIGV4cG9ydCBGT1JDRV9SVU5fREFURT0iJFJVTl9EQVRFIiBGT1JDRV9SVU5fQ1lDTEU9IiRSVU5fQ1lDTEUiDQogIGV4cG9ydCBXUkZfVEFSR0VUX1JFU09MVVRJT05fS009IiR7V1JGX1RBUkdFVF9SRVNPTFVUSU9OX0tNOi00fSINCiAgZXhwb3J0IFdSRl9EWF9NRVRFUlM9IiR7V1JGX0RYX01FVEVSUzotNDAwMH0iIFdSRl9EWV9NRVRFUlM9IiR7V1JGX0RZX01FVEVSUzotNDAwMH0iDQogIGV4cG9ydCBXUkZfRV9XRT0iJHtXUkZfRV9XRTotNDAxfSIgV1JGX0VfU049IiR7V1JGX0VfU046LTUwMX0iDQogIGV4cG9ydCBXUkZfSElTVE9SWV9JTlRFUlZBTF9NSU5VVEVTPSIke1dSRl9ISVNUT1JZX0lOVEVSVkFMX01JTlVURVM6LTYwfSINCiAgZXhwb3J0IFdSRl9USU1FX1NURVA9IiR7V1JGX1RJTUVfU1RFUDotMjB9Ig0KICBleHBvcnQgV1JGX01QSV9QUk9DUz0iJHtXUkZfTVBJX1BST0NTOi04fSINCiAgZXhwb3J0IFdSRl9TVEFSVF9IT1VSPSIkU1RBUlRfSE9VUiIgV1JGX0VORF9IT1VSPSIkRU5EX0hPVVIiDQogIGV4cG9ydCBXUkZfQk9VTkRBUllfRU5EX0hPVVI9IiRFTkRfSE9VUiIgV1JGX0JPVU5EQVJZX09OTFk9MQ0KICBlY2hvICJDQlI6IHByZXBhcmFuZG8gTEJDIGV4Y2x1c2l2YW1lbnRlIGNvbSBhIGZvbnRlIHNlbGVjaW9uYWRhIEYkU1RBUlRfSE9VUi1GJEVORF9IT1VSIg0KICBwcmVwYXJlX3NvdXJjZSAxDQogIHRlc3QgLXMgIiRST09UL2Nicl93cmZfd29yay9ydW4vd3JmYmR5X2QwMSIgfHwgeyBlY2hvICJMQkMgQ0JSIGF1c2VudGUgcGFyYSBGJFNUQVJUX0hPVVItRiRFTkRfSE9VUiIgPiYyOyBleGl0IDI3OyB9DQogIGNwIC1mICIkUk9PVC9jYnJfd3JmX3dvcmsvcnVuL3dyZmJkeV9kMDEiICIkSU5QVVQvbm9ybWFsaXplZC93cmZiZHlfZDAxIg0KDQogIHRlc3QgLXMgIiRJTlBVVC9ub3JtYWxpemVkL3dyZmJkeV9kMDEiDQogIHRlc3QgLXMgIiRJTlBVVC9ub3JtYWxpemVkL25hbWVsaXN0LmlucHV0Ig0KICBleHBvcnQgV1JGX1JFU1RBUlRfRElSPSIkSU5QVVQvbm9ybWFsaXplZCINCiAgYmFzaCB3cmYvcnVuX2Nicl9yZXN0YXJ0X3NlZ21lbnQuc2ggIiRTVEFSVF9IT1VSIiAiJEVORF9IT1VSIiAiJFdSRl9SRVNUQVJUX0RJUiINCg0KICBPVVRQVVRfRElSPSIkUk9PVC9jYnJfc2VnbWVudF9vdXRwdXQiDQogIHRlc3QgLWQgIiRPVVRQVVRfRElSIg0KICBVUExPQURfRElSPSIkUk9PVC9jYnJfdXBsb2FkXyRTRUdNRU5UX0lOREVYIg0KICBybSAtcmYgIiRVUExPQURfRElSIjsgbWtkaXIgLXAgIiRVUExPQURfRElSIg0KICBmb3IgZiBpbiAiJE9VVFBVVF9ESVIiL3dyZnJzdF9kMDFfKjsgZG8gY3AgLWYgIiRmIiAiJFVQTE9BRF9ESVIvY2JyLXJlc3RhcnQtJEVORF9IT1VSLSQoYmFzZW5hbWUgIiRmIikiOyBkb25lDQogIGZvciBmIGluICIkT1VUUFVUX0RJUiIvd3Jmb3V0X2QwMV8qOyBkbyBjcCAtZiAiJGYiICIkVVBMT0FEX0RJUi9jYnItd3Jmb3V0LSRTRUdNRU5UX0lOREVYLSQoYmFzZW5hbWUgIiRmIikiOyBkb25lDQogOiAjIGNoZWNrcG9pbnQgaGFuZGxlZCBieSBHaXRIdWIgQWN0aW9ucyBhcnRpZmFjdA0KZWxzZQ0KICAjIFRpbWVsaW5lIGJhc2UgZm9yIFdSRi4gVGhlIElDT04gc2VsZWN0b3IgY2hlY2tzIGFjdHVhbCBmaWxlcyBhbmQgY2FuIHVzZQ0KICAjIGFueSBwdWJsaXNoZWQgSUNPTiBjeWNsZSB0aGF0IGNvdmVycyB0aGlzIHNlZ21lbnQncyB2YWxpZC10aW1lIHdpbmRvdy4NCiAgcHl0aG9uMyAtIDw8J1BZJw0KaW1wb3J0IGRhdGV0aW1lIGFzIGR0LCBvcw0Kbm93PWR0LmRhdGV0aW1lLm5vdyhkdC50aW1lem9uZS51dGMpDQpydW49bm93LnJlcGxhY2UoaG91cj0obm93LmhvdXIvLzYpKjYsIG1pbnV0ZT0wLCBzZWNvbmQ9MCwgbWljcm9zZWNvbmQ9MCkNCmlmIG9zLmVudmlyb24uZ2V0KCJXUkYyX1RPTU9SUk9XIikgPT0gIjEiOg0KICAgIHJ1biArPSBkdC50aW1lZGVsdGEoaG91cnM9MjQpDQpvcGVuKCJjYnItcnVuLmVudiIsInciKS53cml0ZShmIlJVTl9EQVRFPXtydW46JVklbSVkfVxuUlVOX0NZQ0xFPXtydW46JUh9XG5TT1VSQ0VfTU9ERUw9e29zLmVudmlyb24uZ2V0KCdTT1VSQ0VfTU9ERUwnLCdpY29uJyl9XG4iKQ0KUFkNCiAgc291cmNlIGNici1ydW4uZW52DQogOiAjIGNoZWNrcG9pbnQgaGFuZGxlZCBieSBHaXRIdWIgQWN0aW9ucyBhcnRpZmFjdA0KIDogIyBjaGVja3BvaW50IGhhbmRsZWQgYnkgR2l0SHViIEFjdGlvbnMgYXJ0aWZhY3QNCg0KICBleHBvcnQgRk9SQ0VfUlVOX0RBVEU9IiRSVU5fREFURSIgRk9SQ0VfUlVOX0NZQ0xFPSIkUlVOX0NZQ0xFIg0KICBwcmVwYXJlX3NvdXJjZSAwDQoNCiAgdGVzdCAtcyBjYnJfd3JmX3dvcmsvcnVuL3dyZmlucHV0X2QwMQ0KICB0ZXN0IC1zIGNicl93cmZfd29yay9ydW4vd3JmYmR5X2QwMQ0KICB0ZXN0IC1uICIkKGZpbmQgY2JyX3dyZl93b3JrL3J1biAtbWF4ZGVwdGggMSAtdHlwZSBmIC1uYW1lICd3cmZvdXRfZDAxXyonIC1zaXplICswYyAtcHJpbnQgLXF1aXQpIg0KICB0ZXN0IC1uICIkKGZpbmQgY2JyX3dyZl93b3JrL3J1biAtbWF4ZGVwdGggMSAtdHlwZSBmIC1uYW1lICd3cmZyc3RfZDAxXyonIC1zaXplICswYyAtcHJpbnQgLXF1aXQpIg0KDQogIGZvciBmIGluIGNicl93cmZfd29yay9ydW4vd3JmcnN0X2QwMV8qOyBkbyBjcCAtZiAiJGYiICJjYnItcmVzdGFydC0kRU5EX0hPVVItJChiYXNlbmFtZSAiJGYiKSI7IGRvbmUNCiAgZm9yIGYgaW4gY2JyX3dyZl93b3JrL3J1bi93cmZvdXRfZDAxXyo7IGRvIGNwIC1mICIkZiIgImNici13cmZvdXQtJFNFR01FTlRfSU5ERVgtJChiYXNlbmFtZSAiJGYiKSI7IGRvbmUNCiAgZm9yIGYgaW4gY2JyX3dyZl93b3JrL3J1bi93cmZiZHlfZDAxOyBkbyBjcCAtZiAiJGYiICJjYnItYm91bmRhcnktNGttLSQoYmFzZW5hbWUgIiRmIikiOyBkb25lDQogIGNwIC1mIGNicl93cmZfd29yay9ydW4vbmFtZWxpc3QuaW5wdXQgY2JyLW5hbWVsaXN0LmlucHV0DQogOiAjIGNoZWNrcG9pbnQgaGFuZGxlZCBieSBHaXRIdWIgQWN0aW9ucyBhcnRpZmFjdA0KZmkNCg0KDQojIEdlcmEgcHJvZHV0b3MgMkQgY29tcGFjdG9zIHBhcmEgbyBmcm9udGVuZCBzZW0gc3Vic3RpdHVpciBvcyB3cmZvdXQgbmF0aXZvcy4NCmlmIFtbICIkQ09MRF9TVEFSVCIgPT0gIjEiIF1dOyB0aGVuDQogIFBPU1RfSU5QVVQ9IiRST09UL2Nicl93cmZfd29yay9ydW4iDQplbHNlDQogIFBPU1RfSU5QVVQ9IiRST09UL2Nicl9zZWdtZW50X291dHB1dCINCmZpDQppZiBbWyAtbiAiJChmaW5kICIkUE9TVF9JTlBVVCIgLW1heGRlcHRoIDEgLXR5cGUgZiAtbmFtZSAnd3Jmb3V0X2QwMV8qJyAtc2l6ZSArMGMgLXByaW50IC1xdWl0KSIgXV07IHRoZW4NCiAgcHl0aG9uMyAtbSBwaXAgaW5zdGFsbCAtLWRpc2FibGUtcGlwLXZlcnNpb24tY2hlY2sgLXEgbmV0Q0RGNCBudW1weQ0KICBQUk9EVUNUX0RJUj0iJFJPT1QvY2JyX3Byb2R1Y3RzXyRTRUdNRU5UX0lOREVYIg0KICBybSAtcmYgIiRQUk9EVUNUX0RJUiINCiAgcHl0aG9uMyB3cmYvY2JyX3Bvc3Rwcm9jZXNzLnB5ICIkUE9TVF9JTlBVVCIvd3Jmb3V0X2QwMV8qIC0tb3V0cHV0LWRpciAiJFBST0RVQ1RfRElSIg0KICBtdiAiJFBST0RVQ1RfRElSL21ldGFkYXRhLmpzb24iICJjYnItcHJvZHVjdHMtJFNFR01FTlRfSU5ERVguanNvbiINCiA6ICMgY2hlY2twb2ludCBoYW5kbGVkIGJ5IEdpdEh1YiBBY3Rpb25zIGFydGlmYWN0DQpmaQ0KDQplY2hvICJDQlIgY2hlY2twb2ludCBGJFNUQVJUX0hPVVItRiRFTkRfSE9VUiBwdWJsaWNhZG8gZW0gJENIRUNLUE9JTlRfVEFHLiINCg==' | base64 -d > 'wrf/run_cbr_checkpoint_segment.sh'
           mkdir -p "$(dirname 'wrf/run_cbr_icon_wrf.sh')"
           printf '%s' 'IyEvdXNyL2Jpbi9lbnYgYmFzaApzZXQgLWV1byBwaXBlZmFpbAoKOiAiJEdJVEhVQl9XT1JLU1BBQ0UiCjogIiRXUkZfU1RBUlRfSE9VUiIKOiAiJFdSRl9FTkRfSE9VUiIKClJPT1Q9IiRHSVRIVUJfV09SS1NQQUNFIgpJQ09OX1JFR1JJRF9JTUFHRT0iZGV1dHNjaGVyd2V0dGVyZGllbnN0L3JlZ3JpZEBzaGEyNTY6MTYzYWVjZGJjNThmNzg0ODJkMjAzYzk4ZTk2YTA3Nzk0N2FkNjY0OTBmNmJmM2M0MWJlNGQ0Yjc5NzczZTkyMSIKUkFXX0RJUj0iJFJPT1QvY2JyX2ljb25fc291cmNlX3JhdyIKUkVHX0RJUj0iJFJPT1QvY2JyX2ljb25fc291cmNlX3JlZ3VsYXIiClJFR1JJRF9ESVI9IiRST09UL2Nicl9pY29uX3JlZ3JpZCIKSE9TVF9VSUQ9IiQoaWQgLXUpIgoKSUNPTl9TT1VSQ0VfWFNJWkU9MTA5CklDT05fU09VUkNFX1lTSVpFPTEwOQpJQ09OX1NPVVJDRV9YRklSU1Q9LTU1LjAKSUNPTl9TT1VSQ0VfWUZJUlNUPS0yNC4wCklDT05fU09VUkNFX1hJTkM9MC4yNQpJQ09OX1NPVVJDRV9ZSU5DPTAuMjUKU09VUkNFX0VORF9IT1VSPSIke1dSRl9CT1VOREFSWV9FTkRfSE9VUjotJFdSRl9FTkRfSE9VUn0iCgooKCBXUkZfU1RBUlRfSE9VUiA+PSAwICYmIFdSRl9FTkRfSE9VUiA+IFdSRl9TVEFSVF9IT1VSICYmIFdSRl9TVEFSVF9IT1VSICUgMyA9PSAwICYmIFdSRl9FTkRfSE9VUiAlIDMgPT0gMCAmJiBXUkZfRU5EX0hPVVIgPD0gNDIgJiYgU09VUkNFX0VORF9IT1VSID49IFdSRl9FTkRfSE9VUiAmJiBTT1VSQ0VfRU5EX0hPVVIgJSAzID09IDAgJiYgU09VUkNFX0VORF9IT1VSIDw9IDQyICkpIHx8IHsKICBlY2hvICJTZWdtZW50byBJQ09OIENCUiBpbnZhbGlkbzogRiRXUkZfU1RBUlRfSE9VUi1GJFdSRl9FTkRfSE9VUiIgPiYyCiAgZXhpdCAyCn0KClRBUkdFVF9EQVRFPSIke0ZPUkNFX1JVTl9EQVRFOj9GT1JDRV9SVU5fREFURSBhdXNlbnRlfSIKVEFSR0VUX0NZQ0xFPSIkKHByaW50ZiAnJTAyZCcgIiQoKDEwIyR7Rk9SQ0VfUlVOX0NZQ0xFOj9GT1JDRV9SVU5fQ1lDTEUgYXVzZW50ZX0pKSIpIgpTRUxFQ1RJT05fRU5WPSIkUk9PVC9jYnItaWNvbi1ydW4uZW52IgpweXRob24zICIkUk9PVC93cmYvc2VsZWN0X2Nicl9pY29uX3J1bi5weSIgXAogIC0tdGFyZ2V0LWRhdGUgIiRUQVJHRVRfREFURSIgLS10YXJnZXQtY3ljbGUgIiRUQVJHRVRfQ1lDTEUiIFwKICAtLXN0YXJ0LWhvdXIgIiRXUkZfU1RBUlRfSE9VUiIgLS1lbmQtaG91ciAiJFNPVVJDRV9FTkRfSE9VUiIgXAogIC0tb3V0cHV0ICIkU0VMRUNUSU9OX0VOViIKc291cmNlICIkU0VMRUNUSU9OX0VOViIKUlVOX0RBVEU9IiRUQVJHRVRfREFURSIKUlVOX0NZQ0xFPSIkVEFSR0VUX0NZQ0xFIgplY2hvICJJQ09OIENCUiBzZWxlY2lvbmFkbzogZm9udGUgJHtJQ09OX1JVTl9EQVRFfSAke0lDT05fUlVOX0NZQ0xFfVo7IG9mZnNldD0ke0lDT05fT0ZGU0VUfWg7IGFsdm89JHtSVU5fREFURX0gJHtSVU5fQ1lDTEV9WiBGJHtXUkZfU1RBUlRfSE9VUn0tRiR7U09VUkNFX0VORF9IT1VSfSIKcm0gLXJmICIkUkFXX0RJUiIgIiRSRUdfRElSIiAiJFJFR1JJRF9ESVIiCm1rZGlyIC1wICIkUkFXX0RJUiIgIiRSRUdfRElSIiAiJFJFR1JJRF9ESVIiCgpjYXQgPiAiJFJFR1JJRF9ESVIvdGFyZ2V0X2dyaWQudHh0IiA8PEVPRgpncmlkdHlwZSA9IGxvbmxhdAp4c2l6ZSA9ICRJQ09OX1NPVVJDRV9YU0laRQp5c2l6ZSA9ICRJQ09OX1NPVVJDRV9ZU0laRQp4Zmlyc3QgPSAkSUNPTl9TT1VSQ0VfWEZJUlNUCnhpbmMgPSAkSUNPTl9TT1VSQ0VfWElOQwp5Zmlyc3QgPSAkSUNPTl9TT1VSQ0VfWUZJUlNUCnlpbmMgPSAkSUNPTl9TT1VSQ0VfWUlOQwpFT0YKCmRvY2tlciBwdWxsICIkSUNPTl9SRUdSSURfSU1BR0UiCnB5dGhvbjMgLSA8PCdQWScKaW1wb3J0IG1hdGgKbngsbnksZHg9NDAxLDUwMSw0MDAwLjAKcmVmX2xhdCxyZWZfbG9uPS0xMC41LC00MC4wCnRydWVsYXQxLHRydWVsYXQyPS0yNS4wLC0zNS4wClI9NjM3MDAwMC4wCnAxLHAyLHAwPW1hcChtYXRoLnJhZGlhbnMsW3RydWVsYXQxLHRydWVsYXQyLHJlZl9sYXRdKQpsMD1tYXRoLnJhZGlhbnMocmVmX2xvbikKbj1tYXRoLmxvZyhtYXRoLmNvcyhwMSkvbWF0aC5jb3MocDIpKS9tYXRoLmxvZyhtYXRoLnRhbihtYXRoLnBpLzQrcDEvMikvbWF0aC50YW4obWF0aC5waS80K3AyLzIpKQpGPShtYXRoLmNvcyhwMSkqKG1hdGgudGFuKG1hdGgucGkvNCtwMS8yKSoqbikpL24KcmhvMD1SKkYvKG1hdGgudGFuKG1hdGgucGkvNCtwMC8yKSoqbikKZGVmIGludih4LHkpOgogICAgcmhvPW1hdGguaHlwb3QoeCxyaG8wLXkpCiAgICBsYXQ9MiptYXRoLmF0YW4oKFIqRi9yaG8pKiooMS9uKSktbWF0aC5waS8yCiAgICBsb249bDArbWF0aC5hdGFuMih4LHJobzAteSkvbgogICAgcmV0dXJuIG1hdGguZGVncmVlcyhsYXQpLG1hdGguZGVncmVlcyhsb24pCmh4PShueC0xKSpkeC8yOyBoeT0obnktMSkqZHgvMgpwdHM9W2ludih4LHkpIGZvciB4LHkgaW4gWygtaHgsLWh5KSwoaHgsLWh5KSwoLWh4LGh5KSwoaHgsaHkpXV0KdyxlPW1pbihwWzFdIGZvciBwIGluIHB0cyksbWF4KHBbMV0gZm9yIHAgaW4gcHRzKQpzb3V0aCxub3J0aD1taW4ocFswXSBmb3IgcCBpbiBwdHMpLG1heChwWzBdIGZvciBwIGluIHB0cykKcHJpbnQoZiJDQlIgV1JGIDQgS006IGxvbiB7dzouNGZ9Li57ZTouNGZ9OyBsYXQge3NvdXRoOi40Zn0uLntub3J0aDouNGZ9IikKbWFyZ2lucz0ody0oLTU1KSwoLTI4KS1lLHNvdXRoLSgtMjQpLDMtbm9ydGgpCnByaW50KCJJQ09OIG1hcmdpbnM6IiwqW2Yie206LjNmfcKwIiBmb3IgbSBpbiBtYXJnaW5zXSkKaWYgbWluKG1hcmdpbnMpPDEuMDogcmFpc2UgU3lzdGVtRXhpdCgiSUNPTiB0YXJnZXQgZ3JpZCBzZW0gbWFyZ2VtIGRlIDEgZ3JhdSIpClBZCgpkb2NrZXIgcnVuIC0tcm0gLS11c2VyICIkSE9TVF9VSUQ6JEhPU1RfVUlEIiAtdiAiJFJFR1JJRF9ESVI6L3dvcmsiICIkSUNPTl9SRUdSSURfSU1BR0UiIGNkbyBnZW5ubiwvd29yay90YXJnZXRfZ3JpZC50eHQgL2RhdGEvZ3JpZHMvaWNvbi9pY29uX2dyaWQubmMgL3dvcmsvaWNvbl93ZWlnaHRzLm5jCgplY2hvICJDQlIgSUNPTjogYmFpeGFuZG8gdG9kb3Mgb3MgR1JJQnMgYW50ZXMgZG8gcHJvY2Vzc2FtZW50byIKZm9yIEggaW4gJChzZXEgIiRXUkZfU1RBUlRfSE9VUiIgMyAiJFNPVVJDRV9FTkRfSE9VUiIpOyBkbwogIHByaW50ZiAtdiBGSCAnJTAzZCcgIiRIIgogIFNPVVJDRV9IPSQoKEgrSUNPTl9PRkZTRVQpKQogIHByaW50ZiAtdiBTT1VSQ0VfRkggJyUwM2QnICIkU09VUkNFX0giCiAgUkFXPSIkUkFXX0RJUi9pY29uX3RhcmdldF9mJHtGSH1fcmF3LmdyaWIyIgogIHB5dGhvbjMgIiRST09UL3dyZi9mZXRjaF9pY29uX3dyZl9zdGVwLnB5IiAtLWRhdGUgIiRJQ09OX1JVTl9EQVRFIiAtLWN5Y2xlICIkSUNPTl9SVU5fQ1lDTEUiIC0tc3RlcCAiJFNPVVJDRV9IIiAtLW91dHB1dCAiJFJBVyIKICBSQVdfQ09VTlQ9IiQoZ3JpYl9jb3VudCAiJFJBVyIpIgogIHRlc3QgIiRSQVdfQ09VTlQiIC1lcSA3MSB8fCB7IGVjaG8gIkVSUk86IElDT04gYWx2byBGJEZIIChmb250ZSBGJFNPVVJDRV9GSCkgY29udMOpbSAkUkFXX0NPVU5UIG1lbnNhZ2VuczsgZXNwZXJhZG8gNzEuIiA+JjI7IGV4aXQgMjI7IH0KZG9uZQoKZWNobyAiQ0JSIElDT046IGRvd25sb2FkIGNvbXBsZXRvIHBhcmEgdG9kb3Mgb3MgaG9yw6FyaW9zOyBpbmljaWFuZG8gcmVncmFkZWFtZW50byIKZm9yIEggaW4gJChzZXEgIiRXUkZfU1RBUlRfSE9VUiIgMyAiJFNPVVJDRV9FTkRfSE9VUiIpOyBkbwogIHByaW50ZiAtdiBGSCAnJTAzZCcgIiRIIgogIFJBVz0iJFJBV19ESVIvaWNvbl90YXJnZXRfZiR7Rkh9X3Jhdy5ncmliMiIKICBTSU1QTEU9IiRSQVdfRElSL2ljb25fdGFyZ2V0X2Yke0ZIfV9zaW1wbGUuZ3JpYjIiCiAgT1VUPSIkUkVHX0RJUi9pY29uX2Yke0ZIfS5ncmliMiIKICBGST0iJFJBV19ESVIvaWNvbl90YXJnZXRfZiR7Rkh9X2ZpLmdyaWIyIgogIEhHVDA9IiRSQVdfRElSL2ljb25fdGFyZ2V0X2Yke0ZIfV9oZ3QwLmdyaWIyIgogIEhHVD0iJFJBV19ESVIvaWNvbl90YXJnZXRfZiR7Rkh9X2hndC5ncmliMiIKICBDSEVDSz0iJFJBV19ESVIvaWNvbl90YXJnZXRfZiR7Rkh9X2hndF9jaGVjay5ncmliMiIKCiAgZ3JpYl9zZXQgLXIgLXMgcGFja2luZ1R5cGU9Z3JpZF9zaW1wbGUgIiRSQVciICIkU0lNUExFIgogIGRvY2tlciBydW4gLS1ybSAtLXVzZXIgIiRIT1NUX1VJRDokSE9TVF9VSUQiIFwKICAgIC12ICIkUkFXX0RJUjovaW5wdXQiIC12ICIkUkVHX0RJUjovb3V0cHV0IiAtdiAiJFJFR1JJRF9ESVI6L3dlaWdodHMiIFwKICAgICIkSUNPTl9SRUdSSURfSU1BR0UiIGNkbyAtZiBncmIyIHJlbWFwLC93ZWlnaHRzL3RhcmdldF9ncmlkLnR4dCwvd2VpZ2h0cy9pY29uX3dlaWdodHMubmMgXAogICAgIi9pbnB1dC8kKGJhc2VuYW1lICIkU0lNUExFIikiICIvb3V0cHV0LyQoYmFzZW5hbWUgIiRPVVQiKSIKCiAgZ3JpYl9jb3B5IC13IGRpc2NpcGxpbmU9MCxwYXJhbWV0ZXJDYXRlZ29yeT0zLHBhcmFtZXRlck51bWJlcj00ICIkT1VUIiAiJEZJIiB8fCB0cnVlCiAgdGVzdCAtcyAiJEZJIiB8fCB7IGVjaG8gIkZJIGRvIElDT04gbmFvIGVuY29udHJhZG8gZW0gRiRGSCIgPiYyOyBleGl0IDIzOyB9CiAgZG9ja2VyIHJ1biAtLXJtIC0tdXNlciAiJEhPU1RfVUlEOiRIT1NUX1VJRCIgLXYgIiRSQVdfRElSOi9pbnB1dCIgIiRJQ09OX1JFR1JJRF9JTUFHRSIgXAogICAgY2RvIC1mIGdyYjIgZGl2Yyw5LjgwNjY1ICIvaW5wdXQvJChiYXNlbmFtZSAiJEZJIikiICIvaW5wdXQvJChiYXNlbmFtZSAiJEhHVDAiKSIKICBncmliX3NldCAtciAtcyBkaXNjaXBsaW5lPTAscGFyYW1ldGVyQ2F0ZWdvcnk9MyxwYXJhbWV0ZXJOdW1iZXI9NSx0eXBlT2ZGaXJzdEZpeGVkU3VyZmFjZT0xMDAgIiRIR1QwIiAiJEhHVCIKICB0ZXN0IC1zICIkSEdUIgogIGNhdCAiJEhHVCIgPj4gIiRPVVQiCiAgZ3JpYl9jb3B5IC13IGRpc2NpcGxpbmU9MCxwYXJhbWV0ZXJDYXRlZ29yeT0zLHBhcmFtZXRlck51bWJlcj01ICIkT1VUIiAiJENIRUNLIiB8fCB0cnVlCiAgQ09VTlQ9MAogIFtbIC1zICIkQ0hFQ0siIF1dICYmIENPVU5UPSQoZ3JpYl9jb3VudCAiJENIRUNLIikKICB0ZXN0ICIkQ09VTlQiIC1nZSAxMCB8fCB7IGVjaG8gIlBvdWNvcyBuaXZlaXMgSEdUIG5vIElDT04gRiRGSDogJENPVU5UIiA+JjI7IGV4aXQgMjQ7IH0KICBybSAtZiAiJFJBVyIgIiRTSU1QTEUiICIkRkkiICIkSEdUMCIgIiRIR1QiICIkQ0hFQ0siCmRvbmUKCmV4cG9ydCBTT1VSQ0VfTU9ERUw9aWNvbiBSVU5fREFURSBSVU5fQ1lDTEUgV1JGX1NUQVJUX0hPVVIgV1JGX0VORF9IT1VSIFdSRl9CT1VOREFSWV9FTkRfSE9VUj0iJFNPVVJDRV9FTkRfSE9VUiIKZXhwb3J0IFdSRl9ISVNUT1JZX0lOVEVSVkFMX01JTlVURVM9NjAKZXhwb3J0IFdSRl9EWF9NRVRFUlM9NDAwMCBXUkZfRFlfTUVURVJTPTQwMDAgV1JGX0VfV0U9NDAxIFdSRl9FX1NOPTUwMSBXUkZfVElNRV9TVEVQPTIwCmV4cG9ydCBXUkZfUkVGX0xBVD0tMTAuNSBXUkZfUkVGX0xPTj0tNDAuMCBXUkZfU1RBTkRfTE9OPS00MC4wCmV4cG9ydCBTT1VSQ0VfRElSPSIkUkVHX0RJUiIKZXhwb3J0IFNPVVJDRV9WVEFCTEU9IiRST09UL3dyZi9WdGFibGUuSUNPTnAiCmJhc2ggIiRST09UL3dyZi9ydW5fY2JyX3dyZl93aXRoX3NvdXJjZS5zaCIK' | base64 -d > 'wrf/run_cbr_icon_wrf.sh'
           mkdir -p "$(dirname 'wrf/run_cbr_ecmwf_wrf.sh')"
@@ -172,14 +172,14 @@ jobs:
           name: wrf-cbr4-wrf-gfs-${{ github.job }}-${{ github.run_id }}
           path: |
             .wrf-artifact-safe/wrf-payload-001.tar
-          if-no-files-found: ignore
-          retention-days: 7
+          if-no-files-found: error
+          retention-days: 1
   seg01:
     name: CBR GFS F003-F006
     runs-on: ubuntu-22.04
     needs: seg00
     
-    timeout-minutes: 355
+    timeout-minutes: 330
     steps:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
@@ -194,6 +194,9 @@ jobs:
         run: |
           mkdir -p "$WRF_ARTIFACT_DOWNLOAD_DIR"
           printf '%s\n' "$WRF_ARTIFACT_RESTORE_TO" > "$WRF_ARTIFACT_DOWNLOAD_DIR/.restore-to"
+          python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
+            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
+            --workspace "$GITHUB_WORKSPACE"
           if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
             python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
               --downloads-root "$RUNNER_TEMP/wrf-downloads" \
@@ -297,13 +300,13 @@ jobs:
           name: wrf-cbr4-wrf-gfs-${{ github.job }}-${{ github.run_id }}
           path: |
             .wrf-artifact-safe/wrf-payload-002.tar
-          if-no-files-found: ignore
-          retention-days: 7
+          if-no-files-found: error
+          retention-days: 1
   seg02:
     name: CBR GFS F006-F009
     runs-on: ubuntu-22.04
     needs: seg01
-    timeout-minutes: 355
+    timeout-minutes: 330
     steps:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
@@ -318,6 +321,9 @@ jobs:
         run: |
           mkdir -p "$WRF_ARTIFACT_DOWNLOAD_DIR"
           printf '%s\n' "$WRF_ARTIFACT_RESTORE_TO" > "$WRF_ARTIFACT_DOWNLOAD_DIR/.restore-to"
+          python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
+            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
+            --workspace "$GITHUB_WORKSPACE"
           if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
             python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
               --downloads-root "$RUNNER_TEMP/wrf-downloads" \
@@ -414,13 +420,13 @@ jobs:
           name: wrf-cbr4-wrf-gfs-${{ github.job }}-${{ github.run_id }}
           path: |
             .wrf-artifact-safe/wrf-payload-003.tar
-          if-no-files-found: ignore
-          retention-days: 7
+          if-no-files-found: error
+          retention-days: 1
   seg03:
     name: CBR GFS F009-F012
     runs-on: ubuntu-22.04
     needs: seg02
-    timeout-minutes: 355
+    timeout-minutes: 330
     steps:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
@@ -435,6 +441,9 @@ jobs:
         run: |
           mkdir -p "$WRF_ARTIFACT_DOWNLOAD_DIR"
           printf '%s\n' "$WRF_ARTIFACT_RESTORE_TO" > "$WRF_ARTIFACT_DOWNLOAD_DIR/.restore-to"
+          python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
+            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
+            --workspace "$GITHUB_WORKSPACE"
           if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
             python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
               --downloads-root "$RUNNER_TEMP/wrf-downloads" \
@@ -531,13 +540,13 @@ jobs:
           name: wrf-cbr4-wrf-gfs-${{ github.job }}-${{ github.run_id }}
           path: |
             .wrf-artifact-safe/wrf-payload-004.tar
-          if-no-files-found: ignore
-          retention-days: 7
+          if-no-files-found: error
+          retention-days: 1
   seg04:
     name: CBR GFS F012-F015
     runs-on: ubuntu-22.04
     needs: seg03
-    timeout-minutes: 355
+    timeout-minutes: 330
     steps:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
@@ -552,6 +561,9 @@ jobs:
         run: |
           mkdir -p "$WRF_ARTIFACT_DOWNLOAD_DIR"
           printf '%s\n' "$WRF_ARTIFACT_RESTORE_TO" > "$WRF_ARTIFACT_DOWNLOAD_DIR/.restore-to"
+          python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
+            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
+            --workspace "$GITHUB_WORKSPACE"
           if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
             python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
               --downloads-root "$RUNNER_TEMP/wrf-downloads" \
@@ -648,13 +660,13 @@ jobs:
           name: wrf-cbr4-wrf-gfs-${{ github.job }}-${{ github.run_id }}
           path: |
             .wrf-artifact-safe/wrf-payload-005.tar
-          if-no-files-found: ignore
-          retention-days: 7
+          if-no-files-found: error
+          retention-days: 1
   seg05:
     name: CBR GFS F015-F018
     runs-on: ubuntu-22.04
     needs: seg04
-    timeout-minutes: 355
+    timeout-minutes: 330
     steps:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
@@ -669,6 +681,9 @@ jobs:
         run: |
           mkdir -p "$WRF_ARTIFACT_DOWNLOAD_DIR"
           printf '%s\n' "$WRF_ARTIFACT_RESTORE_TO" > "$WRF_ARTIFACT_DOWNLOAD_DIR/.restore-to"
+          python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
+            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
+            --workspace "$GITHUB_WORKSPACE"
           if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
             python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
               --downloads-root "$RUNNER_TEMP/wrf-downloads" \
@@ -765,13 +780,13 @@ jobs:
           name: wrf-cbr4-wrf-gfs-${{ github.job }}-${{ github.run_id }}
           path: |
             .wrf-artifact-safe/wrf-payload-006.tar
-          if-no-files-found: ignore
-          retention-days: 7
+          if-no-files-found: error
+          retention-days: 1
   seg06:
     name: CBR GFS F018-F021
     runs-on: ubuntu-22.04
     needs: seg05
-    timeout-minutes: 355
+    timeout-minutes: 330
     steps:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
@@ -786,6 +801,9 @@ jobs:
         run: |
           mkdir -p "$WRF_ARTIFACT_DOWNLOAD_DIR"
           printf '%s\n' "$WRF_ARTIFACT_RESTORE_TO" > "$WRF_ARTIFACT_DOWNLOAD_DIR/.restore-to"
+          python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
+            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
+            --workspace "$GITHUB_WORKSPACE"
           if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
             python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
               --downloads-root "$RUNNER_TEMP/wrf-downloads" \
@@ -882,13 +900,13 @@ jobs:
           name: wrf-cbr4-wrf-gfs-${{ github.job }}-${{ github.run_id }}
           path: |
             .wrf-artifact-safe/wrf-payload-007.tar
-          if-no-files-found: ignore
-          retention-days: 7
+          if-no-files-found: error
+          retention-days: 1
   seg07:
     name: CBR GFS F021-F024
     runs-on: ubuntu-22.04
     needs: seg06
-    timeout-minutes: 355
+    timeout-minutes: 330
     steps:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
@@ -903,6 +921,9 @@ jobs:
         run: |
           mkdir -p "$WRF_ARTIFACT_DOWNLOAD_DIR"
           printf '%s\n' "$WRF_ARTIFACT_RESTORE_TO" > "$WRF_ARTIFACT_DOWNLOAD_DIR/.restore-to"
+          python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
+            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
+            --workspace "$GITHUB_WORKSPACE"
           if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
             python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
               --downloads-root "$RUNNER_TEMP/wrf-downloads" \
@@ -999,13 +1020,13 @@ jobs:
           name: wrf-cbr4-wrf-gfs-${{ github.job }}-${{ github.run_id }}
           path: |
             .wrf-artifact-safe/wrf-payload-008.tar
-          if-no-files-found: ignore
-          retention-days: 7
+          if-no-files-found: error
+          retention-days: 1
   seg08:
     name: CBR GFS F024-F027
     runs-on: ubuntu-22.04
     needs: seg07
-    timeout-minutes: 355
+    timeout-minutes: 330
     steps:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
@@ -1020,6 +1041,9 @@ jobs:
         run: |
           mkdir -p "$WRF_ARTIFACT_DOWNLOAD_DIR"
           printf '%s\n' "$WRF_ARTIFACT_RESTORE_TO" > "$WRF_ARTIFACT_DOWNLOAD_DIR/.restore-to"
+          python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
+            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
+            --workspace "$GITHUB_WORKSPACE"
           if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
             python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
               --downloads-root "$RUNNER_TEMP/wrf-downloads" \
@@ -1116,13 +1140,13 @@ jobs:
           name: wrf-cbr4-wrf-gfs-${{ github.job }}-${{ github.run_id }}
           path: |
             .wrf-artifact-safe/wrf-payload-009.tar
-          if-no-files-found: ignore
-          retention-days: 7
+          if-no-files-found: error
+          retention-days: 1
   seg09:
     name: CBR GFS F027-F030
     runs-on: ubuntu-22.04
     needs: seg08
-    timeout-minutes: 355
+    timeout-minutes: 330
     steps:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
@@ -1137,6 +1161,9 @@ jobs:
         run: |
           mkdir -p "$WRF_ARTIFACT_DOWNLOAD_DIR"
           printf '%s\n' "$WRF_ARTIFACT_RESTORE_TO" > "$WRF_ARTIFACT_DOWNLOAD_DIR/.restore-to"
+          python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
+            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
+            --workspace "$GITHUB_WORKSPACE"
           if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
             python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
               --downloads-root "$RUNNER_TEMP/wrf-downloads" \
@@ -1233,13 +1260,13 @@ jobs:
           name: wrf-cbr4-wrf-gfs-${{ github.job }}-${{ github.run_id }}
           path: |
             .wrf-artifact-safe/wrf-payload-010.tar
-          if-no-files-found: ignore
-          retention-days: 7
+          if-no-files-found: error
+          retention-days: 1
   seg10:
     name: CBR GFS F030-F033
     runs-on: ubuntu-22.04
     needs: seg09
-    timeout-minutes: 355
+    timeout-minutes: 330
     steps:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
@@ -1254,6 +1281,9 @@ jobs:
         run: |
           mkdir -p "$WRF_ARTIFACT_DOWNLOAD_DIR"
           printf '%s\n' "$WRF_ARTIFACT_RESTORE_TO" > "$WRF_ARTIFACT_DOWNLOAD_DIR/.restore-to"
+          python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
+            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
+            --workspace "$GITHUB_WORKSPACE"
           if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
             python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
               --downloads-root "$RUNNER_TEMP/wrf-downloads" \
@@ -1350,13 +1380,13 @@ jobs:
           name: wrf-cbr4-wrf-gfs-${{ github.job }}-${{ github.run_id }}
           path: |
             .wrf-artifact-safe/wrf-payload-011.tar
-          if-no-files-found: ignore
-          retention-days: 7
+          if-no-files-found: error
+          retention-days: 1
   seg11:
     name: CBR GFS F033-F036
     runs-on: ubuntu-22.04
     needs: seg10
-    timeout-minutes: 355
+    timeout-minutes: 330
     steps:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
@@ -1371,6 +1401,9 @@ jobs:
         run: |
           mkdir -p "$WRF_ARTIFACT_DOWNLOAD_DIR"
           printf '%s\n' "$WRF_ARTIFACT_RESTORE_TO" > "$WRF_ARTIFACT_DOWNLOAD_DIR/.restore-to"
+          python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
+            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
+            --workspace "$GITHUB_WORKSPACE"
           if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
             python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
               --downloads-root "$RUNNER_TEMP/wrf-downloads" \
@@ -1467,13 +1500,13 @@ jobs:
           name: wrf-cbr4-wrf-gfs-${{ github.job }}-${{ github.run_id }}
           path: |
             .wrf-artifact-safe/wrf-payload-012.tar
-          if-no-files-found: ignore
-          retention-days: 7
+          if-no-files-found: error
+          retention-days: 1
   seg12:
     name: CBR GFS F036-F039
     runs-on: ubuntu-22.04
     needs: seg11
-    timeout-minutes: 355
+    timeout-minutes: 330
     steps:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
@@ -1488,6 +1521,9 @@ jobs:
         run: |
           mkdir -p "$WRF_ARTIFACT_DOWNLOAD_DIR"
           printf '%s\n' "$WRF_ARTIFACT_RESTORE_TO" > "$WRF_ARTIFACT_DOWNLOAD_DIR/.restore-to"
+          python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
+            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
+            --workspace "$GITHUB_WORKSPACE"
           if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
             python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
               --downloads-root "$RUNNER_TEMP/wrf-downloads" \
@@ -1584,13 +1620,13 @@ jobs:
           name: wrf-cbr4-wrf-gfs-${{ github.job }}-${{ github.run_id }}
           path: |
             .wrf-artifact-safe/wrf-payload-013.tar
-          if-no-files-found: ignore
-          retention-days: 7
+          if-no-files-found: error
+          retention-days: 1
   seg13:
     name: CBR GFS F039-F042
     runs-on: ubuntu-22.04
     needs: seg12
-    timeout-minutes: 355
+    timeout-minutes: 330
     steps:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
@@ -1605,6 +1641,9 @@ jobs:
         run: |
           mkdir -p "$WRF_ARTIFACT_DOWNLOAD_DIR"
           printf '%s\n' "$WRF_ARTIFACT_RESTORE_TO" > "$WRF_ARTIFACT_DOWNLOAD_DIR/.restore-to"
+          python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
+            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
+            --workspace "$GITHUB_WORKSPACE"
           if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
             python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
               --downloads-root "$RUNNER_TEMP/wrf-downloads" \
@@ -1701,8 +1740,8 @@ jobs:
           name: wrf-cbr4-wrf-gfs-${{ github.job }}-${{ github.run_id }}
           path: |
             .wrf-artifact-safe/wrf-payload-014.tar
-          if-no-files-found: ignore
-          retention-days: 7
+          if-no-files-found: error
+          retention-days: 1
   complete:
     name: Reunir os 14 segmentos CBR 4 km e publicar Release
     runs-on: ubuntu-22.04

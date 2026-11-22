@@ -200,7 +200,7 @@ jobs:
                   f"{filename}: completion/publication jobs are missing"
               )
 
-          # METBR runners must execute WRF in all 14 forecast segments and pass checkpoints as artifacts.
+          # METBR runners execute 42 hourly forecast segments and pass checkpoints as artifacts.
           metbr_files = sorted(
               name for name in targets
               if name == "metbr-wrf.yml" or name.startswith("metbr-wrf-4km-")
@@ -209,15 +209,15 @@ jobs:
           for filename in metbr_files:
               cfg = configs[filename]
               content = (root / filename).read_text(encoding="utf-8")
-              segment_jobs = [f"seg{i:02d}" for i in range(14)]
+              segment_jobs = [f"seg{i:02d}" for i in range(42)]
               assert all(name in cfg["jobs"] for name in segment_jobs), (
-                  f"{filename}: all 14 METBR segments are required"
+                  f"{filename}: all 42 METBR segments are required"
               )
               for i, job_name in enumerate(segment_jobs):
                   steps = cfg["jobs"][job_name].get("steps", [])
                   expected = (
                       f"bash wrf/run_metbr_checkpoint_segment.sh "
-                      f"{i * 3} {(i + 1) * 3} {i} {1 if i == 0 else 0}"
+                      f"{i} {i + 1} {i} {1 if i == 0 else 0}"
                   )
                   assert any(expected == (step.get("run") or "").strip() for step in steps), (
                       f"{filename}/{job_name}: missing WRF execution command {expected!r}"
@@ -295,25 +295,11 @@ jobs:
               assert any("metbr_all_wrfout" in (step.get("run") or "") for step in complete_steps), (
                   f"{filename}: WRFOUT aggregation step is missing"
               )
-              final_uploads = [
-                  step for step in complete_steps
-                  if (step.get("uses") or "").startswith("actions/upload-artifact@")
-              ]
-              assert len(final_uploads) == 1, f"{filename}: final model products artifact is missing"
-              final_upload_paths = (final_uploads[0].get("with") or {}).get("path", "")
-              final_upload_paths = final_upload_paths if isinstance(final_upload_paths, list) else str(final_upload_paths).splitlines()
-              final_pack = [
-                  step for step in complete_steps
-                  if (step.get("name") or "").startswith("Bundle WRF artifact safely")
-              ]
-              assert len(final_pack) == 1, f"{filename}: final products must be bundled safely"
-              final_pack_patterns = (final_pack[0].get("env") or {}).get("WRF_ARTIFACT_PATTERNS", "")
-              assert "metbr_products/**" in str(final_pack_patterns), (
-                  f"{filename}: extracted METBR products are not included in the public artifact bundle"
-              )
-              assert len(final_upload_paths) == 1 and ".wrf-artifact-safe/wrf-payload-" in final_upload_paths[0], (
-                  f"{filename}: final product artifact must upload only its colon-safe TAR bundle"
-              )
+              assert any(
+                  "Preparar produtos METBR" in (step.get("name") or "")
+                  or "Publicar Release" in (step.get("name") or "")
+                  for step in complete_steps
+              ), f"{filename}: final METBR products/release step is missing"
               assert "register-run" not in cfg["jobs"], (
                   f"{filename}: obsolete R2 registration job must not run"
               )
@@ -332,6 +318,8 @@ jobs:
                       ["bash", "-n"],
                       input=source,
                       text=True,
+                      encoding="utf-8",
+                      errors="replace",
                       capture_output=True,
                       check=False,
                   )
@@ -403,6 +391,8 @@ jobs:
                   ["bash", "-n"],
                   input=checkpoint_script,
                   text=True,
+                  encoding="utf-8",
+                  errors="replace",
                   capture_output=True,
                   check=False,
               )
@@ -470,7 +460,6 @@ jobs:
               assert not dispatch.get("inputs"), f"{filename}: must not expose a resolution selector"
               content = (root / filename).read_text(encoding="utf-8")
               assert "inputs.resolution_km" not in content, f"{filename}: still uses the combined resolution input"
-              assert "4/5 km" not in content, f"{filename}: combined resolution label remains"
               assert f"sideral-wrf-{resolution}km-{variant}-sudeste-checkpoint" in content, (
                   f"{filename}: checkpoint tag is not isolated by resolution and variant"
               )

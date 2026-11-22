@@ -7,7 +7,7 @@ on:
 
 permissions:
   actions: read
-  contents: write
+  contents: read
 
 concurrency:
   group: sideral-wrf-watchdog
@@ -27,7 +27,7 @@ jobs:
         run: |
           set -euo pipefail
           python3 - <<'PY' >> "$GITHUB_STEP_SUMMARY"
-          import json, os, urllib.request, urllib.parse
+          import json, os, urllib.request, urllib.parse, urllib.error
           from datetime import datetime, timezone
 
           repo=os.environ["GITHUB_REPOSITORY"]
@@ -103,6 +103,33 @@ jobs:
                   created=datetime.fromisoformat(run["created_at"].replace("Z","+00:00"))
                   age=(now-created).total_seconds()/3600
                   note=""
+                  product_key=filename[:-4].lower()
+                  release_tag=f"sideral-data-{product_key}-latest"
+                  release_url=f"https://api.github.com/repos/{repo}/releases/tags/{urllib.parse.quote(release_tag,safe='')}"
+                  release_note=""
+                  try:
+                      release_req=urllib.request.Request(release_url,headers={
+                          "Authorization":f"Bearer {token}",
+                          "Accept":"application/vnd.github+json",
+                          "X-GitHub-Api-Version":"2022-11-28",
+                          "User-Agent":"Sideral-WRF-Watchdog"
+                      })
+                      with urllib.request.urlopen(release_req,timeout=25) as release_response:
+                          release=json.load(release_response)
+                      published=release.get("published_at")
+                      if published:
+                          released=datetime.fromisoformat(published.replace("Z","+00:00"))
+                          release_age=(now-released).total_seconds()/3600
+                          release_note=f"Release há {release_age:.1f} h"
+                      else:
+                          release_note="Release presente, sem published_at"
+                  except urllib.error.HTTPError as exc:
+                      if exc.code == 404:
+                          release_note="Sem Release publicado"
+                      else:
+                          release_note=f"Erro Release HTTP {exc.code}"
+                  except Exception as exc:
+                      release_note=f"Erro Release: {str(exc).replace('|','/')[:80]}"
                   if status=="completed" and conclusion not in ("success",None):
                       failures+=1
                       note="Falha na última execução"
@@ -112,7 +139,7 @@ jobs:
                   elif status=="in_progress":
                       note=f"Em execução ({age:.1f} h)"
                   elif conclusion=="success":
-                      note="OK"
+                      note=f"OK | {release_note}"
                   else:
                       note="Aguardando conclusão"
                   print(f"| {label} | {status} | {conclusion} | {created:%Y-%m-%d %H:%M} | {note} |")

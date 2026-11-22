@@ -1,0 +1,3 @@
+| 2026-11-21 | Arquivos do repositório sem `.git`; objetivo exigia branch. | Trabalhar no snapshot ou clonar. | Clonado `main` em worktree local e criada `fix/wrf-total`. | Evidência: `gh repo clone`. |
+| 2026-11-21 | 51 arquivos combinam `*wrf*.yml`, mas o escopo operacional prevê 47. | Contar tudo ou separar auxiliares. | Marcar 47 workflows operacionais e manter auxiliares fora da matriz principal. | Evidência: diretório local e lista remota de workflows. |
+| 2026-11-21 | Falhas reais não foram mascaradas ou usadas como verde. | Corrigir todas ou só determinísticas comprovadas. | Corrigir CIM4, TARC e Sudeste; outros achados permanecem hipóteses até reexecutar. | Evidência: logs reais com run IDs. |

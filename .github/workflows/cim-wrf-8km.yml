@@ -269,7 +269,7 @@ jobs:
     needs: resolve_runs
 
     runs-on: ubuntu-22.04
-    timeout-minutes: 360
+    timeout-minutes: 330
     strategy:
       fail-fast: false
       max-parallel: 2
