@@ -5,6 +5,7 @@ ROOT="${GITHUB_WORKSPACE:-$PWD}"
 WRF_RUN_HOURS="${WRF_RUN_HOURS:-6}"
 WRF_START_HOUR="${WRF_START_HOUR:-0}"
 WRF_END_HOUR="${WRF_END_HOUR:-$WRF_RUN_HOURS}"
+SOURCE_END_HOUR="${WRF_BOUNDARY_END_HOUR:-$WRF_END_HOUR}"
 CDO_IMAGE="deutscherwetterdienst/regrid:icon-grids"
 RAW_DIR="$ROOT/tarc_ecmwf_source_raw"
 REG_DIR="$ROOT/tarc_ecmwf_source_regular"
@@ -59,7 +60,7 @@ for CANDIDATE in "${IFS_CANDIDATES[@]}"; do
   rm -f "$RAW" "$RAW_PRESSURE" "$RAW_SURFACE" "$ENV_FILE"
   echo "ECMWF fallback: ciclo fonte ${SRC_DATE} ${SRC_CYCLE}Z; offset ${OFFSET} h"
   if python3 "$ROOT/wrf/fetch_ecmwf_wrf_input.py" \
-      --start-hour "$WRF_START_HOUR" --max-hour "$WRF_END_HOUR" --hour-offset "$OFFSET" \
+      --start-hour "$WRF_START_HOUR" --max-hour "$SOURCE_END_HOUR" --hour-offset "$OFFSET" \
       --date "$SRC_DATE" --cycle "$SRC_CYCLE" \
       --output "$RAW" --run-env "$ENV_FILE"; then
     SELECTED_OFFSET="$OFFSET"
@@ -86,7 +87,7 @@ docker pull "$CDO_IMAGE"
 
 log "Separando cada forecast hour ECMWF antes do WPS"
 echo "Recorte ECMWF: lon ${ECMWF_SOURCE_WEST}..${ECMWF_SOURCE_EAST}; lat ${ECMWF_SOURCE_SOUTH}..${ECMWF_SOURCE_NORTH}"
-for H in $(seq "$WRF_START_HOUR" 3 "$WRF_END_HOUR"); do
+for H in $(seq "$WRF_START_HOUR" 3 "$SOURCE_END_HOUR"); do
   SOURCE_H=$((H+ECMWF_STEP_OFFSET))
   printf -v FH '%03d' "$H"
   printf -v SOURCE_FH '%03d' "$SOURCE_H"
@@ -162,7 +163,7 @@ ls -lh "$REG_DIR"/ecmwf_f*.grib2
 
 log "Preparando TARC WRF com condicoes de contorno ECMWF"
 export SOURCE_MODEL=ecmwf
-export WRF_RUN_HOURS WRF_START_HOUR WRF_END_HOUR
+export WRF_RUN_HOURS WRF_START_HOUR WRF_END_HOUR WRF_BOUNDARY_END_HOUR="$SOURCE_END_HOUR"
 export SOURCE_DIR="$REG_DIR"
 export SOURCE_VTABLE="$ROOT/wrf/Vtable.ECMWF_OPEN"
 chmod +x "$ROOT/wrf/run_tarc_wrf_with_source.sh"
