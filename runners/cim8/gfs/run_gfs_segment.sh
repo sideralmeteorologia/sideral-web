@@ -7,11 +7,12 @@ set -euo pipefail
 : "${WRF_END_HOUR:?WRF_END_HOUR ausente}"
 
 if (( WRF_START_HOUR < 0 || WRF_END_HOUR <= WRF_START_HOUR )); then echo "Intervalo WRF invalido" >&2; exit 2; fi
-if (( WRF_START_HOUR % 3 != 0 || WRF_END_HOUR % 3 != 0 )); then echo "Start/end precisam ser multiplos de 3" >&2; exit 3; fi
+if (( WRF_START_HOUR % 3 != 0 || WRF_END_HOUR % 3 != 0 || WRF_BOUNDARY_END_HOUR % 3 != 0 || WRF_BOUNDARY_END_HOUR < WRF_END_HOUR )); then echo "Start/end precisam ser multiplos de 3" >&2; exit 3; fi
 WRF_COLD_START="${WRF_COLD_START:-0}"
+WRF_BOUNDARY_END_HOUR="${WRF_BOUNDARY_END_HOUR:-$WRF_END_HOUR}"
 if (( WRF_START_HOUR > 0 )) && [[ -z "${WRF_RESTART_FILE:-}" ]] && [[ "$WRF_COLD_START" != "1" ]]; then echo "Continuacao exige WRF_RESTART_FILE ou WRF_COLD_START=1" >&2; exit 4; fi
 
-export FORCE_RUN_DATE FORCE_RUN_CYCLE WRF_START_HOUR WRF_END_HOUR WRF_COLD_START
+export FORCE_RUN_DATE FORCE_RUN_CYCLE WRF_START_HOUR WRF_END_HOUR WRF_COLD_START WRF_BOUNDARY_END_HOUR
 export WRF_SEGMENT_HOURS=$((WRF_END_HOUR-WRF_START_HOUR))
 
 python3 - <<'PY'
@@ -19,7 +20,7 @@ from pathlib import Path
 import os,re
 path=Path('wrf/run_gfs_test.sh')
 text=path.read_text(encoding='utf-8')
-start=int(os.environ['WRF_START_HOUR']); end=int(os.environ['WRF_END_HOUR']); duration=end-start
+start=int(os.environ['WRF_START_HOUR']); end=int(os.environ['WRF_END_HOUR']); boundary=int(os.environ['WRF_BOUNDARY_END_HOUR']); duration=end-start
 cold=os.environ.get('WRF_COLD_START')=='1'
 # Regional workflows provide these values; Brasil 15 km keeps them as defaults.
 target_dx=os.environ.get('WRF_DX_METERS','15000')
@@ -33,19 +34,24 @@ selection=f'''log "Usando rodada GFS fixa para segmento F{start:03d}-F{end:03d}"
 RUN_DATE="${{FORCE_RUN_DATE:?FORCE_RUN_DATE ausente}}"
 RUN_CYCLE="${{FORCE_RUN_CYCLE:?FORCE_RUN_CYCLE ausente}}"
 BASE_URL="https://noaa-gfs-bdp-pds.s3.amazonaws.com/gfs.${{RUN_DATE}}/${{RUN_CYCLE}}/atmos"
-printf -v END_FH "%03d" {end}
+printf -v END_FH "%03d" {boundary}
 END_URL="$BASE_URL/gfs.t${{RUN_CYCLE}}z.pgrb2.0p25.f${{END_FH}}"
 READY=0
 for TRY in $(seq 1 18); do
   if curl -fsSL --range 0-0 --connect-timeout 15 --max-time 45 -o /dev/null "$END_URL"; then READY=1; break; fi
-  echo "GFS F{end:03d} ainda indisponivel ($TRY/18)"; sleep 300
+  echo "GFS F{boundary:03d} ainda indisponivel ($TRY/18)"; sleep 300
 done
-[[ "$READY" -eq 1 ]] || {{ echo "GFS F{end:03d} indisponivel" >&2; exit 22; }}
+[[ "$READY" -eq 1 ]] || {{ echo "GFS F{boundary:03d} indisponivel" >&2; exit 22; }}
 '''
 text,n=re.subn(r'log "Escolhendo rodada GFS mais recente com F006 disponível".*?(?=echo "RUN_DATE=\$RUN_DATE")',selection+'\n',text,count=1,flags=re.S)
 if n!=1: raise SystemExit('Falha ao fixar rodada GFS')
 base='${RUN_DATE} ${RUN_CYCLE}:00 UTC'; seg=f'${{RUN_DATE}} ${{FORCE_RUN_CYCLE}}:00 UTC +{start} hours'
 text=text.replace('+6 hours',f'+{end} hours')
+needle = 'END_ISO=$(date -u -d "${RUN_DATE} ${FORCE_RUN_CYCLE}:00 UTC +'+str(end)+' hours" +%Y-%m-%d_%H:%M:%S)'
+if needle not in text: raise SystemExit('END_ISO generator line not found')
+boundary_line = 'BOUNDARY_END_ISO=$(date -u -d "${RUN_DATE} ${FORCE_RUN_CYCLE}:00 UTC +'+str(boundary)+' hours" +%Y-%m-%d_%H:%M:%S)'
+text = text.replace(needle, needle+'\n'+boundary_line, 1)
+text = text.replace("end_date   = '${END_ISO}',", "end_date   = '${BOUNDARY_END_ISO}',", 1)
 for suffix in ('+%Y-%m-%d_%H:%M:%S','+%Y','+%m','+%d','+%H'): text=text.replace(f'date -u -d "{base}" {suffix}',f'date -u -d "{seg}" {suffix}')
 text=text.replace('run_hours = 6,',f'run_hours = {duration},').replace('history_interval = 180,','history_interval = 60,')
 restart='.true.' if start>0 and not cold else '.false.'
@@ -90,12 +96,12 @@ if f'dx = {target_dx},' not in text or f'dy = {target_dy},' not in text:
 
 letters=['AAA','AAB','AAC','AAD','AAE','AAF','AAG','AAH','AAI','AAJ','AAK','AAL','AAM','AAN','AAO','AAP','AAQ']
 download_start=start if cold else 0
-file_count=(end-download_start)//3+1
+file_count=(boundary-download_start)//3+1
 if file_count>len(letters): raise SystemExit('Horizonte excede GRIBFILE letters')
 arr=' '.join(letters[:file_count])
-download=f'''log "Baixando GFS F{download_start:03d}-F{end:03d} de 3 em 3 horas"
+download=f'''log "Baixando GFS F{download_start:03d}-F{boundary:03d} de 3 em 3 horas"
 mkdir -p "$WORK/gfs"
-for H in $(seq {download_start} 3 {end}); do
+for H in $(seq {download_start} 3 {boundary}); do
  printf -v FH "%03d" "$H"; FILE="gfs.t${{RUN_CYCLE}}z.pgrb2.0p25.f${{FH}}"
  curl -fL --retry 4 --retry-delay 5 --connect-timeout 20 --max-time 900 -o "$WORK/gfs/$FILE" "$BASE_URL/$FILE"
 done
@@ -118,7 +124,7 @@ if n!=1: raise SystemExit('Falha patch geografia')
 links=f'''log "Preparando nomes GRIBFILE F{download_start:03d}-F{end:03d}"
 LETTERS=({arr})
 IDX=0
-for H in $(seq {download_start} 3 {end}); do
+for H in $(seq {download_start} 3 {boundary}); do
  printf -v FH "%03d" "$H"; FILE="gfs.t${{RUN_CYCLE}}z.pgrb2.0p25.f${{FH}}"; ln -sf "gfs/$FILE" "$WORK/GRIBFILE.${{LETTERS[$IDX]}}"; IDX=$((IDX+1))
 done
 '''
