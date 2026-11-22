@@ -260,8 +260,8 @@ jobs:
           exit 1
 
 
-  run_cim:
-    name: CIM 8 km ${{ matrix.model }} - F000 a F040 horario
+  run_cim_segment_00:
+    name: CIM 8 km ${{ matrix.model }} | F000-F021 (checkpoint)
     needs: resolve_runs
 
     runs-on: ubuntu-22.04
@@ -330,9 +330,10 @@ jobs:
           WRF_STAND_LON: '-52.75'
           # A fonte global chega de 3 em 3 h. Integramos ate F042 para manter
           # a fronteira completa e publicamos exatamente F000..F040.
-          WRF_RUN_HOURS: '42'
+          WRF_RUN_HOURS: '21'
           WRF_START_HOUR: '0'
-          WRF_END_HOUR: '42'
+          WRF_END_HOUR: '21'
+          WRF_BOUNDARY_END_HOUR: '42'
           WRF_HISTORY_INTERVAL_MINUTES: '60'
           CIM_RESOLUTION_KM: '8'
           CIM_OUTPUT_INTERVAL_HOURS: '1'
@@ -381,6 +382,131 @@ jobs:
           else
             "$RUNNER"
           fi
+
+      - name: Validar restart CIM 8 km no F021
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from datetime import datetime, timedelta, timezone
+          from pathlib import Path
+          run_dir = Path("wrf_work/run")
+          env_path = run_dir / "sideral-run.env"
+          assert env_path.is_file() and env_path.stat().st_size > 0, "sideral-run.env ausente"
+          env = dict(line.strip().split("=", 1) for line in env_path.read_text().splitlines() if "=" in line)
+          base = datetime.strptime(env["RUN_DATE"] + env["RUN_CYCLE"], "%Y%m%d%H").replace(tzinfo=timezone.utc)
+          expected_time = base + timedelta(hours=21)
+          expected = run_dir / ("wrfrst_d01_" + expected_time.strftime("%Y-%m-%d_%H:%M:%S"))
+          assert expected.is_file() and expected.stat().st_size > 0, f"restart F021 ausente: {expected.name}"
+          for name in ("wrfbdy_d01", "wrfinput_d01", "namelist.input"):
+              item = run_dir / name
+              assert item.is_file() and item.stat().st_size > 0, f"{name} ausente/vazio"
+          assert any(run_dir.glob("wrfout_d01_*")), "wrfout da primeira metade ausente"
+          print("CIM checkpoint F021 válido:", expected.name)
+          PY
+
+      - name: Bundle checkpoint CIM 8 km
+        shell: bash
+        env:
+          WRF_ARTIFACT_PATTERNS: |
+            wrf_work/run/**
+          WRF_ARTIFACT_OUTPUT: .wrf-artifact-safe/wrf-payload-001.tar
+        run: |
+          set -euo pipefail
+          python3 .github/scripts/wrf_artifact_bundle.py pack \
+            --workspace "$GITHUB_WORKSPACE" \
+            --output "$GITHUB_WORKSPACE/$WRF_ARTIFACT_OUTPUT"
+          test -s "$GITHUB_WORKSPACE/$WRF_ARTIFACT_OUTPUT"
+
+      - name: Upload checkpoint CIM 8 km F021
+        uses: actions/upload-artifact@v4
+        with:
+          name: cim8-${{ matrix.model }}-seg00-${{ github.run_id }}
+          path: .wrf-artifact-safe/wrf-payload-001.tar
+          if-no-files-found: error
+          retention-days: 1
+
+  run_cim_segment_01:
+    name: CIM 8 km ${{ matrix.model }} | F021-F042
+    needs: [resolve_runs, run_cim_segment_00]
+
+    runs-on: ubuntu-22.04
+    timeout-minutes: 330
+    strategy:
+      fail-fast: false
+      max-parallel: 2
+      matrix:
+        model: ${{ fromJSON(needs.resolve_runs.outputs.models) }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Restore WRF artifacts after checkout (2)
+        shell: bash
+        run: |
+          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
+            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
+              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
+              --workspace "$GITHUB_WORKSPACE"
+          fi
+      - name: Restore WRF runtime files from runners catalog
+        shell: bash
+        run: python3 .github/scripts/restore_wrf_runtime.py
+      - name: Restaurar código científico CIM 8 km
+        uses: actions/cache@v4
+        with:
+          path: wrf
+          key: ${{ runner.os }}-sideral-cim8-runtime-${{ github.sha }}
+
+
+      - name: Preparar runner
+        shell: bash
+        run: |
+          set -euxo pipefail
+          sudo rm -rf /usr/local/lib/android /usr/share/dotnet /opt/ghc /usr/local/.ghcup || true
+          sudo apt-get clean || true
+          docker system prune -af || true
+          source wrf/ensure_eccodes_tools.sh
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+
+      - name: Instalar dependencias
+        run: |
+          python3 -m pip install --upgrade pip
+          python3 -m pip install 'numpy==1.26.4' 'xarray>=2024.1,<2026' 'netCDF4>=1.7,<2' 'scipy>=1.11,<2' 'requests>=2.31' 'ecmwf-opendata==0.3.34'
+
+      - name: Validar extratores e diagnósticos CIM
+        run: python3 -m py_compile wrf/extract_wrf_severe_core.py wrf/extract_wrf_severe.py wrf/extract_wrf_json.py wrf/extract_cim_wrf_core.py wrf/extract_cim_wrf.py
+
+      - name: Download checkpoint CIM 8 km F021
+        uses: actions/download-artifact@v4
+        with:
+          name: cim8-${{ matrix.model }}-seg00-${{ github.run_id }}
+          path: ${{ runner.temp }}/wrf-downloads/cim8
+
+      - name: Restore checkpoint CIM 8 km F021
+        shell: bash
+        run: |
+          set -euo pipefail
+          checkpoint_dir="$RUNNER_TEMP/wrf-downloads/cim8"
+          test -s "$checkpoint_dir/wrf-payload-001.tar"
+          printf '%s\\n' 'wrf_work/run' > "$checkpoint_dir/.restore-to"
+          python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
+            --downloads-root "$RUNNER_TEMP/wrf-downloads" \
+            --workspace "$GITHUB_WORKSPACE"
+          test -s wrf_work/run/wrfbdy_d01
+          test -s wrf_work/run/sideral-run.env
+
+      - name: Run CIM 8 km restart F021-F042
+        env:
+          WRF_MPI_PROCS: '4'
+          WRF_TIME_STEP: '30'
+          WRF_HISTORY_INTERVAL_MINUTES: '60'
+        shell: bash
+        run: |
+          set -euo pipefail
+          chmod +x wrf/run_cim8_restart_segment.sh
+          bash wrf/run_cim8_restart_segment.sh 21 42
 
       - name: Extrair grade nativa horaria
         env:
