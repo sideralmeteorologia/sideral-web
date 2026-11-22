@@ -5,6 +5,7 @@ ROOT="${GITHUB_WORKSPACE:-$PWD}"
 WRF_RUN_HOURS="${WRF_RUN_HOURS:-6}"
 WRF_START_HOUR="${WRF_START_HOUR:-0}"
 WRF_END_HOUR="${WRF_END_HOUR:-$WRF_RUN_HOURS}"
+SOURCE_END_HOUR="${WRF_BOUNDARY_END_HOUR:-$WRF_END_HOUR}"
 ICON_REGRID_IMAGE="deutscherwetterdienst/regrid:icon-grids"
 RAW_DIR="$ROOT/icon_source_raw"
 REG_DIR="$ROOT/icon_source_regular"
@@ -37,7 +38,7 @@ PY
   RUN_DATE=""; RUN_CYCLE=""
   for C in "${CANDIDATES[@]}"; do
     read -r DATE CYCLE <<< "$C"
-    URL="https://opendata.dwd.de/weather/nwp/icon/grib/${CYCLE}/t_2m/icon_global_icosahedral_single-level_${DATE}${CYCLE}_$(printf '%03d' "$WRF_END_HOUR")_T_2M.grib2.bz2"
+    URL="https://opendata.dwd.de/weather/nwp/icon/grib/${CYCLE}/t_2m/icon_global_icosahedral_single-level_${DATE}${CYCLE}_$(printf '%03d' "$SOURCE_END_HOUR")_T_2M.grib2.bz2"
     if curl -fsSL --range 0-0 --connect-timeout 15 --max-time 45 -o /dev/null "$URL"; then RUN_DATE="$DATE"; RUN_CYCLE="$CYCLE"; break; fi
   done
   test -n "$RUN_DATE" || { echo "Nenhuma rodada ICON recente com F${WRF_END_HOUR}" >&2; exit 20; }
@@ -60,7 +61,7 @@ docker run --rm --user "$HOST_UID:$HOST_GID" -v "$REGRID_DIR:/work" "$ICON_REGRI
 test -s "$REGRID_DIR/icon_weights.nc"
 
 log "Baixando e reamostrando atmosfera ICON"
-for H in $(seq "$WRF_START_HOUR" 3 "$WRF_END_HOUR"); do
+for H in $(seq "$WRF_START_HOUR" 3 "$SOURCE_END_HOUR"); do
   printf -v FH '%03d' "$H"; RAW="$RAW_DIR/icon_f${FH}_raw.grib2"; SIMPLE="$RAW_DIR/icon_f${FH}_simple.grib2"; OUT="$REG_DIR/icon_f${FH}.grib2"; FI="$RAW_DIR/icon_f${FH}_fi.grib2"; HGT0="$RAW_DIR/icon_f${FH}_hgt_values.grib2"; HGT="$RAW_DIR/icon_f${FH}_hgt.grib2"; HGT_CHECK="$RAW_DIR/icon_f${FH}_hgt_check.grib2"
   python3 "$ROOT/wrf/fetch_icon_wrf_step.py" --date "$RUN_DATE" --cycle "$RUN_CYCLE" --step "$H" --output "$RAW"
   grib_set -r -s packingType=grid_simple "$RAW" "$SIMPLE"
