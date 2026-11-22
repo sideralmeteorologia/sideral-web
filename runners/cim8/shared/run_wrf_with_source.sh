@@ -27,6 +27,7 @@ done
   echo "Segmento WRF invalido: F${WRF_START_HOUR}-F${WRF_END_HOUR}" >&2; exit 2;
 }
 WRF_SEGMENT_HOURS=$((WRF_END_HOUR - WRF_START_HOUR))
+WRF_RESTART_INTERVAL_MINUTES=$((WRF_SEGMENT_HOURS * 60))
 WRF_DX_METERS="${WRF_DX_METERS:-4000}"
 WRF_DY_METERS="${WRF_DY_METERS:-$WRF_DX_METERS}"
 WRF_E_WE="${WRF_E_WE:-300}"
@@ -188,7 +189,7 @@ cat > "$WORK/namelist.input" <<EOF
  history_interval = ${WRF_HISTORY_INTERVAL_MINUTES},
  frames_per_outfile = 1,
  restart = .false.,
- restart_interval = ${WRF_SEGMENT_HOURS} * 60,
+ restart_interval = ${WRF_RESTART_INTERVAL_MINUTES},
  write_hist_at_0h_rst = .true.,
  io_form_history = 2,
  io_form_restart = 2,
