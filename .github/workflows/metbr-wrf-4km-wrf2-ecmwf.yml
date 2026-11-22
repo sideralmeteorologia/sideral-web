@@ -93,6 +93,13 @@ jobs:
           mkdir -p wrf/bin
           printf '%s' 'IyEvdXNyL2Jpbi9lbnYgYmFzaApzZXQgLWV1byBwaXBlZmFpbApbWyAiXCR7MTotfSIgPT0gInJlbGVhc2UiIF1dIHx8IHsgZWNobyAiTUVUQlIgUjIgYWRhcHRlciBzdXBwb3J0cyByZWxlYXNlIG9wZXJhdGlvbnMgb25seSIgPiYyOyBleGl0IDI7IH0Kc3ViPSJcJHsyOi19IjsgdGFnPSJcJHszOi19Ijsgc2hpZnQgJCgoICQjID49IDMgPyAzIDogJCMgKSkKIDogIyBleHRlcm5hbCBvYmplY3Qgc3RvcmFnZSByZW1vdmVkCiA6ICMgZXh0ZXJuYWwgb2JqZWN0IHN0b3JhZ2UgcmVtb3ZlZAogOiAjIGV4dGVybmFsIG9iamVjdCBzdG9yYWdlIHJlbW92ZWQKYXJncz0oLS1lbmRwb2ludC11cmwgIiRlbmRwb2ludCIgLS1yZWdpb24gYXV0bykKY2FzZSAiJHN1YiIgaW4KIDogIyBleHRlcm5hbCBvYmplY3Qgc3RvcmFnZSByZW1vdmVkCiA6ICMgZXh0ZXJuYWwgb2JqZWN0IHN0b3JhZ2UgcmVtb3ZlZAogZG93bmxvYWQpCiAgcGF0dGVybj0nKic7IGRlc3Q9Jy4nCiAgd2hpbGUgKCgkIykpOyBkbyBjYXNlICIkMSIgaW4gLS1wYXR0ZXJuKSBwYXR0ZXJuPSIkMiI7IHNoaWZ0IDI7OyAtLWRpcikgZGVzdD0iJDIiOyBzaGlmdCAyOzsgLS1yZXBvKSBzaGlmdCAyOzsgLS1jbG9iYmVyKSBzaGlmdDs7ICopIHNoaWZ0OzsgZXNhYzsgZG9uZQogIG1rZGlyIC1wICIkZGVzdCIKIDogIyBleHRlcm5hbCBvYmplY3Qgc3RvcmFnZSByZW1vdmVkCiAgZm91bmQ9MAogOiAjIGV4dGVybmFsIG9iamVjdCBzdG9yYWdlIHJlbW92ZWQKICAoKCBmb3VuZCA+IDAgKSkgfHwgeyBlY2hvICJPYmpldG8gUjIgbsOjbyBlbmNvbnRyYWRvOiAkcGF0dGVybiAoJGJhc2UpIiA+JjI7IGV4aXQgMzsgfQogIDs7CiB1cGxvYWQpCiA6ICMgZXh0ZXJuYWwgb2JqZWN0IHN0b3JhZ2UgcmVtb3ZlZAogIDs7CiAqKSBlY2hvICJPcGVyYcOnw6NvIFIyIG7Do28gc3Vwb3J0YWRhOiAkc3ViIiA+JjI7IGV4aXQgMiA7Owplc2Fj' | base64 -d > wrf/bin/gh
           chmod +x wrf/bin/gh wrf/*.sh
+
+      - name: Reaplicar runners oficiais após os scripts embutidos
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 .github/scripts/restore_wrf_runtime.py
+          chmod +x wrf/*.sh
       - name: Validar scripts e extrator METBR
         shell: bash
         run: |
