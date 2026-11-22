@@ -22,8 +22,8 @@ def main() -> None:
 
     if args.start_hour < 0 or args.end_hour <= args.start_hour:
         raise SystemExit('Intervalo invalido')
-    if args.start_hour % 3 or args.end_hour % 3 or args.end_hour > 72:
-        raise SystemExit('Start/end precisam ser multiplos de 3 h entre F000 e F072')
+    if args.end_hour > 42:
+        raise SystemExit('End hour precisa estar entre F000 e F042')
 
     root = Path(args.root).resolve()
     common = root / 'wrf' / 'run_wrf_with_source.sh'

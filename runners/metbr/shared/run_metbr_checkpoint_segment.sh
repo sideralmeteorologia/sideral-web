@@ -15,7 +15,7 @@ mkdir -p "$INPUT"
 [[ "$SOURCE_MODEL" =~ ^(icon|ecmwf|gfs)$ ]] || { echo "SOURCE_MODEL inválido: $SOURCE_MODEL" >&2; exit 2; }
 [[ "$MODEL_VARIANT" =~ ^(wrf|wrf2)$ ]] || { echo "MODEL_VARIANT inválido: $MODEL_VARIANT" >&2; exit 2; }
 [[ "$COLD_START" == 0 || "$COLD_START" == 1 ]] || { echo "COLD_START inválido" >&2; exit 2; }
-(( START_HOUR >= 0 && END_HOUR > START_HOUR && START_HOUR % 3 == 0 && END_HOUR % 3 == 0 && END_HOUR <= 42 )) || { echo "Segmento METBR inválido F${START_HOUR}-F${END_HOUR}" >&2; exit 2; }
+(( START_HOUR >= 0 && END_HOUR > START_HOUR && END_HOUR <= 42 )) || { echo "Segmento METBR inválido F${START_HOUR}-F${END_HOUR}" >&2; exit 2; }
 
 source "$ROOT/wrf/ensure_eccodes_tools.sh"
 for tool in grib_set grib_copy grib_count; do

@@ -17,6 +17,9 @@ SOURCE_MAP = {
     "wrf/run_metbr_checkpoint_segment.sh": "runners/metbr/shared/run_metbr_checkpoint_segment.sh",
     "wrf/run_metbr_gfs_segment.sh": "runners/metbr/gfs/run_metbr_gfs_segment.sh",
     "wrf/run_cbr_checkpoint_segment.sh": "runners/cbr/shared/run_cbr_checkpoint_segment.sh",
+    "wrf/run_metbr_source_wrf.sh": "runners/metbr/shared/run_metbr_source_wrf.sh",
+    "wrf/run_wrf_restart_segment.sh": "runners/metbr/shared/run_wrf_restart_segment.sh",
+    "wrf/prepare_restart_segment.py": "runners/metbr/shared/prepare_restart_segment.py",
 }
 
 
@@ -41,7 +44,13 @@ def replace_embedded_scripts(text: str) -> tuple[str, list[str]]:
         resolved_source_rel = source_rel
         if embedded == "wrf/run_tarc_checkpoint_segment.sh" and "Sudeste" in text:
             resolved_source_rel = "runners/sudeste/shared/run_tarc_checkpoint_segment.sh"
+        if embedded == "wrf/prepare_restart_segment.py":
+            if "Sudeste" in text:
+                resolved_source_rel = "runners/sudeste/shared/prepare_restart_segment.py"
+            elif "TARC" in text:
+                resolved_source_rel = "runners/tarc/shared/prepare_restart_segment.py"
         source = (ROOT / resolved_source_rel).read_bytes()
+        source = source.replace(b"\r\n", b"\n").replace(b"\r", b"\n")
         payload = base64.b64encode(source).decode("ascii")
         pattern = re.compile(
             re.escape("printf '%s' '") +
@@ -75,7 +84,7 @@ def main() -> int:
     for path in targets:
         original = path.read_text(encoding="utf-8")
         updated, changes = replace_embedded_scripts(original)
-        if changes:
+        if updated != original:
             print(f"{path.relative_to(ROOT)}: " + ", ".join(changes))
             if not args.dry_run:
                 path.write_text(updated, encoding="utf-8")
