@@ -7,6 +7,10 @@ WORK="$ROOT/wrf_work"
 DIAG="$ROOT/wrf_diagnostics"
 HOST_UID="$(id -u)"
 HOST_GID="$(id -g)"
+WRF_START_HOUR="${WRF_START_HOUR:-0}"
+WRF_END_HOUR="${WRF_END_HOUR:-6}"
+WRF_RUN_HOURS="${WRF_RUN_HOURS:-$((WRF_END_HOUR-WRF_START_HOUR))}"
+WRF_BOUNDARY_END_HOUR="${WRF_BOUNDARY_END_HOUR:-$WRF_END_HOUR}"
 mkdir -p "$WORK" "$DIAG"
 rm -rf "$WORK"/*
 
@@ -69,6 +73,12 @@ END_Y=$(date -u -d "${RUN_DATE} ${RUN_CYCLE}:00 UTC +6 hours" +%Y)
 END_M=$(date -u -d "${RUN_DATE} ${RUN_CYCLE}:00 UTC +6 hours" +%m)
 END_D=$(date -u -d "${RUN_DATE} ${RUN_CYCLE}:00 UTC +6 hours" +%d)
 END_H=$(date -u -d "${RUN_DATE} ${RUN_CYCLE}:00 UTC +6 hours" +%H)
+BOUNDARY_END_ISO=$(date -u -d "${RUN_DATE} ${RUN_CYCLE}:00 UTC +${WRF_BOUNDARY_END_HOUR} hours" +%Y-%m-%d_%H:%M:%S)
+BOUNDARY_END_Y=$(date -u -d "${RUN_DATE} ${RUN_CYCLE}:00 UTC +${WRF_BOUNDARY_END_HOUR} hours" +%Y)
+BOUNDARY_END_M=$(date -u -d "${RUN_DATE} ${RUN_CYCLE}:00 UTC +${WRF_BOUNDARY_END_HOUR} hours" +%m)
+BOUNDARY_END_D=$(date -u -d "${RUN_DATE} ${RUN_CYCLE}:00 UTC +${WRF_BOUNDARY_END_HOUR} hours" +%d)
+BOUNDARY_END_H=$(date -u -d "${RUN_DATE} ${RUN_CYCLE}:00 UTC +${WRF_BOUNDARY_END_HOUR} hours" +%H)
+BOUNDARY_RUN_HOURS=$((WRF_BOUNDARY_END_HOUR-WRF_START_HOUR))
 
 log "Baixando GFS F000 F003 F006"
 mkdir -p "$WORK/gfs"
@@ -93,7 +103,7 @@ cat > "$WORK/namelist.wps" <<EOF
  wrf_core = 'ARW',
  max_dom = 1,
  start_date = '${START_ISO}',
- end_date   = '${END_ISO}',
+ end_date   = '${BOUNDARY_END_ISO}',
  interval_seconds = 10800,
  io_form_geogrid = 2,
 /
@@ -146,6 +156,8 @@ cat > "$WORK/namelist.input" <<EOF
  history_interval = 180,
  frames_per_outfile = 1,
  restart = .false.,
+ restart_interval = ${WRF_RUN_HOURS} * 60,
+ write_hist_at_0h_rst = .true.,
  io_form_history = 2,
  io_form_restart = 2,
  io_form_input = 2,
@@ -236,6 +248,8 @@ ls -ld "$WORK" "$WORK/WPS_GEOG" "$WORK/gfs"
 log "Rodando WPS + real.exe + WRF"
 docker run --rm \
   -e LOCAL_USER_ID="$HOST_UID" \
+  -e BOUNDARY_RUN_HOURS="$BOUNDARY_RUN_HOURS" \
+  -e BOUNDARY_END_Y="$BOUNDARY_END_Y" -e BOUNDARY_END_M="$BOUNDARY_END_M" -e BOUNDARY_END_D="$BOUNDARY_END_D" -e BOUNDARY_END_H="$BOUNDARY_END_H" \
   -e OMPI_ALLOW_RUN_AS_ROOT=1 \
   -e OMPI_ALLOW_RUN_AS_ROOT_CONFIRM=1 \
   -v "$WORK:/work" \
@@ -295,6 +309,13 @@ docker run --rm \
     cp met_em.d01.*.nc run/
     cd run
 
+    cp -f namelist.input namelist.segment.input
+    sed -i -E "s/^[[:space:]]*run_days[[:space:]]*=.*/ run_days = 0,/" namelist.input
+    sed -i -E "s/^[[:space:]]*run_hours[[:space:]]*=.*/ run_hours = ${BOUNDARY_RUN_HOURS},/" namelist.input
+    sed -i -E "s/^[[:space:]]*end_year[[:space:]]*=.*/ end_year = ${BOUNDARY_END_Y},/" namelist.input
+    sed -i -E "s/^[[:space:]]*end_month[[:space:]]*=.*/ end_month = ${BOUNDARY_END_M},/" namelist.input
+    sed -i -E "s/^[[:space:]]*end_day[[:space:]]*=.*/ end_day = ${BOUNDARY_END_D},/" namelist.input
+    sed -i -E "s/^[[:space:]]*end_hour[[:space:]]*=.*/ end_hour = ${BOUNDARY_END_H},/" namelist.input
     echo "=== REAL ==="
     mpirun -np 4 /comsoftware/wrf/WRF-4.3/main/real.exe || {
       STATUS=$?
@@ -305,6 +326,7 @@ docker run --rm \
     tail -80 rsl.error.0000 || true
     test -f wrfinput_d01
     test -f wrfbdy_d01
+    cp -f namelist.segment.input namelist.input
 
     echo "=== WRF 4 KM F000-F006 ==="
     START_TS=$(date +%s)
