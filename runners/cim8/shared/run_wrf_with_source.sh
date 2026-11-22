@@ -184,7 +184,7 @@ cat > "$WORK/namelist.input" <<EOF
  history_interval = ${WRF_HISTORY_INTERVAL_MINUTES},
  frames_per_outfile = 1,
  restart = .false.,
- restart_interval = ${WRF_SEGMENT_HOURS} * 60,
+ restart_interval = $((WRF_SEGMENT_HOURS * 60)),
  write_hist_at_0h_rst = .true.,
  io_form_history = 2,
  io_form_restart = 2,
