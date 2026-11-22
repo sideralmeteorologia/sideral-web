@@ -6,10 +6,10 @@ set -euo pipefail
 : "${WRF_START_HOUR:?WRF_START_HOUR ausente}"
 : "${WRF_END_HOUR:?WRF_END_HOUR ausente}"
 
+WRF_BOUNDARY_END_HOUR="${WRF_BOUNDARY_END_HOUR:-$WRF_END_HOUR}"
 if (( WRF_START_HOUR < 0 || WRF_END_HOUR <= WRF_START_HOUR )); then echo "Intervalo WRF invalido" >&2; exit 2; fi
 if (( WRF_START_HOUR % 3 != 0 || WRF_END_HOUR % 3 != 0 || WRF_BOUNDARY_END_HOUR % 3 != 0 || WRF_BOUNDARY_END_HOUR < WRF_END_HOUR )); then echo "Start/end precisam ser multiplos de 3" >&2; exit 3; fi
 WRF_COLD_START="${WRF_COLD_START:-0}"
-WRF_BOUNDARY_END_HOUR="${WRF_BOUNDARY_END_HOUR:-$WRF_END_HOUR}"
 if (( WRF_START_HOUR > 0 )) && [[ -z "${WRF_RESTART_FILE:-}" ]] && [[ "$WRF_COLD_START" != "1" ]]; then echo "Continuacao exige WRF_RESTART_FILE ou WRF_COLD_START=1" >&2; exit 4; fi
 
 export FORCE_RUN_DATE FORCE_RUN_CYCLE WRF_START_HOUR WRF_END_HOUR WRF_COLD_START WRF_BOUNDARY_END_HOUR
