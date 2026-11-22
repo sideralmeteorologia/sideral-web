@@ -5,6 +5,7 @@ ROOT="${GITHUB_WORKSPACE:-$PWD}"
 WRF_RUN_HOURS="${WRF_RUN_HOURS:-6}"
 WRF_START_HOUR="${WRF_START_HOUR:-0}"
 WRF_END_HOUR="${WRF_END_HOUR:-$WRF_RUN_HOURS}"
+SOURCE_END_HOUR="${WRF_BOUNDARY_END_HOUR:-$WRF_END_HOUR}"
 CDO_IMAGE="deutscherwetterdienst/regrid:icon-grids"
 RAW_DIR="$ROOT/ecmwf_source_raw"
 REG_DIR="$ROOT/ecmwf_source_regular"
@@ -33,7 +34,7 @@ RAW_SURFACE="$RAW_DIR/ecmwf_raw_surface.grib2"
 SIMPLE_PRESSURE="$RAW_DIR/ecmwf_pressure_simple.grib2"
 SIMPLE_SURFACE="$RAW_DIR/ecmwf_surface_simple.grib2"
 
-ARGS=(--max-hour "$WRF_END_HOUR" --output "$RAW" --run-env "$ENV_FILE")
+ARGS=(--max-hour "$SOURCE_END_HOUR" --output "$RAW" --run-env "$ENV_FILE")
 if [[ -n "${FORCE_RUN_DATE:-}" && -n "${FORCE_RUN_CYCLE:-}" ]]; then
   ARGS+=(--date "$FORCE_RUN_DATE" --cycle "$FORCE_RUN_CYCLE")
 fi
@@ -55,7 +56,7 @@ docker pull "$CDO_IMAGE"
 
 log "Separando cada forecast hour ECMWF antes do WPS"
 echo "Recorte ECMWF: lon ${ECMWF_SOURCE_WEST}..${ECMWF_SOURCE_EAST}; lat ${ECMWF_SOURCE_SOUTH}..${ECMWF_SOURCE_NORTH}"
-for H in $(seq "$WRF_START_HOUR" 3 "$WRF_END_HOUR"); do
+for H in $(seq "$WRF_START_HOUR" 3 "$SOURCE_END_HOUR"); do
   printf -v FH '%03d' "$H"
   P_STEP="$RAW_DIR/ecmwf_pressure_f${FH}.grib2"
   S_STEP="$RAW_DIR/ecmwf_surface_f${FH}.grib2"
