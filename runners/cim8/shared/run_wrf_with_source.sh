@@ -387,7 +387,7 @@ docker run --rm \
     ls -lh wrfout_d01_* | tee /work/wrfout-files.txt
   '
 
-printf 'RUN_DATE=%s\nRUN_CYCLE=%s\n' "$RUN_DATE" "$RUN_CYCLE" > "$WORK/run/.sideral-run.env"
+printf 'RUN_DATE=%s\nRUN_CYCLE=%s\n' "$RUN_DATE" "$RUN_CYCLE" > "$WORK/run/sideral-run.env"
 
 log "Copiando diagnosticos"
 copy_diag
