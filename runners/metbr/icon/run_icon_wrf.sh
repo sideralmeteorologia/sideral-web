@@ -57,7 +57,7 @@ PY
       RUN_DATE="$DATE"; RUN_CYCLE="$CYCLE"; break
     fi
   done
-  test -n "$RUN_DATE" || { echo "Nenhuma rodada ICON recente com F${WRF_END_HOUR}" >&2; exit 20; }
+  test -n "$RUN_DATE" || { echo "Nenhuma rodada ICON recente com F${SOURCE_END_HOUR}" >&2; exit 20; }
 fi
 
 printf 'RUN_DATE=%s\nRUN_CYCLE=%s\n' "$RUN_DATE" "$RUN_CYCLE" > "$ROOT/icon_run.env"
