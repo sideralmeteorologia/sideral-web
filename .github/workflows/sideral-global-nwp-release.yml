@@ -21,7 +21,7 @@ permissions:
   actions: read
 
 concurrency:
-  group: sideral-global-nwp-artifact-${{ github.ref }}
+  group: sideral-global-nwp-release-${{ github.ref }}
   cancel-in-progress: false
 
 jobs:
@@ -833,7 +833,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           SOURCE_RUN_ID: ${{ github.run_id }}
           SOURCE_REPOSITORY: ${{ github.repository }}
-          SOURCE_WORKFLOW_PATH: .github/workflows/sideral-global-nwp-artifact.yml
+          SOURCE_WORKFLOW_PATH: .github/workflows/sideral-global-nwp-release.yml
           SOURCE_WORKFLOW_NAME: ${{ github.workflow }}
           SOURCE_COMMIT_SHA: ${{ github.sha }}
           SOURCE_RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
