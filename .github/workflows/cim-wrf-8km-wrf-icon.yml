@@ -490,7 +490,7 @@ jobs:
           set -euo pipefail
           checkpoint_dir="$RUNNER_TEMP/wrf-downloads/cim8"
           test -s "$checkpoint_dir/wrf-payload-001.tar"
-          printf '%s\\n' 'wrf_work/run' > "$checkpoint_dir/.restore-to"
+          printf '%s\n' 'wrf_work/run' > "$checkpoint_dir/.restore-to"
           python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
             --downloads-root "$RUNNER_TEMP/wrf-downloads" \
             --workspace "$GITHUB_WORKSPACE"
