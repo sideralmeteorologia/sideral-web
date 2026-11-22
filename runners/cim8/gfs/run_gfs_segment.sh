@@ -121,7 +121,7 @@ if n!=1: raise SystemExit('Falha patch geografia')
 links=f'''log "Preparando nomes GRIBFILE F{download_start:03d}-F{end:03d}"
 LETTERS=({arr})
 IDX=0
-for H in $(seq {download_start} 3 {end}); do
+for H in $(seq {download_start} 3 {source_end}); do
  printf -v FH "%03d" "$H"; FILE="gfs.t${{RUN_CYCLE}}z.pgrb2.0p25.f${{FH}}"; ln -sf "gfs/$FILE" "$WORK/GRIBFILE.${{LETTERS[$IDX]}}"; IDX=$((IDX+1))
 done
 '''
