@@ -4731,9 +4731,6 @@ jobs:
         shell: bash
         env:
           WRF_ARTIFACT_DOWNLOAD_DIR: ${{ runner.temp }}/wrf-downloads/d042
-          WRF_ARTIFACT_RESTORE_TO: metbr_segment_artifacts
-          WRF_ARTIFACT_RESTORE_TO: metbr_segment_artifacts
-          WRF_ARTIFACT_RESTORE_TO: metbr_segment_artifacts
           WRF_ARTIFACT_RESTORE_TO: 'tarc_restart_input'
         run: |
           mkdir -p "$WRF_ARTIFACT_DOWNLOAD_DIR"
