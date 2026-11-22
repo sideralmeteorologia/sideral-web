@@ -33,6 +33,8 @@ jobs:
           import base64
           import re
           import subprocess
+          import sys
+          import tempfile
           import yaml
 
           root = Path(".github/workflows")
@@ -313,31 +315,56 @@ jobs:
               assert "register-run" not in cfg["jobs"], (
                   f"{filename}: obsolete R2 registration job must not run"
               )
-              checkpoint_script = None
-              gfs_script = None
+              embedded_paths = {
+                  "wrf/run_metbr_checkpoint_segment.sh": "runners/metbr/shared/run_metbr_checkpoint_segment.sh",
+                  "wrf/run_metbr_gfs_segment.sh": "runners/metbr/gfs/run_metbr_gfs_segment.sh",
+                  "wrf/run_metbr_source_wrf.sh": "runners/metbr/shared/run_metbr_source_wrf.sh",
+                  "wrf/run_wrf_restart_segment.sh": "runners/metbr/shared/run_wrf_restart_segment.sh",
+                  "wrf/prepare_restart_segment.py": "runners/metbr/shared/prepare_restart_segment.py",
+              }
+              embedded_scripts = {}
               for line in content.splitlines():
-                  if "base64 -d > 'wrf/run_metbr_checkpoint_segment.sh'" in line:
-                      encoded = line.split("printf '%s' '", 1)[1].split("' | base64 -d >", 1)[0]
-                      checkpoint_script = base64.b64decode(encoded).decode("utf-8")
-                  if "base64 -d > 'wrf/run_metbr_gfs_segment.sh'" in line:
-                      encoded = line.split("printf '%s' '", 1)[1].split("' | base64 -d >", 1)[0]
-                      gfs_script = base64.b64decode(encoded).decode("utf-8")
-              assert checkpoint_script, f"{filename}: embedded METBR checkpoint runner is missing"
-              for label, source in (("checkpoint", checkpoint_script), ("GFS", gfs_script)):
-                  result = subprocess.run(
-                      ["bash", "-n"],
-                      input=source,
-                      text=True,
-                      encoding="utf-8",
-                      errors="replace",
-                      capture_output=True,
-                      check=False,
+                  for embedded_path in embedded_paths:
+                      if f"base64 -d > '{embedded_path}'" in line:
+                          encoded = line.split("printf '%s' '", 1)[1].split("' | base64 -d >", 1)[0]
+                          embedded_scripts[embedded_path] = base64.b64decode(encoded).decode("utf-8")
+              for embedded_path, source_path in embedded_paths.items():
+                  script = embedded_scripts.get(embedded_path)
+                  assert script is not None, f"{filename}: embedded {embedded_path} is missing"
+                  assert "\r" not in script, f"{filename}: {embedded_path} contains CRLF line endings"
+                  assert script == Path(source_path).read_text(encoding="utf-8"), (
+                      f"{filename}: embedded {embedded_path} differs from its runner source"
                   )
-                  assert result.returncode == 0, (
-                      f"{filename}: embedded METBR {label} shell syntax failed: {result.stderr}"
-                  )
+                  if embedded_path.endswith(".sh"):
+                      result = subprocess.run(
+                          ["bash", "-n"],
+                          input=script,
+                          text=True,
+                          encoding="utf-8",
+                          errors="replace",
+                          capture_output=True,
+                          check=False,
+                      )
+                      assert result.returncode == 0, (
+                          f"{filename}: embedded {embedded_path} shell syntax failed: {result.stderr}"
+                      )
+                  else:
+                      compile(script, embedded_path, "exec")
+              checkpoint_script = embedded_scripts["wrf/run_metbr_checkpoint_segment.sh"]
+              gfs_script = embedded_scripts["wrf/run_metbr_gfs_segment.sh"]
+              source_script = embedded_scripts["wrf/run_metbr_source_wrf.sh"]
+              restart_script = embedded_scripts["wrf/run_wrf_restart_segment.sh"]
               assert 'START_HOUR="${1:?start hour}"' in checkpoint_script, (
                   f"{filename}: embedded METBR runner has invalid escaped shell parameters"
+              )
+              assert "START_HOUR % 3" not in checkpoint_script and "END_HOUR % 3" not in checkpoint_script, (
+                  f"{filename}: checkpoint runner rejects the configured one-hour METBR segments"
+              )
+              assert "WRF_START_HOUR % 3" not in source_script and "WRF_END_HOUR % 3" not in source_script, (
+                  f"{filename}: source runner rejects the configured one-hour METBR segments"
+              )
+              assert "START_H % 3" not in restart_script and "END_H % 3" not in restart_script, (
+                  f"{filename}: restart runner rejects the configured one-hour METBR segments"
               )
               assert 'rm -rf "$INPUT"/*' not in checkpoint_script, (
                   f"{filename}: checkpoint runner deletes its downloaded checkpoint"
@@ -352,6 +379,36 @@ jobs:
               )
               assert "namelist.segment.input" in gfs_script and "BOUNDARY_END_HOUR" in gfs_script, (
                   f"{filename}: GFS initial boundary is not extended independently of the 3-hour segment"
+              )
+
+          with tempfile.TemporaryDirectory() as temp:
+              temp_root = Path(temp)
+              temp_wrf = temp_root / "wrf"
+              temp_wrf.mkdir()
+              (temp_wrf / "run_wrf_with_source.sh").write_text(
+                  Path("runners/metbr/shared/run_wrf_with_source.sh").read_text(encoding="utf-8"),
+                  encoding="utf-8",
+              )
+              result = subprocess.run(
+                  [
+                      sys.executable,
+                      "runners/metbr/shared/prepare_restart_segment.py",
+                      "--start-hour",
+                      "0",
+                      "--end-hour",
+                      "1",
+                      "--root",
+                      str(temp_root),
+                  ],
+                  text=True,
+                  capture_output=True,
+                  check=False,
+              )
+              assert result.returncode == 0, (
+                  f"METBR preparer rejects a configured one-hour segment: {result.stderr}"
+              )
+              assert "DURACAO DO SEGMENTO: 1 h" in result.stdout, (
+                  "METBR preparer did not configure the expected one-hour segment"
               )
 
           # TARC checkpoint artifacts must survive download/unpack and match the
@@ -409,6 +466,57 @@ jobs:
               assert result.returncode == 0, (
                   f"{tarc_path.name}: embedded TARC shell syntax failed: {result.stderr}"
               )
+
+          for family, pattern, expected_count, embedded_path, source_path in (
+              (
+                  "CBR",
+                  "cbr-wrf*.yml",
+                  7,
+                  "wrf/run_cbr_checkpoint_segment.sh",
+                  "runners/cbr/shared/run_cbr_checkpoint_segment.sh",
+              ),
+              (
+                  "Sudeste",
+                  "sudeste-wrf-*.yml",
+                  12,
+                  "wrf/run_tarc_checkpoint_segment.sh",
+                  "runners/sudeste/shared/run_tarc_checkpoint_segment.sh",
+              ),
+          ):
+              workflows = sorted(root.glob(pattern))
+              assert len(workflows) == expected_count, (
+                  f"expected {expected_count} {family} workflows, got {len(workflows)}"
+              )
+              catalog_script = Path(source_path).read_text(encoding="utf-8")
+              for workflow_path in workflows:
+                  content = workflow_path.read_text(encoding="utf-8")
+                  encoded_scripts = [
+                      line.split("printf '%s' '", 1)[1].split("' | base64 -d >", 1)[0]
+                      for line in content.splitlines()
+                      if f"base64 -d > '{embedded_path}'" in line
+                  ]
+                  assert len(encoded_scripts) == 1, (
+                      f"{workflow_path.name}: expected one embedded {family} checkpoint script"
+                  )
+                  script = base64.b64decode(encoded_scripts[0]).decode("utf-8")
+                  assert "\r" not in script, (
+                      f"{workflow_path.name}: embedded {family} script contains CRLF line endings"
+                  )
+                  assert script == catalog_script, (
+                      f"{workflow_path.name}: embedded {family} script differs from its runner source"
+                  )
+                  result = subprocess.run(
+                      ["bash", "-n"],
+                      input=script,
+                      text=True,
+                      encoding="utf-8",
+                      errors="replace",
+                      capture_output=True,
+                      check=False,
+                  )
+                  assert result.returncode == 0, (
+                      f"{workflow_path.name}: embedded {family} shell syntax failed: {result.stderr}"
+                  )
 
           # The CBR extractor must exist in seg00, before its first py_compile.
           cbr_steps = configs["cbr-wrf.yml"]["jobs"]["seg00"]["steps"]

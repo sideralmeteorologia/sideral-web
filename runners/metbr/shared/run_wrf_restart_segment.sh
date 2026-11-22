@@ -12,7 +12,7 @@ MPI_PROCS="${WRF_MPI_PROCS:-8}"
 HIST="${WRF_HISTORY_INTERVAL_MINUTES:-60}"
 SEG_H=$((END_H-START_H))
 
-(( START_H > 0 && END_H > START_H && START_H % 3 == 0 && END_H % 3 == 0 && END_H <= 48 )) || { echo "Restart invalido: F${START_H}-F${END_H}" >&2; exit 2; }
+(( START_H > 0 && END_H > START_H && END_H <= 42 )) || { echo "Restart invalido: F${START_H}-F${END_H}" >&2; exit 2; }
 test -d "$RESTART_DIR" || { echo "Restart directory missing: $RESTART_DIR" >&2; exit 3; }
 
 mapfile -t RST < <(find "$RESTART_DIR" -maxdepth 1 -type f -name 'wrfrst_d01_*' -size +0c -print | sort)

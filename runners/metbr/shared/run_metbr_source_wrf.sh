@@ -14,7 +14,7 @@ export WRF_REFLECTIVITY_SOURCE=REFL_10CM_NATIVE WRF_NATIVE_GRID=true
 export WRF_MPI_PROCS="${WRF_MPI_PROCS:-8}"
 export WRF_TIME_STEP="${WRF_TIME_STEP:-20}"
 
-(( WRF_END_HOUR > WRF_START_HOUR && WRF_START_HOUR % 3 == 0 && WRF_END_HOUR % 3 == 0 && WRF_END_HOUR <= 42 )) || { echo "METBR segmento invalido: inicio/fim precisam ser multiplos de 3 h entre F000 e F042" >&2; exit 2; }
+(( WRF_END_HOUR > WRF_START_HOUR && WRF_END_HOUR <= 42 )) || { echo "METBR segmento invalido: intervalo deve ficar entre F000 e F042" >&2; exit 2; }
 
 if (( WRF_START_HOUR > 0 )); then
   : "${WRF_RESTART_DIR:?WRF_RESTART_DIR required for restart}"
