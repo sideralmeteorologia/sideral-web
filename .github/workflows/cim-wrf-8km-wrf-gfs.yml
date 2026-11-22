@@ -71,6 +71,14 @@ jobs:
           path: wrf
           key: ${{ runner.os }}-sideral-cim8-runtime-${{ github.sha }}
 
+      - name: Reaplicar runtime WRF oficial após o cache
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 .github/scripts/restore_wrf_runtime.py
+          chmod +x wrf/*.sh
+
+
       - name: Embutir executores científicos CIM 8 km
         shell: bash
         run: |
@@ -260,8 +268,8 @@ jobs:
           exit 1
 
 
-  run_cim:
-    name: CIM 8 km ${{ matrix.model }} - F000 a F040 horario
+  run_cim_first:
+    name: CIM 8 km ${{ matrix.model }} - F000-F021 (segmento 1/2)
     needs: resolve_runs
 
     runs-on: ubuntu-22.04
@@ -328,11 +336,12 @@ jobs:
           WRF_REF_LAT: '-27.50'
           WRF_REF_LON: '-52.75'
           WRF_STAND_LON: '-52.75'
-          # A fonte global chega de 3 em 3 h. Integramos ate F042 para manter
-          # a fronteira completa e publicamos exatamente F000..F040.
-          WRF_RUN_HOURS: '42'
+          # A fonte global chega de 3 em 3 h. O primeiro segmento integra ate F021;
+          # a preparacao de contorno permanece ate F042. O segundo segmento termina em F042.
+          WRF_RUN_HOURS: '21'
           WRF_START_HOUR: '0'
-          WRF_END_HOUR: '42'
+          WRF_END_HOUR: '21'
+          WRF_BOUNDARY_END_HOUR: '42'
           WRF_HISTORY_INTERVAL_MINUTES: '60'
           CIM_RESOLUTION_KM: '8'
           CIM_OUTPUT_INTERVAL_HOURS: '1'
@@ -382,6 +391,132 @@ jobs:
             "$RUNNER"
           fi
 
+
+      - name: Empacotar checkpoint WRF CIM 8 km F000-F021
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -s wrf_diagnostics/run.env
+          test -s wrf_work/run/wrfbdy_d01
+          test -s wrf_work/run/namelist.input
+          mkdir -p cim8-checkpoint
+          cp -f wrf_diagnostics/run.env cim8-checkpoint/cim8-run.env
+          mapfile -t RESTARTS < <(find wrf_work/run -maxdepth 1 -type f -name "wrfrst_d01_*" -size +0c -print | sort)
+          if [[ "${#RESTARTS[@]}" -ne 1 ]]; then
+            echo "Esperado um restart em F021; encontrados ${#RESTARTS[@]}" >&2
+            printf '%s\n' "${RESTARTS[@]}" >&2
+            exit 2
+          fi
+          expected="$(python3 - <<'PY'
+          import datetime as dt
+          from pathlib import Path
+          env={}
+          for line in Path('wrf_diagnostics/run.env').read_text().splitlines():
+              if '=' in line:
+                  k,v=line.split('=',1); env[k]=v
+          base=dt.datetime.strptime(env['RUN_DATE']+env['RUN_CYCLE'], '%Y%m%d%H')
+          print('wrfrst_d01_'+(base+dt.timedelta(hours=21)).strftime('%Y-%m-%d_%H:%M:%S'))
+          PY
+          )"
+          [[ "${RESTARTS[0]##*/}" == "$expected" ]] || {
+            echo "Restart de fronteira incorreto: esperado $expected; recebido ${RESTARTS[0]##*/}" >&2
+            exit 3
+          }
+          cp -f "${RESTARTS[0]}" wrf_work/run/wrfbdy_d01 wrf_work/run/namelist.input cim8-checkpoint/
+          cp -f wrf_work/run/wrfout_d01_* cim8-checkpoint/
+          test -n "$(find cim8-checkpoint -maxdepth 1 -type f -name 'wrfout_d01_*' -size +0c -print -quit)"
+          tar -czf cim8-checkpoint.tar.gz -C cim8-checkpoint .
+          test -s cim8-checkpoint.tar.gz
+
+      - name: Transferir checkpoint para a segunda etapa
+        uses: actions/upload-artifact@v4
+        with:
+          name: cim8-checkpoint-${{ matrix.model }}-${{ github.run_id }}
+          path: cim8-checkpoint.tar.gz
+          if-no-files-found: error
+          retention-days: 1
+          compression-level: 0
+
+  run_cim:
+    name: CIM 8 km ${{ matrix.model }} - F021-F042 (segmento 2/2)
+    needs:
+      - resolve_runs
+      - run_cim_first
+
+    runs-on: ubuntu-22.04
+    timeout-minutes: 330
+    strategy:
+      fail-fast: false
+      max-parallel: 2
+      matrix:
+        model: ${{ fromJSON(needs.resolve_runs.outputs.models) }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Restore WRF artifacts after checkout (2)
+        shell: bash
+        run: |
+          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
+            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
+              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
+              --workspace "$GITHUB_WORKSPACE"
+          fi
+      - name: Restore WRF runtime files from runners catalog
+        shell: bash
+        run: python3 .github/scripts/restore_wrf_runtime.py
+      - name: Restaurar código científico CIM 8 km
+        uses: actions/cache@v4
+        with:
+          path: wrf
+          key: ${{ runner.os }}-sideral-cim8-runtime-${{ github.sha }}
+
+
+      - name: Preparar runner
+        shell: bash
+        run: |
+          set -euxo pipefail
+          sudo rm -rf /usr/local/lib/android /usr/share/dotnet /opt/ghc /usr/local/.ghcup || true
+          sudo apt-get clean || true
+          docker system prune -af || true
+          source wrf/ensure_eccodes_tools.sh
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+
+      - name: Instalar dependencias
+        run: |
+          python3 -m pip install --upgrade pip
+          python3 -m pip install 'numpy==1.26.4' 'xarray>=2024.1,<2026' 'netCDF4>=1.7,<2' 'scipy>=1.11,<2' 'requests>=2.31' 'ecmwf-opendata==0.3.34'
+
+      - name: Validar extratores e diagnósticos CIM
+        run: python3 -m py_compile wrf/extract_wrf_severe_core.py wrf/extract_wrf_severe.py wrf/extract_wrf_json.py wrf/extract_cim_wrf_core.py wrf/extract_cim_wrf.py
+
+
+      - name: Baixar checkpoint F000-F021
+        uses: actions/download-artifact@v4
+        with:
+          name: cim8-checkpoint-${{ matrix.model }}-${{ github.run_id }}
+          path: ${{ runner.temp }}/cim8-checkpoint
+
+      - name: Restaurar os quadros F000-F021 e a rodada fixa
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p cim8_restart_input wrf_work/run
+          tar -xzf "$RUNNER_TEMP/cim8-checkpoint/cim8-checkpoint.tar.gz" -C cim8_restart_input
+          test -s cim8_restart_input/cim8-run.env
+          set -a
+          source cim8_restart_input/cim8-run.env
+          set +a
+          cp -f cim8_restart_input/wrfout_d01_* wrf_work/run/
+          test -s wrf_work/run/wrfout_d01_*
+
+      - name: Executar CIM 8 km por restart F021-F042
+        shell: bash
+        env:
+          WRF_MPI_PROCS: '4'
+          WRF_HISTORY_INTERVAL_MINUTES: '60'
+        run: bash wrf/run_cim8_restart_segment.sh 21 42 cim8_restart_input
       - name: Extrair grade nativa horaria
         env:
           CIM_RESOLUTION_KM: '8'
