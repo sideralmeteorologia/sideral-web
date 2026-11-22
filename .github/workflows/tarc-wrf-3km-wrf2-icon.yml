@@ -171,6 +171,10 @@ jobs:
     needs: seg00
     timeout-minutes: 330
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
         with:
@@ -195,10 +199,6 @@ jobs:
               --downloads-root "$RUNNER_TEMP/wrf-downloads" \
               --workspace "$GITHUB_WORKSPACE"
           fi
-      - name: Checkout repository
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 1
       - name: Restore WRF artifacts after checkout (2)
         shell: bash
         run: |
@@ -282,6 +282,10 @@ jobs:
     needs: seg01
     timeout-minutes: 330
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
         with:
@@ -306,10 +310,6 @@ jobs:
               --downloads-root "$RUNNER_TEMP/wrf-downloads" \
               --workspace "$GITHUB_WORKSPACE"
           fi
-      - name: Checkout repository
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 1
       - name: Restore WRF artifacts after checkout (3)
         shell: bash
         run: |
@@ -393,6 +393,10 @@ jobs:
     needs: seg02
     timeout-minutes: 330
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
         with:
@@ -417,10 +421,6 @@ jobs:
               --downloads-root "$RUNNER_TEMP/wrf-downloads" \
               --workspace "$GITHUB_WORKSPACE"
           fi
-      - name: Checkout repository
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 1
       - name: Restore WRF artifacts after checkout (4)
         shell: bash
         run: |
@@ -504,6 +504,10 @@ jobs:
     needs: seg03
     timeout-minutes: 330
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
         with:
@@ -528,10 +532,6 @@ jobs:
               --downloads-root "$RUNNER_TEMP/wrf-downloads" \
               --workspace "$GITHUB_WORKSPACE"
           fi
-      - name: Checkout repository
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 1
       - name: Restore WRF artifacts after checkout (5)
         shell: bash
         run: |
@@ -615,6 +615,10 @@ jobs:
     needs: seg04
     timeout-minutes: 330
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
         with:
@@ -639,10 +643,6 @@ jobs:
               --downloads-root "$RUNNER_TEMP/wrf-downloads" \
               --workspace "$GITHUB_WORKSPACE"
           fi
-      - name: Checkout repository
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 1
       - name: Restore WRF artifacts after checkout (6)
         shell: bash
         run: |
@@ -726,6 +726,10 @@ jobs:
     needs: seg05
     timeout-minutes: 330
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
         with:
@@ -750,10 +754,6 @@ jobs:
               --downloads-root "$RUNNER_TEMP/wrf-downloads" \
               --workspace "$GITHUB_WORKSPACE"
           fi
-      - name: Checkout repository
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 1
       - name: Restore WRF artifacts after checkout (7)
         shell: bash
         run: |
@@ -837,6 +837,10 @@ jobs:
     needs: seg06
     timeout-minutes: 330
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
         with:
@@ -861,10 +865,6 @@ jobs:
               --downloads-root "$RUNNER_TEMP/wrf-downloads" \
               --workspace "$GITHUB_WORKSPACE"
           fi
-      - name: Checkout repository
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 1
       - name: Restore WRF artifacts after checkout (8)
         shell: bash
         run: |
@@ -948,6 +948,10 @@ jobs:
     needs: seg07
     timeout-minutes: 330
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
         with:
@@ -972,10 +976,6 @@ jobs:
               --downloads-root "$RUNNER_TEMP/wrf-downloads" \
               --workspace "$GITHUB_WORKSPACE"
           fi
-      - name: Checkout repository
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 1
       - name: Restore WRF artifacts after checkout (9)
         shell: bash
         run: |
@@ -1059,6 +1059,10 @@ jobs:
     needs: seg08
     timeout-minutes: 330
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
         with:
@@ -1083,10 +1087,6 @@ jobs:
               --downloads-root "$RUNNER_TEMP/wrf-downloads" \
               --workspace "$GITHUB_WORKSPACE"
           fi
-      - name: Checkout repository
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 1
       - name: Restore WRF artifacts after checkout (10)
         shell: bash
         run: |
@@ -1170,6 +1170,10 @@ jobs:
     needs: seg09
     timeout-minutes: 330
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
         with:
@@ -1194,10 +1198,6 @@ jobs:
               --downloads-root "$RUNNER_TEMP/wrf-downloads" \
               --workspace "$GITHUB_WORKSPACE"
           fi
-      - name: Checkout repository
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 1
       - name: Restore WRF artifacts after checkout (11)
         shell: bash
         run: |
@@ -1281,6 +1281,10 @@ jobs:
     needs: seg10
     timeout-minutes: 330
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
         with:
@@ -1305,10 +1309,6 @@ jobs:
               --downloads-root "$RUNNER_TEMP/wrf-downloads" \
               --workspace "$GITHUB_WORKSPACE"
           fi
-      - name: Checkout repository
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 1
       - name: Restore WRF artifacts after checkout (12)
         shell: bash
         run: |
@@ -1392,6 +1392,10 @@ jobs:
     needs: seg11
     timeout-minutes: 330
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
         with:
@@ -1416,10 +1420,6 @@ jobs:
               --downloads-root "$RUNNER_TEMP/wrf-downloads" \
               --workspace "$GITHUB_WORKSPACE"
           fi
-      - name: Checkout repository
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 1
       - name: Restore WRF artifacts after checkout (13)
         shell: bash
         run: |
@@ -1503,6 +1503,10 @@ jobs:
     needs: seg12
     timeout-minutes: 330
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
         with:
@@ -1527,10 +1531,6 @@ jobs:
               --downloads-root "$RUNNER_TEMP/wrf-downloads" \
               --workspace "$GITHUB_WORKSPACE"
           fi
-      - name: Checkout repository
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 1
       - name: Restore WRF artifacts after checkout (14)
         shell: bash
         run: |
@@ -1614,6 +1614,10 @@ jobs:
     needs: seg13
     timeout-minutes: 330
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
         with:
@@ -1638,10 +1642,6 @@ jobs:
               --downloads-root "$RUNNER_TEMP/wrf-downloads" \
               --workspace "$GITHUB_WORKSPACE"
           fi
-      - name: Checkout repository
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 1
       - name: Restore WRF artifacts after checkout (15)
         shell: bash
         run: |
@@ -1725,6 +1725,10 @@ jobs:
     needs: seg14
     timeout-minutes: 330
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
         with:
@@ -1749,10 +1753,6 @@ jobs:
               --downloads-root "$RUNNER_TEMP/wrf-downloads" \
               --workspace "$GITHUB_WORKSPACE"
           fi
-      - name: Checkout repository
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 1
       - name: Restore WRF artifacts after checkout (16)
         shell: bash
         run: |
@@ -1836,6 +1836,10 @@ jobs:
     needs: seg15
     timeout-minutes: 330
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
         with:
@@ -1860,10 +1864,6 @@ jobs:
               --downloads-root "$RUNNER_TEMP/wrf-downloads" \
               --workspace "$GITHUB_WORKSPACE"
           fi
-      - name: Checkout repository
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 1
       - name: Restore WRF artifacts after checkout (17)
         shell: bash
         run: |
@@ -1947,6 +1947,10 @@ jobs:
     needs: seg16
     timeout-minutes: 330
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
         with:
@@ -1971,10 +1975,6 @@ jobs:
               --downloads-root "$RUNNER_TEMP/wrf-downloads" \
               --workspace "$GITHUB_WORKSPACE"
           fi
-      - name: Checkout repository
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 1
       - name: Restore WRF artifacts after checkout (18)
         shell: bash
         run: |
@@ -2058,6 +2058,10 @@ jobs:
     needs: seg17
     timeout-minutes: 330
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
         with:
@@ -2082,10 +2086,6 @@ jobs:
               --downloads-root "$RUNNER_TEMP/wrf-downloads" \
               --workspace "$GITHUB_WORKSPACE"
           fi
-      - name: Checkout repository
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 1
       - name: Restore WRF artifacts after checkout (19)
         shell: bash
         run: |
@@ -2169,6 +2169,10 @@ jobs:
     needs: seg18
     timeout-minutes: 330
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
         with:
@@ -2193,10 +2197,6 @@ jobs:
               --downloads-root "$RUNNER_TEMP/wrf-downloads" \
               --workspace "$GITHUB_WORKSPACE"
           fi
-      - name: Checkout repository
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 1
       - name: Restore WRF artifacts after checkout (20)
         shell: bash
         run: |
@@ -2280,6 +2280,10 @@ jobs:
     needs: seg19
     timeout-minutes: 330
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
         with:
@@ -2304,10 +2308,6 @@ jobs:
               --downloads-root "$RUNNER_TEMP/wrf-downloads" \
               --workspace "$GITHUB_WORKSPACE"
           fi
-      - name: Checkout repository
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 1
       - name: Restore WRF artifacts after checkout (21)
         shell: bash
         run: |
@@ -2391,6 +2391,10 @@ jobs:
     needs: seg20
     timeout-minutes: 330
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
         with:
@@ -2415,10 +2419,6 @@ jobs:
               --downloads-root "$RUNNER_TEMP/wrf-downloads" \
               --workspace "$GITHUB_WORKSPACE"
           fi
-      - name: Checkout repository
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 1
       - name: Restore WRF artifacts after checkout (22)
         shell: bash
         run: |
@@ -2502,6 +2502,10 @@ jobs:
     needs: seg21
     timeout-minutes: 330
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
         with:
@@ -2526,10 +2530,6 @@ jobs:
               --downloads-root "$RUNNER_TEMP/wrf-downloads" \
               --workspace "$GITHUB_WORKSPACE"
           fi
-      - name: Checkout repository
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 1
       - name: Restore WRF artifacts after checkout (23)
         shell: bash
         run: |
@@ -2613,6 +2613,10 @@ jobs:
     needs: seg22
     timeout-minutes: 330
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
         with:
@@ -2637,10 +2641,6 @@ jobs:
               --downloads-root "$RUNNER_TEMP/wrf-downloads" \
               --workspace "$GITHUB_WORKSPACE"
           fi
-      - name: Checkout repository
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 1
       - name: Restore WRF artifacts after checkout (24)
         shell: bash
         run: |
@@ -2724,6 +2724,10 @@ jobs:
     needs: seg23
     timeout-minutes: 330
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
         with:
@@ -2748,10 +2752,6 @@ jobs:
               --downloads-root "$RUNNER_TEMP/wrf-downloads" \
               --workspace "$GITHUB_WORKSPACE"
           fi
-      - name: Checkout repository
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 1
       - name: Restore WRF artifacts after checkout (25)
         shell: bash
         run: |
@@ -2835,6 +2835,10 @@ jobs:
     needs: seg24
     timeout-minutes: 330
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
         with:
@@ -2859,10 +2863,6 @@ jobs:
               --downloads-root "$RUNNER_TEMP/wrf-downloads" \
               --workspace "$GITHUB_WORKSPACE"
           fi
-      - name: Checkout repository
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 1
       - name: Restore WRF artifacts after checkout (26)
         shell: bash
         run: |
@@ -2946,6 +2946,10 @@ jobs:
     needs: seg25
     timeout-minutes: 330
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
         with:
@@ -2970,10 +2974,6 @@ jobs:
               --downloads-root "$RUNNER_TEMP/wrf-downloads" \
               --workspace "$GITHUB_WORKSPACE"
           fi
-      - name: Checkout repository
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 1
       - name: Restore WRF artifacts after checkout (27)
         shell: bash
         run: |
@@ -3057,6 +3057,10 @@ jobs:
     needs: seg26
     timeout-minutes: 330
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
         with:
@@ -3081,10 +3085,6 @@ jobs:
               --downloads-root "$RUNNER_TEMP/wrf-downloads" \
               --workspace "$GITHUB_WORKSPACE"
           fi
-      - name: Checkout repository
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 1
       - name: Restore WRF artifacts after checkout (28)
         shell: bash
         run: |
@@ -3168,6 +3168,10 @@ jobs:
     needs: seg27
     timeout-minutes: 330
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
         with:
@@ -3192,10 +3196,6 @@ jobs:
               --downloads-root "$RUNNER_TEMP/wrf-downloads" \
               --workspace "$GITHUB_WORKSPACE"
           fi
-      - name: Checkout repository
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 1
       - name: Restore WRF artifacts after checkout (29)
         shell: bash
         run: |
@@ -3279,6 +3279,10 @@ jobs:
     needs: seg28
     timeout-minutes: 330
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
         with:
@@ -3303,10 +3307,6 @@ jobs:
               --downloads-root "$RUNNER_TEMP/wrf-downloads" \
               --workspace "$GITHUB_WORKSPACE"
           fi
-      - name: Checkout repository
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 1
       - name: Restore WRF artifacts after checkout (30)
         shell: bash
         run: |
@@ -3390,6 +3390,10 @@ jobs:
     needs: seg29
     timeout-minutes: 330
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
         with:
@@ -3414,10 +3418,6 @@ jobs:
               --downloads-root "$RUNNER_TEMP/wrf-downloads" \
               --workspace "$GITHUB_WORKSPACE"
           fi
-      - name: Checkout repository
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 1
       - name: Restore WRF artifacts after checkout (31)
         shell: bash
         run: |
@@ -3501,6 +3501,10 @@ jobs:
     needs: seg30
     timeout-minutes: 330
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
         with:
@@ -3525,10 +3529,6 @@ jobs:
               --downloads-root "$RUNNER_TEMP/wrf-downloads" \
               --workspace "$GITHUB_WORKSPACE"
           fi
-      - name: Checkout repository
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 1
       - name: Restore WRF artifacts after checkout (32)
         shell: bash
         run: |
@@ -3612,6 +3612,10 @@ jobs:
     needs: seg31
     timeout-minutes: 330
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
         with:
@@ -3636,10 +3640,6 @@ jobs:
               --downloads-root "$RUNNER_TEMP/wrf-downloads" \
               --workspace "$GITHUB_WORKSPACE"
           fi
-      - name: Checkout repository
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 1
       - name: Restore WRF artifacts after checkout (33)
         shell: bash
         run: |
@@ -3723,6 +3723,10 @@ jobs:
     needs: seg32
     timeout-minutes: 330
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
         with:
@@ -3747,10 +3751,6 @@ jobs:
               --downloads-root "$RUNNER_TEMP/wrf-downloads" \
               --workspace "$GITHUB_WORKSPACE"
           fi
-      - name: Checkout repository
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 1
       - name: Restore WRF artifacts after checkout (34)
         shell: bash
         run: |
@@ -3834,6 +3834,10 @@ jobs:
     needs: seg33
     timeout-minutes: 330
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
         with:
@@ -3858,10 +3862,6 @@ jobs:
               --downloads-root "$RUNNER_TEMP/wrf-downloads" \
               --workspace "$GITHUB_WORKSPACE"
           fi
-      - name: Checkout repository
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 1
       - name: Restore WRF artifacts after checkout (35)
         shell: bash
         run: |
@@ -3945,6 +3945,10 @@ jobs:
     needs: seg34
     timeout-minutes: 330
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
         with:
@@ -3969,10 +3973,6 @@ jobs:
               --downloads-root "$RUNNER_TEMP/wrf-downloads" \
               --workspace "$GITHUB_WORKSPACE"
           fi
-      - name: Checkout repository
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 1
       - name: Restore WRF artifacts after checkout (36)
         shell: bash
         run: |
@@ -4056,6 +4056,10 @@ jobs:
     needs: seg35
     timeout-minutes: 330
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
         with:
@@ -4080,10 +4084,6 @@ jobs:
               --downloads-root "$RUNNER_TEMP/wrf-downloads" \
               --workspace "$GITHUB_WORKSPACE"
           fi
-      - name: Checkout repository
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 1
       - name: Restore WRF artifacts after checkout (37)
         shell: bash
         run: |
@@ -4167,6 +4167,10 @@ jobs:
     needs: seg36
     timeout-minutes: 330
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
         with:
@@ -4191,10 +4195,6 @@ jobs:
               --downloads-root "$RUNNER_TEMP/wrf-downloads" \
               --workspace "$GITHUB_WORKSPACE"
           fi
-      - name: Checkout repository
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 1
       - name: Restore WRF artifacts after checkout (38)
         shell: bash
         run: |
@@ -4278,6 +4278,10 @@ jobs:
     needs: seg37
     timeout-minutes: 330
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
         with:
@@ -4302,10 +4306,6 @@ jobs:
               --downloads-root "$RUNNER_TEMP/wrf-downloads" \
               --workspace "$GITHUB_WORKSPACE"
           fi
-      - name: Checkout repository
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 1
       - name: Restore WRF artifacts after checkout (39)
         shell: bash
         run: |
@@ -4389,6 +4389,10 @@ jobs:
     needs: seg38
     timeout-minutes: 330
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
         with:
@@ -4413,10 +4417,6 @@ jobs:
               --downloads-root "$RUNNER_TEMP/wrf-downloads" \
               --workspace "$GITHUB_WORKSPACE"
           fi
-      - name: Checkout repository
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 1
       - name: Restore WRF artifacts after checkout (40)
         shell: bash
         run: |
@@ -4500,6 +4500,10 @@ jobs:
     needs: seg39
     timeout-minutes: 330
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
         with:
@@ -4524,10 +4528,6 @@ jobs:
               --downloads-root "$RUNNER_TEMP/wrf-downloads" \
               --workspace "$GITHUB_WORKSPACE"
           fi
-      - name: Checkout repository
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 1
       - name: Restore WRF artifacts after checkout (41)
         shell: bash
         run: |
@@ -4611,6 +4611,10 @@ jobs:
     needs: seg40
     timeout-minutes: 330
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
         with:
@@ -4635,10 +4639,6 @@ jobs:
               --downloads-root "$RUNNER_TEMP/wrf-downloads" \
               --workspace "$GITHUB_WORKSPACE"
           fi
-      - name: Checkout repository
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 1
       - name: Restore WRF artifacts after checkout (42)
         shell: bash
         run: |
@@ -4722,6 +4722,10 @@ jobs:
     needs: seg41
     timeout-minutes: 330
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
         with:
@@ -4746,10 +4750,6 @@ jobs:
               --downloads-root "$RUNNER_TEMP/wrf-downloads" \
               --workspace "$GITHUB_WORKSPACE"
           fi
-      - name: Checkout repository
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 1
       - name: Restore WRF artifacts after checkout (43)
         shell: bash
         run: |
@@ -4833,6 +4833,10 @@ jobs:
     needs: seg42
     timeout-minutes: 330
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
         with:
@@ -4857,10 +4861,6 @@ jobs:
               --downloads-root "$RUNNER_TEMP/wrf-downloads" \
               --workspace "$GITHUB_WORKSPACE"
           fi
-      - name: Checkout repository
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 1
       - name: Restore WRF artifacts after checkout (44)
         shell: bash
         run: |
@@ -4944,6 +4944,10 @@ jobs:
     needs: seg43
     timeout-minutes: 330
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
         with:
@@ -4968,10 +4972,6 @@ jobs:
               --downloads-root "$RUNNER_TEMP/wrf-downloads" \
               --workspace "$GITHUB_WORKSPACE"
           fi
-      - name: Checkout repository
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 1
       - name: Restore WRF artifacts after checkout (45)
         shell: bash
         run: |
@@ -5055,6 +5055,10 @@ jobs:
     needs: seg44
     timeout-minutes: 330
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
         with:
@@ -5079,10 +5083,6 @@ jobs:
               --downloads-root "$RUNNER_TEMP/wrf-downloads" \
               --workspace "$GITHUB_WORKSPACE"
           fi
-      - name: Checkout repository
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 1
       - name: Restore WRF artifacts after checkout (46)
         shell: bash
         run: |
@@ -5166,6 +5166,10 @@ jobs:
     needs: seg45
     timeout-minutes: 330
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
         with:
@@ -5190,10 +5194,6 @@ jobs:
               --downloads-root "$RUNNER_TEMP/wrf-downloads" \
               --workspace "$GITHUB_WORKSPACE"
           fi
-      - name: Checkout repository
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 1
       - name: Restore WRF artifacts after checkout (47)
         shell: bash
         run: |
@@ -5277,6 +5277,10 @@ jobs:
     needs: seg46
     timeout-minutes: 330
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
         with:
@@ -5301,10 +5305,6 @@ jobs:
               --downloads-root "$RUNNER_TEMP/wrf-downloads" \
               --workspace "$GITHUB_WORKSPACE"
           fi
-      - name: Checkout repository
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 1
       - name: Restore WRF artifacts after checkout (48)
         shell: bash
         run: |
