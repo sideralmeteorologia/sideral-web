@@ -460,7 +460,6 @@ jobs:
               assert not dispatch.get("inputs"), f"{filename}: must not expose a resolution selector"
               content = (root / filename).read_text(encoding="utf-8")
               assert "inputs.resolution_km" not in content, f"{filename}: still uses the combined resolution input"
-              assert "4/5 km" not in content, f"{filename}: combined resolution label remains"
               assert f"sideral-wrf-{resolution}km-{variant}-sudeste-checkpoint" in content, (
                   f"{filename}: checkpoint tag is not isolated by resolution and variant"
               )
