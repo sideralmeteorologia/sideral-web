@@ -1,7 +1,12 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-: "${FORCE_RUN_DATE:?FORCE_RUN_DATE ausente}"
+# Os segmentos de continuacao recuperam RUN_DATE/RUN_CYCLE do checkpoint.
+# Propagar a mesma base temporal para o executor GFS, que exige FORCE_*.
+FORCE_RUN_DATE="${FORCE_RUN_DATE:-${RUN_DATE:-}}"
+FORCE_RUN_CYCLE="${FORCE_RUN_CYCLE:-${RUN_CYCLE:-}}"
+export FORCE_RUN_DATE FORCE_RUN_CYCLE
+: "${FORCE_RUN_DATE:?FORCE_RUN_DATE ausente no checkpoint METBR}"
 : "${FORCE_RUN_CYCLE:?FORCE_RUN_CYCLE ausente}"
 : "${WRF_START_HOUR:?WRF_START_HOUR ausente}"
 : "${WRF_END_HOUR:?WRF_END_HOUR ausente}"
