@@ -409,7 +409,7 @@ jobs:
           print("CIM checkpoint F021 válido:", expected.name)
           PY
 
-      - name: Bundle checkpoint CIM 8 km
+      - name: Bundle WRF artifact safely (CIM checkpoint)
         shell: bash
         env:
           WRF_ARTIFACT_PATTERNS: |
@@ -488,13 +488,16 @@ jobs:
           name: cim8-${{ matrix.model }}-seg00-${{ github.run_id }}
           path: ${{ runner.temp }}/wrf-downloads/cim8
 
-      - name: Restore checkpoint CIM 8 km F021
+      - name: Register WRF artifact restore target (CIM F021)
         shell: bash
+        env:
+          WRF_ARTIFACT_DOWNLOAD_DIR: ${{ runner.temp }}/wrf-downloads/cim8
+          WRF_ARTIFACT_RESTORE_TO: 'wrf_work/run'
         run: |
           set -euo pipefail
-          checkpoint_dir="$RUNNER_TEMP/wrf-downloads/cim8"
-          test -s "$checkpoint_dir/wrf-payload-001.tar"
-          printf '%s\n' 'wrf_work/run' > "$checkpoint_dir/.restore-to"
+          mkdir -p "$WRF_ARTIFACT_DOWNLOAD_DIR"
+          test -s "$WRF_ARTIFACT_DOWNLOAD_DIR/wrf-payload-001.tar"
+          printf '%s\n' "$WRF_ARTIFACT_RESTORE_TO" > "$WRF_ARTIFACT_DOWNLOAD_DIR/.restore-to"
           python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
             --downloads-root "$RUNNER_TEMP/wrf-downloads" \
             --workspace "$GITHUB_WORKSPACE"
