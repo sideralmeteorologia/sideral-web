@@ -47,3 +47,21 @@ Achados:
 - G2: EM ANDAMENTO.
 - G3: NÃO CONCLUÍDO — faltam fontes WRF/WPS/ECMWF específicas.
 - G4-G7: NÃO INICIADOS.
+
+## Revisão profunda — 2026-11-21
+
+- Cancelamentos solicitados: 44962000794, 44933854491, 44930239266,
+  44923284771, 44920711775 e 44953746655.
+- Última consulta dos estados: nenhum run `in_progress`, `queued` ou `pending`.
+- CBR: 14 segmentos de 3 h.
+- CIM 5 km: 14 segmentos de 3 h.
+- METBR: 42 segmentos de 1 h.
+- Sudeste: 16 segmentos de 3 h.
+- TARC: 48 segmentos de 1 h.
+- Brasil 21 km: NÃO segmentado; job único com 330 minutos.
+- CIM 8 km: NÃO segmentado; matriz com 42 h em job de até 330 minutos.
+- Todos os arquivos `.github/workflows/*.yml` passaram no parse PyYAML.
+- Python compilado localmente.
+- CI `build` do PR 13 passou no run 44964909844.
+- Execução real ponta a ponta e Release por cada workflow: NÃO PROVADO.
+- Brasil 21 km e CIM 8 km permanecem pendentes de segmentação real.
