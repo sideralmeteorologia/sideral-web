@@ -20,6 +20,9 @@ import os,re
 path=Path('wrf/run_gfs_test.sh')
 text=path.read_text(encoding='utf-8')
 start=int(os.environ['WRF_START_HOUR']); end=int(os.environ['WRF_END_HOUR']); duration=end-start
+source_end=int(os.environ.get('WRF_BOUNDARY_END_HOUR', end))
+if source_end < end or source_end > 72 or source_end % 3:
+ raise SystemExit('WRF_BOUNDARY_END_HOUR deve cobrir o segmento e ser multiplo de 3')
 cold=os.environ.get('WRF_COLD_START')=='1'
 # Regional workflows provide these values; Brasil 15 km keeps them as defaults.
 target_dx=os.environ.get('WRF_DX_METERS','15000')
@@ -33,7 +36,7 @@ selection=f'''log "Usando rodada GFS fixa para segmento F{start:03d}-F{end:03d}"
 RUN_DATE="${{FORCE_RUN_DATE:?FORCE_RUN_DATE ausente}}"
 RUN_CYCLE="${{FORCE_RUN_CYCLE:?FORCE_RUN_CYCLE ausente}}"
 BASE_URL="https://noaa-gfs-bdp-pds.s3.amazonaws.com/gfs.${{RUN_DATE}}/${{RUN_CYCLE}}/atmos"
-printf -v END_FH "%03d" {end}
+printf -v END_FH "%03d" {source_end}
 END_URL="$BASE_URL/gfs.t${{RUN_CYCLE}}z.pgrb2.0p25.f${{END_FH}}"
 READY=0
 for TRY in $(seq 1 18); do
@@ -90,12 +93,12 @@ if f'dx = {target_dx},' not in text or f'dy = {target_dy},' not in text:
 
 letters=['AAA','AAB','AAC','AAD','AAE','AAF','AAG','AAH','AAI','AAJ','AAK','AAL','AAM','AAN','AAO','AAP','AAQ']
 download_start=start if cold else 0
-file_count=(end-download_start)//3+1
+file_count=(source_end-download_start)//3+1
 if file_count>len(letters): raise SystemExit('Horizonte excede GRIBFILE letters')
 arr=' '.join(letters[:file_count])
 download=f'''log "Baixando GFS F{download_start:03d}-F{end:03d} de 3 em 3 horas"
 mkdir -p "$WORK/gfs"
-for H in $(seq {download_start} 3 {end}); do
+for H in $(seq {download_start} 3 {source_end}); do
  printf -v FH "%03d" "$H"; FILE="gfs.t${{RUN_CYCLE}}z.pgrb2.0p25.f${{FH}}"
  curl -fL --retry 4 --retry-delay 5 --connect-timeout 20 --max-time 900 -o "$WORK/gfs/$FILE" "$BASE_URL/$FILE"
 done
