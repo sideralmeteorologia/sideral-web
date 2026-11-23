@@ -44,6 +44,8 @@ if [[ "$COLD_START" == "0" ]]; then
   cp -f "${RSTS[@]}" "$INPUT/normalized/"
   test -s "$INPUT/wrfbdy_d01" || { echo "wrfbdy ausente no checkpoint" >&2; exit 23; }
   cp -f "$INPUT/wrfbdy_d01" "$INPUT/normalized/wrfbdy_d01"
+  test -s "$INPUT/wrfinput_d01" || { echo "wrfinput_d01 ausente no checkpoint" >&2; exit 25; }
+  cp -f "$INPUT/wrfinput_d01" "$INPUT/normalized/wrfinput_d01"
   test -s "$INPUT/namelist.input" || { echo "namelist.input ausente no checkpoint" >&2; exit 24; }
   cp -f "$INPUT/namelist.input" "$INPUT/normalized/namelist.input"
   export WRF_RESTART_DIR="$INPUT/normalized"
@@ -110,9 +112,13 @@ for f in "${OUTS[@]}"; do
   cp -f "$f" "metbr-wrfout-$SEGMENT_INDEX-$(basename "$f")"
 done
 
+# Verifica wrfinput_d01 (necessario para LBC no proximo segmento)
+test -s "$OUTPUT_DIR/wrfinput_d01" || { echo "wrfinput_d01 ausente no output" >&2; exit 37; }
+
 rm -rf checkpoint_pack && mkdir checkpoint_pack
 cp -f "${RSTS[@]}" checkpoint_pack/
 cp -f "${BDYS[0]}" checkpoint_pack/wrfbdy_d01
+cp -f "$OUTPUT_DIR/wrfinput_d01" checkpoint_pack/wrfinput_d01
 cp -f "$NAMELIST" checkpoint_pack/namelist.input
 cp -f metbr-run.env checkpoint_pack/metbr-run.env
 tar -czf "metbr-checkpoint-$END_HOUR.tar.gz" -C checkpoint_pack .

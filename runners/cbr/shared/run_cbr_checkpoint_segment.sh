@@ -91,6 +91,7 @@ if [[ "$COLD_START" == "0" ]]; then
   echo "CBR: preparando LBC exclusivamente com a fonte selecionada F$START_HOUR-F$END_HOUR"
   prepare_source 1
   test -s "$ROOT/cbr_wrf_work/run/wrfbdy_d01" || { echo "LBC CBR ausente para F$START_HOUR-F$END_HOUR" >&2; exit 27; }
+  test -s "$ROOT/cbr_wrf_work/run/wrfinput_d01" || { echo "ERRO: wrfinput ausente"; exit 28; }
   cp -f "$ROOT/cbr_wrf_work/run/wrfbdy_d01" "$INPUT/normalized/wrfbdy_d01"
 
   test -s "$INPUT/normalized/wrfbdy_d01"

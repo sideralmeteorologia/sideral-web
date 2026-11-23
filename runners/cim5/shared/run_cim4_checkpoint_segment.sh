@@ -112,6 +112,7 @@ if [[ "$COLD_START" == "0" ]]; then
   prepare_source 1
   echo "CIM4_METRIC boundary_prepare_seconds=$(( $(date +%s) - BOUNDARY_PREP_STARTED_AT ))"
   test -s "$ROOT/wrf_work/run/wrfbdy_d01" || { echo "LBC CIM4 ausente para F$START_HOUR-F$END_HOUR" >&2; exit 27; }
+  test -s "$ROOT/wrf_work/run/wrfinput_d01" || { echo "ERRO: wrfinput ausente"; exit 28; }
   cp -f "$ROOT/wrf_work/run/wrfbdy_d01" "$INPUT/normalized/wrfbdy_d01"
   test -s "$INPUT/normalized/wrfbdy_d01"
   test -s "$INPUT/normalized/namelist.input"

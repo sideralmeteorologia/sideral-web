@@ -1,0 +1,192 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+START_HOUR="$1"
+END_HOUR="$2"
+SEGMENT_INDEX="$3"
+COLD_START="$4"
+SEGMENT_STARTED_AT="$(date +%s)"
+
+: "$GH_TOKEN"
+: "$CHECKPOINT_TAG"
+: "$GITHUB_REPOSITORY"
+
+ROOT="$GITHUB_WORKSPACE"
+INPUT="$ROOT/cim4_restart_input"
+mkdir -p "$INPUT"
+
+(( START_HOUR >= 0 && END_HOUR > START_HOUR && START_HOUR % 3 == 0 && END_HOUR % 3 == 0 && END_HOUR <= 42 )) || {
+  echo "F000-F042 CIM4: intervalo invalido" >&2
+  exit 1
+}
+case "$COLD_START" in 0|1) ;; *) echo "COLD_START deve ser 1 no F000" >&2; exit 1 ;; esac
+
+source "$ROOT/wrf/ensure_eccodes_tools.sh"
+for tool in grib_set grib_copy grib_count; do
+  command -v "$tool" >/dev/null || { echo "ecCodes/$tool indisponivel" >&2; exit 10; }
+done
+
+chmod +x wrf/run_cim4_checkpoint_segment.sh wrf/run_cim4_icon_wrf.sh wrf/run_cim4_ecmwf_wrf.sh wrf/run_cim4_gfs_wrf.sh wrf/run_cim4_wrf_with_source.sh wrf/run_cim4_restart_segment.sh
+
+export WRF_TARGET_RESOLUTION_KM="${WRF_TARGET_RESOLUTION_KM:-5}"
+export WRF_DX_METERS="${WRF_DX_METERS:-5000}" WRF_DY_METERS="${WRF_DY_METERS:-5000}"
+export WRF_E_WE="${WRF_E_WE:-447}" WRF_E_SN="${WRF_E_SN:-375}"
+export WRF_HISTORY_INTERVAL_MINUTES="${WRF_HISTORY_INTERVAL_MINUTES:-60}"
+export WRF_TIME_STEP="${WRF_TIME_STEP:-25}"
+export WRF_MPI_PROCS="${WRF_MPI_PROCS:-4}"
+export WRF_BOUNDARY_END_HOUR="$END_HOUR"
+export WRF_REF_LAT="${WRF_REF_LAT:--23.0}" WRF_REF_LON="${WRF_REF_LON:--45.5}" WRF_STAND_LON="${WRF_STAND_LON:--45.5}"
+export WRF_RUN_HOURS=$((END_HOUR-START_HOUR))
+export WRF_START_HOUR="$START_HOUR" WRF_END_HOUR="$END_HOUR"
+
+
+prepare_source() {
+  local boundary_only="${1:?Informe 0 para cold start, 1 para LBC de restart}"
+  local model="${SOURCE_MODEL:-icon}"
+  local runner rc
+  case "$model" in
+    icon) runner="wrf/run_cim4_icon_wrf.sh" ;;
+    ecmwf) runner="wrf/run_cim4_ecmwf_wrf.sh" ;;
+    gfs) runner="wrf/run_cim4_gfs_wrf.sh" ;;
+    *) echo "SOURCE_MODEL inválido no checkpoint CIM4: $model" >&2; return 2 ;;
+  esac
+  export WRF_BOUNDARY_ONLY="$boundary_only"
+  echo "===== CIM 5 KM SOURCE FIXED: ${model^^}; boundary_only=$boundary_only ====="
+  if bash "$runner"; then
+    rc=0
+  else
+    rc=$?
+    echo "ERRO: fonte CIM4 exclusiva ${model^^} falhou (exit=$rc); nenhuma fonte alternativa será tentada." >&2
+    return "$rc"
+  fi
+  ICON_SOURCE_DATE="${ICON_SOURCE_DATE:-}"
+  ICON_SOURCE_CYCLE="${ICON_SOURCE_CYCLE:-}"
+  ICON_OFFSET_HOURS="${ICON_OFFSET_HOURS:-}"
+  if [[ "$model" == "icon" && -s "$ROOT/cim4-icon-run.env" ]]; then
+    source "$ROOT/cim4-icon-run.env"
+    export RUN_DATE RUN_CYCLE
+    FORCE_RUN_DATE="$RUN_DATE"
+    FORCE_RUN_CYCLE="$RUN_CYCLE"
+    export FORCE_RUN_DATE FORCE_RUN_CYCLE
+    ICON_SOURCE_DATE="${ICON_SOURCE_DATE:-$RUN_DATE}"
+    ICON_SOURCE_CYCLE="${ICON_SOURCE_CYCLE:-$RUN_CYCLE}"
+    ICON_OFFSET_HOURS="${ICON_OFFSET_HOURS:-0}"
+  fi
+  SOURCE_MODEL="$model"
+  printf 'RUN_DATE=%s\nRUN_CYCLE=%s\nSOURCE_MODEL=%s\nWRF2_TOMORROW=%s\nICON_SOURCE_DATE=%s\nICON_SOURCE_CYCLE=%s\nICON_OFFSET_HOURS=%s\n' "$RUN_DATE" "$RUN_CYCLE" "$SOURCE_MODEL" "${WRF2_TOMORROW:-0}" "$ICON_SOURCE_DATE" "$ICON_SOURCE_CYCLE" "$ICON_OFFSET_HOURS" > cim4-run.env
+ : # checkpoint handled by GitHub Actions artifact
+}
+
+if [[ "$COLD_START" == "0" ]]; then
+  rm -rf "$INPUT/normalized"
+ : # checkpoint handled by GitHub Actions artifact
+  source cim4-run.env
+  export WRF2_TOMORROW="${WRF2_TOMORROW:-0}"
+ : # checkpoint handled by GitHub Actions artifact
+ : # checkpoint handled by GitHub Actions artifact
+  mkdir -p "$INPUT/normalized"
+  for f in "$INPUT"/cim4-restart-"$START_HOUR"-*; do
+    [[ -f "$f" ]] || continue
+    cp -f "$f" "$INPUT/normalized/$(basename "$f" | sed -E "s/^cim4-restart-$START_HOUR-//; s/_([0-9]{2})[.]([0-9]{2})[.]([0-9]{2})$/_\1:\2:\3/")"
+  done
+  if [[ -f "$INPUT/cim4-namelist.input" ]]; then
+    cp -f "$INPUT/cim4-namelist.input" "$INPUT/normalized/namelist.input"
+  elif [[ -f "$INPUT/normalized/namelist.input" ]]; then
+    : # checkpoint already restored the normalized namelist
+  else
+    echo "Namelist do checkpoint CIM4 ausente em $INPUT" >&2
+    exit 24
+  fi
+
+  # The previous checkpoint boundary ends at START_HOUR, so build a fresh
+  # ICON LBC covering START_HOUR..END_HOUR before restarting WRF.
+  export RUN_DATE RUN_CYCLE
+  export FORCE_RUN_DATE="$RUN_DATE" FORCE_RUN_CYCLE="$RUN_CYCLE"
+  export WRF_TARGET_RESOLUTION_KM="${WRF_TARGET_RESOLUTION_KM:-5}" WRF_DX_METERS="${WRF_DX_METERS:-5000}" WRF_DY_METERS="${WRF_DY_METERS:-5000}"
+  export WRF_E_WE="${WRF_E_WE:-447}" WRF_E_SN="${WRF_E_SN:-375}"
+  export WRF_HISTORY_INTERVAL_MINUTES="${WRF_HISTORY_INTERVAL_MINUTES:-60}" WRF_TIME_STEP="${WRF_TIME_STEP:-25}" WRF_MPI_PROCS="${WRF_MPI_PROCS:-4}"
+  export WRF_START_HOUR="$START_HOUR" WRF_END_HOUR="$END_HOUR"
+  export WRF_BOUNDARY_END_HOUR="$END_HOUR" WRF_BOUNDARY_ONLY=1
+  echo "CIM: preparando LBC com fonte selecionada F$START_HOUR-F$END_HOUR"
+  BOUNDARY_PREP_STARTED_AT="$(date +%s)"
+  prepare_source 1
+  echo "CIM4_METRIC boundary_prepare_seconds=$(( $(date +%s) - BOUNDARY_PREP_STARTED_AT ))"
+  test -s "$ROOT/wrf_work/run/wrfbdy_d01" || { echo "LBC CIM4 ausente para F$START_HOUR-F$END_HOUR" >&2; exit 27; }
+  cp -f "$ROOT/wrf_work/run/wrfbdy_d01" "$INPUT/normalized/wrfbdy_d01"
+  test -s "$INPUT/normalized/wrfbdy_d01"
+  test -s "$INPUT/normalized/namelist.input"
+  export WRF_RESTART_DIR="$INPUT/normalized"
+  RESTART_STARTED_AT="$(date +%s)"
+  bash wrf/run_cim4_restart_segment.sh "$START_HOUR" "$END_HOUR" "$WRF_RESTART_DIR"
+  echo "CIM4_METRIC restart_forecast_seconds=$(( $(date +%s) - RESTART_STARTED_AT ))"
+
+  OUTPUT_DIR="$ROOT/cim4_segment_output"
+  test -d "$OUTPUT_DIR"
+  UPLOAD_DIR="$ROOT/cim4_upload_$SEGMENT_INDEX"
+  rm -rf "$UPLOAD_DIR"; mkdir -p "$UPLOAD_DIR"
+  for f in "$OUTPUT_DIR"/wrfrst_d01_*; do cp -f "$f" "$UPLOAD_DIR/cim4-restart-$END_HOUR-$(basename "$f")"; done
+  for f in "$OUTPUT_DIR"/wrfout_d01_*; do cp -f "$f" "$UPLOAD_DIR/cim4-wrfout-$SEGMENT_INDEX-$(basename "$f")"; done
+ : # checkpoint handled by GitHub Actions artifact
+else
+  python3 - <<'PY'
+import datetime as dt, os
+now=dt.datetime.now(dt.timezone.utc)
+scheduled_cycle=os.environ.get("WRF_SCHEDULED_CYCLE","")
+if scheduled_cycle in {"00","12"}:
+    run=now.replace(hour=int(scheduled_cycle), minute=0, second=0, microsecond=0)
+else:
+    run=now.replace(hour=(now.hour//6)*6, minute=0, second=0, microsecond=0)
+if os.environ.get("WRF2_TOMORROW") == "1":
+    run += dt.timedelta(hours=24)
+source_model=os.environ.get("SOURCE_MODEL","icon")
+open("cim4-run.env","w").write(f"RUN_DATE={run:%Y%m%d}\nRUN_CYCLE={run:%H}\nSOURCE_MODEL={source_model}\nWRF2_TOMORROW={os.environ.get('WRF2_TOMORROW','0')}\n")
+PY
+  source cim4-run.env
+ : # checkpoint handled by GitHub Actions artifact
+ : # checkpoint handled by GitHub Actions artifact
+
+  export FORCE_RUN_DATE="$RUN_DATE" FORCE_RUN_CYCLE="$RUN_CYCLE"
+  unset CIM4_ALLOW_RESELECT_ICON
+  export WRF_BOUNDARY_ONLY=0
+  COLD_FORECAST_STARTED_AT="$(date +%s)"
+  prepare_source 0
+  echo "SIDERAL_METRIC cold_start_forecast_seconds=$(( $(date +%s) - COLD_FORECAST_STARTED_AT ))"
+  test -s wrf_work/run/wrfinput_d01
+  test -s wrf_work/run/wrfbdy_d01
+  test -n "$(find wrf_work/run -maxdepth 1 -type f -name 'wrfout_d01_*' -size +0c -print -quit)"
+  test -n "$(find wrf_work/run -maxdepth 1 -type f -name 'wrfrst_d01_*' -size +0c -print -quit)"
+
+  for f in wrf_work/run/wrfrst_d01_*; do cp -f "$f" "cim4-restart-$END_HOUR-$(basename "$f")"; done
+  for f in wrf_work/run/wrfout_d01_*; do cp -f "$f" "cim4-wrfout-$SEGMENT_INDEX-$(basename "$f")"; done
+  for f in wrf_work/run/wrfbdy_d01; do cp -f "$f" "cim4-boundary-$(basename "$f")"; done
+  cp -f wrf_work/run/namelist.input cim4-namelist.input
+ : # checkpoint handled by GitHub Actions artifact
+fi
+
+
+# Gera produtos 2D compactos para o frontend sem substituir os wrfout nativos.
+if [[ "$COLD_START" == "1" ]]; then
+  POST_INPUT="$ROOT/wrf_work/run"
+else
+  POST_INPUT="$ROOT/cim4_segment_output"
+fi
+if [[ -n "$(find "$POST_INPUT" -maxdepth 1 -type f -name 'wrfout_d01_*' -size +0c -print -quit)" ]]; then
+  python3 -m pip install --disable-pip-version-check -q netCDF4 numpy
+  PRODUCT_DIR="$ROOT/cim4_products_$SEGMENT_INDEX"
+  rm -rf "$PRODUCT_DIR"
+  python3 wrf/cim4_postprocess.py "$POST_INPUT"/wrfout_d01_* --output-dir "$PRODUCT_DIR"
+  if [[ "${WRF2_TOMORROW:-0}" == "1" ]]; then
+    CATALOG_PATH="$ROOT/wrf/cim4_wrf2_variable_catalog.json"
+  else
+    CATALOG_PATH="$ROOT/wrf/cim4_variable_catalog.json"
+  fi
+  test -s "$CATALOG_PATH" || { echo "Cat�logo CIM ausente: $CATALOG_PATH" >&2; exit 31; }
+  cp -f "$CATALOG_PATH" "$PRODUCT_DIR/variable_catalog.json"
+  mv "$PRODUCT_DIR/metadata.json" "cim4-products-$SEGMENT_INDEX.json"
+ : # checkpoint handled by GitHub Actions artifact
+fi
+
+echo "SIDERAL_METRIC segment=F$START_HOUR-F$END_HOUR total_seconds=$(( $(date +%s) - SEGMENT_STARTED_AT ))"
+echo "CIM5 checkpoint F$START_HOUR-F$END_HOUR publicado em $CHECKPOINT_TAG."
+# A publicação operacional é disparada pelo job verify somente depois de F042
+# e da contagem mínima de WRFOUT/NPZs. Assim a branch recebe a rodada completa.
