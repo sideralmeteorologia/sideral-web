@@ -119,7 +119,6 @@ jobs:
           chmod +x wrf/ensure_metbr_wrf_runtime.sh
           chmod +x wrf/Vtable.ICONp
           mkdir -p wrf/bin
-          chmod +x wrf/bin/gh
           for script in wrf/*.sh; do [[ -f "$script" ]] && chmod +x "$script"; done
       - name: Apply validated CIM ICON source-cycle fallback
         shell: bash
@@ -2369,4 +2368,5 @@ jobs:
           assert manifest.get("rawManifestUrl"), "rawManifestUrl ausente"
           print(f"GitHub Release validada: {manifest['productId']} / {manifest['fileCount']} arquivos")
           PY
+
 

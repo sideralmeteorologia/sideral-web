@@ -102,7 +102,7 @@ jobs:
           mkdir -p "$(dirname 'wrf/extract_wrf_severe_core.py')"
           chmod +x wrf/extract_wrf_severe_core.py
           mkdir -p wrf/bin
-          chmod +x wrf/bin/gh wrf/*.sh
+          chmod +x wrf/*.sh
       - name: Garantir executabilidade dos scripts WRF
         shell: bash
         run: chmod +x wrf/*.sh
@@ -3981,4 +3981,5 @@ jobs:
           set -euo pipefail
           export SOURCE_COMPLETED_AT="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
           python3 .github/scripts/publish_model_release.py publish
+
 

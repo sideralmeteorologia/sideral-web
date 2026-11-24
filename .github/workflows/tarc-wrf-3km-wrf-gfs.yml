@@ -93,7 +93,6 @@ jobs:
           chmod +x wrf/ensure_metbr_wrf_runtime.sh
           chmod +x wrf/Vtable.ICONp
           mkdir -p wrf/bin
-          chmod +x wrf/bin/gh
           chmod +x wrf/*.sh
       - name: Validate embedded TARC executors
         shell: bash
@@ -5603,4 +5602,5 @@ jobs:
           set -euo pipefail
           export SOURCE_COMPLETED_AT="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
           python3 .github/scripts/publish_model_release.py publish
+
 

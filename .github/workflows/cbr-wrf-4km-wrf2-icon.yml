@@ -101,7 +101,6 @@ jobs:
           chmod +x wrf/Vtable.GFS_SOIL
           install -D -m 0644 runners/cbr/icon/Vtable.ICONp wrf/Vtable.ICONp
           mkdir -p wrf/bin
-          chmod +x wrf/bin/gh
       - name: Validar scripts CBR e catálogo
         shell: bash
         run: |
@@ -1905,5 +1904,6 @@ jobs:
           assert manifest.get("rawManifestUrl"), "rawManifestUrl ausente"
           print(f"GitHub Release validada: {manifest['productId']} / {manifest['fileCount']} arquivos")
           PY
+
 
 

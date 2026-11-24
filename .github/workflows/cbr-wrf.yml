@@ -113,7 +113,6 @@ jobs:
           chmod +x wrf/Vtable.GFS_SOIL
           install -D -m 0644 runners/cbr/icon/Vtable.ICONp wrf/Vtable.ICONp
           mkdir -p wrf/bin
-          chmod +x wrf/bin/gh
           mkdir -p wrf
           chmod +x wrf/cbr_extract_json.py
           chmod +x wrf/*.sh
@@ -1920,4 +1919,5 @@ jobs:
           assert manifest.get("rawManifestUrl"), "rawManifestUrl ausente"
           print(f"GitHub Release validada: {manifest['productId']} / {manifest['fileCount']} arquivos")
           PY
+
 
