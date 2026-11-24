@@ -1,0 +1,1050 @@
+{
+  "schema": "sideral-model-release-v1",
+  "productId": "cim-wrf-8km-wrf-gfs",
+  "releaseTag": "sideral-data-cim-wrf-8km-wrf-gfs-latest",
+  "releaseUrl": "https://github.com/sideralmeteorologia/sideral-web/releases/tag/sideral-data-cim-wrf-8km-wrf-gfs-latest",
+  "releaseApiUrl": "https://api.github.com/repos/sideralmeteorologia/sideral-web/releases/tags/sideral-data-cim-wrf-8km-wrf-gfs-latest",
+  "rawBranch": "sideral-data-cim-wrf-8km-wrf-gfs-latest",
+  "workflow": {
+    "name": "SIDERAL | CIM WRF 8 km | GFS | WRF",
+    "path": ".github/workflows/cim-wrf-8km-wrf-gfs.yml",
+    "runId": "45377331756",
+    "runUrl": "https://github.com/sideralmeteorologia/sideral-web/actions/runs/45377331756",
+    "branch": "main",
+    "commit": "872a290fd50a9b2d47d966be19688d106a35031e",
+    "completedAt": "2026-11-24T15:16:04Z"
+  },
+  "publishedAt": "2026-11-24T15:16:05.443882+00:00",
+  "fileCount": 55,
+  "assetCount": 58,
+  "files": [
+    {
+      "path": "cim_publish/frames/f000.json.gz",
+      "size": 494542,
+      "sha256": "d81375e3c8c721b506b71ed0cadc4b07cdc7a4c85440bfca3b38cdecc3d11122",
+      "contentType": "application/octet-stream",
+      "parts": [
+        {
+          "name": "cim-publish--frames--f000.json-a77f2ce069.gz",
+          "size": 494542,
+          "sha256": "d81375e3c8c721b506b71ed0cadc4b07cdc7a4c85440bfca3b38cdecc3d11122",
+          "contentType": "application/octet-stream",
+          "part": 1,
+          "releaseUrl": "https://github.com/sideralmeteorologia/sideral-web/releases/download/sideral-data-cim-wrf-8km-wrf-gfs-latest/cim-publish--frames--f000.json-a77f2ce069.gz",
+          "url": "https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/sideral-data-cim-wrf-8km-wrf-gfs-latest/assets/cim-publish--frames--f000.json-a77f2ce069.gz"
+        }
+      ],
+      "asset": "cim-publish--frames--f000.json-a77f2ce069.gz"
+    },
+    {
+      "path": "cim_publish/frames/f001.json.gz",
+      "size": 518800,
+      "sha256": "67902a57d65aea1132c9453927b98b63ba3fb7c7fabab397cb5578a078606feb",
+      "contentType": "application/octet-stream",
+      "parts": [
+        {
+          "name": "cim-publish--frames--f001.json-ad50650dc6.gz",
+          "size": 518800,
+          "sha256": "67902a57d65aea1132c9453927b98b63ba3fb7c7fabab397cb5578a078606feb",
+          "contentType": "application/octet-stream",
+          "part": 1,
+          "releaseUrl": "https://github.com/sideralmeteorologia/sideral-web/releases/download/sideral-data-cim-wrf-8km-wrf-gfs-latest/cim-publish--frames--f001.json-ad50650dc6.gz",
+          "url": "https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/sideral-data-cim-wrf-8km-wrf-gfs-latest/assets/cim-publish--frames--f001.json-ad50650dc6.gz"
+        }
+      ],
+      "asset": "cim-publish--frames--f001.json-ad50650dc6.gz"
+    },
+    {
+      "path": "cim_publish/frames/f002.json.gz",
+      "size": 531370,
+      "sha256": "8376c44bed1acfbc2d97bb06afee19b654f5484b1a2eb6a7edd8f79966576434",
+      "contentType": "application/octet-stream",
+      "parts": [
+        {
+          "name": "cim-publish--frames--f002.json-d0266e733b.gz",
+          "size": 531370,
+          "sha256": "8376c44bed1acfbc2d97bb06afee19b654f5484b1a2eb6a7edd8f79966576434",
+          "contentType": "application/octet-stream",
+          "part": 1,
+          "releaseUrl": "https://github.com/sideralmeteorologia/sideral-web/releases/download/sideral-data-cim-wrf-8km-wrf-gfs-latest/cim-publish--frames--f002.json-d0266e733b.gz",
+          "url": "https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/sideral-data-cim-wrf-8km-wrf-gfs-latest/assets/cim-publish--frames--f002.json-d0266e733b.gz"
+        }
+      ],
+      "asset": "cim-publish--frames--f002.json-d0266e733b.gz"
+    },
+    {
+      "path": "cim_publish/frames/f003.json.gz",
+      "size": 539337,
+      "sha256": "fb55952b674e0273ece5f52e49e91fd73e960365e6c1b30ccab0af153c5e9b16",
+      "contentType": "application/octet-stream",
+      "parts": [
+        {
+          "name": "cim-publish--frames--f003.json-94fd3d963d.gz",
+          "size": 539337,
+          "sha256": "fb55952b674e0273ece5f52e49e91fd73e960365e6c1b30ccab0af153c5e9b16",
+          "contentType": "application/octet-stream",
+          "part": 1,
+          "releaseUrl": "https://github.com/sideralmeteorologia/sideral-web/releases/download/sideral-data-cim-wrf-8km-wrf-gfs-latest/cim-publish--frames--f003.json-94fd3d963d.gz",
+          "url": "https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/sideral-data-cim-wrf-8km-wrf-gfs-latest/assets/cim-publish--frames--f003.json-94fd3d963d.gz"
+        }
+      ],
+      "asset": "cim-publish--frames--f003.json-94fd3d963d.gz"
+    },
+    {
+      "path": "cim_publish/frames/f004.json.gz",
+      "size": 544562,
+      "sha256": "7a1ed89f3dd6199bd7d368cdb5734a5c1e6f7e273c23d00fafdb17a95a686404",
+      "contentType": "application/octet-stream",
+      "parts": [
+        {
+          "name": "cim-publish--frames--f004.json-cd8c717f9e.gz",
+          "size": 544562,
+          "sha256": "7a1ed89f3dd6199bd7d368cdb5734a5c1e6f7e273c23d00fafdb17a95a686404",
+          "contentType": "application/octet-stream",
+          "part": 1,
+          "releaseUrl": "https://github.com/sideralmeteorologia/sideral-web/releases/download/sideral-data-cim-wrf-8km-wrf-gfs-latest/cim-publish--frames--f004.json-cd8c717f9e.gz",
+          "url": "https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/sideral-data-cim-wrf-8km-wrf-gfs-latest/assets/cim-publish--frames--f004.json-cd8c717f9e.gz"
+        }
+      ],
+      "asset": "cim-publish--frames--f004.json-cd8c717f9e.gz"
+    },
+    {
+      "path": "cim_publish/frames/f005.json.gz",
+      "size": 548306,
+      "sha256": "a071aaba9f33d02b19d84d43ac020468680780ec8f44940c3a57de3c30655406",
+      "contentType": "application/octet-stream",
+      "parts": [
+        {
+          "name": "cim-publish--frames--f005.json-2608580d7d.gz",
+          "size": 548306,
+          "sha256": "a071aaba9f33d02b19d84d43ac020468680780ec8f44940c3a57de3c30655406",
+          "contentType": "application/octet-stream",
+          "part": 1,
+          "releaseUrl": "https://github.com/sideralmeteorologia/sideral-web/releases/download/sideral-data-cim-wrf-8km-wrf-gfs-latest/cim-publish--frames--f005.json-2608580d7d.gz",
+          "url": "https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/sideral-data-cim-wrf-8km-wrf-gfs-latest/assets/cim-publish--frames--f005.json-2608580d7d.gz"
+        }
+      ],
+      "asset": "cim-publish--frames--f005.json-2608580d7d.gz"
+    },
+    {
+      "path": "cim_publish/frames/f006.json.gz",
+      "size": 548461,
+      "sha256": "a39554a3de5425e47e5c2dab71c88a2aafeb686ecc15e4dc189450b657c9f3dd",
+      "contentType": "application/octet-stream",
+      "parts": [
+        {
+          "name": "cim-publish--frames--f006.json-eb661868f6.gz",
+          "size": 548461,
+          "sha256": "a39554a3de5425e47e5c2dab71c88a2aafeb686ecc15e4dc189450b657c9f3dd",
+          "contentType": "application/octet-stream",
+          "part": 1,
+          "releaseUrl": "https://github.com/sideralmeteorologia/sideral-web/releases/download/sideral-data-cim-wrf-8km-wrf-gfs-latest/cim-publish--frames--f006.json-eb661868f6.gz",
+          "url": "https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/sideral-data-cim-wrf-8km-wrf-gfs-latest/assets/cim-publish--frames--f006.json-eb661868f6.gz"
+        }
+      ],
+      "asset": "cim-publish--frames--f006.json-eb661868f6.gz"
+    },
+    {
+      "path": "cim_publish/frames/f007.json.gz",
+      "size": 548838,
+      "sha256": "6499a4c820c4c0992c91a8eb33c0c3c016f876900142a525461a59b6831ced46",
+      "contentType": "application/octet-stream",
+      "parts": [
+        {
+          "name": "cim-publish--frames--f007.json-fba1f72e83.gz",
+          "size": 548838,
+          "sha256": "6499a4c820c4c0992c91a8eb33c0c3c016f876900142a525461a59b6831ced46",
+          "contentType": "application/octet-stream",
+          "part": 1,
+          "releaseUrl": "https://github.com/sideralmeteorologia/sideral-web/releases/download/sideral-data-cim-wrf-8km-wrf-gfs-latest/cim-publish--frames--f007.json-fba1f72e83.gz",
+          "url": "https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/sideral-data-cim-wrf-8km-wrf-gfs-latest/assets/cim-publish--frames--f007.json-fba1f72e83.gz"
+        }
+      ],
+      "asset": "cim-publish--frames--f007.json-fba1f72e83.gz"
+    },
+    {
+      "path": "cim_publish/frames/f008.json.gz",
+      "size": 548422,
+      "sha256": "826df52958fd65cc6e65c9ad0a2799d7551cd8c42c2fef348b3416756f3ba937",
+      "contentType": "application/octet-stream",
+      "parts": [
+        {
+          "name": "cim-publish--frames--f008.json-f73db54277.gz",
+          "size": 548422,
+          "sha256": "826df52958fd65cc6e65c9ad0a2799d7551cd8c42c2fef348b3416756f3ba937",
+          "contentType": "application/octet-stream",
+          "part": 1,
+          "releaseUrl": "https://github.com/sideralmeteorologia/sideral-web/releases/download/sideral-data-cim-wrf-8km-wrf-gfs-latest/cim-publish--frames--f008.json-f73db54277.gz",
+          "url": "https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/sideral-data-cim-wrf-8km-wrf-gfs-latest/assets/cim-publish--frames--f008.json-f73db54277.gz"
+        }
+      ],
+      "asset": "cim-publish--frames--f008.json-f73db54277.gz"
+    },
+    {
+      "path": "cim_publish/frames/f009.json.gz",
+      "size": 550564,
+      "sha256": "8e0a06844c2c6e4142c03724be5afdf123d71b64f67dd2739f8c0e5408f1df96",
+      "contentType": "application/octet-stream",
+      "parts": [
+        {
+          "name": "cim-publish--frames--f009.json-f236d05d19.gz",
+          "size": 550564,
+          "sha256": "8e0a06844c2c6e4142c03724be5afdf123d71b64f67dd2739f8c0e5408f1df96",
+          "contentType": "application/octet-stream",
+          "part": 1,
+          "releaseUrl": "https://github.com/sideralmeteorologia/sideral-web/releases/download/sideral-data-cim-wrf-8km-wrf-gfs-latest/cim-publish--frames--f009.json-f236d05d19.gz",
+          "url": "https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/sideral-data-cim-wrf-8km-wrf-gfs-latest/assets/cim-publish--frames--f009.json-f236d05d19.gz"
+        }
+      ],
+      "asset": "cim-publish--frames--f009.json-f236d05d19.gz"
+    },
+    {
+      "path": "cim_publish/frames/f010.json.gz",
+      "size": 554834,
+      "sha256": "35297941d8c2ba091f25bf1426d3ae85c18ecb30a513d15e8fc7295cb1c66f46",
+      "contentType": "application/octet-stream",
+      "parts": [
+        {
+          "name": "cim-publish--frames--f010.json-e9c10474bc.gz",
+          "size": 554834,
+          "sha256": "35297941d8c2ba091f25bf1426d3ae85c18ecb30a513d15e8fc7295cb1c66f46",
+          "contentType": "application/octet-stream",
+          "part": 1,
+          "releaseUrl": "https://github.com/sideralmeteorologia/sideral-web/releases/download/sideral-data-cim-wrf-8km-wrf-gfs-latest/cim-publish--frames--f010.json-e9c10474bc.gz",
+          "url": "https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/sideral-data-cim-wrf-8km-wrf-gfs-latest/assets/cim-publish--frames--f010.json-e9c10474bc.gz"
+        }
+      ],
+      "asset": "cim-publish--frames--f010.json-e9c10474bc.gz"
+    },
+    {
+      "path": "cim_publish/frames/f011.json.gz",
+      "size": 560455,
+      "sha256": "408be4c35d27161c435e0ed9d947297ef720c4d47cf16fddc428ac13e737a1e3",
+      "contentType": "application/octet-stream",
+      "parts": [
+        {
+          "name": "cim-publish--frames--f011.json-81eac57870.gz",
+          "size": 560455,
+          "sha256": "408be4c35d27161c435e0ed9d947297ef720c4d47cf16fddc428ac13e737a1e3",
+          "contentType": "application/octet-stream",
+          "part": 1,
+          "releaseUrl": "https://github.com/sideralmeteorologia/sideral-web/releases/download/sideral-data-cim-wrf-8km-wrf-gfs-latest/cim-publish--frames--f011.json-81eac57870.gz",
+          "url": "https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/sideral-data-cim-wrf-8km-wrf-gfs-latest/assets/cim-publish--frames--f011.json-81eac57870.gz"
+        }
+      ],
+      "asset": "cim-publish--frames--f011.json-81eac57870.gz"
+    },
+    {
+      "path": "cim_publish/frames/f012.json.gz",
+      "size": 564671,
+      "sha256": "11a0dd5595138f0f9af796d67e09899eccbb84d44b1b509a4e6e57dc4b6827a6",
+      "contentType": "application/octet-stream",
+      "parts": [
+        {
+          "name": "cim-publish--frames--f012.json-eedba124da.gz",
+          "size": 564671,
+          "sha256": "11a0dd5595138f0f9af796d67e09899eccbb84d44b1b509a4e6e57dc4b6827a6",
+          "contentType": "application/octet-stream",
+          "part": 1,
+          "releaseUrl": "https://github.com/sideralmeteorologia/sideral-web/releases/download/sideral-data-cim-wrf-8km-wrf-gfs-latest/cim-publish--frames--f012.json-eedba124da.gz",
+          "url": "https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/sideral-data-cim-wrf-8km-wrf-gfs-latest/assets/cim-publish--frames--f012.json-eedba124da.gz"
+        }
+      ],
+      "asset": "cim-publish--frames--f012.json-eedba124da.gz"
+    },
+    {
+      "path": "cim_publish/frames/f013.json.gz",
+      "size": 562054,
+      "sha256": "f6b5491e2383a8b96c40b5d0c2b6fcc15c7d8ee1fdaa94f44149b5289e579823",
+      "contentType": "application/octet-stream",
+      "parts": [
+        {
+          "name": "cim-publish--frames--f013.json-8637fc7dd8.gz",
+          "size": 562054,
+          "sha256": "f6b5491e2383a8b96c40b5d0c2b6fcc15c7d8ee1fdaa94f44149b5289e579823",
+          "contentType": "application/octet-stream",
+          "part": 1,
+          "releaseUrl": "https://github.com/sideralmeteorologia/sideral-web/releases/download/sideral-data-cim-wrf-8km-wrf-gfs-latest/cim-publish--frames--f013.json-8637fc7dd8.gz",
+          "url": "https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/sideral-data-cim-wrf-8km-wrf-gfs-latest/assets/cim-publish--frames--f013.json-8637fc7dd8.gz"
+        }
+      ],
+      "asset": "cim-publish--frames--f013.json-8637fc7dd8.gz"
+    },
+    {
+      "path": "cim_publish/frames/f014.json.gz",
+      "size": 558108,
+      "sha256": "0635be01635813325e8af43ed18613cd069d29b11588bf2c6f9ec30d3b41060a",
+      "contentType": "application/octet-stream",
+      "parts": [
+        {
+          "name": "cim-publish--frames--f014.json-ef3028aa86.gz",
+          "size": 558108,
+          "sha256": "0635be01635813325e8af43ed18613cd069d29b11588bf2c6f9ec30d3b41060a",
+          "contentType": "application/octet-stream",
+          "part": 1,
+          "releaseUrl": "https://github.com/sideralmeteorologia/sideral-web/releases/download/sideral-data-cim-wrf-8km-wrf-gfs-latest/cim-publish--frames--f014.json-ef3028aa86.gz",
+          "url": "https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/sideral-data-cim-wrf-8km-wrf-gfs-latest/assets/cim-publish--frames--f014.json-ef3028aa86.gz"
+        }
+      ],
+      "asset": "cim-publish--frames--f014.json-ef3028aa86.gz"
+    },
+    {
+      "path": "cim_publish/frames/f015.json.gz",
+      "size": 556569,
+      "sha256": "c8b22ad47405a591352ac9567a03fc0bc13ca054b89a5c6b6c0245d15eb66d0b",
+      "contentType": "application/octet-stream",
+      "parts": [
+        {
+          "name": "cim-publish--frames--f015.json-56c9bbc99f.gz",
+          "size": 556569,
+          "sha256": "c8b22ad47405a591352ac9567a03fc0bc13ca054b89a5c6b6c0245d15eb66d0b",
+          "contentType": "application/octet-stream",
+          "part": 1,
+          "releaseUrl": "https://github.com/sideralmeteorologia/sideral-web/releases/download/sideral-data-cim-wrf-8km-wrf-gfs-latest/cim-publish--frames--f015.json-56c9bbc99f.gz",
+          "url": "https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/sideral-data-cim-wrf-8km-wrf-gfs-latest/assets/cim-publish--frames--f015.json-56c9bbc99f.gz"
+        }
+      ],
+      "asset": "cim-publish--frames--f015.json-56c9bbc99f.gz"
+    },
+    {
+      "path": "cim_publish/frames/f016.json.gz",
+      "size": 555028,
+      "sha256": "4a3017ef3f75cd791ec8824ac088958a6e4676cef4e1f64968da8dec14d9acef",
+      "contentType": "application/octet-stream",
+      "parts": [
+        {
+          "name": "cim-publish--frames--f016.json-47e485667c.gz",
+          "size": 555028,
+          "sha256": "4a3017ef3f75cd791ec8824ac088958a6e4676cef4e1f64968da8dec14d9acef",
+          "contentType": "application/octet-stream",
+          "part": 1,
+          "releaseUrl": "https://github.com/sideralmeteorologia/sideral-web/releases/download/sideral-data-cim-wrf-8km-wrf-gfs-latest/cim-publish--frames--f016.json-47e485667c.gz",
+          "url": "https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/sideral-data-cim-wrf-8km-wrf-gfs-latest/assets/cim-publish--frames--f016.json-47e485667c.gz"
+        }
+      ],
+      "asset": "cim-publish--frames--f016.json-47e485667c.gz"
+    },
+    {
+      "path": "cim_publish/frames/f017.json.gz",
+      "size": 557567,
+      "sha256": "a2a44f4373c49547177c984987d7b844944c89a7afc3182158382b75b58854ce",
+      "contentType": "application/octet-stream",
+      "parts": [
+        {
+          "name": "cim-publish--frames--f017.json-8237395508.gz",
+          "size": 557567,
+          "sha256": "a2a44f4373c49547177c984987d7b844944c89a7afc3182158382b75b58854ce",
+          "contentType": "application/octet-stream",
+          "part": 1,
+          "releaseUrl": "https://github.com/sideralmeteorologia/sideral-web/releases/download/sideral-data-cim-wrf-8km-wrf-gfs-latest/cim-publish--frames--f017.json-8237395508.gz",
+          "url": "https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/sideral-data-cim-wrf-8km-wrf-gfs-latest/assets/cim-publish--frames--f017.json-8237395508.gz"
+        }
+      ],
+      "asset": "cim-publish--frames--f017.json-8237395508.gz"
+    },
+    {
+      "path": "cim_publish/frames/f018.json.gz",
+      "size": 560070,
+      "sha256": "1ebe784b23d843b9aa296da55fa896716a01419c7d3025a47ffb1562271f8a20",
+      "contentType": "application/octet-stream",
+      "parts": [
+        {
+          "name": "cim-publish--frames--f018.json-56065f63f4.gz",
+          "size": 560070,
+          "sha256": "1ebe784b23d843b9aa296da55fa896716a01419c7d3025a47ffb1562271f8a20",
+          "contentType": "application/octet-stream",
+          "part": 1,
+          "releaseUrl": "https://github.com/sideralmeteorologia/sideral-web/releases/download/sideral-data-cim-wrf-8km-wrf-gfs-latest/cim-publish--frames--f018.json-56065f63f4.gz",
+          "url": "https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/sideral-data-cim-wrf-8km-wrf-gfs-latest/assets/cim-publish--frames--f018.json-56065f63f4.gz"
+        }
+      ],
+      "asset": "cim-publish--frames--f018.json-56065f63f4.gz"
+    },
+    {
+      "path": "cim_publish/frames/f019.json.gz",
+      "size": 562385,
+      "sha256": "d4d33051f467f1d7844e3a1600c91969ff8859f16ac72d5c075272f83f7c93d6",
+      "contentType": "application/octet-stream",
+      "parts": [
+        {
+          "name": "cim-publish--frames--f019.json-1006e1ca62.gz",
+          "size": 562385,
+          "sha256": "d4d33051f467f1d7844e3a1600c91969ff8859f16ac72d5c075272f83f7c93d6",
+          "contentType": "application/octet-stream",
+          "part": 1,
+          "releaseUrl": "https://github.com/sideralmeteorologia/sideral-web/releases/download/sideral-data-cim-wrf-8km-wrf-gfs-latest/cim-publish--frames--f019.json-1006e1ca62.gz",
+          "url": "https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/sideral-data-cim-wrf-8km-wrf-gfs-latest/assets/cim-publish--frames--f019.json-1006e1ca62.gz"
+        }
+      ],
+      "asset": "cim-publish--frames--f019.json-1006e1ca62.gz"
+    },
+    {
+      "path": "cim_publish/frames/f020.json.gz",
+      "size": 564051,
+      "sha256": "2b95314c166650893539e461be956c8ba4c10b846673ec94071d6b1be731b3d6",
+      "contentType": "application/octet-stream",
+      "parts": [
+        {
+          "name": "cim-publish--frames--f020.json-8201235bd1.gz",
+          "size": 564051,
+          "sha256": "2b95314c166650893539e461be956c8ba4c10b846673ec94071d6b1be731b3d6",
+          "contentType": "application/octet-stream",
+          "part": 1,
+          "releaseUrl": "https://github.com/sideralmeteorologia/sideral-web/releases/download/sideral-data-cim-wrf-8km-wrf-gfs-latest/cim-publish--frames--f020.json-8201235bd1.gz",
+          "url": "https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/sideral-data-cim-wrf-8km-wrf-gfs-latest/assets/cim-publish--frames--f020.json-8201235bd1.gz"
+        }
+      ],
+      "asset": "cim-publish--frames--f020.json-8201235bd1.gz"
+    },
+    {
+      "path": "cim_publish/frames/f021.json.gz",
+      "size": 565020,
+      "sha256": "3b7034f70fbf94875c69f1948e4bfadf38aa9a6c1d9619d5c143a645c14b42d8",
+      "contentType": "application/octet-stream",
+      "parts": [
+        {
+          "name": "cim-publish--frames--f021.json-76661cea40.gz",
+          "size": 565020,
+          "sha256": "3b7034f70fbf94875c69f1948e4bfadf38aa9a6c1d9619d5c143a645c14b42d8",
+          "contentType": "application/octet-stream",
+          "part": 1,
+          "releaseUrl": "https://github.com/sideralmeteorologia/sideral-web/releases/download/sideral-data-cim-wrf-8km-wrf-gfs-latest/cim-publish--frames--f021.json-76661cea40.gz",
+          "url": "https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/sideral-data-cim-wrf-8km-wrf-gfs-latest/assets/cim-publish--frames--f021.json-76661cea40.gz"
+        }
+      ],
+      "asset": "cim-publish--frames--f021.json-76661cea40.gz"
+    },
+    {
+      "path": "cim_publish/frames/f022.json.gz",
+      "size": 567815,
+      "sha256": "71123e2f34a47fe8c57610a019fc47a4541fdc08e79b5b8242c70d15c15130ca",
+      "contentType": "application/octet-stream",
+      "parts": [
+        {
+          "name": "cim-publish--frames--f022.json-4edb1e2e23.gz",
+          "size": 567815,
+          "sha256": "71123e2f34a47fe8c57610a019fc47a4541fdc08e79b5b8242c70d15c15130ca",
+          "contentType": "application/octet-stream",
+          "part": 1,
+          "releaseUrl": "https://github.com/sideralmeteorologia/sideral-web/releases/download/sideral-data-cim-wrf-8km-wrf-gfs-latest/cim-publish--frames--f022.json-4edb1e2e23.gz",
+          "url": "https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/sideral-data-cim-wrf-8km-wrf-gfs-latest/assets/cim-publish--frames--f022.json-4edb1e2e23.gz"
+        }
+      ],
+      "asset": "cim-publish--frames--f022.json-4edb1e2e23.gz"
+    },
+    {
+      "path": "cim_publish/frames/f023.json.gz",
+      "size": 569014,
+      "sha256": "51e139286fd2143be406a6552a073fd1e015836809e040fb768653cc538fc3af",
+      "contentType": "application/octet-stream",
+      "parts": [
+        {
+          "name": "cim-publish--frames--f023.json-16b1e8fad7.gz",
+          "size": 569014,
+          "sha256": "51e139286fd2143be406a6552a073fd1e015836809e040fb768653cc538fc3af",
+          "contentType": "application/octet-stream",
+          "part": 1,
+          "releaseUrl": "https://github.com/sideralmeteorologia/sideral-web/releases/download/sideral-data-cim-wrf-8km-wrf-gfs-latest/cim-publish--frames--f023.json-16b1e8fad7.gz",
+          "url": "https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/sideral-data-cim-wrf-8km-wrf-gfs-latest/assets/cim-publish--frames--f023.json-16b1e8fad7.gz"
+        }
+      ],
+      "asset": "cim-publish--frames--f023.json-16b1e8fad7.gz"
+    },
+    {
+      "path": "cim_publish/frames/f024.json.gz",
+      "size": 569648,
+      "sha256": "54113c8315ec673dcca6ae085a639b1d7441b7353caccdd3ca844e3527ba8009",
+      "contentType": "application/octet-stream",
+      "parts": [
+        {
+          "name": "cim-publish--frames--f024.json-33160c97a6.gz",
+          "size": 569648,
+          "sha256": "54113c8315ec673dcca6ae085a639b1d7441b7353caccdd3ca844e3527ba8009",
+          "contentType": "application/octet-stream",
+          "part": 1,
+          "releaseUrl": "https://github.com/sideralmeteorologia/sideral-web/releases/download/sideral-data-cim-wrf-8km-wrf-gfs-latest/cim-publish--frames--f024.json-33160c97a6.gz",
+          "url": "https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/sideral-data-cim-wrf-8km-wrf-gfs-latest/assets/cim-publish--frames--f024.json-33160c97a6.gz"
+        }
+      ],
+      "asset": "cim-publish--frames--f024.json-33160c97a6.gz"
+    },
+    {
+      "path": "cim_publish/frames/f025.json.gz",
+      "size": 567941,
+      "sha256": "510fe3f221c1b089c1502e0e566b6d529131cdf039588a10359ba77242e81ef8",
+      "contentType": "application/octet-stream",
+      "parts": [
+        {
+          "name": "cim-publish--frames--f025.json-83cddd84a0.gz",
+          "size": 567941,
+          "sha256": "510fe3f221c1b089c1502e0e566b6d529131cdf039588a10359ba77242e81ef8",
+          "contentType": "application/octet-stream",
+          "part": 1,
+          "releaseUrl": "https://github.com/sideralmeteorologia/sideral-web/releases/download/sideral-data-cim-wrf-8km-wrf-gfs-latest/cim-publish--frames--f025.json-83cddd84a0.gz",
+          "url": "https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/sideral-data-cim-wrf-8km-wrf-gfs-latest/assets/cim-publish--frames--f025.json-83cddd84a0.gz"
+        }
+      ],
+      "asset": "cim-publish--frames--f025.json-83cddd84a0.gz"
+    },
+    {
+      "path": "cim_publish/frames/f026.json.gz",
+      "size": 565259,
+      "sha256": "01434548c9eceb6571e020309446539fc46f0c9d4f31f46b24ade3f2492bbbb5",
+      "contentType": "application/octet-stream",
+      "parts": [
+        {
+          "name": "cim-publish--frames--f026.json-c1a174628d.gz",
+          "size": 565259,
+          "sha256": "01434548c9eceb6571e020309446539fc46f0c9d4f31f46b24ade3f2492bbbb5",
+          "contentType": "application/octet-stream",
+          "part": 1,
+          "releaseUrl": "https://github.com/sideralmeteorologia/sideral-web/releases/download/sideral-data-cim-wrf-8km-wrf-gfs-latest/cim-publish--frames--f026.json-c1a174628d.gz",
+          "url": "https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/sideral-data-cim-wrf-8km-wrf-gfs-latest/assets/cim-publish--frames--f026.json-c1a174628d.gz"
+        }
+      ],
+      "asset": "cim-publish--frames--f026.json-c1a174628d.gz"
+    },
+    {
+      "path": "cim_publish/frames/f027.json.gz",
+      "size": 560915,
+      "sha256": "578411a234c3a8d42f4d74fc029d599a8ba6134fa11a871efce2e5b7439982f7",
+      "contentType": "application/octet-stream",
+      "parts": [
+        {
+          "name": "cim-publish--frames--f027.json-ef1e051f84.gz",
+          "size": 560915,
+          "sha256": "578411a234c3a8d42f4d74fc029d599a8ba6134fa11a871efce2e5b7439982f7",
+          "contentType": "application/octet-stream",
+          "part": 1,
+          "releaseUrl": "https://github.com/sideralmeteorologia/sideral-web/releases/download/sideral-data-cim-wrf-8km-wrf-gfs-latest/cim-publish--frames--f027.json-ef1e051f84.gz",
+          "url": "https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/sideral-data-cim-wrf-8km-wrf-gfs-latest/assets/cim-publish--frames--f027.json-ef1e051f84.gz"
+        }
+      ],
+      "asset": "cim-publish--frames--f027.json-ef1e051f84.gz"
+    },
+    {
+      "path": "cim_publish/frames/f028.json.gz",
+      "size": 555639,
+      "sha256": "4e816d447b60616f1d4431d9e5e326bd07278521f9e8820919e0f23ddbc42282",
+      "contentType": "application/octet-stream",
+      "parts": [
+        {
+          "name": "cim-publish--frames--f028.json-822086086f.gz",
+          "size": 555639,
+          "sha256": "4e816d447b60616f1d4431d9e5e326bd07278521f9e8820919e0f23ddbc42282",
+          "contentType": "application/octet-stream",
+          "part": 1,
+          "releaseUrl": "https://github.com/sideralmeteorologia/sideral-web/releases/download/sideral-data-cim-wrf-8km-wrf-gfs-latest/cim-publish--frames--f028.json-822086086f.gz",
+          "url": "https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/sideral-data-cim-wrf-8km-wrf-gfs-latest/assets/cim-publish--frames--f028.json-822086086f.gz"
+        }
+      ],
+      "asset": "cim-publish--frames--f028.json-822086086f.gz"
+    },
+    {
+      "path": "cim_publish/frames/f029.json.gz",
+      "size": 552835,
+      "sha256": "97f731e5d63235055a2f3340aa4d95f0f13d434162a9d1522cc4849d9f72e927",
+      "contentType": "application/octet-stream",
+      "parts": [
+        {
+          "name": "cim-publish--frames--f029.json-a91d5ffc97.gz",
+          "size": 552835,
+          "sha256": "97f731e5d63235055a2f3340aa4d95f0f13d434162a9d1522cc4849d9f72e927",
+          "contentType": "application/octet-stream",
+          "part": 1,
+          "releaseUrl": "https://github.com/sideralmeteorologia/sideral-web/releases/download/sideral-data-cim-wrf-8km-wrf-gfs-latest/cim-publish--frames--f029.json-a91d5ffc97.gz",
+          "url": "https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/sideral-data-cim-wrf-8km-wrf-gfs-latest/assets/cim-publish--frames--f029.json-a91d5ffc97.gz"
+        }
+      ],
+      "asset": "cim-publish--frames--f029.json-a91d5ffc97.gz"
+    },
+    {
+      "path": "cim_publish/frames/f030.json.gz",
+      "size": 550600,
+      "sha256": "a4f49b7092d491b8639fb2ec3f63166d6ed94bc2758dd236d0ebca0125439c2f",
+      "contentType": "application/octet-stream",
+      "parts": [
+        {
+          "name": "cim-publish--frames--f030.json-3742437cf3.gz",
+          "size": 550600,
+          "sha256": "a4f49b7092d491b8639fb2ec3f63166d6ed94bc2758dd236d0ebca0125439c2f",
+          "contentType": "application/octet-stream",
+          "part": 1,
+          "releaseUrl": "https://github.com/sideralmeteorologia/sideral-web/releases/download/sideral-data-cim-wrf-8km-wrf-gfs-latest/cim-publish--frames--f030.json-3742437cf3.gz",
+          "url": "https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/sideral-data-cim-wrf-8km-wrf-gfs-latest/assets/cim-publish--frames--f030.json-3742437cf3.gz"
+        }
+      ],
+      "asset": "cim-publish--frames--f030.json-3742437cf3.gz"
+    },
+    {
+      "path": "cim_publish/frames/f031.json.gz",
+      "size": 547362,
+      "sha256": "fa0f114e19abe0cc4cdcb5e5a65a986cfb8c4b8b9cc23cd00b97628f236080b0",
+      "contentType": "application/octet-stream",
+      "parts": [
+        {
+          "name": "cim-publish--frames--f031.json-93199b246c.gz",
+          "size": 547362,
+          "sha256": "fa0f114e19abe0cc4cdcb5e5a65a986cfb8c4b8b9cc23cd00b97628f236080b0",
+          "contentType": "application/octet-stream",
+          "part": 1,
+          "releaseUrl": "https://github.com/sideralmeteorologia/sideral-web/releases/download/sideral-data-cim-wrf-8km-wrf-gfs-latest/cim-publish--frames--f031.json-93199b246c.gz",
+          "url": "https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/sideral-data-cim-wrf-8km-wrf-gfs-latest/assets/cim-publish--frames--f031.json-93199b246c.gz"
+        }
+      ],
+      "asset": "cim-publish--frames--f031.json-93199b246c.gz"
+    },
+    {
+      "path": "cim_publish/frames/f032.json.gz",
+      "size": 545847,
+      "sha256": "6b9eae1f46a8baa55111950a5881967bf2909a32c899fa58eadb59e22d55ee38",
+      "contentType": "application/octet-stream",
+      "parts": [
+        {
+          "name": "cim-publish--frames--f032.json-36e2683768.gz",
+          "size": 545847,
+          "sha256": "6b9eae1f46a8baa55111950a5881967bf2909a32c899fa58eadb59e22d55ee38",
+          "contentType": "application/octet-stream",
+          "part": 1,
+          "releaseUrl": "https://github.com/sideralmeteorologia/sideral-web/releases/download/sideral-data-cim-wrf-8km-wrf-gfs-latest/cim-publish--frames--f032.json-36e2683768.gz",
+          "url": "https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/sideral-data-cim-wrf-8km-wrf-gfs-latest/assets/cim-publish--frames--f032.json-36e2683768.gz"
+        }
+      ],
+      "asset": "cim-publish--frames--f032.json-36e2683768.gz"
+    },
+    {
+      "path": "cim_publish/frames/f033.json.gz",
+      "size": 545507,
+      "sha256": "e021ac7bbcb7b1b089ee22b177ca47316722353af3face36027573402ba246d2",
+      "contentType": "application/octet-stream",
+      "parts": [
+        {
+          "name": "cim-publish--frames--f033.json-da03fd2bf4.gz",
+          "size": 545507,
+          "sha256": "e021ac7bbcb7b1b089ee22b177ca47316722353af3face36027573402ba246d2",
+          "contentType": "application/octet-stream",
+          "part": 1,
+          "releaseUrl": "https://github.com/sideralmeteorologia/sideral-web/releases/download/sideral-data-cim-wrf-8km-wrf-gfs-latest/cim-publish--frames--f033.json-da03fd2bf4.gz",
+          "url": "https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/sideral-data-cim-wrf-8km-wrf-gfs-latest/assets/cim-publish--frames--f033.json-da03fd2bf4.gz"
+        }
+      ],
+      "asset": "cim-publish--frames--f033.json-da03fd2bf4.gz"
+    },
+    {
+      "path": "cim_publish/frames/f034.json.gz",
+      "size": 548717,
+      "sha256": "9bbff969d012225c60ac041ffad4dbb599d0f3eba1f58ed9aa14e00a6c1f4fce",
+      "contentType": "application/octet-stream",
+      "parts": [
+        {
+          "name": "cim-publish--frames--f034.json-001d6c4d7d.gz",
+          "size": 548717,
+          "sha256": "9bbff969d012225c60ac041ffad4dbb599d0f3eba1f58ed9aa14e00a6c1f4fce",
+          "contentType": "application/octet-stream",
+          "part": 1,
+          "releaseUrl": "https://github.com/sideralmeteorologia/sideral-web/releases/download/sideral-data-cim-wrf-8km-wrf-gfs-latest/cim-publish--frames--f034.json-001d6c4d7d.gz",
+          "url": "https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/sideral-data-cim-wrf-8km-wrf-gfs-latest/assets/cim-publish--frames--f034.json-001d6c4d7d.gz"
+        }
+      ],
+      "asset": "cim-publish--frames--f034.json-001d6c4d7d.gz"
+    },
+    {
+      "path": "cim_publish/frames/f035.json.gz",
+      "size": 552193,
+      "sha256": "ce6402f4eafc8ca823f6faa0c76bc930ac10957ce7306cb4b0cad85e6e57429b",
+      "contentType": "application/octet-stream",
+      "parts": [
+        {
+          "name": "cim-publish--frames--f035.json-9854a1c13f.gz",
+          "size": 552193,
+          "sha256": "ce6402f4eafc8ca823f6faa0c76bc930ac10957ce7306cb4b0cad85e6e57429b",
+          "contentType": "application/octet-stream",
+          "part": 1,
+          "releaseUrl": "https://github.com/sideralmeteorologia/sideral-web/releases/download/sideral-data-cim-wrf-8km-wrf-gfs-latest/cim-publish--frames--f035.json-9854a1c13f.gz",
+          "url": "https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/sideral-data-cim-wrf-8km-wrf-gfs-latest/assets/cim-publish--frames--f035.json-9854a1c13f.gz"
+        }
+      ],
+      "asset": "cim-publish--frames--f035.json-9854a1c13f.gz"
+    },
+    {
+      "path": "cim_publish/frames/f036.json.gz",
+      "size": 551629,
+      "sha256": "d05cda648d227ebc48b66e0e52fc1de224233bdf092e409063d2773b214b7734",
+      "contentType": "application/octet-stream",
+      "parts": [
+        {
+          "name": "cim-publish--frames--f036.json-2226047347.gz",
+          "size": 551629,
+          "sha256": "d05cda648d227ebc48b66e0e52fc1de224233bdf092e409063d2773b214b7734",
+          "contentType": "application/octet-stream",
+          "part": 1,
+          "releaseUrl": "https://github.com/sideralmeteorologia/sideral-web/releases/download/sideral-data-cim-wrf-8km-wrf-gfs-latest/cim-publish--frames--f036.json-2226047347.gz",
+          "url": "https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/sideral-data-cim-wrf-8km-wrf-gfs-latest/assets/cim-publish--frames--f036.json-2226047347.gz"
+        }
+      ],
+      "asset": "cim-publish--frames--f036.json-2226047347.gz"
+    },
+    {
+      "path": "cim_publish/frames/f037.json.gz",
+      "size": 547133,
+      "sha256": "d79a117a3d5b520558eccf055d1dde10ab7f5d2aaeb475a8871feb37dffca89f",
+      "contentType": "application/octet-stream",
+      "parts": [
+        {
+          "name": "cim-publish--frames--f037.json-85deee0acc.gz",
+          "size": 547133,
+          "sha256": "d79a117a3d5b520558eccf055d1dde10ab7f5d2aaeb475a8871feb37dffca89f",
+          "contentType": "application/octet-stream",
+          "part": 1,
+          "releaseUrl": "https://github.com/sideralmeteorologia/sideral-web/releases/download/sideral-data-cim-wrf-8km-wrf-gfs-latest/cim-publish--frames--f037.json-85deee0acc.gz",
+          "url": "https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/sideral-data-cim-wrf-8km-wrf-gfs-latest/assets/cim-publish--frames--f037.json-85deee0acc.gz"
+        }
+      ],
+      "asset": "cim-publish--frames--f037.json-85deee0acc.gz"
+    },
+    {
+      "path": "cim_publish/frames/f038.json.gz",
+      "size": 541579,
+      "sha256": "a65432ba119d1c47c5087435b0d2770cb737e3b0844998300afa4efd32d1b063",
+      "contentType": "application/octet-stream",
+      "parts": [
+        {
+          "name": "cim-publish--frames--f038.json-579b5127c3.gz",
+          "size": 541579,
+          "sha256": "a65432ba119d1c47c5087435b0d2770cb737e3b0844998300afa4efd32d1b063",
+          "contentType": "application/octet-stream",
+          "part": 1,
+          "releaseUrl": "https://github.com/sideralmeteorologia/sideral-web/releases/download/sideral-data-cim-wrf-8km-wrf-gfs-latest/cim-publish--frames--f038.json-579b5127c3.gz",
+          "url": "https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/sideral-data-cim-wrf-8km-wrf-gfs-latest/assets/cim-publish--frames--f038.json-579b5127c3.gz"
+        }
+      ],
+      "asset": "cim-publish--frames--f038.json-579b5127c3.gz"
+    },
+    {
+      "path": "cim_publish/frames/f039.json.gz",
+      "size": 534432,
+      "sha256": "b1fe41028f23815dc5307145abdb4eb056b449ac0dbb1060dba4a78291af5776",
+      "contentType": "application/octet-stream",
+      "parts": [
+        {
+          "name": "cim-publish--frames--f039.json-fe0026a4d4.gz",
+          "size": 534432,
+          "sha256": "b1fe41028f23815dc5307145abdb4eb056b449ac0dbb1060dba4a78291af5776",
+          "contentType": "application/octet-stream",
+          "part": 1,
+          "releaseUrl": "https://github.com/sideralmeteorologia/sideral-web/releases/download/sideral-data-cim-wrf-8km-wrf-gfs-latest/cim-publish--frames--f039.json-fe0026a4d4.gz",
+          "url": "https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/sideral-data-cim-wrf-8km-wrf-gfs-latest/assets/cim-publish--frames--f039.json-fe0026a4d4.gz"
+        }
+      ],
+      "asset": "cim-publish--frames--f039.json-fe0026a4d4.gz"
+    },
+    {
+      "path": "cim_publish/frames/f040.json.gz",
+      "size": 525862,
+      "sha256": "bef7b22e64a2a2eef797f92e41daf2abc2f373da2947e07a52a046a6c9a4d8e9",
+      "contentType": "application/octet-stream",
+      "parts": [
+        {
+          "name": "cim-publish--frames--f040.json-c7e40beb41.gz",
+          "size": 525862,
+          "sha256": "bef7b22e64a2a2eef797f92e41daf2abc2f373da2947e07a52a046a6c9a4d8e9",
+          "contentType": "application/octet-stream",
+          "part": 1,
+          "releaseUrl": "https://github.com/sideralmeteorologia/sideral-web/releases/download/sideral-data-cim-wrf-8km-wrf-gfs-latest/cim-publish--frames--f040.json-c7e40beb41.gz",
+          "url": "https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/sideral-data-cim-wrf-8km-wrf-gfs-latest/assets/cim-publish--frames--f040.json-c7e40beb41.gz"
+        }
+      ],
+      "asset": "cim-publish--frames--f040.json-c7e40beb41.gz"
+    },
+    {
+      "path": "cim_publish/metadata.json",
+      "size": 11646,
+      "sha256": "19912665aadce8d4077b034ba394f32a5b923b069e0733d885431cc63c70e010",
+      "contentType": "application/json",
+      "parts": [
+        {
+          "name": "cim-publish--metadata-26c321448b.json",
+          "size": 11646,
+          "sha256": "19912665aadce8d4077b034ba394f32a5b923b069e0733d885431cc63c70e010",
+          "contentType": "application/json",
+          "part": 1,
+          "releaseUrl": "https://github.com/sideralmeteorologia/sideral-web/releases/download/sideral-data-cim-wrf-8km-wrf-gfs-latest/cim-publish--metadata-26c321448b.json",
+          "url": "https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/sideral-data-cim-wrf-8km-wrf-gfs-latest/assets/cim-publish--metadata-26c321448b.json"
+        }
+      ],
+      "asset": "cim-publish--metadata-26c321448b.json"
+    },
+    {
+      "path": "docs/wrf-agent/evidencias/wrf-audit.json",
+      "size": 215271,
+      "sha256": "13c811e620c4f44fd0dd9f601a77325e41987509f13f1ce857e9594c15faf979",
+      "contentType": "application/json",
+      "parts": [
+        {
+          "name": "docs--wrf-agent--evidencias--wrf-audit-c447d6afc5.json",
+          "size": 215271,
+          "sha256": "13c811e620c4f44fd0dd9f601a77325e41987509f13f1ce857e9594c15faf979",
+          "contentType": "application/json",
+          "part": 1,
+          "releaseUrl": "https://github.com/sideralmeteorologia/sideral-web/releases/download/sideral-data-cim-wrf-8km-wrf-gfs-latest/docs--wrf-agent--evidencias--wrf-audit-c447d6afc5.json",
+          "url": "https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/sideral-data-cim-wrf-8km-wrf-gfs-latest/assets/docs--wrf-agent--evidencias--wrf-audit-c447d6afc5.json"
+        }
+      ],
+      "asset": "docs--wrf-agent--evidencias--wrf-audit-c447d6afc5.json"
+    },
+    {
+      "path": "runners/cbr/shared/cbr_variable_catalog.json",
+      "size": 5232,
+      "sha256": "b34dc5080ba192ff6d35460839f38e53618a4456a7de7bb2ba9c78c3225df26f",
+      "contentType": "application/json",
+      "parts": [
+        {
+          "name": "runners--cbr--shared--cbr_variable_catalog-bb8328b955.json",
+          "size": 5232,
+          "sha256": "b34dc5080ba192ff6d35460839f38e53618a4456a7de7bb2ba9c78c3225df26f",
+          "contentType": "application/json",
+          "part": 1,
+          "releaseUrl": "https://github.com/sideralmeteorologia/sideral-web/releases/download/sideral-data-cim-wrf-8km-wrf-gfs-latest/runners--cbr--shared--cbr_variable_catalog-bb8328b955.json",
+          "url": "https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/sideral-data-cim-wrf-8km-wrf-gfs-latest/assets/runners--cbr--shared--cbr_variable_catalog-bb8328b955.json"
+        }
+      ],
+      "asset": "runners--cbr--shared--cbr_variable_catalog-bb8328b955.json"
+    },
+    {
+      "path": "runners/cim5/shared/cim4_variable_catalog.json",
+      "size": 2179,
+      "sha256": "16be35e080f57b5da6b545d16b9d7f637f3296752d5bf6799ef702a234b919b1",
+      "contentType": "application/json",
+      "parts": [
+        {
+          "name": "runners--cim5--shared--cim4_variable_catalog-9978488d97.json",
+          "size": 2179,
+          "sha256": "16be35e080f57b5da6b545d16b9d7f637f3296752d5bf6799ef702a234b919b1",
+          "contentType": "application/json",
+          "part": 1,
+          "releaseUrl": "https://github.com/sideralmeteorologia/sideral-web/releases/download/sideral-data-cim-wrf-8km-wrf-gfs-latest/runners--cim5--shared--cim4_variable_catalog-9978488d97.json",
+          "url": "https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/sideral-data-cim-wrf-8km-wrf-gfs-latest/assets/runners--cim5--shared--cim4_variable_catalog-9978488d97.json"
+        }
+      ],
+      "asset": "runners--cim5--shared--cim4_variable_catalog-9978488d97.json"
+    },
+    {
+      "path": "runners/cim5/wrf2/cim4_wrf2_variable_catalog.json",
+      "size": 1189,
+      "sha256": "7083ce4a131557bc107bb33206aa196808ef33ce8b7b092691550664ac6d9f2f",
+      "contentType": "application/json",
+      "parts": [
+        {
+          "name": "runners--cim5--wrf2--cim4_wrf2_variable_catalog-d506a69739.json",
+          "size": 1189,
+          "sha256": "7083ce4a131557bc107bb33206aa196808ef33ce8b7b092691550664ac6d9f2f",
+          "contentType": "application/json",
+          "part": 1,
+          "releaseUrl": "https://github.com/sideralmeteorologia/sideral-web/releases/download/sideral-data-cim-wrf-8km-wrf-gfs-latest/runners--cim5--wrf2--cim4_wrf2_variable_catalog-d506a69739.json",
+          "url": "https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/sideral-data-cim-wrf-8km-wrf-gfs-latest/assets/runners--cim5--wrf2--cim4_wrf2_variable_catalog-d506a69739.json"
+        }
+      ],
+      "asset": "runners--cim5--wrf2--cim4_wrf2_variable_catalog-d506a69739.json"
+    },
+    {
+      "path": "runners/sudeste/shared/sideral_wrf_4km_2_sudeste_variable_catalog.json",
+      "size": 3483,
+      "sha256": "1faaf81063caf6756f653dc613ce3c8976ea81f786452c1f3c1e02cfd3fa0668",
+      "contentType": "application/json",
+      "parts": [
+        {
+          "name": "runners--sudeste--shared--sideral_wrf_4km_2_sudeste_variable_catalog-279e970514.json",
+          "size": 3483,
+          "sha256": "1faaf81063caf6756f653dc613ce3c8976ea81f786452c1f3c1e02cfd3fa0668",
+          "contentType": "application/json",
+          "part": 1,
+          "releaseUrl": "https://github.com/sideralmeteorologia/sideral-web/releases/download/sideral-data-cim-wrf-8km-wrf-gfs-latest/runners--sudeste--shared--sideral_wrf_4km_2_sudeste_variable_catalog-279e970514.json",
+          "url": "https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/sideral-data-cim-wrf-8km-wrf-gfs-latest/assets/runners--sudeste--shared--sideral_wrf_4km_2_sudeste_variable_catalog-279e970514.json"
+        }
+      ],
+      "asset": "runners--sudeste--shared--sideral_wrf_4km_2_sudeste_variable_catalog-279e970514.json"
+    },
+    {
+      "path": "runners/sudeste/shared/sideral_wrf_4km_sudeste_variable_catalog.json",
+      "size": 3479,
+      "sha256": "c81e3b4dd68e3ab00a53a5e56b14884f6604281a2d392ec29d47573211bef7e6",
+      "contentType": "application/json",
+      "parts": [
+        {
+          "name": "runners--sudeste--shared--sideral_wrf_4km_sudeste_variable_catalog-5ac9df429f.json",
+          "size": 3479,
+          "sha256": "c81e3b4dd68e3ab00a53a5e56b14884f6604281a2d392ec29d47573211bef7e6",
+          "contentType": "application/json",
+          "part": 1,
+          "releaseUrl": "https://github.com/sideralmeteorologia/sideral-web/releases/download/sideral-data-cim-wrf-8km-wrf-gfs-latest/runners--sudeste--shared--sideral_wrf_4km_sudeste_variable_catalog-5ac9df429f.json",
+          "url": "https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/sideral-data-cim-wrf-8km-wrf-gfs-latest/assets/runners--sudeste--shared--sideral_wrf_4km_sudeste_variable_catalog-5ac9df429f.json"
+        }
+      ],
+      "asset": "runners--sudeste--shared--sideral_wrf_4km_sudeste_variable_catalog-5ac9df429f.json"
+    },
+    {
+      "path": "runners/sudeste/shared/sideral_wrf_5km_2_sudeste_variable_catalog.json",
+      "size": 3483,
+      "sha256": "0536709ced6762b090cd4760a5150149eb49bb0fa053a54c7dd5820d8e0aeefb",
+      "contentType": "application/json",
+      "parts": [
+        {
+          "name": "runners--sudeste--shared--sideral_wrf_5km_2_sudeste_variable_catalog-666319ca34.json",
+          "size": 3483,
+          "sha256": "0536709ced6762b090cd4760a5150149eb49bb0fa053a54c7dd5820d8e0aeefb",
+          "contentType": "application/json",
+          "part": 1,
+          "releaseUrl": "https://github.com/sideralmeteorologia/sideral-web/releases/download/sideral-data-cim-wrf-8km-wrf-gfs-latest/runners--sudeste--shared--sideral_wrf_5km_2_sudeste_variable_catalog-666319ca34.json",
+          "url": "https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/sideral-data-cim-wrf-8km-wrf-gfs-latest/assets/runners--sudeste--shared--sideral_wrf_5km_2_sudeste_variable_catalog-666319ca34.json"
+        }
+      ],
+      "asset": "runners--sudeste--shared--sideral_wrf_5km_2_sudeste_variable_catalog-666319ca34.json"
+    },
+    {
+      "path": "runners/sudeste/shared/sideral_wrf_5km_sudeste_variable_catalog.json",
+      "size": 3479,
+      "sha256": "8425483a2a607c37d8f602754710685ee62af4ec4de0da6949b6c2cb82f3e2de",
+      "contentType": "application/json",
+      "parts": [
+        {
+          "name": "runners--sudeste--shared--sideral_wrf_5km_sudeste_variable_catalog-c28e5d1235.json",
+          "size": 3479,
+          "sha256": "8425483a2a607c37d8f602754710685ee62af4ec4de0da6949b6c2cb82f3e2de",
+          "contentType": "application/json",
+          "part": 1,
+          "releaseUrl": "https://github.com/sideralmeteorologia/sideral-web/releases/download/sideral-data-cim-wrf-8km-wrf-gfs-latest/runners--sudeste--shared--sideral_wrf_5km_sudeste_variable_catalog-c28e5d1235.json",
+          "url": "https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/sideral-data-cim-wrf-8km-wrf-gfs-latest/assets/runners--sudeste--shared--sideral_wrf_5km_sudeste_variable_catalog-c28e5d1235.json"
+        }
+      ],
+      "asset": "runners--sudeste--shared--sideral_wrf_5km_sudeste_variable_catalog-c28e5d1235.json"
+    },
+    {
+      "path": "runners/sudeste/shared/tarc_variable_catalog.json",
+      "size": 5224,
+      "sha256": "4e724b4622958baac23442402e644a1139b834125ff429c3a4649a487458d2a0",
+      "contentType": "application/json",
+      "parts": [
+        {
+          "name": "runners--sudeste--shared--tarc_variable_catalog-0f2c555090.json",
+          "size": 5224,
+          "sha256": "4e724b4622958baac23442402e644a1139b834125ff429c3a4649a487458d2a0",
+          "contentType": "application/json",
+          "part": 1,
+          "releaseUrl": "https://github.com/sideralmeteorologia/sideral-web/releases/download/sideral-data-cim-wrf-8km-wrf-gfs-latest/runners--sudeste--shared--tarc_variable_catalog-0f2c555090.json",
+          "url": "https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/sideral-data-cim-wrf-8km-wrf-gfs-latest/assets/runners--sudeste--shared--tarc_variable_catalog-0f2c555090.json"
+        }
+      ],
+      "asset": "runners--sudeste--shared--tarc_variable_catalog-0f2c555090.json"
+    },
+    {
+      "path": "runners/tarc/shared/tarc_variable_catalog.json",
+      "size": 5224,
+      "sha256": "4e724b4622958baac23442402e644a1139b834125ff429c3a4649a487458d2a0",
+      "contentType": "application/json",
+      "parts": [
+        {
+          "name": "runners--tarc--shared--tarc_variable_catalog-58a4dec2b5.json",
+          "size": 5224,
+          "sha256": "4e724b4622958baac23442402e644a1139b834125ff429c3a4649a487458d2a0",
+          "contentType": "application/json",
+          "part": 1,
+          "releaseUrl": "https://github.com/sideralmeteorologia/sideral-web/releases/download/sideral-data-cim-wrf-8km-wrf-gfs-latest/runners--tarc--shared--tarc_variable_catalog-58a4dec2b5.json",
+          "url": "https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/sideral-data-cim-wrf-8km-wrf-gfs-latest/assets/runners--tarc--shared--tarc_variable_catalog-58a4dec2b5.json"
+        }
+      ],
+      "asset": "runners--tarc--shared--tarc_variable_catalog-58a4dec2b5.json"
+    },
+    {
+      "path": "runners/tarc/wrf2/tarc_variable_catalog_wrf2.json",
+      "size": 5405,
+      "sha256": "a7e033dacb61ae9dce1c635772b4d2ec6952d5a66ab64ae3320563e8ee8b8c52",
+      "contentType": "application/json",
+      "parts": [
+        {
+          "name": "runners--tarc--wrf2--tarc_variable_catalog_wrf2-c5b77be220.json",
+          "size": 5405,
+          "sha256": "a7e033dacb61ae9dce1c635772b4d2ec6952d5a66ab64ae3320563e8ee8b8c52",
+          "contentType": "application/json",
+          "part": 1,
+          "releaseUrl": "https://github.com/sideralmeteorologia/sideral-web/releases/download/sideral-data-cim-wrf-8km-wrf-gfs-latest/runners--tarc--wrf2--tarc_variable_catalog_wrf2-c5b77be220.json",
+          "url": "https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/sideral-data-cim-wrf-8km-wrf-gfs-latest/assets/runners--tarc--wrf2--tarc_variable_catalog_wrf2-c5b77be220.json"
+        }
+      ],
+      "asset": "runners--tarc--wrf2--tarc_variable_catalog_wrf2-c5b77be220.json"
+    },
+    {
+      "path": "schemas/wrf-products.schema.json",
+      "size": 843,
+      "sha256": "7b7489978bdc971189261d169f102b5a11d60d1acab5cb84bdf7b15f755cdaba",
+      "contentType": "application/json",
+      "parts": [
+        {
+          "name": "schemas--wrf-products.schema-77315b055b.json",
+          "size": 843,
+          "sha256": "7b7489978bdc971189261d169f102b5a11d60d1acab5cb84bdf7b15f755cdaba",
+          "contentType": "application/json",
+          "part": 1,
+          "releaseUrl": "https://github.com/sideralmeteorologia/sideral-web/releases/download/sideral-data-cim-wrf-8km-wrf-gfs-latest/schemas--wrf-products.schema-77315b055b.json",
+          "url": "https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/sideral-data-cim-wrf-8km-wrf-gfs-latest/assets/schemas--wrf-products.schema-77315b055b.json"
+        }
+      ],
+      "asset": "schemas--wrf-products.schema-77315b055b.json"
+    },
+    {
+      "path": "wrf_work/geog.tar.gz",
+      "size": 149872777,
+      "sha256": "cbdbcc43554d946a38cbce658b7d563afd7a2889f2c0735b8aa3f2206c7256e7",
+      "contentType": "application/octet-stream",
+      "parts": [
+        {
+          "name": "wrf-work--geog.tar-df3e282130.gz.part001",
+          "size": 47185920,
+          "sha256": "c17d41a819d9860e5ce3539532aa6de16649fa59dcd5c79e88892e94d93aafc4",
+          "contentType": "application/octet-stream",
+          "part": 1,
+          "releaseUrl": "https://github.com/sideralmeteorologia/sideral-web/releases/download/sideral-data-cim-wrf-8km-wrf-gfs-latest/wrf-work--geog.tar-df3e282130.gz.part001",
+          "url": "https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/sideral-data-cim-wrf-8km-wrf-gfs-latest/assets/wrf-work--geog.tar-df3e282130.gz.part001"
+        },
+        {
+          "name": "wrf-work--geog.tar-df3e282130.gz.part002",
+          "size": 47185920,
+          "sha256": "2920e1cbafee628a71e83c91597682a4649684990d6c505b6d1ebe0976d9be1c",
+          "contentType": "application/octet-stream",
+          "part": 2,
+          "releaseUrl": "https://github.com/sideralmeteorologia/sideral-web/releases/download/sideral-data-cim-wrf-8km-wrf-gfs-latest/wrf-work--geog.tar-df3e282130.gz.part002",
+          "url": "https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/sideral-data-cim-wrf-8km-wrf-gfs-latest/assets/wrf-work--geog.tar-df3e282130.gz.part002"
+        },
+        {
+          "name": "wrf-work--geog.tar-df3e282130.gz.part003",
+          "size": 47185920,
+          "sha256": "f4a944d58807a8a0059aef529f23ee984594d2382a4b5f1d0b0fa14baf18df47",
+          "contentType": "application/octet-stream",
+          "part": 3,
+          "releaseUrl": "https://github.com/sideralmeteorologia/sideral-web/releases/download/sideral-data-cim-wrf-8km-wrf-gfs-latest/wrf-work--geog.tar-df3e282130.gz.part003",
+          "url": "https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/sideral-data-cim-wrf-8km-wrf-gfs-latest/assets/wrf-work--geog.tar-df3e282130.gz.part003"
+        },
+        {
+          "name": "wrf-work--geog.tar-df3e282130.gz.part004",
+          "size": 8315017,
+          "sha256": "eed3b8dacd80bfa997274142836769b628ca22743b2803980238b7d549e4b768",
+          "contentType": "application/octet-stream",
+          "part": 4,
+          "releaseUrl": "https://github.com/sideralmeteorologia/sideral-web/releases/download/sideral-data-cim-wrf-8km-wrf-gfs-latest/wrf-work--geog.tar-df3e282130.gz.part004",
+          "url": "https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/sideral-data-cim-wrf-8km-wrf-gfs-latest/assets/wrf-work--geog.tar-df3e282130.gz.part004"
+        }
+      ],
+      "chunked": true,
+      "reassemble": "Concatenate parts in ascending part order to reconstruct the original file."
+    }
+  ],
+  "notes": [
+    "Os arquivos finais são publicados em uma GitHub Release pública.",
+    "Para fetch() no navegador, use os URLs raw.githubusercontent.com presentes em parts.",
+    "Os nomes dos ativos são seguros para Windows; timestamps WRF originais ficam dentro dos arquivos.",
+    "Arquivos grandes são divididos em partes de até 45 MiB, descritas em parts.",
+    "A branch de dados é específica para este produto e mantém apenas a versão mais recente."
+  ],
+  "storage": "raw.githubusercontent.com",
+  "rawBaseUrl": "https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/sideral-data-cim-wrf-8km-wrf-gfs-latest",
+  "manifestUrl": "https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/sideral-data-cim-wrf-8km-wrf-gfs-latest/manifest.json"
+}
