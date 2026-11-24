@@ -323,17 +323,13 @@ jobs:
                   "wrf/prepare_restart_segment.py": "runners/metbr/shared/prepare_restart_segment.py",
               }
               embedded_scripts = {}
-              for line in content.splitlines():
-                  for embedded_path in embedded_paths:
-                      if f"base64 -d > '{embedded_path}'" in line:
-                          encoded = line.split("printf '%s' '", 1)[1].split("' | base64 -d >", 1)[0]
-                          embedded_scripts[embedded_path] = base64.b64decode(encoded).decode("utf-8")
               for embedded_path, source_path in embedded_paths.items():
-                  script = embedded_scripts.get(embedded_path)
-                  assert script is not None, f"{filename}: embedded {embedded_path} is missing"
+                  script_path = Path(embedded_path)
+                  assert script_path.is_file(), f"{filename}: {embedded_path} is missing"
+                  script = script_path.read_text(encoding="utf-8")
                   assert "\r" not in script, f"{filename}: {embedded_path} contains CRLF line endings"
                   assert script == Path(source_path).read_text(encoding="utf-8"), (
-                      f"{filename}: embedded {embedded_path} differs from its runner source"
+                      f"{filename}: {embedded_path} differs from its runner source"
                   )
                   if embedded_path.endswith(".sh"):
                       result = subprocess.run(
@@ -346,10 +342,11 @@ jobs:
                           check=False,
                       )
                       assert result.returncode == 0, (
-                          f"{filename}: embedded {embedded_path} shell syntax failed: {result.stderr}"
+                          f"{filename}: {embedded_path} shell syntax failed: {result.stderr}"
                       )
                   else:
                       compile(script, embedded_path, "exec")
+                  embedded_scripts[embedded_path] = script
               checkpoint_script = embedded_scripts["wrf/run_metbr_checkpoint_segment.sh"]
               gfs_script = embedded_scripts["wrf/run_metbr_gfs_segment.sh"]
               source_script = embedded_scripts["wrf/run_metbr_source_wrf.sh"]
@@ -423,12 +420,12 @@ jobs:
           for tarc_path in tarc_files:
               tarc_content = tarc_path.read_text(encoding="utf-8")
               tarc_cfg = yaml.load(tarc_content, Loader=yaml.BaseLoader)
-              checkpoint_script = None
-              restore_targets = []
-              for line in tarc_content.splitlines():
-                  if "base64 -d > 'wrf/run_tarc_checkpoint_segment.sh'" in line:
-                      encoded = line.split("printf '%s' '", 1)[1].split("' | base64 -d >", 1)[0]
-                      checkpoint_script = base64.b64decode(encoded).decode("utf-8")
+              checkpoint_script = Path("wrf/run_tarc_checkpoint_segment.sh").read_text(
+                  encoding="utf-8"
+              )
+              assert "base64 -d" not in tarc_content, (
+                  f"{tarc_path.name}: still embeds base64-decoded scripts"
+              )
               for job in (tarc_cfg.get("jobs") or {}).values():
                   for step in job.get("steps", []) or []:
                       if (step.get("name") or "").startswith("Register WRF artifact restore target"):
@@ -490,20 +487,19 @@ jobs:
               catalog_script = Path(source_path).read_text(encoding="utf-8")
               for workflow_path in workflows:
                   content = workflow_path.read_text(encoding="utf-8")
-                  encoded_scripts = [
-                      line.split("printf '%s' '", 1)[1].split("' | base64 -d >", 1)[0]
-                      for line in content.splitlines()
-                      if f"base64 -d > '{embedded_path}'" in line
-                  ]
-                  assert len(encoded_scripts) == 1, (
-                      f"{workflow_path.name}: expected one embedded {family} checkpoint script"
+                  assert "base64 -d" not in content, (
+                      f"{workflow_path.name}: still embeds base64-decoded scripts"
                   )
-                  script = base64.b64decode(encoded_scripts[0]).decode("utf-8")
+                  script_path = Path(embedded_path)
+                  assert script_path.is_file(), (
+                      f"{workflow_path.name}: {embedded_path} is missing"
+                  )
+                  script = script_path.read_text(encoding="utf-8")
                   assert "\r" not in script, (
-                      f"{workflow_path.name}: embedded {family} script contains CRLF line endings"
+                      f"{workflow_path.name}: {embedded_path} contains CRLF line endings"
                   )
                   assert script == catalog_script, (
-                      f"{workflow_path.name}: embedded {family} script differs from its runner source"
+                      f"{workflow_path.name}: {embedded_path} differs from its runner source"
                   )
                   result = subprocess.run(
                       ["bash", "-n"],
@@ -515,7 +511,7 @@ jobs:
                       check=False,
                   )
                   assert result.returncode == 0, (
-                      f"{workflow_path.name}: embedded {family} shell syntax failed: {result.stderr}"
+                      f"{workflow_path.name}: {embedded_path} shell syntax failed: {result.stderr}"
                   )
 
           # The CBR extractor must exist in seg00, before its first py_compile.

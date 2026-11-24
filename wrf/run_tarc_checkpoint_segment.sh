@@ -15,7 +15,7 @@ ROOT="$GITHUB_WORKSPACE"
 INPUT="$ROOT/tarc_restart_input"
 mkdir -p "$INPUT"
 
-(( START_HOUR >= 0 && END_HOUR > START_HOUR && START_HOUR % 3 == 0 && END_HOUR % 3 == 0 && END_HOUR <= 48 )) || {
+(( START_HOUR >= 0 && END_HOUR > START_HOUR && END_HOUR <= 48 )) || {
   echo "F000-F048 TARC: intervalo invalido" >&2
   exit 1
 }
@@ -28,14 +28,16 @@ done
 
 chmod +x wrf/run_tarc_checkpoint_segment.sh wrf/run_tarc_icon_wrf.sh wrf/run_tarc_ecmwf_wrf.sh wrf/run_tarc_gfs_wrf.sh wrf/run_tarc_wrf_with_source.sh wrf/run_tarc_restart_segment.sh
 
-export WRF_TARGET_RESOLUTION_KM="${WRF_TARGET_RESOLUTION_KM:-3}"
-export WRF_DX_METERS="${WRF_DX_METERS:-3000}" WRF_DY_METERS="${WRF_DY_METERS:-${WRF_DX_METERS:-3000}}"
-export WRF_E_WE="${WRF_E_WE:-361}" WRF_E_SN="${WRF_E_SN:-445}"
-export WRF_HISTORY_INTERVAL_MINUTES="${WRF_HISTORY_INTERVAL_MINUTES:-60}"
-export WRF_TIME_STEP="${WRF_TIME_STEP:-18}"
-export WRF_MPI_PROCS="${WRF_MPI_PROCS:-4}"
-export WRF_BOUNDARY_END_HOUR="$END_HOUR"
-export WRF_REF_LAT="${WRF_REF_LAT:--28.0}" WRF_REF_LON="${WRF_REF_LON:--53.5}" WRF_STAND_LON="${WRF_STAND_LON:--53.5}"
+export WRF_TARGET_RESOLUTION_KM=3
+export WRF_DX_METERS=3000 WRF_DY_METERS=3000
+export WRF_E_WE=361 WRF_E_SN=445
+export WRF_HISTORY_INTERVAL_MINUTES=60
+export WRF_TIME_STEP=18
+export WRF_MPI_PROCS=4
+BOUNDARY_GROUP_END=$(( ((START_HOUR / 3) + 1) * 3 ))
+(( BOUNDARY_GROUP_END > 48 )) && BOUNDARY_GROUP_END=48
+export WRF_BOUNDARY_END_HOUR="$BOUNDARY_GROUP_END"
+export WRF_REF_LAT=-28.0 WRF_REF_LON=-53.5 WRF_STAND_LON=-53.5
 export WRF_RUN_HOURS=$((END_HOUR-START_HOUR))
 export WRF_START_HOUR="$START_HOUR" WRF_END_HOUR="$END_HOUR"
 
@@ -79,7 +81,8 @@ prepare_source() {
 if [[ "$COLD_START" == "0" ]]; then
   rm -rf "$INPUT/normalized"
  : # checkpoint handled by GitHub Actions artifact
-  source tarc-run.env
+  source "$INPUT/tarc-run.env"
+  export RUN_DATE RUN_CYCLE SOURCE_MODEL
  : # checkpoint handled by GitHub Actions artifact
  : # checkpoint handled by GitHub Actions artifact
   mkdir -p "$INPUT/normalized"
@@ -88,47 +91,52 @@ if [[ "$COLD_START" == "0" ]]; then
     cp -f "$f" "$INPUT/normalized/$(basename "$f" | sed -E "s/^tarc-restart-$START_HOUR-//; s/_([0-9]{2})[.]([0-9]{2})[.]([0-9]{2})$/_\1:\2:\3/")"
   done
   cp -f "$INPUT/tarc-namelist.input" "$INPUT/normalized/namelist.input"
+  test -s "$INPUT/tarc-boundary-3km-wrfbdy_d01" || { echo "Boundary TARC ausente no checkpoint" >&2; exit 24; }
+  cp -f "$INPUT/tarc-boundary-3km-wrfbdy_d01" "$INPUT/normalized/wrfbdy_d01"
+  cp -f "$INPUT/tarc-run.env" "$ROOT/tarc-run.env"
 
-  # The previous checkpoint boundary ends at START_HOUR, so build a fresh
-  # ICON LBC covering START_HOUR..END_HOUR before restarting WRF.
-  export RUN_DATE RUN_CYCLE
-  export FORCE_RUN_DATE="$RUN_DATE" FORCE_RUN_CYCLE="$RUN_CYCLE"
-  export WRF_TARGET_RESOLUTION_KM="${WRF_TARGET_RESOLUTION_KM:-3}" WRF_DX_METERS="${WRF_DX_METERS:-3000}" WRF_DY_METERS="${WRF_DY_METERS:-${WRF_DX_METERS:-3000}}"
-  export WRF_E_WE="${WRF_E_WE:-361}" WRF_E_SN="${WRF_E_SN:-445}"
-  export WRF_HISTORY_INTERVAL_MINUTES="${WRF_HISTORY_INTERVAL_MINUTES:-60}" WRF_TIME_STEP="${WRF_TIME_STEP:-18}" WRF_MPI_PROCS="${WRF_MPI_PROCS:-4}"
-  export WRF_START_HOUR="$START_HOUR" WRF_END_HOUR="$END_HOUR"
-  export WRF_BOUNDARY_END_HOUR="$END_HOUR" WRF_BOUNDARY_ONLY=1
-  echo "TARC: preparando LBC exclusivamente com a fonte selecionada F$START_HOUR-F$END_HOUR"
-  BOUNDARY_PREP_STARTED_AT="$(date +%s)"
-  prepare_source 1
-  echo "TARC_METRIC boundary_prepare_seconds=$(( $(date +%s) - BOUNDARY_PREP_STARTED_AT ))"
-  test -s "$ROOT/wrf_work/run/wrfbdy_d01" || { echo "LBC TARC ausente para F$START_HOUR-F$END_HOUR" >&2; exit 27; }
-  cp -f "$ROOT/wrf_work/run/wrfbdy_d01" "$INPUT/normalized/wrfbdy_d01"
+  if (( START_HOUR % 3 == 0 )); then
+    export FORCE_RUN_DATE="$RUN_DATE" FORCE_RUN_CYCLE="$RUN_CYCLE"
+    export WRF_TARGET_RESOLUTION_KM=3 WRF_DX_METERS=3000 WRF_DY_METERS=3000
+    export WRF_E_WE=361 WRF_E_SN=445
+    export WRF_HISTORY_INTERVAL_MINUTES=60 WRF_TIME_STEP=18 WRF_MPI_PROCS=4
+    export WRF_START_HOUR="$START_HOUR" WRF_END_HOUR="$END_HOUR"
+    export WRF_BOUNDARY_END_HOUR="$BOUNDARY_GROUP_END" WRF_BOUNDARY_ONLY=1
+    echo "TARC: preparando LBC do grupo F$START_HOUR-F$BOUNDARY_GROUP_END"
+    BOUNDARY_PREP_STARTED_AT="$(date +%s)"
+    prepare_source 1
+    echo "TARC_METRIC boundary_prepare_seconds=$(( $(date +%s) - BOUNDARY_PREP_STARTED_AT ))"
+    test -s "$ROOT/wrf_work/run/wrfbdy_d01" || { echo "LBC TARC ausente para F$START_HOUR-F$BOUNDARY_GROUP_END" >&2; exit 27; }
+    test -s "$ROOT/wrf_work/run/wrfinput_d01" || { echo "ERRO: wrfinput ausente"; exit 28; }
+    cp -f "$ROOT/wrf_work/run/wrfbdy_d01" "$INPUT/normalized/wrfbdy_d01"
+  else
+    test -s "$INPUT/normalized/wrfbdy_d01" || { echo "LBC TARC ausente para F$START_HOUR-F$END_HOUR" >&2; exit 27; }
+    echo "TARC: reutilizando LBC do checkpoint anterior"
+  fi
   test -s "$INPUT/normalized/wrfbdy_d01"
   test -s "$INPUT/normalized/namelist.input"
   export WRF_RESTART_DIR="$INPUT/normalized"
   RESTART_STARTED_AT="$(date +%s)"
   bash wrf/run_tarc_restart_segment.sh "$START_HOUR" "$END_HOUR" "$WRF_RESTART_DIR"
   echo "TARC_METRIC restart_forecast_seconds=$(( $(date +%s) - RESTART_STARTED_AT ))"
-
   OUTPUT_DIR="$ROOT/tarc_segment_output"
   test -d "$OUTPUT_DIR"
+  test -f "$OUTPUT_DIR/namelist.restart.input"
+  cp -f "$OUTPUT_DIR/namelist.restart.input" "$ROOT/tarc-namelist.input"
   UPLOAD_DIR="$ROOT/tarc_upload_$SEGMENT_INDEX"
   rm -rf "$UPLOAD_DIR"; mkdir -p "$UPLOAD_DIR"
   for f in "$OUTPUT_DIR"/wrfrst_d01_*; do cp -f "$f" "$UPLOAD_DIR/tarc-restart-$END_HOUR-$(basename "$f")"; done
   for f in "$OUTPUT_DIR"/wrfout_d01_*; do cp -f "$f" "$UPLOAD_DIR/tarc-wrfout-$SEGMENT_INDEX-$(basename "$f")"; done
+  for f in "$OUTPUT_DIR"/wrfbdy_d01; do cp -f "$f" "$UPLOAD_DIR/tarc-boundary-3km-$(basename "$f")"; done
+  cp -f "$UPLOAD_DIR"/tarc-restart-* "$ROOT/"
+  cp -f "$UPLOAD_DIR"/tarc-wrfout-* "$ROOT/"
+  cp -f "$UPLOAD_DIR"/tarc-boundary-* "$ROOT/"
  : # checkpoint handled by GitHub Actions artifact
 else
   python3 - <<'PY'
 import datetime as dt, os
 now=dt.datetime.now(dt.timezone.utc)
-scheduled=os.environ.get("WRF_SCHEDULED_CYCLE","").strip()
-if scheduled in {"00","06","12","18"}:
-    run=now.replace(hour=int(scheduled), minute=0, second=0, microsecond=0)
-    if run > now:
-        run -= dt.timedelta(hours=6)
-else:
-    run=now.replace(hour=(now.hour//6)*6, minute=0, second=0, microsecond=0)
+run=now.replace(hour=(now.hour//6)*6, minute=0, second=0, microsecond=0)
 if os.environ.get("WRF2_TOMORROW") == "1":
     run += dt.timedelta(hours=24)
 open("tarc-run.env","w").write(f"RUN_DATE={run:%Y%m%d}\nRUN_CYCLE={run:%H}\nSOURCE_MODEL={os.environ.get('SOURCE_MODEL','icon')}\nWRF2_TOMORROW={os.environ.get('WRF2_TOMORROW','0')}\n")

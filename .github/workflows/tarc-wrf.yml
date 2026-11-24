@@ -103,7 +103,6 @@ jobs:
           chmod +x wrf/ensure_metbr_wrf_runtime.sh
           chmod +x wrf/Vtable.ICONp
           mkdir -p wrf/bin
-          printf '%s' 'IyEvdXNyL2Jpbi9lbnYgYmFzaApzZXQgLWV1byBwaXBlZmFpbAppZiBbWyAiJHsxOi19IiA9PSBhcGkgXV07IHRoZW4gZXhpdCAwOyBmaQpbWyAiJHsxOi19IiA9PSByZWxlYXNlIF1dIHx8IHsgZWNobyAiZ2ggUjIgYWRhcHRlciBzdXBwb3J0cyByZWxlYXNlIG9wZXJhdGlvbnMgb25seSIgPiYyOyBleGl0IDI7IH0Kc3ViPSIkezI6LX0iOyB0YWc9IiR7MzotfSI7IHNoaWZ0ICQoKCAkIyA+PSAzID8gMyA6ICQjICkpCiA6ICMgZXh0ZXJuYWwgb2JqZWN0IHN0b3JhZ2UgcmVtb3ZlZApjYXNlICIkc3ViIiBpbgogOiAjIGV4dGVybmFsIG9iamVjdCBzdG9yYWdlIHJlbW92ZWQKIDogIyBleHRlcm5hbCBvYmplY3Qgc3RvcmFnZSByZW1vdmVkCiA6ICMgZXh0ZXJuYWwgb2JqZWN0IHN0b3JhZ2UgcmVtb3ZlZAogOiAjIGV4dGVybmFsIG9iamVjdCBzdG9yYWdlIHJlbW92ZWQKICopIGVjaG8gInVuc3VwcG9ydGVkIHJlbGVhc2Ugb3BlcmF0aW9uICRzdWIiID4mMjtleGl0IDIgOzsKZXNhYwo=' | base64 -d > wrf/bin/gh
           chmod +x wrf/bin/gh
           chmod +x wrf/*.sh
       - name: Validate embedded TARC executors
