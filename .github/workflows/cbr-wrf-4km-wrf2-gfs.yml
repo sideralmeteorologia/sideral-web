@@ -192,13 +192,15 @@ jobs:
         run: |
           mkdir -p "$WRF_ARTIFACT_DOWNLOAD_DIR"
           printf '%s\n' "$WRF_ARTIFACT_RESTORE_TO" > "$WRF_ARTIFACT_DOWNLOAD_DIR/.restore-to"
-          python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
+          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
+            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
             --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
             --workspace "$GITHUB_WORKSPACE"
           if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
             python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
               --downloads-root "$RUNNER_TEMP/wrf-downloads" \
               --workspace "$GITHUB_WORKSPACE"
+          fi
           fi
       - name: Checkout CBR
         uses: actions/checkout@v4
@@ -319,13 +321,15 @@ jobs:
         run: |
           mkdir -p "$WRF_ARTIFACT_DOWNLOAD_DIR"
           printf '%s\n' "$WRF_ARTIFACT_RESTORE_TO" > "$WRF_ARTIFACT_DOWNLOAD_DIR/.restore-to"
-          python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
+          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
+            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
             --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
             --workspace "$GITHUB_WORKSPACE"
           if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
             python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
               --downloads-root "$RUNNER_TEMP/wrf-downloads" \
               --workspace "$GITHUB_WORKSPACE"
+          fi
           fi
       - name: Checkout CBR
         uses: actions/checkout@v4
@@ -439,13 +443,15 @@ jobs:
         run: |
           mkdir -p "$WRF_ARTIFACT_DOWNLOAD_DIR"
           printf '%s\n' "$WRF_ARTIFACT_RESTORE_TO" > "$WRF_ARTIFACT_DOWNLOAD_DIR/.restore-to"
-          python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
+          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
+            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
             --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
             --workspace "$GITHUB_WORKSPACE"
           if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
             python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
               --downloads-root "$RUNNER_TEMP/wrf-downloads" \
               --workspace "$GITHUB_WORKSPACE"
+          fi
           fi
       - name: Checkout CBR
         uses: actions/checkout@v4
@@ -559,13 +565,15 @@ jobs:
         run: |
           mkdir -p "$WRF_ARTIFACT_DOWNLOAD_DIR"
           printf '%s\n' "$WRF_ARTIFACT_RESTORE_TO" > "$WRF_ARTIFACT_DOWNLOAD_DIR/.restore-to"
-          python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
+          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
+            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
             --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
             --workspace "$GITHUB_WORKSPACE"
           if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
             python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
               --downloads-root "$RUNNER_TEMP/wrf-downloads" \
               --workspace "$GITHUB_WORKSPACE"
+          fi
           fi
       - name: Checkout CBR
         uses: actions/checkout@v4
@@ -679,13 +687,15 @@ jobs:
         run: |
           mkdir -p "$WRF_ARTIFACT_DOWNLOAD_DIR"
           printf '%s\n' "$WRF_ARTIFACT_RESTORE_TO" > "$WRF_ARTIFACT_DOWNLOAD_DIR/.restore-to"
-          python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
+          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
+            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
             --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
             --workspace "$GITHUB_WORKSPACE"
           if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
             python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
               --downloads-root "$RUNNER_TEMP/wrf-downloads" \
               --workspace "$GITHUB_WORKSPACE"
+          fi
           fi
       - name: Checkout CBR
         uses: actions/checkout@v4
@@ -799,13 +809,15 @@ jobs:
         run: |
           mkdir -p "$WRF_ARTIFACT_DOWNLOAD_DIR"
           printf '%s\n' "$WRF_ARTIFACT_RESTORE_TO" > "$WRF_ARTIFACT_DOWNLOAD_DIR/.restore-to"
-          python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
+          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
+            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
             --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
             --workspace "$GITHUB_WORKSPACE"
           if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
             python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
               --downloads-root "$RUNNER_TEMP/wrf-downloads" \
               --workspace "$GITHUB_WORKSPACE"
+          fi
           fi
       - name: Checkout CBR
         uses: actions/checkout@v4
@@ -919,13 +931,15 @@ jobs:
         run: |
           mkdir -p "$WRF_ARTIFACT_DOWNLOAD_DIR"
           printf '%s\n' "$WRF_ARTIFACT_RESTORE_TO" > "$WRF_ARTIFACT_DOWNLOAD_DIR/.restore-to"
-          python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
+          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
+            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
             --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
             --workspace "$GITHUB_WORKSPACE"
           if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
             python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
               --downloads-root "$RUNNER_TEMP/wrf-downloads" \
               --workspace "$GITHUB_WORKSPACE"
+          fi
           fi
       - name: Checkout CBR
         uses: actions/checkout@v4
@@ -1039,13 +1053,15 @@ jobs:
         run: |
           mkdir -p "$WRF_ARTIFACT_DOWNLOAD_DIR"
           printf '%s\n' "$WRF_ARTIFACT_RESTORE_TO" > "$WRF_ARTIFACT_DOWNLOAD_DIR/.restore-to"
-          python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
+          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
+            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
             --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
             --workspace "$GITHUB_WORKSPACE"
           if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
             python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
               --downloads-root "$RUNNER_TEMP/wrf-downloads" \
               --workspace "$GITHUB_WORKSPACE"
+          fi
           fi
       - name: Checkout CBR
         uses: actions/checkout@v4
@@ -1159,13 +1175,15 @@ jobs:
         run: |
           mkdir -p "$WRF_ARTIFACT_DOWNLOAD_DIR"
           printf '%s\n' "$WRF_ARTIFACT_RESTORE_TO" > "$WRF_ARTIFACT_DOWNLOAD_DIR/.restore-to"
-          python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
+          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
+            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
             --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
             --workspace "$GITHUB_WORKSPACE"
           if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
             python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
               --downloads-root "$RUNNER_TEMP/wrf-downloads" \
               --workspace "$GITHUB_WORKSPACE"
+          fi
           fi
       - name: Checkout CBR
         uses: actions/checkout@v4
@@ -1279,13 +1297,15 @@ jobs:
         run: |
           mkdir -p "$WRF_ARTIFACT_DOWNLOAD_DIR"
           printf '%s\n' "$WRF_ARTIFACT_RESTORE_TO" > "$WRF_ARTIFACT_DOWNLOAD_DIR/.restore-to"
-          python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
+          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
+            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
             --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
             --workspace "$GITHUB_WORKSPACE"
           if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
             python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
               --downloads-root "$RUNNER_TEMP/wrf-downloads" \
               --workspace "$GITHUB_WORKSPACE"
+          fi
           fi
       - name: Checkout CBR
         uses: actions/checkout@v4
@@ -1399,13 +1419,15 @@ jobs:
         run: |
           mkdir -p "$WRF_ARTIFACT_DOWNLOAD_DIR"
           printf '%s\n' "$WRF_ARTIFACT_RESTORE_TO" > "$WRF_ARTIFACT_DOWNLOAD_DIR/.restore-to"
-          python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
+          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
+            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
             --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
             --workspace "$GITHUB_WORKSPACE"
           if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
             python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
               --downloads-root "$RUNNER_TEMP/wrf-downloads" \
               --workspace "$GITHUB_WORKSPACE"
+          fi
           fi
       - name: Checkout CBR
         uses: actions/checkout@v4
@@ -1519,13 +1541,15 @@ jobs:
         run: |
           mkdir -p "$WRF_ARTIFACT_DOWNLOAD_DIR"
           printf '%s\n' "$WRF_ARTIFACT_RESTORE_TO" > "$WRF_ARTIFACT_DOWNLOAD_DIR/.restore-to"
-          python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
+          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
+            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
             --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
             --workspace "$GITHUB_WORKSPACE"
           if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
             python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
               --downloads-root "$RUNNER_TEMP/wrf-downloads" \
               --workspace "$GITHUB_WORKSPACE"
+          fi
           fi
       - name: Checkout CBR
         uses: actions/checkout@v4
@@ -1639,13 +1663,15 @@ jobs:
         run: |
           mkdir -p "$WRF_ARTIFACT_DOWNLOAD_DIR"
           printf '%s\n' "$WRF_ARTIFACT_RESTORE_TO" > "$WRF_ARTIFACT_DOWNLOAD_DIR/.restore-to"
-          python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
+          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
+            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
             --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
             --workspace "$GITHUB_WORKSPACE"
           if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
             python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
               --downloads-root "$RUNNER_TEMP/wrf-downloads" \
               --workspace "$GITHUB_WORKSPACE"
+          fi
           fi
       - name: Checkout CBR
         uses: actions/checkout@v4
@@ -1785,9 +1811,11 @@ jobs:
             [[ -d "$dir" ]] || continue
             printf '%s\n' "cbr_segment_artifacts/${dir##*/}" > "$dir/.restore-to"
           done
-          python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
+          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
+            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
             --downloads-root "$CBR_SEGMENT_DOWNLOADS" \
             --workspace "$GITHUB_WORKSPACE"
+          fi
       - name: Reunir e validar JSON/NPZ nativos dos 14 segmentos CBR
         shell: bash
         run: |
@@ -1904,6 +1932,7 @@ jobs:
           assert manifest.get("rawManifestUrl"), "rawManifestUrl ausente"
           print(f"GitHub Release validada: {manifest['productId']} / {manifest['fileCount']} arquivos")
           PY
+
 
 
 
