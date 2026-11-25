@@ -40,7 +40,7 @@ jobs:
   seg00:
     name: SIDERAL 5 KM wrf2 gfs F000-F003
     runs-on: ubuntu-22.04
-    timeout-minutes: 330
+    timeout-minutes: 360
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -223,7 +223,7 @@ jobs:
     name: SIDERAL 5 KM wrf2 gfs F003-F006
     runs-on: ubuntu-22.04
     needs: seg00
-    timeout-minutes: 330
+    timeout-minutes: 360
     steps:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
@@ -352,7 +352,7 @@ jobs:
     name: SIDERAL 5 KM wrf2 gfs F006-F009
     runs-on: ubuntu-22.04
     needs: seg01
-    timeout-minutes: 330
+    timeout-minutes: 360
     steps:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
@@ -481,7 +481,7 @@ jobs:
     name: SIDERAL 5 KM wrf2 gfs F009-F012
     runs-on: ubuntu-22.04
     needs: seg02
-    timeout-minutes: 330
+    timeout-minutes: 360
     steps:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
@@ -610,7 +610,7 @@ jobs:
     name: SIDERAL 5 KM wrf2 gfs F012-F015
     runs-on: ubuntu-22.04
     needs: seg03
-    timeout-minutes: 330
+    timeout-minutes: 360
     steps:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
@@ -739,7 +739,7 @@ jobs:
     name: SIDERAL 5 KM wrf2 gfs F015-F018
     runs-on: ubuntu-22.04
     needs: seg04
-    timeout-minutes: 330
+    timeout-minutes: 360
     steps:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
@@ -868,7 +868,7 @@ jobs:
     name: SIDERAL 5 KM wrf2 gfs F018-F021
     runs-on: ubuntu-22.04
     needs: seg05
-    timeout-minutes: 330
+    timeout-minutes: 360
     steps:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
@@ -997,7 +997,7 @@ jobs:
     name: SIDERAL 5 KM wrf2 gfs F021-F024
     runs-on: ubuntu-22.04
     needs: seg06
-    timeout-minutes: 330
+    timeout-minutes: 360
     steps:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
@@ -1126,7 +1126,7 @@ jobs:
     name: SIDERAL 5 KM wrf2 gfs F024-F027
     runs-on: ubuntu-22.04
     needs: seg07
-    timeout-minutes: 330
+    timeout-minutes: 360
     steps:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
@@ -1255,7 +1255,7 @@ jobs:
     name: SIDERAL 5 KM wrf2 gfs F027-F030
     runs-on: ubuntu-22.04
     needs: seg08
-    timeout-minutes: 330
+    timeout-minutes: 360
     steps:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
@@ -1384,7 +1384,7 @@ jobs:
     name: SIDERAL 5 KM wrf2 gfs F030-F033
     runs-on: ubuntu-22.04
     needs: seg09
-    timeout-minutes: 330
+    timeout-minutes: 360
     steps:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
@@ -1513,7 +1513,7 @@ jobs:
     name: SIDERAL 5 KM wrf2 gfs F033-F036
     runs-on: ubuntu-22.04
     needs: seg10
-    timeout-minutes: 330
+    timeout-minutes: 360
     steps:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
@@ -1642,7 +1642,7 @@ jobs:
     name: SIDERAL 5 KM wrf2 gfs F036-F039
     runs-on: ubuntu-22.04
     needs: seg11
-    timeout-minutes: 330
+    timeout-minutes: 360
     steps:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
@@ -1771,7 +1771,7 @@ jobs:
     name: SIDERAL 5 KM wrf2 gfs F039-F042
     runs-on: ubuntu-22.04
     needs: seg12
-    timeout-minutes: 330
+    timeout-minutes: 360
     steps:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
@@ -1900,7 +1900,7 @@ jobs:
     name: SIDERAL 5 KM wrf2 gfs F042-F045
     runs-on: ubuntu-22.04
     needs: seg13
-    timeout-minutes: 330
+    timeout-minutes: 360
     steps:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
@@ -2029,7 +2029,7 @@ jobs:
     name: SIDERAL 5 KM wrf2 gfs F045-F048
     runs-on: ubuntu-22.04
     needs: seg14
-    timeout-minutes: 330
+    timeout-minutes: 360
     steps:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
@@ -2158,7 +2158,7 @@ jobs:
     name: WRF Sudeste 5 km wrf2 gfs F000-F048 completo e pós-processado
     runs-on: ubuntu-22.04
     needs: [seg00, seg01, seg02, seg03, seg04, seg05, seg06, seg07, seg08, seg09, seg10, seg11, seg12, seg13, seg14, seg15]
-    timeout-minutes: 330
+    timeout-minutes: 360
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4

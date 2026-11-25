@@ -43,7 +43,7 @@ jobs:
   seg00:
     name: TARC ICON F000-F001
     runs-on: ubuntu-22.04
-    timeout-minutes: 330
+    timeout-minutes: 360
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -177,7 +177,7 @@ jobs:
     name: TARC ICON F001-F002
     runs-on: ubuntu-22.04
     needs: seg00
-    timeout-minutes: 330
+    timeout-minutes: 360
     steps:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
@@ -288,7 +288,7 @@ jobs:
     name: TARC ICON F002-F003
     runs-on: ubuntu-22.04
     needs: seg01
-    timeout-minutes: 330
+    timeout-minutes: 360
     steps:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
@@ -399,7 +399,7 @@ jobs:
     name: TARC ICON F003-F004
     runs-on: ubuntu-22.04
     needs: seg02
-    timeout-minutes: 330
+    timeout-minutes: 360
     steps:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
@@ -510,7 +510,7 @@ jobs:
     name: TARC ICON F004-F005
     runs-on: ubuntu-22.04
     needs: seg03
-    timeout-minutes: 330
+    timeout-minutes: 360
     steps:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
@@ -621,7 +621,7 @@ jobs:
     name: TARC ICON F005-F006
     runs-on: ubuntu-22.04
     needs: seg04
-    timeout-minutes: 330
+    timeout-minutes: 360
     steps:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
@@ -732,7 +732,7 @@ jobs:
     name: TARC ICON F006-F007
     runs-on: ubuntu-22.04
     needs: seg05
-    timeout-minutes: 330
+    timeout-minutes: 360
     steps:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
@@ -843,7 +843,7 @@ jobs:
     name: TARC ICON F007-F008
     runs-on: ubuntu-22.04
     needs: seg06
-    timeout-minutes: 330
+    timeout-minutes: 360
     steps:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
@@ -954,7 +954,7 @@ jobs:
     name: TARC ICON F008-F009
     runs-on: ubuntu-22.04
     needs: seg07
-    timeout-minutes: 330
+    timeout-minutes: 360
     steps:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
@@ -1065,7 +1065,7 @@ jobs:
     name: TARC ICON F009-F010
     runs-on: ubuntu-22.04
     needs: seg08
-    timeout-minutes: 330
+    timeout-minutes: 360
     steps:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
@@ -1176,7 +1176,7 @@ jobs:
     name: TARC ICON F010-F011
     runs-on: ubuntu-22.04
     needs: seg09
-    timeout-minutes: 330
+    timeout-minutes: 360
     steps:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
@@ -1287,7 +1287,7 @@ jobs:
     name: TARC ICON F011-F012
     runs-on: ubuntu-22.04
     needs: seg10
-    timeout-minutes: 330
+    timeout-minutes: 360
     steps:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
@@ -1398,7 +1398,7 @@ jobs:
     name: TARC ICON F012-F013
     runs-on: ubuntu-22.04
     needs: seg11
-    timeout-minutes: 330
+    timeout-minutes: 360
     steps:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
@@ -1509,7 +1509,7 @@ jobs:
     name: TARC ICON F013-F014
     runs-on: ubuntu-22.04
     needs: seg12
-    timeout-minutes: 330
+    timeout-minutes: 360
     steps:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
@@ -1620,7 +1620,7 @@ jobs:
     name: TARC ICON F014-F015
     runs-on: ubuntu-22.04
     needs: seg13
-    timeout-minutes: 330
+    timeout-minutes: 360
     steps:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
@@ -1731,7 +1731,7 @@ jobs:
     name: TARC ICON F015-F016
     runs-on: ubuntu-22.04
     needs: seg14
-    timeout-minutes: 330
+    timeout-minutes: 360
     steps:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
@@ -1842,7 +1842,7 @@ jobs:
     name: TARC ICON F016-F017
     runs-on: ubuntu-22.04
     needs: seg15
-    timeout-minutes: 330
+    timeout-minutes: 360
     steps:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
@@ -1953,7 +1953,7 @@ jobs:
     name: TARC ICON F017-F018
     runs-on: ubuntu-22.04
     needs: seg16
-    timeout-minutes: 330
+    timeout-minutes: 360
     steps:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
@@ -2064,7 +2064,7 @@ jobs:
     name: TARC ICON F018-F019
     runs-on: ubuntu-22.04
     needs: seg17
-    timeout-minutes: 330
+    timeout-minutes: 360
     steps:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
@@ -2175,7 +2175,7 @@ jobs:
     name: TARC ICON F019-F020
     runs-on: ubuntu-22.04
     needs: seg18
-    timeout-minutes: 330
+    timeout-minutes: 360
     steps:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
@@ -2286,7 +2286,7 @@ jobs:
     name: TARC ICON F020-F021
     runs-on: ubuntu-22.04
     needs: seg19
-    timeout-minutes: 330
+    timeout-minutes: 360
     steps:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
@@ -2397,7 +2397,7 @@ jobs:
     name: TARC ICON F021-F022
     runs-on: ubuntu-22.04
     needs: seg20
-    timeout-minutes: 330
+    timeout-minutes: 360
     steps:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
@@ -2508,7 +2508,7 @@ jobs:
     name: TARC ICON F022-F023
     runs-on: ubuntu-22.04
     needs: seg21
-    timeout-minutes: 330
+    timeout-minutes: 360
     steps:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
@@ -2619,7 +2619,7 @@ jobs:
     name: TARC ICON F023-F024
     runs-on: ubuntu-22.04
     needs: seg22
-    timeout-minutes: 330
+    timeout-minutes: 360
     steps:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
@@ -2730,7 +2730,7 @@ jobs:
     name: TARC ICON F024-F025
     runs-on: ubuntu-22.04
     needs: seg23
-    timeout-minutes: 330
+    timeout-minutes: 360
     steps:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
@@ -2841,7 +2841,7 @@ jobs:
     name: TARC ICON F025-F026
     runs-on: ubuntu-22.04
     needs: seg24
-    timeout-minutes: 330
+    timeout-minutes: 360
     steps:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
@@ -2952,7 +2952,7 @@ jobs:
     name: TARC ICON F026-F027
     runs-on: ubuntu-22.04
     needs: seg25
-    timeout-minutes: 330
+    timeout-minutes: 360
     steps:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
@@ -3063,7 +3063,7 @@ jobs:
     name: TARC ICON F027-F028
     runs-on: ubuntu-22.04
     needs: seg26
-    timeout-minutes: 330
+    timeout-minutes: 360
     steps:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
@@ -3174,7 +3174,7 @@ jobs:
     name: TARC ICON F028-F029
     runs-on: ubuntu-22.04
     needs: seg27
-    timeout-minutes: 330
+    timeout-minutes: 360
     steps:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
@@ -3285,7 +3285,7 @@ jobs:
     name: TARC ICON F029-F030
     runs-on: ubuntu-22.04
     needs: seg28
-    timeout-minutes: 330
+    timeout-minutes: 360
     steps:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
@@ -3396,7 +3396,7 @@ jobs:
     name: TARC ICON F030-F031
     runs-on: ubuntu-22.04
     needs: seg29
-    timeout-minutes: 330
+    timeout-minutes: 360
     steps:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
@@ -3507,7 +3507,7 @@ jobs:
     name: TARC ICON F031-F032
     runs-on: ubuntu-22.04
     needs: seg30
-    timeout-minutes: 330
+    timeout-minutes: 360
     steps:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
@@ -3618,7 +3618,7 @@ jobs:
     name: TARC ICON F032-F033
     runs-on: ubuntu-22.04
     needs: seg31
-    timeout-minutes: 330
+    timeout-minutes: 360
     steps:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
@@ -3729,7 +3729,7 @@ jobs:
     name: TARC ICON F033-F034
     runs-on: ubuntu-22.04
     needs: seg32
-    timeout-minutes: 330
+    timeout-minutes: 360
     steps:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
@@ -3840,7 +3840,7 @@ jobs:
     name: TARC ICON F034-F035
     runs-on: ubuntu-22.04
     needs: seg33
-    timeout-minutes: 330
+    timeout-minutes: 360
     steps:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
@@ -3951,7 +3951,7 @@ jobs:
     name: TARC ICON F035-F036
     runs-on: ubuntu-22.04
     needs: seg34
-    timeout-minutes: 330
+    timeout-minutes: 360
     steps:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
@@ -4062,7 +4062,7 @@ jobs:
     name: TARC ICON F036-F037
     runs-on: ubuntu-22.04
     needs: seg35
-    timeout-minutes: 330
+    timeout-minutes: 360
     steps:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
@@ -4173,7 +4173,7 @@ jobs:
     name: TARC ICON F037-F038
     runs-on: ubuntu-22.04
     needs: seg36
-    timeout-minutes: 330
+    timeout-minutes: 360
     steps:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
@@ -4284,7 +4284,7 @@ jobs:
     name: TARC ICON F038-F039
     runs-on: ubuntu-22.04
     needs: seg37
-    timeout-minutes: 330
+    timeout-minutes: 360
     steps:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
@@ -4395,7 +4395,7 @@ jobs:
     name: TARC ICON F039-F040
     runs-on: ubuntu-22.04
     needs: seg38
-    timeout-minutes: 330
+    timeout-minutes: 360
     steps:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
@@ -4506,7 +4506,7 @@ jobs:
     name: TARC ICON F040-F041
     runs-on: ubuntu-22.04
     needs: seg39
-    timeout-minutes: 330
+    timeout-minutes: 360
     steps:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
@@ -4617,7 +4617,7 @@ jobs:
     name: TARC ICON F041-F042
     runs-on: ubuntu-22.04
     needs: seg40
-    timeout-minutes: 330
+    timeout-minutes: 360
     steps:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
@@ -4728,7 +4728,7 @@ jobs:
     name: TARC ICON F042-F043
     runs-on: ubuntu-22.04
     needs: seg41
-    timeout-minutes: 330
+    timeout-minutes: 360
     steps:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
@@ -4839,7 +4839,7 @@ jobs:
     name: TARC ICON F043-F044
     runs-on: ubuntu-22.04
     needs: seg42
-    timeout-minutes: 330
+    timeout-minutes: 360
     steps:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
@@ -4950,7 +4950,7 @@ jobs:
     name: TARC ICON F044-F045
     runs-on: ubuntu-22.04
     needs: seg43
-    timeout-minutes: 330
+    timeout-minutes: 360
     steps:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
@@ -5061,7 +5061,7 @@ jobs:
     name: TARC ICON F045-F046
     runs-on: ubuntu-22.04
     needs: seg44
-    timeout-minutes: 330
+    timeout-minutes: 360
     steps:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
@@ -5172,7 +5172,7 @@ jobs:
     name: TARC ICON F046-F047
     runs-on: ubuntu-22.04
     needs: seg45
-    timeout-minutes: 330
+    timeout-minutes: 360
     steps:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
@@ -5283,7 +5283,7 @@ jobs:
     name: TARC ICON F047-F048
     runs-on: ubuntu-22.04
     needs: seg46
-    timeout-minutes: 330
+    timeout-minutes: 360
     steps:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
