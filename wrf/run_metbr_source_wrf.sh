@@ -28,6 +28,13 @@ export WRF_BOUNDARY_END_HOUR=42
 export WRF_END_HOUR=42
 export WRF_RUN_HOURS=42
 
+# WRF_BOUNDARY_ONLY: if 1, run only real.exe to generate wrfbdy_d01 and exit.
+# Used by checkpoint orchestrator to prepare LBC for restart segments.
+if [[ "${WRF_BOUNDARY_ONLY:-0}" == "1" ]]; then
+  echo "=== METBR: boundary-only mode (real.exe only) ==="
+  export WRF_BOUNDARY_ONLY=1
+fi
+
 python3 "$ROOT/wrf/prepare_restart_segment.py" --start-hour "$WRF_START_HOUR" --end-hour "$WRF_SIM_END_HOUR" --root "$ROOT"
 
 case "$SOURCE_MODEL" in
@@ -98,14 +105,28 @@ if marker not in s:
     raise SystemExit('marcador REAL.EXE nao encontrado no run_wrf_with_source.sh')
 s = s.replace(marker, patch + marker, 1)
 
-marker2 = '    test -f wrfinput_d01\n'
-patch2 = '    test -f wrfinput_d01\n    if test -f namelist.segment.input; then cp -f namelist.segment.input namelist.input; fi\n'
-if marker2 not in s:
+# Add WRF_BOUNDARY_ONLY check after real.exe
+marker_real = '    test -f wrfinput_d01\n'
+patch_real = '''    test -f wrfinput_d01
+    test -f wrfbdy_d01
+    if [[ "${WRF_BOUNDARY_ONLY:-0}" == "1" ]]; then
+      echo "=== METBR: boundary-only mode - LBC generated, exiting before wrf.exe ==="
+      ls -lh wrfbdy_d01
+      exit 0
+    fi
+'''
+if marker_real not in s:
     raise SystemExit('marcador wrfinput_d01 nao encontrado no run_wrf_with_source.sh')
+s = s.replace(marker_real, patch_real, 1)
+
+marker2 = '    if test -f namelist.segment.input; then cp -f namelist.segment.input namelist.input; fi\n'
+patch2 = '    if test -f namelist.segment.input; then cp -f namelist.segment.input namelist.input; fi\n'
+if marker2 not in s:
+    raise SystemExit('marcador namelist.segment.input nao encontrado no run_wrf_with_source.sh')
 s = s.replace(marker2, patch2, 1)
 
 old = 'LOCAL_USER_ID="$HOST_UID" \\\n'
-new = 'LOCAL_USER_ID="$HOST_UID" -e RUN_DATE="$RUN_DATE" -e RUN_CYCLE="$RUN_CYCLE" -e WRF_BOUNDARY_END_HOUR="$WRF_BOUNDARY_END_HOUR" -e WRF_SIM_END_HOUR="$WRF_SIM_END_HOUR" \\\n'
+new = 'LOCAL_USER_ID="$HOST_UID" -e RUN_DATE="$RUN_DATE" -e RUN_CYCLE="$RUN_CYCLE" -e WRF_BOUNDARY_END_HOUR="$WRF_BOUNDARY_END_HOUR" -e WRF_SIM_END_HOUR="$WRF_SIM_END_HOUR" -e WRF_BOUNDARY_ONLY="$WRF_BOUNDARY_ONLY" \\\n'
 if old not in s:
     raise SystemExit('linha LOCAL_USER_ID nao encontrada no run_wrf_with_source.sh')
 s = s.replace(old, new, 1)

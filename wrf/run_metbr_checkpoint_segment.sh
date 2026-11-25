@@ -76,7 +76,15 @@ if [[ "$SOURCE_MODEL" == gfs ]]; then
   export METBR_COLD_START="$COLD_START" METBR_BOUNDARY_END_HOUR=42
   bash "$ROOT/wrf/run_metbr_gfs_segment.sh"
 else
-  bash "$ROOT/wrf/run_metbr_source_wrf.sh"
+  if [[ "$COLD_START" == "0" ]]; then
+    # Restart segment: prepare LBC only (boundary_only=1)
+    export WRF_BOUNDARY_ONLY=1
+    bash "$ROOT/wrf/run_metbr_source_wrf.sh"
+  else
+    # Cold start: full forecast (boundary_only=0)
+    export WRF_BOUNDARY_ONLY=0
+    bash "$ROOT/wrf/run_metbr_source_wrf.sh"
+  fi
   if [[ "$SOURCE_MODEL" == icon && -s "$ROOT/icon_run.env" ]]; then source "$ROOT/icon_run.env"; fi
   if [[ "$SOURCE_MODEL" == ecmwf && -s "$ROOT/ecmwf_run.env" ]]; then source "$ROOT/ecmwf_run.env"; fi
 fi

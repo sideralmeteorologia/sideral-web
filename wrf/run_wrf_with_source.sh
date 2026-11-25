@@ -8,6 +8,10 @@ set -euo pipefail
 : "${SOURCE_DIR:?SOURCE_DIR ausente}"
 : "${SOURCE_VTABLE:?SOURCE_VTABLE ausente}"
 
+# WRF_BOUNDARY_ONLY: if 1, run only real.exe to generate wrfbdy_d01 and exit.
+# Used by checkpoint orchestrators to prepare LBC for restart segments.
+: "${WRF_BOUNDARY_ONLY:=0}"
+
 # Reduz NetCDF/quadros publicados sem alterar o passo numerico do WRF.
 WRF_HISTORY_INTERVAL_MINUTES="${WRF_HISTORY_INTERVAL_MINUTES:-60}"
 WRF_START_HOUR="${WRF_START_HOUR:-0}"
@@ -266,6 +270,7 @@ docker run --rm \
   -e LOCAL_USER_ID="$HOST_UID" \
   -e OMPI_ALLOW_RUN_AS_ROOT=1 \
   -e OMPI_ALLOW_RUN_AS_ROOT_CONFIRM=1 \
+  -e WRF_BOUNDARY_ONLY="${WRF_BOUNDARY_ONLY:-0}" \
   -v "$WORK:/work" \
   "$IMAGE" /bin/bash -lc '
     set -euo pipefail
@@ -353,6 +358,12 @@ docker run --rm \
     }
     test -f wrfinput_d01
     test -f wrfbdy_d01
+
+    if [[ "${WRF_BOUNDARY_ONLY:-0}" == "1" ]]; then
+      echo "=== boundary-only mode - LBC generated, exiting before wrf.exe ==="
+      ls -lh wrfbdy_d01
+      exit 0
+    fi
 
     echo "=== WRF 4 KM / REFL_10CM NATIVO ==="
     START_TS=$(date +%s)
