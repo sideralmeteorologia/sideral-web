@@ -1,0 +1,26 @@
+# WRF runtime / artifacts gerados em tempo de execução (não versionar)
+.wrf-artifact-safe/
+wrf_work/
+wrf2_publish/
+sideral-multimodels-*-output/
+output/
+downloads/
+*.tar
+*.tar.gz
+*.grib
+*.grib2
+*.grib2.bz2
+*.idx
+
+# Ambientes Python locais
+.venv/
+__pycache__/
+.pytest_cache/
+*.py[cod]
+.env
+.env.*
+!.env.example
+
+# Sistema operacional
+.DS_Store
+Thumbs.db

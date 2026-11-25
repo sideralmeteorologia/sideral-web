@@ -36,7 +36,7 @@ SELECTION_ARGS=(
   --output "$ROOT/tarc-icon-run.env"
 )
 if [[ "$TARGET_DATE" =~ ^[0-9]{8}$ && "$TARGET_CYCLE" =~ ^(00|06|12|18)$ ]]; then
-  SELECTION_ARGS+=(--target-date "$TARGET_DATE" --target-cycle "$TARGET_CYCLE")
+  SELECTION_ARGS+=(--date "$TARGET_DATE" --cycle "$TARGET_CYCLE")
 fi
 python3 "$ROOT/wrf/select_tarc_icon_run.py" "${SELECTION_ARGS[@]}"
 source "$ROOT/tarc-icon-run.env"
