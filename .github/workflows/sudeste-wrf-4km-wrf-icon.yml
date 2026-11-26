@@ -11,7 +11,7 @@ permissions:
 
 concurrency:
   group: sideral-sudeste-4km-wrf-icon-${{ github.ref }}
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 env:
   GH_TOKEN: ${{ github.token }}
@@ -214,7 +214,11 @@ jobs:
             **/*-run.env
           WRF_ARTIFACT_OUTPUT: .wrf-artifact-safe/wrf-payload-001.tar
         run: |
-          python3 .github/scripts/wrf_artifact_bundle.py pack \
+          if [[ ! -f .github/scripts/wrf_artifact_bundle.py ]]; then
+  mkdir -p .github/scripts
+  curl -fsSL https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/main/.github/scripts/wrf_artifact_bundle.py -o .github/scripts/wrf_artifact_bundle.py
+fi
+python3 .github/scripts/wrf_artifact_bundle.py pack \
             --workspace "$GITHUB_WORKSPACE" \
             --output "$GITHUB_WORKSPACE/$WRF_ARTIFACT_OUTPUT"
       - name: Salvar checkpoint e produtos desta etapa
@@ -345,7 +349,11 @@ jobs:
             **/*-run.env
           WRF_ARTIFACT_OUTPUT: .wrf-artifact-safe/wrf-payload-002.tar
         run: |
-          python3 .github/scripts/wrf_artifact_bundle.py pack \
+          if [[ ! -f .github/scripts/wrf_artifact_bundle.py ]]; then
+  mkdir -p .github/scripts
+  curl -fsSL https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/main/.github/scripts/wrf_artifact_bundle.py -o .github/scripts/wrf_artifact_bundle.py
+fi
+python3 .github/scripts/wrf_artifact_bundle.py pack \
             --workspace "$GITHUB_WORKSPACE" \
             --output "$GITHUB_WORKSPACE/$WRF_ARTIFACT_OUTPUT"
       - name: Salvar checkpoint e produtos desta etapa
@@ -476,7 +484,11 @@ jobs:
             **/*-run.env
           WRF_ARTIFACT_OUTPUT: .wrf-artifact-safe/wrf-payload-002.tar
         run: |
-          python3 .github/scripts/wrf_artifact_bundle.py pack \
+          if [[ ! -f .github/scripts/wrf_artifact_bundle.py ]]; then
+  mkdir -p .github/scripts
+  curl -fsSL https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/main/.github/scripts/wrf_artifact_bundle.py -o .github/scripts/wrf_artifact_bundle.py
+fi
+python3 .github/scripts/wrf_artifact_bundle.py pack \
             --workspace "$GITHUB_WORKSPACE" \
             --output "$GITHUB_WORKSPACE/$WRF_ARTIFACT_OUTPUT"
       - name: Salvar checkpoint e produtos desta etapa
@@ -607,7 +619,11 @@ jobs:
             **/*-run.env
           WRF_ARTIFACT_OUTPUT: .wrf-artifact-safe/wrf-payload-002.tar
         run: |
-          python3 .github/scripts/wrf_artifact_bundle.py pack \
+          if [[ ! -f .github/scripts/wrf_artifact_bundle.py ]]; then
+  mkdir -p .github/scripts
+  curl -fsSL https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/main/.github/scripts/wrf_artifact_bundle.py -o .github/scripts/wrf_artifact_bundle.py
+fi
+python3 .github/scripts/wrf_artifact_bundle.py pack \
             --workspace "$GITHUB_WORKSPACE" \
             --output "$GITHUB_WORKSPACE/$WRF_ARTIFACT_OUTPUT"
       - name: Salvar checkpoint e produtos desta etapa
@@ -738,7 +754,11 @@ jobs:
             **/*-run.env
           WRF_ARTIFACT_OUTPUT: .wrf-artifact-safe/wrf-payload-002.tar
         run: |
-          python3 .github/scripts/wrf_artifact_bundle.py pack \
+          if [[ ! -f .github/scripts/wrf_artifact_bundle.py ]]; then
+  mkdir -p .github/scripts
+  curl -fsSL https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/main/.github/scripts/wrf_artifact_bundle.py -o .github/scripts/wrf_artifact_bundle.py
+fi
+python3 .github/scripts/wrf_artifact_bundle.py pack \
             --workspace "$GITHUB_WORKSPACE" \
             --output "$GITHUB_WORKSPACE/$WRF_ARTIFACT_OUTPUT"
       - name: Salvar checkpoint e produtos desta etapa
@@ -869,7 +889,11 @@ jobs:
             **/*-run.env
           WRF_ARTIFACT_OUTPUT: .wrf-artifact-safe/wrf-payload-002.tar
         run: |
-          python3 .github/scripts/wrf_artifact_bundle.py pack \
+          if [[ ! -f .github/scripts/wrf_artifact_bundle.py ]]; then
+  mkdir -p .github/scripts
+  curl -fsSL https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/main/.github/scripts/wrf_artifact_bundle.py -o .github/scripts/wrf_artifact_bundle.py
+fi
+python3 .github/scripts/wrf_artifact_bundle.py pack \
             --workspace "$GITHUB_WORKSPACE" \
             --output "$GITHUB_WORKSPACE/$WRF_ARTIFACT_OUTPUT"
       - name: Salvar checkpoint e produtos desta etapa
@@ -1000,7 +1024,11 @@ jobs:
             **/*-run.env
           WRF_ARTIFACT_OUTPUT: .wrf-artifact-safe/wrf-payload-002.tar
         run: |
-          python3 .github/scripts/wrf_artifact_bundle.py pack \
+          if [[ ! -f .github/scripts/wrf_artifact_bundle.py ]]; then
+  mkdir -p .github/scripts
+  curl -fsSL https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/main/.github/scripts/wrf_artifact_bundle.py -o .github/scripts/wrf_artifact_bundle.py
+fi
+python3 .github/scripts/wrf_artifact_bundle.py pack \
             --workspace "$GITHUB_WORKSPACE" \
             --output "$GITHUB_WORKSPACE/$WRF_ARTIFACT_OUTPUT"
       - name: Salvar checkpoint e produtos desta etapa
@@ -1131,7 +1159,11 @@ jobs:
             **/*-run.env
           WRF_ARTIFACT_OUTPUT: .wrf-artifact-safe/wrf-payload-002.tar
         run: |
-          python3 .github/scripts/wrf_artifact_bundle.py pack \
+          if [[ ! -f .github/scripts/wrf_artifact_bundle.py ]]; then
+  mkdir -p .github/scripts
+  curl -fsSL https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/main/.github/scripts/wrf_artifact_bundle.py -o .github/scripts/wrf_artifact_bundle.py
+fi
+python3 .github/scripts/wrf_artifact_bundle.py pack \
             --workspace "$GITHUB_WORKSPACE" \
             --output "$GITHUB_WORKSPACE/$WRF_ARTIFACT_OUTPUT"
       - name: Salvar checkpoint e produtos desta etapa
@@ -1262,7 +1294,11 @@ jobs:
             **/*-run.env
           WRF_ARTIFACT_OUTPUT: .wrf-artifact-safe/wrf-payload-002.tar
         run: |
-          python3 .github/scripts/wrf_artifact_bundle.py pack \
+          if [[ ! -f .github/scripts/wrf_artifact_bundle.py ]]; then
+  mkdir -p .github/scripts
+  curl -fsSL https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/main/.github/scripts/wrf_artifact_bundle.py -o .github/scripts/wrf_artifact_bundle.py
+fi
+python3 .github/scripts/wrf_artifact_bundle.py pack \
             --workspace "$GITHUB_WORKSPACE" \
             --output "$GITHUB_WORKSPACE/$WRF_ARTIFACT_OUTPUT"
       - name: Salvar checkpoint e produtos desta etapa
@@ -1393,7 +1429,11 @@ jobs:
             **/*-run.env
           WRF_ARTIFACT_OUTPUT: .wrf-artifact-safe/wrf-payload-002.tar
         run: |
-          python3 .github/scripts/wrf_artifact_bundle.py pack \
+          if [[ ! -f .github/scripts/wrf_artifact_bundle.py ]]; then
+  mkdir -p .github/scripts
+  curl -fsSL https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/main/.github/scripts/wrf_artifact_bundle.py -o .github/scripts/wrf_artifact_bundle.py
+fi
+python3 .github/scripts/wrf_artifact_bundle.py pack \
             --workspace "$GITHUB_WORKSPACE" \
             --output "$GITHUB_WORKSPACE/$WRF_ARTIFACT_OUTPUT"
       - name: Salvar checkpoint e produtos desta etapa
@@ -1524,7 +1564,11 @@ jobs:
             **/*-run.env
           WRF_ARTIFACT_OUTPUT: .wrf-artifact-safe/wrf-payload-002.tar
         run: |
-          python3 .github/scripts/wrf_artifact_bundle.py pack \
+          if [[ ! -f .github/scripts/wrf_artifact_bundle.py ]]; then
+  mkdir -p .github/scripts
+  curl -fsSL https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/main/.github/scripts/wrf_artifact_bundle.py -o .github/scripts/wrf_artifact_bundle.py
+fi
+python3 .github/scripts/wrf_artifact_bundle.py pack \
             --workspace "$GITHUB_WORKSPACE" \
             --output "$GITHUB_WORKSPACE/$WRF_ARTIFACT_OUTPUT"
       - name: Salvar checkpoint e produtos desta etapa
@@ -1655,7 +1699,11 @@ jobs:
             **/*-run.env
           WRF_ARTIFACT_OUTPUT: .wrf-artifact-safe/wrf-payload-002.tar
         run: |
-          python3 .github/scripts/wrf_artifact_bundle.py pack \
+          if [[ ! -f .github/scripts/wrf_artifact_bundle.py ]]; then
+  mkdir -p .github/scripts
+  curl -fsSL https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/main/.github/scripts/wrf_artifact_bundle.py -o .github/scripts/wrf_artifact_bundle.py
+fi
+python3 .github/scripts/wrf_artifact_bundle.py pack \
             --workspace "$GITHUB_WORKSPACE" \
             --output "$GITHUB_WORKSPACE/$WRF_ARTIFACT_OUTPUT"
       - name: Salvar checkpoint e produtos desta etapa
@@ -1786,7 +1834,11 @@ jobs:
             **/*-run.env
           WRF_ARTIFACT_OUTPUT: .wrf-artifact-safe/wrf-payload-002.tar
         run: |
-          python3 .github/scripts/wrf_artifact_bundle.py pack \
+          if [[ ! -f .github/scripts/wrf_artifact_bundle.py ]]; then
+  mkdir -p .github/scripts
+  curl -fsSL https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/main/.github/scripts/wrf_artifact_bundle.py -o .github/scripts/wrf_artifact_bundle.py
+fi
+python3 .github/scripts/wrf_artifact_bundle.py pack \
             --workspace "$GITHUB_WORKSPACE" \
             --output "$GITHUB_WORKSPACE/$WRF_ARTIFACT_OUTPUT"
       - name: Salvar checkpoint e produtos desta etapa
@@ -1917,7 +1969,11 @@ jobs:
             **/*-run.env
           WRF_ARTIFACT_OUTPUT: .wrf-artifact-safe/wrf-payload-002.tar
         run: |
-          python3 .github/scripts/wrf_artifact_bundle.py pack \
+          if [[ ! -f .github/scripts/wrf_artifact_bundle.py ]]; then
+  mkdir -p .github/scripts
+  curl -fsSL https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/main/.github/scripts/wrf_artifact_bundle.py -o .github/scripts/wrf_artifact_bundle.py
+fi
+python3 .github/scripts/wrf_artifact_bundle.py pack \
             --workspace "$GITHUB_WORKSPACE" \
             --output "$GITHUB_WORKSPACE/$WRF_ARTIFACT_OUTPUT"
       - name: Salvar checkpoint e produtos desta etapa
@@ -2048,7 +2104,11 @@ jobs:
             **/*-run.env
           WRF_ARTIFACT_OUTPUT: .wrf-artifact-safe/wrf-payload-002.tar
         run: |
-          python3 .github/scripts/wrf_artifact_bundle.py pack \
+          if [[ ! -f .github/scripts/wrf_artifact_bundle.py ]]; then
+  mkdir -p .github/scripts
+  curl -fsSL https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/main/.github/scripts/wrf_artifact_bundle.py -o .github/scripts/wrf_artifact_bundle.py
+fi
+python3 .github/scripts/wrf_artifact_bundle.py pack \
             --workspace "$GITHUB_WORKSPACE" \
             --output "$GITHUB_WORKSPACE/$WRF_ARTIFACT_OUTPUT"
       - name: Salvar checkpoint e produtos desta etapa
@@ -2179,7 +2239,11 @@ jobs:
             **/*-run.env
           WRF_ARTIFACT_OUTPUT: .wrf-artifact-safe/wrf-payload-002.tar
         run: |
-          python3 .github/scripts/wrf_artifact_bundle.py pack \
+          if [[ ! -f .github/scripts/wrf_artifact_bundle.py ]]; then
+  mkdir -p .github/scripts
+  curl -fsSL https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/main/.github/scripts/wrf_artifact_bundle.py -o .github/scripts/wrf_artifact_bundle.py
+fi
+python3 .github/scripts/wrf_artifact_bundle.py pack \
             --workspace "$GITHUB_WORKSPACE" \
             --output "$GITHUB_WORKSPACE/$WRF_ARTIFACT_OUTPUT"
       - name: Salvar checkpoint e produtos desta etapa
@@ -2395,7 +2459,11 @@ jobs:
             **/wrfout_d01_*
           WRF_ARTIFACT_OUTPUT: .wrf-artifact-safe/wrf-payload-009.tar
         run: |
-          python3 .github/scripts/wrf_artifact_bundle.py pack \
+          if [[ ! -f .github/scripts/wrf_artifact_bundle.py ]]; then
+  mkdir -p .github/scripts
+  curl -fsSL https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/main/.github/scripts/wrf_artifact_bundle.py -o .github/scripts/wrf_artifact_bundle.py
+fi
+python3 .github/scripts/wrf_artifact_bundle.py pack \
             --workspace "$GITHUB_WORKSPACE" \
             --output "$GITHUB_WORKSPACE/$WRF_ARTIFACT_OUTPUT"
       - name: Publicar JSON em GitHub Release e espelho raw (direto no workflow)
