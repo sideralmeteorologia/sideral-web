@@ -71,6 +71,15 @@ def pack(workspace: Path, output: Path) -> int:
         if candidate.is_file() and not candidate.is_symlink() and _inside(candidate, workspace):
             selected.add(candidate.relative_to(workspace))
 
+    # Restart checkpoint files are commonly emitted at workspace root with names
+    # such as cim4-restart-3-wrfrst_d01_... . They are not inside a directory
+    # named "restart", so the generic **/*restart*/** pattern misses them.
+    # Explicitly include root checkpoint/restart files to preserve segment continuity.
+    for pattern in ("*-restart-*", "wrfrst_d01_*"):
+        for candidate in workspace.glob(pattern):
+            if candidate.is_file() and not candidate.is_symlink() and _inside(candidate, workspace):
+                selected.add(candidate.relative_to(workspace))
+
     for pattern in excludes:
         for match in glob.glob(pattern, root_dir=str(workspace), recursive=True):
             candidate = Path(match)
