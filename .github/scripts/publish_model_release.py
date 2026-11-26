@@ -220,7 +220,13 @@ def publish_raw_branch(repo: str, branch: str, output: Path,
 
     for asset in sorted(output.iterdir()):
         if asset.is_file() and asset.name != "manifest.json":
-            shutil.copy2(asset, stage / "assets" / asset.name)
+            target = stage / "assets" / asset.name
+            # Same-runner hardlinks avoid a second full physical copy of every
+            # Release asset. Git still stores its own objects when committing.
+            try:
+                os.link(asset, target)
+            except OSError:
+                shutil.copy2(asset, target)
 
     # Branch is intentionally a one-commit snapshot: force-updating the
     # product-specific branch keeps only the latest model cycle accessible.
