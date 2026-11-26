@@ -828,6 +828,15 @@ jobs:
             "${DATE_ARG[@]}" \
             "${CYCLE_ARG[@]}"
 
+      - name: Liberar espaço após preparar produtos finais
+        shell: bash
+        run: |
+          set -euo pipefail
+          # release-input contains downloaded model artifacts, which are no longer
+          # needed after release-assets has been prepared and validated.
+          rm -rf release-input
+          df -h "$RUNNER_TEMP" .
+
       - name: Publicar JSONs Global NWP em GitHub Release e espelho raw (direto no workflow)
         env:
           GH_TOKEN: ${{ github.token }}
@@ -846,6 +855,12 @@ jobs:
           set -euo pipefail
           test -d release-assets
           mkdir -p "$SOURCE_ARTIFACTS_DIR/$FINAL_PRODUCT_DIR"
-          cp -a release-assets/. "$SOURCE_ARTIFACTS_DIR/$FINAL_PRODUCT_DIR/"
+          # Hardlink when the runner workspace and temp directory share a filesystem.
+          # Fall back to normal copies on runners where hardlinks are unavailable.
+          if ! cp -al release-assets/. "$SOURCE_ARTIFACTS_DIR/$FINAL_PRODUCT_DIR/"; then
+            rm -rf "$SOURCE_ARTIFACTS_DIR/$FINAL_PRODUCT_DIR"
+            mkdir -p "$SOURCE_ARTIFACTS_DIR/$FINAL_PRODUCT_DIR"
+            cp -a release-assets/. "$SOURCE_ARTIFACTS_DIR/$FINAL_PRODUCT_DIR/"
+          fi
           export SOURCE_COMPLETED_AT="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
           python3 .github/scripts/publish_model_release.py publish
