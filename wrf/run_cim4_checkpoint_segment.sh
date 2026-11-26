@@ -77,6 +77,19 @@ prepare_source() {
  : # checkpoint handled by GitHub Actions artifact
 }
 
+# Checkpoint downloads are not guaranteed to survive runner/artifact changes.
+# If the checkpoint is incomplete, recover by rebuilding from F000 instead of exiting 24.
+if [[ "$COLD_START" == "0" ]]; then
+  checkpoint_namelist="$INPUT/cim4-namelist.input"
+  checkpoint_rst="$(find "$INPUT" -maxdepth 1 -type f -name "cim4-restart-$START_HOUR-wrfrst_d01_*" -size +0c -print -quit)"
+  if [[ ! -s "$checkpoint_namelist" || -z "$checkpoint_rst" ]]; then
+    echo "WARN: checkpoint CIM4 F$START_HOUR incompleto (namelist/restart ausente); retomando cold-start desde F000 até F$END_HOUR."
+    COLD_START=1
+    START_HOUR=0
+    export WRF_START_HOUR=0 WRF_RUN_HOURS="$END_HOUR"
+  fi
+fi
+
 if [[ "$COLD_START" == "0" ]]; then
   rm -rf "$INPUT/normalized"
  : # checkpoint handled by GitHub Actions artifact
