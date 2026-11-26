@@ -22,7 +22,7 @@ jobs:
   report:
     name: Confirmar retenção de artifacts
     runs-on: ubuntu-22.04
-    timeout-minutes: 5
+    timeout-minutes: 480
     steps:
       - name: Registrar política de retenção
         shell: bash

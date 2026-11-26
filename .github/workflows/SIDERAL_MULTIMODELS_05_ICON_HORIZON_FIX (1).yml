@@ -44,7 +44,7 @@ concurrency:
 jobs:
   multimodels:
     runs-on: ubuntu-22.04
-    timeout-minutes: 350
+    timeout-minutes: 480
     env:
       GFS_REQUEST_DELAY_SECONDS: "10"
       LOG_LEVEL: INFO

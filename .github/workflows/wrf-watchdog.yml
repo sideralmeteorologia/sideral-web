@@ -17,7 +17,7 @@ jobs:
   inspect:
     name: Verificar estado operacional dos runners WRF
     runs-on: ubuntu-22.04
-    timeout-minutes: 5
+    timeout-minutes: 480
     steps:
       - name: Consultar últimas execuções (somente leitura)
         env:

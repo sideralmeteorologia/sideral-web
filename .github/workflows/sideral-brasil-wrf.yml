@@ -49,7 +49,7 @@ jobs:
   brasil:
     name: ICON -> WRF Brasil 21 km F000-F048 horario
     runs-on: ubuntu-22.04
-    timeout-minutes: 330
+    timeout-minutes: 480
     steps:
       - uses: actions/checkout@v4
       - name: Restore WRF artifacts after checkout (1)

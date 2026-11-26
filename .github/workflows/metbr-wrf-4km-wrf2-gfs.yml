@@ -27,7 +27,7 @@ jobs:
   seg00:
     name: METBR GFS F000-F001
     runs-on: ubuntu-22.04
-    timeout-minutes: 360
+    timeout-minutes: 480
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -35,12 +35,7 @@ jobs:
           fetch-depth: 1
       - name: Restore WRF artifacts after checkout (1)
         shell: bash
-        run: |
-          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
-            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
-              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
-              --workspace "$GITHUB_WORKSPACE"
-          fi
+        run: echo 'Artifacts already restored in Register step'
       - name: Restore WRF runtime files from runners catalog
         shell: bash
         run: python3 .github/scripts/restore_wrf_runtime.py
@@ -137,7 +132,7 @@ jobs:
   seg01:
     name: METBR GFS F001-F002
     runs-on: ubuntu-22.04
-    timeout-minutes: 360
+    timeout-minutes: 480
     needs: seg00
     steps:
       - name: Checkout repository
@@ -146,12 +141,7 @@ jobs:
           fetch-depth: 1
       - name: Restore WRF artifacts after checkout (2)
         shell: bash
-        run: |
-          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
-            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
-              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
-              --workspace "$GITHUB_WORKSPACE"
-          fi
+        run: echo 'Artifacts already restored in Register step'
       - name: Restore WRF runtime files from runners catalog
         shell: bash
         run: python3 .github/scripts/restore_wrf_runtime.py
@@ -228,7 +218,7 @@ jobs:
   seg02:
     name: METBR GFS F002-F003
     runs-on: ubuntu-22.04
-    timeout-minutes: 360
+    timeout-minutes: 480
     needs: seg01
     steps:
       - name: Checkout repository
@@ -237,12 +227,7 @@ jobs:
           fetch-depth: 1
       - name: Restore WRF artifacts after checkout (3)
         shell: bash
-        run: |
-          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
-            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
-              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
-              --workspace "$GITHUB_WORKSPACE"
-          fi
+        run: echo 'Artifacts already restored in Register step'
       - name: Restore WRF runtime files from runners catalog
         shell: bash
         run: python3 .github/scripts/restore_wrf_runtime.py
@@ -319,7 +304,7 @@ jobs:
   seg03:
     name: METBR GFS F003-F004
     runs-on: ubuntu-22.04
-    timeout-minutes: 360
+    timeout-minutes: 480
     needs: seg02
     steps:
       - name: Checkout repository
@@ -328,12 +313,7 @@ jobs:
           fetch-depth: 1
       - name: Restore WRF artifacts after checkout (4)
         shell: bash
-        run: |
-          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
-            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
-              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
-              --workspace "$GITHUB_WORKSPACE"
-          fi
+        run: echo 'Artifacts already restored in Register step'
       - name: Restore WRF runtime files from runners catalog
         shell: bash
         run: python3 .github/scripts/restore_wrf_runtime.py
@@ -410,7 +390,7 @@ jobs:
   seg04:
     name: METBR GFS F004-F005
     runs-on: ubuntu-22.04
-    timeout-minutes: 360
+    timeout-minutes: 480
     needs: seg03
     steps:
       - name: Checkout repository
@@ -419,12 +399,7 @@ jobs:
           fetch-depth: 1
       - name: Restore WRF artifacts after checkout (5)
         shell: bash
-        run: |
-          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
-            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
-              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
-              --workspace "$GITHUB_WORKSPACE"
-          fi
+        run: echo 'Artifacts already restored in Register step'
       - name: Restore WRF runtime files from runners catalog
         shell: bash
         run: python3 .github/scripts/restore_wrf_runtime.py
@@ -501,7 +476,7 @@ jobs:
   seg05:
     name: METBR GFS F005-F006
     runs-on: ubuntu-22.04
-    timeout-minutes: 360
+    timeout-minutes: 480
     needs: seg04
     steps:
       - name: Checkout repository
@@ -510,12 +485,7 @@ jobs:
           fetch-depth: 1
       - name: Restore WRF artifacts after checkout (6)
         shell: bash
-        run: |
-          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
-            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
-              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
-              --workspace "$GITHUB_WORKSPACE"
-          fi
+        run: echo 'Artifacts already restored in Register step'
       - name: Restore WRF runtime files from runners catalog
         shell: bash
         run: python3 .github/scripts/restore_wrf_runtime.py
@@ -592,7 +562,7 @@ jobs:
   seg06:
     name: METBR GFS F006-F007
     runs-on: ubuntu-22.04
-    timeout-minutes: 360
+    timeout-minutes: 480
     needs: seg05
     steps:
       - name: Checkout repository
@@ -601,12 +571,7 @@ jobs:
           fetch-depth: 1
       - name: Restore WRF artifacts after checkout (7)
         shell: bash
-        run: |
-          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
-            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
-              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
-              --workspace "$GITHUB_WORKSPACE"
-          fi
+        run: echo 'Artifacts already restored in Register step'
       - name: Restore WRF runtime files from runners catalog
         shell: bash
         run: python3 .github/scripts/restore_wrf_runtime.py
@@ -683,7 +648,7 @@ jobs:
   seg07:
     name: METBR GFS F007-F008
     runs-on: ubuntu-22.04
-    timeout-minutes: 360
+    timeout-minutes: 480
     needs: seg06
     steps:
       - name: Checkout repository
@@ -692,12 +657,7 @@ jobs:
           fetch-depth: 1
       - name: Restore WRF artifacts after checkout (8)
         shell: bash
-        run: |
-          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
-            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
-              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
-              --workspace "$GITHUB_WORKSPACE"
-          fi
+        run: echo 'Artifacts already restored in Register step'
       - name: Restore WRF runtime files from runners catalog
         shell: bash
         run: python3 .github/scripts/restore_wrf_runtime.py
@@ -774,7 +734,7 @@ jobs:
   seg08:
     name: METBR GFS F008-F009
     runs-on: ubuntu-22.04
-    timeout-minutes: 360
+    timeout-minutes: 480
     needs: seg07
     steps:
       - name: Checkout repository
@@ -783,12 +743,7 @@ jobs:
           fetch-depth: 1
       - name: Restore WRF artifacts after checkout (9)
         shell: bash
-        run: |
-          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
-            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
-              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
-              --workspace "$GITHUB_WORKSPACE"
-          fi
+        run: echo 'Artifacts already restored in Register step'
       - name: Restore WRF runtime files from runners catalog
         shell: bash
         run: python3 .github/scripts/restore_wrf_runtime.py
@@ -865,7 +820,7 @@ jobs:
   seg09:
     name: METBR GFS F009-F010
     runs-on: ubuntu-22.04
-    timeout-minutes: 360
+    timeout-minutes: 480
     needs: seg08
     steps:
       - name: Checkout repository
@@ -874,12 +829,7 @@ jobs:
           fetch-depth: 1
       - name: Restore WRF artifacts after checkout (10)
         shell: bash
-        run: |
-          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
-            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
-              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
-              --workspace "$GITHUB_WORKSPACE"
-          fi
+        run: echo 'Artifacts already restored in Register step'
       - name: Restore WRF runtime files from runners catalog
         shell: bash
         run: python3 .github/scripts/restore_wrf_runtime.py
@@ -956,7 +906,7 @@ jobs:
   seg10:
     name: METBR GFS F010-F011
     runs-on: ubuntu-22.04
-    timeout-minutes: 360
+    timeout-minutes: 480
     needs: seg09
     steps:
       - name: Checkout repository
@@ -965,12 +915,7 @@ jobs:
           fetch-depth: 1
       - name: Restore WRF artifacts after checkout (11)
         shell: bash
-        run: |
-          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
-            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
-              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
-              --workspace "$GITHUB_WORKSPACE"
-          fi
+        run: echo 'Artifacts already restored in Register step'
       - name: Restore WRF runtime files from runners catalog
         shell: bash
         run: python3 .github/scripts/restore_wrf_runtime.py
@@ -1047,7 +992,7 @@ jobs:
   seg11:
     name: METBR GFS F011-F012
     runs-on: ubuntu-22.04
-    timeout-minutes: 360
+    timeout-minutes: 480
     needs: seg10
     steps:
       - name: Checkout repository
@@ -1056,12 +1001,7 @@ jobs:
           fetch-depth: 1
       - name: Restore WRF artifacts after checkout (12)
         shell: bash
-        run: |
-          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
-            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
-              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
-              --workspace "$GITHUB_WORKSPACE"
-          fi
+        run: echo 'Artifacts already restored in Register step'
       - name: Restore WRF runtime files from runners catalog
         shell: bash
         run: python3 .github/scripts/restore_wrf_runtime.py
@@ -1138,7 +1078,7 @@ jobs:
   seg12:
     name: METBR GFS F012-F013
     runs-on: ubuntu-22.04
-    timeout-minutes: 360
+    timeout-minutes: 480
     needs: seg11
     steps:
       - name: Checkout repository
@@ -1147,12 +1087,7 @@ jobs:
           fetch-depth: 1
       - name: Restore WRF artifacts after checkout (13)
         shell: bash
-        run: |
-          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
-            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
-              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
-              --workspace "$GITHUB_WORKSPACE"
-          fi
+        run: echo 'Artifacts already restored in Register step'
       - name: Restore WRF runtime files from runners catalog
         shell: bash
         run: python3 .github/scripts/restore_wrf_runtime.py
@@ -1229,7 +1164,7 @@ jobs:
   seg13:
     name: METBR GFS F013-F014
     runs-on: ubuntu-22.04
-    timeout-minutes: 360
+    timeout-minutes: 480
     needs: seg12
     steps:
       - name: Checkout repository
@@ -1238,12 +1173,7 @@ jobs:
           fetch-depth: 1
       - name: Restore WRF artifacts after checkout (14)
         shell: bash
-        run: |
-          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
-            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
-              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
-              --workspace "$GITHUB_WORKSPACE"
-          fi
+        run: echo 'Artifacts already restored in Register step'
       - name: Restore WRF runtime files from runners catalog
         shell: bash
         run: python3 .github/scripts/restore_wrf_runtime.py
@@ -1320,7 +1250,7 @@ jobs:
   seg14:
     name: METBR GFS F014-F015
     runs-on: ubuntu-22.04
-    timeout-minutes: 360
+    timeout-minutes: 480
     needs: seg13
     steps:
       - name: Checkout repository
@@ -1329,12 +1259,7 @@ jobs:
           fetch-depth: 1
       - name: Restore WRF artifacts after checkout (15)
         shell: bash
-        run: |
-          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
-            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
-              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
-              --workspace "$GITHUB_WORKSPACE"
-          fi
+        run: echo 'Artifacts already restored in Register step'
       - name: Restore WRF runtime files from runners catalog
         shell: bash
         run: python3 .github/scripts/restore_wrf_runtime.py
@@ -1411,7 +1336,7 @@ jobs:
   seg15:
     name: METBR GFS F015-F016
     runs-on: ubuntu-22.04
-    timeout-minutes: 360
+    timeout-minutes: 480
     needs: seg14
     steps:
       - name: Checkout repository
@@ -1420,12 +1345,7 @@ jobs:
           fetch-depth: 1
       - name: Restore WRF artifacts after checkout (16)
         shell: bash
-        run: |
-          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
-            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
-              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
-              --workspace "$GITHUB_WORKSPACE"
-          fi
+        run: echo 'Artifacts already restored in Register step'
       - name: Restore WRF runtime files from runners catalog
         shell: bash
         run: python3 .github/scripts/restore_wrf_runtime.py
@@ -1502,7 +1422,7 @@ jobs:
   seg16:
     name: METBR GFS F016-F017
     runs-on: ubuntu-22.04
-    timeout-minutes: 360
+    timeout-minutes: 480
     needs: seg15
     steps:
       - name: Checkout repository
@@ -1511,12 +1431,7 @@ jobs:
           fetch-depth: 1
       - name: Restore WRF artifacts after checkout (17)
         shell: bash
-        run: |
-          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
-            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
-              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
-              --workspace "$GITHUB_WORKSPACE"
-          fi
+        run: echo 'Artifacts already restored in Register step'
       - name: Restore WRF runtime files from runners catalog
         shell: bash
         run: python3 .github/scripts/restore_wrf_runtime.py
@@ -1593,7 +1508,7 @@ jobs:
   seg17:
     name: METBR GFS F017-F018
     runs-on: ubuntu-22.04
-    timeout-minutes: 360
+    timeout-minutes: 480
     needs: seg16
     steps:
       - name: Checkout repository
@@ -1602,12 +1517,7 @@ jobs:
           fetch-depth: 1
       - name: Restore WRF artifacts after checkout (18)
         shell: bash
-        run: |
-          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
-            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
-              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
-              --workspace "$GITHUB_WORKSPACE"
-          fi
+        run: echo 'Artifacts already restored in Register step'
       - name: Restore WRF runtime files from runners catalog
         shell: bash
         run: python3 .github/scripts/restore_wrf_runtime.py
@@ -1684,7 +1594,7 @@ jobs:
   seg18:
     name: METBR GFS F018-F019
     runs-on: ubuntu-22.04
-    timeout-minutes: 360
+    timeout-minutes: 480
     needs: seg17
     steps:
       - name: Checkout repository
@@ -1693,12 +1603,7 @@ jobs:
           fetch-depth: 1
       - name: Restore WRF artifacts after checkout (19)
         shell: bash
-        run: |
-          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
-            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
-              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
-              --workspace "$GITHUB_WORKSPACE"
-          fi
+        run: echo 'Artifacts already restored in Register step'
       - name: Restore WRF runtime files from runners catalog
         shell: bash
         run: python3 .github/scripts/restore_wrf_runtime.py
@@ -1775,7 +1680,7 @@ jobs:
   seg19:
     name: METBR GFS F019-F020
     runs-on: ubuntu-22.04
-    timeout-minutes: 360
+    timeout-minutes: 480
     needs: seg18
     steps:
       - name: Checkout repository
@@ -1784,12 +1689,7 @@ jobs:
           fetch-depth: 1
       - name: Restore WRF artifacts after checkout (20)
         shell: bash
-        run: |
-          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
-            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
-              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
-              --workspace "$GITHUB_WORKSPACE"
-          fi
+        run: echo 'Artifacts already restored in Register step'
       - name: Restore WRF runtime files from runners catalog
         shell: bash
         run: python3 .github/scripts/restore_wrf_runtime.py
@@ -1866,7 +1766,7 @@ jobs:
   seg20:
     name: METBR GFS F020-F021
     runs-on: ubuntu-22.04
-    timeout-minutes: 360
+    timeout-minutes: 480
     needs: seg19
     steps:
       - name: Checkout repository
@@ -1875,12 +1775,7 @@ jobs:
           fetch-depth: 1
       - name: Restore WRF artifacts after checkout (21)
         shell: bash
-        run: |
-          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
-            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
-              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
-              --workspace "$GITHUB_WORKSPACE"
-          fi
+        run: echo 'Artifacts already restored in Register step'
       - name: Restore WRF runtime files from runners catalog
         shell: bash
         run: python3 .github/scripts/restore_wrf_runtime.py
@@ -1957,7 +1852,7 @@ jobs:
   seg21:
     name: METBR GFS F021-F022
     runs-on: ubuntu-22.04
-    timeout-minutes: 360
+    timeout-minutes: 480
     needs: seg20
     steps:
       - name: Checkout repository
@@ -1966,12 +1861,7 @@ jobs:
           fetch-depth: 1
       - name: Restore WRF artifacts after checkout (22)
         shell: bash
-        run: |
-          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
-            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
-              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
-              --workspace "$GITHUB_WORKSPACE"
-          fi
+        run: echo 'Artifacts already restored in Register step'
       - name: Restore WRF runtime files from runners catalog
         shell: bash
         run: python3 .github/scripts/restore_wrf_runtime.py
@@ -2048,7 +1938,7 @@ jobs:
   seg22:
     name: METBR GFS F022-F023
     runs-on: ubuntu-22.04
-    timeout-minutes: 360
+    timeout-minutes: 480
     needs: seg21
     steps:
       - name: Checkout repository
@@ -2057,12 +1947,7 @@ jobs:
           fetch-depth: 1
       - name: Restore WRF artifacts after checkout (23)
         shell: bash
-        run: |
-          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
-            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
-              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
-              --workspace "$GITHUB_WORKSPACE"
-          fi
+        run: echo 'Artifacts already restored in Register step'
       - name: Restore WRF runtime files from runners catalog
         shell: bash
         run: python3 .github/scripts/restore_wrf_runtime.py
@@ -2139,7 +2024,7 @@ jobs:
   seg23:
     name: METBR GFS F023-F024
     runs-on: ubuntu-22.04
-    timeout-minutes: 360
+    timeout-minutes: 480
     needs: seg22
     steps:
       - name: Checkout repository
@@ -2148,12 +2033,7 @@ jobs:
           fetch-depth: 1
       - name: Restore WRF artifacts after checkout (24)
         shell: bash
-        run: |
-          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
-            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
-              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
-              --workspace "$GITHUB_WORKSPACE"
-          fi
+        run: echo 'Artifacts already restored in Register step'
       - name: Restore WRF runtime files from runners catalog
         shell: bash
         run: python3 .github/scripts/restore_wrf_runtime.py
@@ -2230,7 +2110,7 @@ jobs:
   seg24:
     name: METBR GFS F024-F025
     runs-on: ubuntu-22.04
-    timeout-minutes: 360
+    timeout-minutes: 480
     needs: seg23
     steps:
       - name: Checkout repository
@@ -2239,12 +2119,7 @@ jobs:
           fetch-depth: 1
       - name: Restore WRF artifacts after checkout (25)
         shell: bash
-        run: |
-          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
-            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
-              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
-              --workspace "$GITHUB_WORKSPACE"
-          fi
+        run: echo 'Artifacts already restored in Register step'
       - name: Restore WRF runtime files from runners catalog
         shell: bash
         run: python3 .github/scripts/restore_wrf_runtime.py
@@ -2321,7 +2196,7 @@ jobs:
   seg25:
     name: METBR GFS F025-F026
     runs-on: ubuntu-22.04
-    timeout-minutes: 360
+    timeout-minutes: 480
     needs: seg24
     steps:
       - name: Checkout repository
@@ -2330,12 +2205,7 @@ jobs:
           fetch-depth: 1
       - name: Restore WRF artifacts after checkout (26)
         shell: bash
-        run: |
-          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
-            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
-              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
-              --workspace "$GITHUB_WORKSPACE"
-          fi
+        run: echo 'Artifacts already restored in Register step'
       - name: Restore WRF runtime files from runners catalog
         shell: bash
         run: python3 .github/scripts/restore_wrf_runtime.py
@@ -2412,7 +2282,7 @@ jobs:
   seg26:
     name: METBR GFS F026-F027
     runs-on: ubuntu-22.04
-    timeout-minutes: 360
+    timeout-minutes: 480
     needs: seg25
     steps:
       - name: Checkout repository
@@ -2421,12 +2291,7 @@ jobs:
           fetch-depth: 1
       - name: Restore WRF artifacts after checkout (27)
         shell: bash
-        run: |
-          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
-            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
-              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
-              --workspace "$GITHUB_WORKSPACE"
-          fi
+        run: echo 'Artifacts already restored in Register step'
       - name: Restore WRF runtime files from runners catalog
         shell: bash
         run: python3 .github/scripts/restore_wrf_runtime.py
@@ -2503,7 +2368,7 @@ jobs:
   seg27:
     name: METBR GFS F027-F028
     runs-on: ubuntu-22.04
-    timeout-minutes: 360
+    timeout-minutes: 480
     needs: seg26
     steps:
       - name: Checkout repository
@@ -2512,12 +2377,7 @@ jobs:
           fetch-depth: 1
       - name: Restore WRF artifacts after checkout (28)
         shell: bash
-        run: |
-          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
-            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
-              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
-              --workspace "$GITHUB_WORKSPACE"
-          fi
+        run: echo 'Artifacts already restored in Register step'
       - name: Restore WRF runtime files from runners catalog
         shell: bash
         run: python3 .github/scripts/restore_wrf_runtime.py
@@ -2594,7 +2454,7 @@ jobs:
   seg28:
     name: METBR GFS F028-F029
     runs-on: ubuntu-22.04
-    timeout-minutes: 360
+    timeout-minutes: 480
     needs: seg27
     steps:
       - name: Checkout repository
@@ -2603,12 +2463,7 @@ jobs:
           fetch-depth: 1
       - name: Restore WRF artifacts after checkout (29)
         shell: bash
-        run: |
-          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
-            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
-              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
-              --workspace "$GITHUB_WORKSPACE"
-          fi
+        run: echo 'Artifacts already restored in Register step'
       - name: Restore WRF runtime files from runners catalog
         shell: bash
         run: python3 .github/scripts/restore_wrf_runtime.py
@@ -2685,7 +2540,7 @@ jobs:
   seg29:
     name: METBR GFS F029-F030
     runs-on: ubuntu-22.04
-    timeout-minutes: 360
+    timeout-minutes: 480
     needs: seg28
     steps:
       - name: Checkout repository
@@ -2694,12 +2549,7 @@ jobs:
           fetch-depth: 1
       - name: Restore WRF artifacts after checkout (30)
         shell: bash
-        run: |
-          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
-            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
-              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
-              --workspace "$GITHUB_WORKSPACE"
-          fi
+        run: echo 'Artifacts already restored in Register step'
       - name: Restore WRF runtime files from runners catalog
         shell: bash
         run: python3 .github/scripts/restore_wrf_runtime.py
@@ -2776,7 +2626,7 @@ jobs:
   seg30:
     name: METBR GFS F030-F031
     runs-on: ubuntu-22.04
-    timeout-minutes: 360
+    timeout-minutes: 480
     needs: seg29
     steps:
       - name: Checkout repository
@@ -2785,12 +2635,7 @@ jobs:
           fetch-depth: 1
       - name: Restore WRF artifacts after checkout (31)
         shell: bash
-        run: |
-          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
-            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
-              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
-              --workspace "$GITHUB_WORKSPACE"
-          fi
+        run: echo 'Artifacts already restored in Register step'
       - name: Restore WRF runtime files from runners catalog
         shell: bash
         run: python3 .github/scripts/restore_wrf_runtime.py
@@ -2867,7 +2712,7 @@ jobs:
   seg31:
     name: METBR GFS F031-F032
     runs-on: ubuntu-22.04
-    timeout-minutes: 360
+    timeout-minutes: 480
     needs: seg30
     steps:
       - name: Checkout repository
@@ -2876,12 +2721,7 @@ jobs:
           fetch-depth: 1
       - name: Restore WRF artifacts after checkout (32)
         shell: bash
-        run: |
-          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
-            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
-              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
-              --workspace "$GITHUB_WORKSPACE"
-          fi
+        run: echo 'Artifacts already restored in Register step'
       - name: Restore WRF runtime files from runners catalog
         shell: bash
         run: python3 .github/scripts/restore_wrf_runtime.py
@@ -2958,7 +2798,7 @@ jobs:
   seg32:
     name: METBR GFS F032-F033
     runs-on: ubuntu-22.04
-    timeout-minutes: 360
+    timeout-minutes: 480
     needs: seg31
     steps:
       - name: Checkout repository
@@ -2967,12 +2807,7 @@ jobs:
           fetch-depth: 1
       - name: Restore WRF artifacts after checkout (33)
         shell: bash
-        run: |
-          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
-            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
-              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
-              --workspace "$GITHUB_WORKSPACE"
-          fi
+        run: echo 'Artifacts already restored in Register step'
       - name: Restore WRF runtime files from runners catalog
         shell: bash
         run: python3 .github/scripts/restore_wrf_runtime.py
@@ -3049,7 +2884,7 @@ jobs:
   seg33:
     name: METBR GFS F033-F034
     runs-on: ubuntu-22.04
-    timeout-minutes: 360
+    timeout-minutes: 480
     needs: seg32
     steps:
       - name: Checkout repository
@@ -3058,12 +2893,7 @@ jobs:
           fetch-depth: 1
       - name: Restore WRF artifacts after checkout (34)
         shell: bash
-        run: |
-          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
-            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
-              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
-              --workspace "$GITHUB_WORKSPACE"
-          fi
+        run: echo 'Artifacts already restored in Register step'
       - name: Restore WRF runtime files from runners catalog
         shell: bash
         run: python3 .github/scripts/restore_wrf_runtime.py
@@ -3140,7 +2970,7 @@ jobs:
   seg34:
     name: METBR GFS F034-F035
     runs-on: ubuntu-22.04
-    timeout-minutes: 360
+    timeout-minutes: 480
     needs: seg33
     steps:
       - name: Checkout repository
@@ -3149,12 +2979,7 @@ jobs:
           fetch-depth: 1
       - name: Restore WRF artifacts after checkout (35)
         shell: bash
-        run: |
-          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
-            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
-              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
-              --workspace "$GITHUB_WORKSPACE"
-          fi
+        run: echo 'Artifacts already restored in Register step'
       - name: Restore WRF runtime files from runners catalog
         shell: bash
         run: python3 .github/scripts/restore_wrf_runtime.py
@@ -3231,7 +3056,7 @@ jobs:
   seg35:
     name: METBR GFS F035-F036
     runs-on: ubuntu-22.04
-    timeout-minutes: 360
+    timeout-minutes: 480
     needs: seg34
     steps:
       - name: Checkout repository
@@ -3240,12 +3065,7 @@ jobs:
           fetch-depth: 1
       - name: Restore WRF artifacts after checkout (36)
         shell: bash
-        run: |
-          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
-            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
-              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
-              --workspace "$GITHUB_WORKSPACE"
-          fi
+        run: echo 'Artifacts already restored in Register step'
       - name: Restore WRF runtime files from runners catalog
         shell: bash
         run: python3 .github/scripts/restore_wrf_runtime.py
@@ -3322,7 +3142,7 @@ jobs:
   seg36:
     name: METBR GFS F036-F037
     runs-on: ubuntu-22.04
-    timeout-minutes: 360
+    timeout-minutes: 480
     needs: seg35
     steps:
       - name: Checkout repository
@@ -3331,12 +3151,7 @@ jobs:
           fetch-depth: 1
       - name: Restore WRF artifacts after checkout (37)
         shell: bash
-        run: |
-          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
-            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
-              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
-              --workspace "$GITHUB_WORKSPACE"
-          fi
+        run: echo 'Artifacts already restored in Register step'
       - name: Restore WRF runtime files from runners catalog
         shell: bash
         run: python3 .github/scripts/restore_wrf_runtime.py
@@ -3413,7 +3228,7 @@ jobs:
   seg37:
     name: METBR GFS F037-F038
     runs-on: ubuntu-22.04
-    timeout-minutes: 360
+    timeout-minutes: 480
     needs: seg36
     steps:
       - name: Checkout repository
@@ -3422,12 +3237,7 @@ jobs:
           fetch-depth: 1
       - name: Restore WRF artifacts after checkout (38)
         shell: bash
-        run: |
-          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
-            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
-              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
-              --workspace "$GITHUB_WORKSPACE"
-          fi
+        run: echo 'Artifacts already restored in Register step'
       - name: Restore WRF runtime files from runners catalog
         shell: bash
         run: python3 .github/scripts/restore_wrf_runtime.py
@@ -3504,7 +3314,7 @@ jobs:
   seg38:
     name: METBR GFS F038-F039
     runs-on: ubuntu-22.04
-    timeout-minutes: 360
+    timeout-minutes: 480
     needs: seg37
     steps:
       - name: Checkout repository
@@ -3513,12 +3323,7 @@ jobs:
           fetch-depth: 1
       - name: Restore WRF artifacts after checkout (39)
         shell: bash
-        run: |
-          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
-            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
-              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
-              --workspace "$GITHUB_WORKSPACE"
-          fi
+        run: echo 'Artifacts already restored in Register step'
       - name: Restore WRF runtime files from runners catalog
         shell: bash
         run: python3 .github/scripts/restore_wrf_runtime.py
@@ -3595,7 +3400,7 @@ jobs:
   seg39:
     name: METBR GFS F039-F040
     runs-on: ubuntu-22.04
-    timeout-minutes: 360
+    timeout-minutes: 480
     needs: seg38
     steps:
       - name: Checkout repository
@@ -3604,12 +3409,7 @@ jobs:
           fetch-depth: 1
       - name: Restore WRF artifacts after checkout (40)
         shell: bash
-        run: |
-          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
-            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
-              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
-              --workspace "$GITHUB_WORKSPACE"
-          fi
+        run: echo 'Artifacts already restored in Register step'
       - name: Restore WRF runtime files from runners catalog
         shell: bash
         run: python3 .github/scripts/restore_wrf_runtime.py
@@ -3686,7 +3486,7 @@ jobs:
   seg40:
     name: METBR GFS F040-F041
     runs-on: ubuntu-22.04
-    timeout-minutes: 360
+    timeout-minutes: 480
     needs: seg39
     steps:
       - name: Checkout repository
@@ -3695,12 +3495,7 @@ jobs:
           fetch-depth: 1
       - name: Restore WRF artifacts after checkout (41)
         shell: bash
-        run: |
-          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
-            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
-              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
-              --workspace "$GITHUB_WORKSPACE"
-          fi
+        run: echo 'Artifacts already restored in Register step'
       - name: Restore WRF runtime files from runners catalog
         shell: bash
         run: python3 .github/scripts/restore_wrf_runtime.py
@@ -3777,7 +3572,7 @@ jobs:
   seg41:
     name: METBR GFS F041-F042
     runs-on: ubuntu-22.04
-    timeout-minutes: 360
+    timeout-minutes: 480
     needs: seg40
     steps:
       - name: Checkout repository
@@ -3786,12 +3581,7 @@ jobs:
           fetch-depth: 1
       - name: Restore WRF artifacts after checkout (42)
         shell: bash
-        run: |
-          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
-            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
-              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
-              --workspace "$GITHUB_WORKSPACE"
-          fi
+        run: echo 'Artifacts already restored in Register step'
       - name: Restore WRF runtime files from runners catalog
         shell: bash
         run: python3 .github/scripts/restore_wrf_runtime.py
@@ -3869,7 +3659,7 @@ jobs:
     name: Extrair e validar METBR WRF 4 km
     runs-on: ubuntu-22.04
     needs: [seg00, seg01, seg02, seg03, seg04, seg05, seg06, seg07, seg08, seg09, seg10, seg11, seg12, seg13, seg14, seg15, seg16, seg17, seg18, seg19, seg20, seg21, seg22, seg23, seg24, seg25, seg26, seg27, seg28, seg29, seg30, seg31, seg32, seg33, seg34, seg35, seg36, seg37, seg38, seg39, seg40, seg41]
-    timeout-minutes: 120
+    timeout-minutes: 480
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -3877,60 +3667,25 @@ jobs:
           fetch-depth: 1
       - name: Restore WRF artifacts after checkout (complete)
         shell: bash
-        run: |
-          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
-            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
-              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
-              --workspace "$GITHUB_WORKSPACE"
-          fi
+        run: echo 'Artifacts already restored in Register step'
       - name: Restore WRF artifacts after checkout (complete)
         shell: bash
-        run: |
-          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
-            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
-              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
-              --workspace "$GITHUB_WORKSPACE"
-          fi
+        run: echo 'Artifacts already restored in Register step'
       - name: Restore WRF artifacts after checkout (complete)
         shell: bash
-        run: |
-          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
-            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
-              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
-              --workspace "$GITHUB_WORKSPACE"
-          fi
+        run: echo 'Artifacts already restored in Register step'
       - name: Restore WRF artifacts after checkout (complete)
         shell: bash
-        run: |
-          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
-            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
-              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
-              --workspace "$GITHUB_WORKSPACE"
-          fi
+        run: echo 'Artifacts already restored in Register step'
       - name: Restore WRF artifacts after checkout (complete)
         shell: bash
-        run: |
-          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
-            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
-              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
-              --workspace "$GITHUB_WORKSPACE"
-          fi
+        run: echo 'Artifacts already restored in Register step'
       - name: Restore WRF artifacts after checkout (complete)
         shell: bash
-        run: |
-          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
-            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
-              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
-              --workspace "$GITHUB_WORKSPACE"
-          fi
+        run: echo 'Artifacts already restored in Register step'
       - name: Restore WRF artifacts after checkout (43)
         shell: bash
-        run: |
-          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
-            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
-              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
-              --workspace "$GITHUB_WORKSPACE"
-          fi
+        run: echo 'Artifacts already restored in Register step'
       - name: Restore WRF runtime files from runners catalog
         shell: bash
         run: python3 .github/scripts/restore_wrf_runtime.py

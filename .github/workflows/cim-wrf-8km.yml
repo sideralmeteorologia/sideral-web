@@ -46,7 +46,7 @@ jobs:
   resolve_runs:
     name: Resolver ICON, ECMWF e GFS com cobertura ate F042
     runs-on: ubuntu-22.04
-    timeout-minutes: 20
+    timeout-minutes: 480
     outputs:
       icon_date: ${{ steps.resolve_icon.outputs.date }}
       icon_cycle: ${{ steps.resolve_icon.outputs.cycle }}
@@ -269,7 +269,7 @@ jobs:
     needs: resolve_runs
 
     runs-on: ubuntu-22.04
-    timeout-minutes: 330
+    timeout-minutes: 480
     strategy:
       fail-fast: false
       max-parallel: 2

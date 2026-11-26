@@ -45,7 +45,7 @@ jobs:
   seg00:
     name: SIDERAL 4 KM wrf ecmwf F000-F003
     runs-on: ubuntu-22.04
-    timeout-minutes: 360
+    timeout-minutes: 480
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -53,12 +53,7 @@ jobs:
           fetch-depth: 1
       - name: Restore WRF artifacts after checkout (1)
         shell: bash
-        run: |
-          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
-            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
-              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
-              --workspace "$GITHUB_WORKSPACE"
-          fi
+        run: echo 'Artifacts already restored in Register step'
       - name: Restore WRF runtime files from runners catalog
         shell: bash
         run: python3 .github/scripts/restore_wrf_runtime.py
@@ -238,7 +233,7 @@ jobs:
     name: SIDERAL 4 KM wrf ecmwf F003-F006
     runs-on: ubuntu-22.04
     needs: seg00
-    timeout-minutes: 360
+    timeout-minutes: 480
     steps:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
@@ -249,7 +244,7 @@ jobs:
         shell: bash
         env:
           WRF_ARTIFACT_DOWNLOAD_DIR: ${{ runner.temp }}/wrf-downloads/d001
-          WRF_ARTIFACT_RESTORE_TO: '.'
+          WRF_ARTIFACT_RESTORE_TO: 'tarc_restart_input'
         run: |
           mkdir -p "$WRF_ARTIFACT_DOWNLOAD_DIR"
           printf '%s\n' "$WRF_ARTIFACT_RESTORE_TO" > "$WRF_ARTIFACT_DOWNLOAD_DIR/.restore-to"
@@ -272,12 +267,7 @@ jobs:
           fetch-depth: 1
       - name: Restore WRF artifacts after checkout (2)
         shell: bash
-        run: |
-          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
-            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
-              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
-              --workspace "$GITHUB_WORKSPACE"
-          fi
+        run: echo 'Artifacts already restored in Register step'
       - name: Restore WRF runtime files from runners catalog
         shell: bash
         run: python3 .github/scripts/restore_wrf_runtime.py
@@ -373,7 +363,7 @@ jobs:
     name: SIDERAL 4 KM wrf ecmwf F006-F009
     runs-on: ubuntu-22.04
     needs: seg01
-    timeout-minutes: 360
+    timeout-minutes: 480
     steps:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
@@ -384,7 +374,7 @@ jobs:
         shell: bash
         env:
           WRF_ARTIFACT_DOWNLOAD_DIR: ${{ runner.temp }}/wrf-downloads/d001
-          WRF_ARTIFACT_RESTORE_TO: '.'
+          WRF_ARTIFACT_RESTORE_TO: 'tarc_restart_input'
         run: |
           mkdir -p "$WRF_ARTIFACT_DOWNLOAD_DIR"
           printf '%s\n' "$WRF_ARTIFACT_RESTORE_TO" > "$WRF_ARTIFACT_DOWNLOAD_DIR/.restore-to"
@@ -407,12 +397,7 @@ jobs:
           fetch-depth: 1
       - name: Restore WRF artifacts after checkout (2)
         shell: bash
-        run: |
-          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
-            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
-              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
-              --workspace "$GITHUB_WORKSPACE"
-          fi
+        run: echo 'Artifacts already restored in Register step'
       - name: Restore WRF runtime files from runners catalog
         shell: bash
         run: python3 .github/scripts/restore_wrf_runtime.py
@@ -508,7 +493,7 @@ jobs:
     name: SIDERAL 4 KM wrf ecmwf F009-F012
     runs-on: ubuntu-22.04
     needs: seg02
-    timeout-minutes: 360
+    timeout-minutes: 480
     steps:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
@@ -519,7 +504,7 @@ jobs:
         shell: bash
         env:
           WRF_ARTIFACT_DOWNLOAD_DIR: ${{ runner.temp }}/wrf-downloads/d001
-          WRF_ARTIFACT_RESTORE_TO: '.'
+          WRF_ARTIFACT_RESTORE_TO: 'tarc_restart_input'
         run: |
           mkdir -p "$WRF_ARTIFACT_DOWNLOAD_DIR"
           printf '%s\n' "$WRF_ARTIFACT_RESTORE_TO" > "$WRF_ARTIFACT_DOWNLOAD_DIR/.restore-to"
@@ -542,12 +527,7 @@ jobs:
           fetch-depth: 1
       - name: Restore WRF artifacts after checkout (2)
         shell: bash
-        run: |
-          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
-            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
-              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
-              --workspace "$GITHUB_WORKSPACE"
-          fi
+        run: echo 'Artifacts already restored in Register step'
       - name: Restore WRF runtime files from runners catalog
         shell: bash
         run: python3 .github/scripts/restore_wrf_runtime.py
@@ -643,7 +623,7 @@ jobs:
     name: SIDERAL 4 KM wrf ecmwf F012-F015
     runs-on: ubuntu-22.04
     needs: seg03
-    timeout-minutes: 360
+    timeout-minutes: 480
     steps:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
@@ -654,7 +634,7 @@ jobs:
         shell: bash
         env:
           WRF_ARTIFACT_DOWNLOAD_DIR: ${{ runner.temp }}/wrf-downloads/d001
-          WRF_ARTIFACT_RESTORE_TO: '.'
+          WRF_ARTIFACT_RESTORE_TO: 'tarc_restart_input'
         run: |
           mkdir -p "$WRF_ARTIFACT_DOWNLOAD_DIR"
           printf '%s\n' "$WRF_ARTIFACT_RESTORE_TO" > "$WRF_ARTIFACT_DOWNLOAD_DIR/.restore-to"
@@ -677,12 +657,7 @@ jobs:
           fetch-depth: 1
       - name: Restore WRF artifacts after checkout (2)
         shell: bash
-        run: |
-          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
-            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
-              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
-              --workspace "$GITHUB_WORKSPACE"
-          fi
+        run: echo 'Artifacts already restored in Register step'
       - name: Restore WRF runtime files from runners catalog
         shell: bash
         run: python3 .github/scripts/restore_wrf_runtime.py
@@ -778,7 +753,7 @@ jobs:
     name: SIDERAL 4 KM wrf ecmwf F015-F018
     runs-on: ubuntu-22.04
     needs: seg04
-    timeout-minutes: 360
+    timeout-minutes: 480
     steps:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
@@ -789,7 +764,7 @@ jobs:
         shell: bash
         env:
           WRF_ARTIFACT_DOWNLOAD_DIR: ${{ runner.temp }}/wrf-downloads/d001
-          WRF_ARTIFACT_RESTORE_TO: '.'
+          WRF_ARTIFACT_RESTORE_TO: 'tarc_restart_input'
         run: |
           mkdir -p "$WRF_ARTIFACT_DOWNLOAD_DIR"
           printf '%s\n' "$WRF_ARTIFACT_RESTORE_TO" > "$WRF_ARTIFACT_DOWNLOAD_DIR/.restore-to"
@@ -812,12 +787,7 @@ jobs:
           fetch-depth: 1
       - name: Restore WRF artifacts after checkout (2)
         shell: bash
-        run: |
-          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
-            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
-              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
-              --workspace "$GITHUB_WORKSPACE"
-          fi
+        run: echo 'Artifacts already restored in Register step'
       - name: Restore WRF runtime files from runners catalog
         shell: bash
         run: python3 .github/scripts/restore_wrf_runtime.py
@@ -913,7 +883,7 @@ jobs:
     name: SIDERAL 4 KM wrf ecmwf F018-F021
     runs-on: ubuntu-22.04
     needs: seg05
-    timeout-minutes: 360
+    timeout-minutes: 480
     steps:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
@@ -924,7 +894,7 @@ jobs:
         shell: bash
         env:
           WRF_ARTIFACT_DOWNLOAD_DIR: ${{ runner.temp }}/wrf-downloads/d001
-          WRF_ARTIFACT_RESTORE_TO: '.'
+          WRF_ARTIFACT_RESTORE_TO: 'tarc_restart_input'
         run: |
           mkdir -p "$WRF_ARTIFACT_DOWNLOAD_DIR"
           printf '%s\n' "$WRF_ARTIFACT_RESTORE_TO" > "$WRF_ARTIFACT_DOWNLOAD_DIR/.restore-to"
@@ -947,12 +917,7 @@ jobs:
           fetch-depth: 1
       - name: Restore WRF artifacts after checkout (2)
         shell: bash
-        run: |
-          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
-            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
-              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
-              --workspace "$GITHUB_WORKSPACE"
-          fi
+        run: echo 'Artifacts already restored in Register step'
       - name: Restore WRF runtime files from runners catalog
         shell: bash
         run: python3 .github/scripts/restore_wrf_runtime.py
@@ -1048,7 +1013,7 @@ jobs:
     name: SIDERAL 4 KM wrf ecmwf F021-F024
     runs-on: ubuntu-22.04
     needs: seg06
-    timeout-minutes: 360
+    timeout-minutes: 480
     steps:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
@@ -1059,7 +1024,7 @@ jobs:
         shell: bash
         env:
           WRF_ARTIFACT_DOWNLOAD_DIR: ${{ runner.temp }}/wrf-downloads/d001
-          WRF_ARTIFACT_RESTORE_TO: '.'
+          WRF_ARTIFACT_RESTORE_TO: 'tarc_restart_input'
         run: |
           mkdir -p "$WRF_ARTIFACT_DOWNLOAD_DIR"
           printf '%s\n' "$WRF_ARTIFACT_RESTORE_TO" > "$WRF_ARTIFACT_DOWNLOAD_DIR/.restore-to"
@@ -1082,12 +1047,7 @@ jobs:
           fetch-depth: 1
       - name: Restore WRF artifacts after checkout (2)
         shell: bash
-        run: |
-          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
-            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
-              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
-              --workspace "$GITHUB_WORKSPACE"
-          fi
+        run: echo 'Artifacts already restored in Register step'
       - name: Restore WRF runtime files from runners catalog
         shell: bash
         run: python3 .github/scripts/restore_wrf_runtime.py
@@ -1183,7 +1143,7 @@ jobs:
     name: SIDERAL 4 KM wrf ecmwf F024-F027
     runs-on: ubuntu-22.04
     needs: seg07
-    timeout-minutes: 360
+    timeout-minutes: 480
     steps:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
@@ -1194,7 +1154,7 @@ jobs:
         shell: bash
         env:
           WRF_ARTIFACT_DOWNLOAD_DIR: ${{ runner.temp }}/wrf-downloads/d001
-          WRF_ARTIFACT_RESTORE_TO: '.'
+          WRF_ARTIFACT_RESTORE_TO: 'tarc_restart_input'
         run: |
           mkdir -p "$WRF_ARTIFACT_DOWNLOAD_DIR"
           printf '%s\n' "$WRF_ARTIFACT_RESTORE_TO" > "$WRF_ARTIFACT_DOWNLOAD_DIR/.restore-to"
@@ -1217,12 +1177,7 @@ jobs:
           fetch-depth: 1
       - name: Restore WRF artifacts after checkout (2)
         shell: bash
-        run: |
-          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
-            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
-              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
-              --workspace "$GITHUB_WORKSPACE"
-          fi
+        run: echo 'Artifacts already restored in Register step'
       - name: Restore WRF runtime files from runners catalog
         shell: bash
         run: python3 .github/scripts/restore_wrf_runtime.py
@@ -1318,7 +1273,7 @@ jobs:
     name: SIDERAL 4 KM wrf ecmwf F027-F030
     runs-on: ubuntu-22.04
     needs: seg08
-    timeout-minutes: 360
+    timeout-minutes: 480
     steps:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
@@ -1329,7 +1284,7 @@ jobs:
         shell: bash
         env:
           WRF_ARTIFACT_DOWNLOAD_DIR: ${{ runner.temp }}/wrf-downloads/d001
-          WRF_ARTIFACT_RESTORE_TO: '.'
+          WRF_ARTIFACT_RESTORE_TO: 'tarc_restart_input'
         run: |
           mkdir -p "$WRF_ARTIFACT_DOWNLOAD_DIR"
           printf '%s\n' "$WRF_ARTIFACT_RESTORE_TO" > "$WRF_ARTIFACT_DOWNLOAD_DIR/.restore-to"
@@ -1352,12 +1307,7 @@ jobs:
           fetch-depth: 1
       - name: Restore WRF artifacts after checkout (2)
         shell: bash
-        run: |
-          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
-            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
-              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
-              --workspace "$GITHUB_WORKSPACE"
-          fi
+        run: echo 'Artifacts already restored in Register step'
       - name: Restore WRF runtime files from runners catalog
         shell: bash
         run: python3 .github/scripts/restore_wrf_runtime.py
@@ -1453,7 +1403,7 @@ jobs:
     name: SIDERAL 4 KM wrf ecmwf F030-F033
     runs-on: ubuntu-22.04
     needs: seg09
-    timeout-minutes: 360
+    timeout-minutes: 480
     steps:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
@@ -1464,7 +1414,7 @@ jobs:
         shell: bash
         env:
           WRF_ARTIFACT_DOWNLOAD_DIR: ${{ runner.temp }}/wrf-downloads/d001
-          WRF_ARTIFACT_RESTORE_TO: '.'
+          WRF_ARTIFACT_RESTORE_TO: 'tarc_restart_input'
         run: |
           mkdir -p "$WRF_ARTIFACT_DOWNLOAD_DIR"
           printf '%s\n' "$WRF_ARTIFACT_RESTORE_TO" > "$WRF_ARTIFACT_DOWNLOAD_DIR/.restore-to"
@@ -1487,12 +1437,7 @@ jobs:
           fetch-depth: 1
       - name: Restore WRF artifacts after checkout (2)
         shell: bash
-        run: |
-          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
-            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
-              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
-              --workspace "$GITHUB_WORKSPACE"
-          fi
+        run: echo 'Artifacts already restored in Register step'
       - name: Restore WRF runtime files from runners catalog
         shell: bash
         run: python3 .github/scripts/restore_wrf_runtime.py
@@ -1588,7 +1533,7 @@ jobs:
     name: SIDERAL 4 KM wrf ecmwf F033-F036
     runs-on: ubuntu-22.04
     needs: seg10
-    timeout-minutes: 360
+    timeout-minutes: 480
     steps:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
@@ -1599,7 +1544,7 @@ jobs:
         shell: bash
         env:
           WRF_ARTIFACT_DOWNLOAD_DIR: ${{ runner.temp }}/wrf-downloads/d001
-          WRF_ARTIFACT_RESTORE_TO: '.'
+          WRF_ARTIFACT_RESTORE_TO: 'tarc_restart_input'
         run: |
           mkdir -p "$WRF_ARTIFACT_DOWNLOAD_DIR"
           printf '%s\n' "$WRF_ARTIFACT_RESTORE_TO" > "$WRF_ARTIFACT_DOWNLOAD_DIR/.restore-to"
@@ -1622,12 +1567,7 @@ jobs:
           fetch-depth: 1
       - name: Restore WRF artifacts after checkout (2)
         shell: bash
-        run: |
-          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
-            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
-              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
-              --workspace "$GITHUB_WORKSPACE"
-          fi
+        run: echo 'Artifacts already restored in Register step'
       - name: Restore WRF runtime files from runners catalog
         shell: bash
         run: python3 .github/scripts/restore_wrf_runtime.py
@@ -1723,7 +1663,7 @@ jobs:
     name: SIDERAL 4 KM wrf ecmwf F036-F039
     runs-on: ubuntu-22.04
     needs: seg11
-    timeout-minutes: 360
+    timeout-minutes: 480
     steps:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
@@ -1734,7 +1674,7 @@ jobs:
         shell: bash
         env:
           WRF_ARTIFACT_DOWNLOAD_DIR: ${{ runner.temp }}/wrf-downloads/d001
-          WRF_ARTIFACT_RESTORE_TO: '.'
+          WRF_ARTIFACT_RESTORE_TO: 'tarc_restart_input'
         run: |
           mkdir -p "$WRF_ARTIFACT_DOWNLOAD_DIR"
           printf '%s\n' "$WRF_ARTIFACT_RESTORE_TO" > "$WRF_ARTIFACT_DOWNLOAD_DIR/.restore-to"
@@ -1757,12 +1697,7 @@ jobs:
           fetch-depth: 1
       - name: Restore WRF artifacts after checkout (2)
         shell: bash
-        run: |
-          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
-            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
-              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
-              --workspace "$GITHUB_WORKSPACE"
-          fi
+        run: echo 'Artifacts already restored in Register step'
       - name: Restore WRF runtime files from runners catalog
         shell: bash
         run: python3 .github/scripts/restore_wrf_runtime.py
@@ -1858,7 +1793,7 @@ jobs:
     name: SIDERAL 4 KM wrf ecmwf F039-F042
     runs-on: ubuntu-22.04
     needs: seg12
-    timeout-minutes: 360
+    timeout-minutes: 480
     steps:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
@@ -1869,7 +1804,7 @@ jobs:
         shell: bash
         env:
           WRF_ARTIFACT_DOWNLOAD_DIR: ${{ runner.temp }}/wrf-downloads/d001
-          WRF_ARTIFACT_RESTORE_TO: '.'
+          WRF_ARTIFACT_RESTORE_TO: 'tarc_restart_input'
         run: |
           mkdir -p "$WRF_ARTIFACT_DOWNLOAD_DIR"
           printf '%s\n' "$WRF_ARTIFACT_RESTORE_TO" > "$WRF_ARTIFACT_DOWNLOAD_DIR/.restore-to"
@@ -1892,12 +1827,7 @@ jobs:
           fetch-depth: 1
       - name: Restore WRF artifacts after checkout (2)
         shell: bash
-        run: |
-          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
-            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
-              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
-              --workspace "$GITHUB_WORKSPACE"
-          fi
+        run: echo 'Artifacts already restored in Register step'
       - name: Restore WRF runtime files from runners catalog
         shell: bash
         run: python3 .github/scripts/restore_wrf_runtime.py
@@ -1993,7 +1923,7 @@ jobs:
     name: SIDERAL 4 KM wrf ecmwf F042-F045
     runs-on: ubuntu-22.04
     needs: seg13
-    timeout-minutes: 360
+    timeout-minutes: 480
     steps:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
@@ -2004,7 +1934,7 @@ jobs:
         shell: bash
         env:
           WRF_ARTIFACT_DOWNLOAD_DIR: ${{ runner.temp }}/wrf-downloads/d001
-          WRF_ARTIFACT_RESTORE_TO: '.'
+          WRF_ARTIFACT_RESTORE_TO: 'tarc_restart_input'
         run: |
           mkdir -p "$WRF_ARTIFACT_DOWNLOAD_DIR"
           printf '%s\n' "$WRF_ARTIFACT_RESTORE_TO" > "$WRF_ARTIFACT_DOWNLOAD_DIR/.restore-to"
@@ -2027,12 +1957,7 @@ jobs:
           fetch-depth: 1
       - name: Restore WRF artifacts after checkout (2)
         shell: bash
-        run: |
-          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
-            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
-              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
-              --workspace "$GITHUB_WORKSPACE"
-          fi
+        run: echo 'Artifacts already restored in Register step'
       - name: Restore WRF runtime files from runners catalog
         shell: bash
         run: python3 .github/scripts/restore_wrf_runtime.py
@@ -2128,7 +2053,7 @@ jobs:
     name: SIDERAL 4 KM wrf ecmwf F045-F048
     runs-on: ubuntu-22.04
     needs: seg14
-    timeout-minutes: 360
+    timeout-minutes: 480
     steps:
       - name: Restaurar checkpoint do segmento anterior
         uses: actions/download-artifact@v4
@@ -2139,7 +2064,7 @@ jobs:
         shell: bash
         env:
           WRF_ARTIFACT_DOWNLOAD_DIR: ${{ runner.temp }}/wrf-downloads/d001
-          WRF_ARTIFACT_RESTORE_TO: '.'
+          WRF_ARTIFACT_RESTORE_TO: 'tarc_restart_input'
         run: |
           mkdir -p "$WRF_ARTIFACT_DOWNLOAD_DIR"
           printf '%s\n' "$WRF_ARTIFACT_RESTORE_TO" > "$WRF_ARTIFACT_DOWNLOAD_DIR/.restore-to"
@@ -2162,12 +2087,7 @@ jobs:
           fetch-depth: 1
       - name: Restore WRF artifacts after checkout (2)
         shell: bash
-        run: |
-          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
-            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
-              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
-              --workspace "$GITHUB_WORKSPACE"
-          fi
+        run: echo 'Artifacts already restored in Register step'
       - name: Restore WRF runtime files from runners catalog
         shell: bash
         run: python3 .github/scripts/restore_wrf_runtime.py
@@ -2263,7 +2183,7 @@ jobs:
     name: WRF Sudeste 4 km wrf ecmwf F000-F048 completo e pós-processado
     runs-on: ubuntu-22.04
     needs: [seg00, seg01, seg02, seg03, seg04, seg05, seg06, seg07, seg08, seg09, seg10, seg11, seg12, seg13, seg14, seg15]
-    timeout-minutes: 360
+    timeout-minutes: 480
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -2271,36 +2191,16 @@ jobs:
           fetch-depth: 1
       - name: Restore WRF artifacts after checkout (complete)
         shell: bash
-        run: |
-          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
-            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
-              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
-              --workspace "$GITHUB_WORKSPACE"
-          fi
+        run: echo 'Artifacts already restored in Register step'
       - name: Restore WRF artifacts after checkout (complete)
         shell: bash
-        run: |
-          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
-            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
-              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
-              --workspace "$GITHUB_WORKSPACE"
-          fi
+        run: echo 'Artifacts already restored in Register step'
       - name: Restore WRF artifacts after checkout (complete)
         shell: bash
-        run: |
-          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
-            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
-              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
-              --workspace "$GITHUB_WORKSPACE"
-          fi
+        run: echo 'Artifacts already restored in Register step'
       - name: Restore WRF artifacts after checkout (complete)
         shell: bash
-        run: |
-          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
-            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
-              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
-              --workspace "$GITHUB_WORKSPACE"
-          fi
+        run: echo 'Artifacts already restored in Register step'
       - name: Baixar artifacts dos 16 segmentos WRF Sudeste
         uses: actions/download-artifact@v4
         with:
@@ -2328,12 +2228,7 @@ jobs:
           fi
       - name: Restore WRF artifacts after checkout (9)
         shell: bash
-        run: |
-          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
-            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
-              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
-              --workspace "$GITHUB_WORKSPACE"
-          fi
+        run: echo 'Artifacts already restored in Register step'
       - name: Restore WRF runtime files from runners catalog
         shell: bash
         run: python3 .github/scripts/restore_wrf_runtime.py
