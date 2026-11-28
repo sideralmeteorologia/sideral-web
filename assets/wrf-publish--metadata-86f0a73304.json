@@ -1,0 +1,24 @@
+{
+  "schemaVersion": "2.0",
+  "model": "WRF Brasil",
+  "resolutionKm": 21,
+  "nx": 215,
+  "ny": 215,
+  "dxMeters": 21000,
+  "dyMeters": 21000,
+  "frameCount": 49,
+  "temporalResolutionMinutes": 60,
+  "reflectivitySource": "REFL_10CM_NATIVE",
+  "pressureSource": "SLP_NATIVE",
+  "nativeGrid": true,
+  "generatedAt": "2026-11-28T18:36:50Z",
+  "firstStats": {
+    "minDbz": 0.0,
+    "maxDbz": 0.0,
+    "minSlpHpa": 534.0013671875,
+    "maxSlpHpa": 1020.698046875
+  },
+  "sourceModel": "icon",
+  "modelKey": "wrf_brasil_21km_icon",
+  "displayName": "SIDERAL WRF Brasil 21 km - ICON"
+}
