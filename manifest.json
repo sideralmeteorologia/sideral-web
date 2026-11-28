@@ -1,0 +1,1384 @@
+{
+  "schema": "sideral-model-release-v1",
+  "productId": "brasil-wrf-21km-wrf-ecmwf",
+  "releaseTag": "sideral-data-brasil-wrf-21km-wrf-ecmwf-latest",
+  "releaseUrl": "https://github.com/sideralmeteorologia/sideral-web/releases/tag/sideral-data-brasil-wrf-21km-wrf-ecmwf-latest",
+  "releaseApiUrl": "https://api.github.com/repos/sideralmeteorologia/sideral-web/releases/tags/sideral-data-brasil-wrf-21km-wrf-ecmwf-latest",
+  "rawBranch": "sideral-data-brasil-wrf-21km-wrf-ecmwf-latest",
+  "workflow": {
+    "name": "SIDERAL | WRF Brasil 21 km | ECMWF | WRF",
+    "path": ".github/workflows/brasil-wrf-21km-wrf-ecmwf.yml",
+    "runId": "46156494062",
+    "runUrl": "https://github.com/sideralmeteorologia/sideral-web/actions/runs/46156494062",
+    "branch": "main",
+    "commit": "dc8b41b39fd965a9b58c2ab623d6f48de518d783",
+    "completedAt": "2026-11-28T18:58:40Z"
+  },
+  "publishedAt": "2026-11-28T18:58:42.633867+00:00",
+  "fileCount": 73,
+  "assetCount": 77,
+  "files": [
+    {
+      "path": "docs/wrf-agent/evidencias/wrf-audit.json",
+      "size": 215271,
+      "sha256": "13c811e620c4f44fd0dd9f601a77325e41987509f13f1ce857e9594c15faf979",
+      "contentType": "application/json",
+      "parts": [
+        {
+          "name": "docs--wrf-agent--evidencias--wrf-audit-c447d6afc5.json",
+          "size": 215271,
+          "sha256": "13c811e620c4f44fd0dd9f601a77325e41987509f13f1ce857e9594c15faf979",
+          "contentType": "application/json",
+          "part": 1,
+          "releaseUrl": "https://github.com/sideralmeteorologia/sideral-web/releases/download/sideral-data-brasil-wrf-21km-wrf-ecmwf-latest/docs--wrf-agent--evidencias--wrf-audit-c447d6afc5.json",
+          "url": "https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/sideral-data-brasil-wrf-21km-wrf-ecmwf-latest/assets/docs--wrf-agent--evidencias--wrf-audit-c447d6afc5.json"
+        }
+      ],
+      "asset": "docs--wrf-agent--evidencias--wrf-audit-c447d6afc5.json"
+    },
+    {
+      "path": "runners/cbr/shared/cbr_variable_catalog.json",
+      "size": 5232,
+      "sha256": "b34dc5080ba192ff6d35460839f38e53618a4456a7de7bb2ba9c78c3225df26f",
+      "contentType": "application/json",
+      "parts": [
+        {
+          "name": "runners--cbr--shared--cbr_variable_catalog-bb8328b955.json",
+          "size": 5232,
+          "sha256": "b34dc5080ba192ff6d35460839f38e53618a4456a7de7bb2ba9c78c3225df26f",
+          "contentType": "application/json",
+          "part": 1,
+          "releaseUrl": "https://github.com/sideralmeteorologia/sideral-web/releases/download/sideral-data-brasil-wrf-21km-wrf-ecmwf-latest/runners--cbr--shared--cbr_variable_catalog-bb8328b955.json",
+          "url": "https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/sideral-data-brasil-wrf-21km-wrf-ecmwf-latest/assets/runners--cbr--shared--cbr_variable_catalog-bb8328b955.json"
+        }
+      ],
+      "asset": "runners--cbr--shared--cbr_variable_catalog-bb8328b955.json"
+    },
+    {
+      "path": "runners/cim5/shared/cim4_variable_catalog.json",
+      "size": 2179,
+      "sha256": "16be35e080f57b5da6b545d16b9d7f637f3296752d5bf6799ef702a234b919b1",
+      "contentType": "application/json",
+      "parts": [
+        {
+          "name": "runners--cim5--shared--cim4_variable_catalog-9978488d97.json",
+          "size": 2179,
+          "sha256": "16be35e080f57b5da6b545d16b9d7f637f3296752d5bf6799ef702a234b919b1",
+          "contentType": "application/json",
+          "part": 1,
+          "releaseUrl": "https://github.com/sideralmeteorologia/sideral-web/releases/download/sideral-data-brasil-wrf-21km-wrf-ecmwf-latest/runners--cim5--shared--cim4_variable_catalog-9978488d97.json",
+          "url": "https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/sideral-data-brasil-wrf-21km-wrf-ecmwf-latest/assets/runners--cim5--shared--cim4_variable_catalog-9978488d97.json"
+        }
+      ],
+      "asset": "runners--cim5--shared--cim4_variable_catalog-9978488d97.json"
+    },
+    {
+      "path": "runners/cim5/wrf2/cim4_wrf2_variable_catalog.json",
+      "size": 1189,
+      "sha256": "7083ce4a131557bc107bb33206aa196808ef33ce8b7b092691550664ac6d9f2f",
+      "contentType": "application/json",
+      "parts": [
+        {
+          "name": "runners--cim5--wrf2--cim4_wrf2_variable_catalog-d506a69739.json",
+          "size": 1189,
+          "sha256": "7083ce4a131557bc107bb33206aa196808ef33ce8b7b092691550664ac6d9f2f",
+          "contentType": "application/json",
+          "part": 1,
+          "releaseUrl": "https://github.com/sideralmeteorologia/sideral-web/releases/download/sideral-data-brasil-wrf-21km-wrf-ecmwf-latest/runners--cim5--wrf2--cim4_wrf2_variable_catalog-d506a69739.json",
+          "url": "https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/sideral-data-brasil-wrf-21km-wrf-ecmwf-latest/assets/runners--cim5--wrf2--cim4_wrf2_variable_catalog-d506a69739.json"
+        }
+      ],
+      "asset": "runners--cim5--wrf2--cim4_wrf2_variable_catalog-d506a69739.json"
+    },
+    {
+      "path": "runners/sudeste/shared/sideral_wrf_4km_2_sudeste_variable_catalog.json",
+      "size": 3483,
+      "sha256": "1faaf81063caf6756f653dc613ce3c8976ea81f786452c1f3c1e02cfd3fa0668",
+      "contentType": "application/json",
+      "parts": [
+        {
+          "name": "runners--sudeste--shared--sideral_wrf_4km_2_sudeste_variable_catalog-279e970514.json",
+          "size": 3483,
+          "sha256": "1faaf81063caf6756f653dc613ce3c8976ea81f786452c1f3c1e02cfd3fa0668",
+          "contentType": "application/json",
+          "part": 1,
+          "releaseUrl": "https://github.com/sideralmeteorologia/sideral-web/releases/download/sideral-data-brasil-wrf-21km-wrf-ecmwf-latest/runners--sudeste--shared--sideral_wrf_4km_2_sudeste_variable_catalog-279e970514.json",
+          "url": "https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/sideral-data-brasil-wrf-21km-wrf-ecmwf-latest/assets/runners--sudeste--shared--sideral_wrf_4km_2_sudeste_variable_catalog-279e970514.json"
+        }
+      ],
+      "asset": "runners--sudeste--shared--sideral_wrf_4km_2_sudeste_variable_catalog-279e970514.json"
+    },
+    {
+      "path": "runners/sudeste/shared/sideral_wrf_4km_sudeste_variable_catalog.json",
+      "size": 3479,
+      "sha256": "c81e3b4dd68e3ab00a53a5e56b14884f6604281a2d392ec29d47573211bef7e6",
+      "contentType": "application/json",
+      "parts": [
+        {
+          "name": "runners--sudeste--shared--sideral_wrf_4km_sudeste_variable_catalog-5ac9df429f.json",
+          "size": 3479,
+          "sha256": "c81e3b4dd68e3ab00a53a5e56b14884f6604281a2d392ec29d47573211bef7e6",
+          "contentType": "application/json",
+          "part": 1,
+          "releaseUrl": "https://github.com/sideralmeteorologia/sideral-web/releases/download/sideral-data-brasil-wrf-21km-wrf-ecmwf-latest/runners--sudeste--shared--sideral_wrf_4km_sudeste_variable_catalog-5ac9df429f.json",
+          "url": "https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/sideral-data-brasil-wrf-21km-wrf-ecmwf-latest/assets/runners--sudeste--shared--sideral_wrf_4km_sudeste_variable_catalog-5ac9df429f.json"
+        }
+      ],
+      "asset": "runners--sudeste--shared--sideral_wrf_4km_sudeste_variable_catalog-5ac9df429f.json"
+    },
+    {
+      "path": "runners/sudeste/shared/sideral_wrf_5km_2_sudeste_variable_catalog.json",
+      "size": 3483,
+      "sha256": "0536709ced6762b090cd4760a5150149eb49bb0fa053a54c7dd5820d8e0aeefb",
+      "contentType": "application/json",
+      "parts": [
+        {
+          "name": "runners--sudeste--shared--sideral_wrf_5km_2_sudeste_variable_catalog-666319ca34.json",
+          "size": 3483,
+          "sha256": "0536709ced6762b090cd4760a5150149eb49bb0fa053a54c7dd5820d8e0aeefb",
+          "contentType": "application/json",
+          "part": 1,
+          "releaseUrl": "https://github.com/sideralmeteorologia/sideral-web/releases/download/sideral-data-brasil-wrf-21km-wrf-ecmwf-latest/runners--sudeste--shared--sideral_wrf_5km_2_sudeste_variable_catalog-666319ca34.json",
+          "url": "https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/sideral-data-brasil-wrf-21km-wrf-ecmwf-latest/assets/runners--sudeste--shared--sideral_wrf_5km_2_sudeste_variable_catalog-666319ca34.json"
+        }
+      ],
+      "asset": "runners--sudeste--shared--sideral_wrf_5km_2_sudeste_variable_catalog-666319ca34.json"
+    },
+    {
+      "path": "runners/sudeste/shared/sideral_wrf_5km_sudeste_variable_catalog.json",
+      "size": 3479,
+      "sha256": "8425483a2a607c37d8f602754710685ee62af4ec4de0da6949b6c2cb82f3e2de",
+      "contentType": "application/json",
+      "parts": [
+        {
+          "name": "runners--sudeste--shared--sideral_wrf_5km_sudeste_variable_catalog-c28e5d1235.json",
+          "size": 3479,
+          "sha256": "8425483a2a607c37d8f602754710685ee62af4ec4de0da6949b6c2cb82f3e2de",
+          "contentType": "application/json",
+          "part": 1,
+          "releaseUrl": "https://github.com/sideralmeteorologia/sideral-web/releases/download/sideral-data-brasil-wrf-21km-wrf-ecmwf-latest/runners--sudeste--shared--sideral_wrf_5km_sudeste_variable_catalog-c28e5d1235.json",
+          "url": "https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/sideral-data-brasil-wrf-21km-wrf-ecmwf-latest/assets/runners--sudeste--shared--sideral_wrf_5km_sudeste_variable_catalog-c28e5d1235.json"
+        }
+      ],
+      "asset": "runners--sudeste--shared--sideral_wrf_5km_sudeste_variable_catalog-c28e5d1235.json"
+    },
+    {
+      "path": "runners/sudeste/shared/tarc_variable_catalog.json",
+      "size": 5224,
+      "sha256": "4e724b4622958baac23442402e644a1139b834125ff429c3a4649a487458d2a0",
+      "contentType": "application/json",
+      "parts": [
+        {
+          "name": "runners--sudeste--shared--tarc_variable_catalog-0f2c555090.json",
+          "size": 5224,
+          "sha256": "4e724b4622958baac23442402e644a1139b834125ff429c3a4649a487458d2a0",
+          "contentType": "application/json",
+          "part": 1,
+          "releaseUrl": "https://github.com/sideralmeteorologia/sideral-web/releases/download/sideral-data-brasil-wrf-21km-wrf-ecmwf-latest/runners--sudeste--shared--tarc_variable_catalog-0f2c555090.json",
+          "url": "https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/sideral-data-brasil-wrf-21km-wrf-ecmwf-latest/assets/runners--sudeste--shared--tarc_variable_catalog-0f2c555090.json"
+        }
+      ],
+      "asset": "runners--sudeste--shared--tarc_variable_catalog-0f2c555090.json"
+    },
+    {
+      "path": "runners/tarc/shared/tarc_variable_catalog.json",
+      "size": 5224,
+      "sha256": "4e724b4622958baac23442402e644a1139b834125ff429c3a4649a487458d2a0",
+      "contentType": "application/json",
+      "parts": [
+        {
+          "name": "runners--tarc--shared--tarc_variable_catalog-58a4dec2b5.json",
+          "size": 5224,
+          "sha256": "4e724b4622958baac23442402e644a1139b834125ff429c3a4649a487458d2a0",
+          "contentType": "application/json",
+          "part": 1,
+          "releaseUrl": "https://github.com/sideralmeteorologia/sideral-web/releases/download/sideral-data-brasil-wrf-21km-wrf-ecmwf-latest/runners--tarc--shared--tarc_variable_catalog-58a4dec2b5.json",
+          "url": "https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/sideral-data-brasil-wrf-21km-wrf-ecmwf-latest/assets/runners--tarc--shared--tarc_variable_catalog-58a4dec2b5.json"
+        }
+      ],
+      "asset": "runners--tarc--shared--tarc_variable_catalog-58a4dec2b5.json"
+    },
+    {
+      "path": "runners/tarc/wrf2/tarc_variable_catalog_wrf2.json",
+      "size": 5405,
+      "sha256": "a7e033dacb61ae9dce1c635772b4d2ec6952d5a66ab64ae3320563e8ee8b8c52",
+      "contentType": "application/json",
+      "parts": [
+        {
+          "name": "runners--tarc--wrf2--tarc_variable_catalog_wrf2-c5b77be220.json",
+          "size": 5405,
+          "sha256": "a7e033dacb61ae9dce1c635772b4d2ec6952d5a66ab64ae3320563e8ee8b8c52",
+          "contentType": "application/json",
+          "part": 1,
+          "releaseUrl": "https://github.com/sideralmeteorologia/sideral-web/releases/download/sideral-data-brasil-wrf-21km-wrf-ecmwf-latest/runners--tarc--wrf2--tarc_variable_catalog_wrf2-c5b77be220.json",
+          "url": "https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/sideral-data-brasil-wrf-21km-wrf-ecmwf-latest/assets/runners--tarc--wrf2--tarc_variable_catalog_wrf2-c5b77be220.json"
+        }
+      ],
+      "asset": "runners--tarc--wrf2--tarc_variable_catalog_wrf2-c5b77be220.json"
+    },
+    {
+      "path": "schemas/wrf-products.schema.json",
+      "size": 843,
+      "sha256": "7b7489978bdc971189261d169f102b5a11d60d1acab5cb84bdf7b15f755cdaba",
+      "contentType": "application/json",
+      "parts": [
+        {
+          "name": "schemas--wrf-products.schema-77315b055b.json",
+          "size": 843,
+          "sha256": "7b7489978bdc971189261d169f102b5a11d60d1acab5cb84bdf7b15f755cdaba",
+          "contentType": "application/json",
+          "part": 1,
+          "releaseUrl": "https://github.com/sideralmeteorologia/sideral-web/releases/download/sideral-data-brasil-wrf-21km-wrf-ecmwf-latest/schemas--wrf-products.schema-77315b055b.json",
+          "url": "https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/sideral-data-brasil-wrf-21km-wrf-ecmwf-latest/assets/schemas--wrf-products.schema-77315b055b.json"
+        }
+      ],
+      "asset": "schemas--wrf-products.schema-77315b055b.json"
+    },
+    {
+      "path": "wrf/cbr_variable_catalog.json",
+      "size": 5232,
+      "sha256": "b34dc5080ba192ff6d35460839f38e53618a4456a7de7bb2ba9c78c3225df26f",
+      "contentType": "application/json",
+      "parts": [
+        {
+          "name": "wrf--cbr_variable_catalog-ec897e737b.json",
+          "size": 5232,
+          "sha256": "b34dc5080ba192ff6d35460839f38e53618a4456a7de7bb2ba9c78c3225df26f",
+          "contentType": "application/json",
+          "part": 1,
+          "releaseUrl": "https://github.com/sideralmeteorologia/sideral-web/releases/download/sideral-data-brasil-wrf-21km-wrf-ecmwf-latest/wrf--cbr_variable_catalog-ec897e737b.json",
+          "url": "https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/sideral-data-brasil-wrf-21km-wrf-ecmwf-latest/assets/wrf--cbr_variable_catalog-ec897e737b.json"
+        }
+      ],
+      "asset": "wrf--cbr_variable_catalog-ec897e737b.json"
+    },
+    {
+      "path": "wrf/cim4_variable_catalog.json",
+      "size": 2179,
+      "sha256": "16be35e080f57b5da6b545d16b9d7f637f3296752d5bf6799ef702a234b919b1",
+      "contentType": "application/json",
+      "parts": [
+        {
+          "name": "wrf--cim4_variable_catalog-e3f1e94b8c.json",
+          "size": 2179,
+          "sha256": "16be35e080f57b5da6b545d16b9d7f637f3296752d5bf6799ef702a234b919b1",
+          "contentType": "application/json",
+          "part": 1,
+          "releaseUrl": "https://github.com/sideralmeteorologia/sideral-web/releases/download/sideral-data-brasil-wrf-21km-wrf-ecmwf-latest/wrf--cim4_variable_catalog-e3f1e94b8c.json",
+          "url": "https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/sideral-data-brasil-wrf-21km-wrf-ecmwf-latest/assets/wrf--cim4_variable_catalog-e3f1e94b8c.json"
+        }
+      ],
+      "asset": "wrf--cim4_variable_catalog-e3f1e94b8c.json"
+    },
+    {
+      "path": "wrf/cim4_wrf2_variable_catalog.json",
+      "size": 1189,
+      "sha256": "7083ce4a131557bc107bb33206aa196808ef33ce8b7b092691550664ac6d9f2f",
+      "contentType": "application/json",
+      "parts": [
+        {
+          "name": "wrf--cim4_wrf2_variable_catalog-2383cf0c43.json",
+          "size": 1189,
+          "sha256": "7083ce4a131557bc107bb33206aa196808ef33ce8b7b092691550664ac6d9f2f",
+          "contentType": "application/json",
+          "part": 1,
+          "releaseUrl": "https://github.com/sideralmeteorologia/sideral-web/releases/download/sideral-data-brasil-wrf-21km-wrf-ecmwf-latest/wrf--cim4_wrf2_variable_catalog-2383cf0c43.json",
+          "url": "https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/sideral-data-brasil-wrf-21km-wrf-ecmwf-latest/assets/wrf--cim4_wrf2_variable_catalog-2383cf0c43.json"
+        }
+      ],
+      "asset": "wrf--cim4_wrf2_variable_catalog-2383cf0c43.json"
+    },
+    {
+      "path": "wrf/sideral_wrf_4km_2_sudeste_variable_catalog.json",
+      "size": 3483,
+      "sha256": "1faaf81063caf6756f653dc613ce3c8976ea81f786452c1f3c1e02cfd3fa0668",
+      "contentType": "application/json",
+      "parts": [
+        {
+          "name": "wrf--sideral_wrf_4km_2_sudeste_variable_catalog-f26a647b8f.json",
+          "size": 3483,
+          "sha256": "1faaf81063caf6756f653dc613ce3c8976ea81f786452c1f3c1e02cfd3fa0668",
+          "contentType": "application/json",
+          "part": 1,
+          "releaseUrl": "https://github.com/sideralmeteorologia/sideral-web/releases/download/sideral-data-brasil-wrf-21km-wrf-ecmwf-latest/wrf--sideral_wrf_4km_2_sudeste_variable_catalog-f26a647b8f.json",
+          "url": "https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/sideral-data-brasil-wrf-21km-wrf-ecmwf-latest/assets/wrf--sideral_wrf_4km_2_sudeste_variable_catalog-f26a647b8f.json"
+        }
+      ],
+      "asset": "wrf--sideral_wrf_4km_2_sudeste_variable_catalog-f26a647b8f.json"
+    },
+    {
+      "path": "wrf/sideral_wrf_4km_sudeste_variable_catalog.json",
+      "size": 3479,
+      "sha256": "c81e3b4dd68e3ab00a53a5e56b14884f6604281a2d392ec29d47573211bef7e6",
+      "contentType": "application/json",
+      "parts": [
+        {
+          "name": "wrf--sideral_wrf_4km_sudeste_variable_catalog-b2b1ea8d4b.json",
+          "size": 3479,
+          "sha256": "c81e3b4dd68e3ab00a53a5e56b14884f6604281a2d392ec29d47573211bef7e6",
+          "contentType": "application/json",
+          "part": 1,
+          "releaseUrl": "https://github.com/sideralmeteorologia/sideral-web/releases/download/sideral-data-brasil-wrf-21km-wrf-ecmwf-latest/wrf--sideral_wrf_4km_sudeste_variable_catalog-b2b1ea8d4b.json",
+          "url": "https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/sideral-data-brasil-wrf-21km-wrf-ecmwf-latest/assets/wrf--sideral_wrf_4km_sudeste_variable_catalog-b2b1ea8d4b.json"
+        }
+      ],
+      "asset": "wrf--sideral_wrf_4km_sudeste_variable_catalog-b2b1ea8d4b.json"
+    },
+    {
+      "path": "wrf/sideral_wrf_5km_2_sudeste_variable_catalog.json",
+      "size": 3483,
+      "sha256": "0536709ced6762b090cd4760a5150149eb49bb0fa053a54c7dd5820d8e0aeefb",
+      "contentType": "application/json",
+      "parts": [
+        {
+          "name": "wrf--sideral_wrf_5km_2_sudeste_variable_catalog-8cb5680bcc.json",
+          "size": 3483,
+          "sha256": "0536709ced6762b090cd4760a5150149eb49bb0fa053a54c7dd5820d8e0aeefb",
+          "contentType": "application/json",
+          "part": 1,
+          "releaseUrl": "https://github.com/sideralmeteorologia/sideral-web/releases/download/sideral-data-brasil-wrf-21km-wrf-ecmwf-latest/wrf--sideral_wrf_5km_2_sudeste_variable_catalog-8cb5680bcc.json",
+          "url": "https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/sideral-data-brasil-wrf-21km-wrf-ecmwf-latest/assets/wrf--sideral_wrf_5km_2_sudeste_variable_catalog-8cb5680bcc.json"
+        }
+      ],
+      "asset": "wrf--sideral_wrf_5km_2_sudeste_variable_catalog-8cb5680bcc.json"
+    },
+    {
+      "path": "wrf/sideral_wrf_5km_sudeste_variable_catalog.json",
+      "size": 3479,
+      "sha256": "8425483a2a607c37d8f602754710685ee62af4ec4de0da6949b6c2cb82f3e2de",
+      "contentType": "application/json",
+      "parts": [
+        {
+          "name": "wrf--sideral_wrf_5km_sudeste_variable_catalog-a874792b47.json",
+          "size": 3479,
+          "sha256": "8425483a2a607c37d8f602754710685ee62af4ec4de0da6949b6c2cb82f3e2de",
+          "contentType": "application/json",
+          "part": 1,
+          "releaseUrl": "https://github.com/sideralmeteorologia/sideral-web/releases/download/sideral-data-brasil-wrf-21km-wrf-ecmwf-latest/wrf--sideral_wrf_5km_sudeste_variable_catalog-a874792b47.json",
+          "url": "https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/sideral-data-brasil-wrf-21km-wrf-ecmwf-latest/assets/wrf--sideral_wrf_5km_sudeste_variable_catalog-a874792b47.json"
+        }
+      ],
+      "asset": "wrf--sideral_wrf_5km_sudeste_variable_catalog-a874792b47.json"
+    },
+    {
+      "path": "wrf/tarc_variable_catalog.json",
+      "size": 5224,
+      "sha256": "4e724b4622958baac23442402e644a1139b834125ff429c3a4649a487458d2a0",
+      "contentType": "application/json",
+      "parts": [
+        {
+          "name": "wrf--tarc_variable_catalog-2637e1d60f.json",
+          "size": 5224,
+          "sha256": "4e724b4622958baac23442402e644a1139b834125ff429c3a4649a487458d2a0",
+          "contentType": "application/json",
+          "part": 1,
+          "releaseUrl": "https://github.com/sideralmeteorologia/sideral-web/releases/download/sideral-data-brasil-wrf-21km-wrf-ecmwf-latest/wrf--tarc_variable_catalog-2637e1d60f.json",
+          "url": "https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/sideral-data-brasil-wrf-21km-wrf-ecmwf-latest/assets/wrf--tarc_variable_catalog-2637e1d60f.json"
+        }
+      ],
+      "asset": "wrf--tarc_variable_catalog-2637e1d60f.json"
+    },
+    {
+      "path": "wrf/tarc_variable_catalog_wrf2.json",
+      "size": 5405,
+      "sha256": "a7e033dacb61ae9dce1c635772b4d2ec6952d5a66ab64ae3320563e8ee8b8c52",
+      "contentType": "application/json",
+      "parts": [
+        {
+          "name": "wrf--tarc_variable_catalog_wrf2-c37c562f89.json",
+          "size": 5405,
+          "sha256": "a7e033dacb61ae9dce1c635772b4d2ec6952d5a66ab64ae3320563e8ee8b8c52",
+          "contentType": "application/json",
+          "part": 1,
+          "releaseUrl": "https://github.com/sideralmeteorologia/sideral-web/releases/download/sideral-data-brasil-wrf-21km-wrf-ecmwf-latest/wrf--tarc_variable_catalog_wrf2-c37c562f89.json",
+          "url": "https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/sideral-data-brasil-wrf-21km-wrf-ecmwf-latest/assets/wrf--tarc_variable_catalog_wrf2-c37c562f89.json"
+        }
+      ],
+      "asset": "wrf--tarc_variable_catalog_wrf2-c37c562f89.json"
+    },
+    {
+      "path": "wrf_publish/fields/f000.json.gz",
+      "size": 5024850,
+      "sha256": "44979294b1220f0acc3183715767c9c54811ba7d31bb3fcf1d5458d1963f5999",
+      "contentType": "application/octet-stream",
+      "parts": [
+        {
+          "name": "wrf-publish--fields--f000.json-b6d1dce73e.gz",
+          "size": 5024850,
+          "sha256": "44979294b1220f0acc3183715767c9c54811ba7d31bb3fcf1d5458d1963f5999",
+          "contentType": "application/octet-stream",
+          "part": 1,
+          "releaseUrl": "https://github.com/sideralmeteorologia/sideral-web/releases/download/sideral-data-brasil-wrf-21km-wrf-ecmwf-latest/wrf-publish--fields--f000.json-b6d1dce73e.gz",
+          "url": "https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/sideral-data-brasil-wrf-21km-wrf-ecmwf-latest/assets/wrf-publish--fields--f000.json-b6d1dce73e.gz"
+        }
+      ],
+      "asset": "wrf-publish--fields--f000.json-b6d1dce73e.gz"
+    },
+    {
+      "path": "wrf_publish/fields/f001.json.gz",
+      "size": 5179204,
+      "sha256": "47a9c4bfaf60a3a5d88ae0c94c3fd51ae07587a80a2a570b67447fcd032bebea",
+      "contentType": "application/octet-stream",
+      "parts": [
+        {
+          "name": "wrf-publish--fields--f001.json-26cf6f73a7.gz",
+          "size": 5179204,
+          "sha256": "47a9c4bfaf60a3a5d88ae0c94c3fd51ae07587a80a2a570b67447fcd032bebea",
+          "contentType": "application/octet-stream",
+          "part": 1,
+          "releaseUrl": "https://github.com/sideralmeteorologia/sideral-web/releases/download/sideral-data-brasil-wrf-21km-wrf-ecmwf-latest/wrf-publish--fields--f001.json-26cf6f73a7.gz",
+          "url": "https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/sideral-data-brasil-wrf-21km-wrf-ecmwf-latest/assets/wrf-publish--fields--f001.json-26cf6f73a7.gz"
+        }
+      ],
+      "asset": "wrf-publish--fields--f001.json-26cf6f73a7.gz"
+    },
+    {
+      "path": "wrf_publish/fields/f002.json.gz",
+      "size": 5146178,
+      "sha256": "0c2e546b5a7940a6eda933c5a926eecb39dca9e23993cc8eedda9dc572cef7bc",
+      "contentType": "application/octet-stream",
+      "parts": [
+        {
+          "name": "wrf-publish--fields--f002.json-6f81bc9d26.gz",
+          "size": 5146178,
+          "sha256": "0c2e546b5a7940a6eda933c5a926eecb39dca9e23993cc8eedda9dc572cef7bc",
+          "contentType": "application/octet-stream",
+          "part": 1,
+          "releaseUrl": "https://github.com/sideralmeteorologia/sideral-web/releases/download/sideral-data-brasil-wrf-21km-wrf-ecmwf-latest/wrf-publish--fields--f002.json-6f81bc9d26.gz",
+          "url": "https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/sideral-data-brasil-wrf-21km-wrf-ecmwf-latest/assets/wrf-publish--fields--f002.json-6f81bc9d26.gz"
+        }
+      ],
+      "asset": "wrf-publish--fields--f002.json-6f81bc9d26.gz"
+    },
+    {
+      "path": "wrf_publish/fields/f003.json.gz",
+      "size": 5150695,
+      "sha256": "2fbb35ef7e33f4daa64634de7c7b0e0f4feb68c421fdd208ce83c6aa43d8060e",
+      "contentType": "application/octet-stream",
+      "parts": [
+        {
+          "name": "wrf-publish--fields--f003.json-b19bf4ea37.gz",
+          "size": 5150695,
+          "sha256": "2fbb35ef7e33f4daa64634de7c7b0e0f4feb68c421fdd208ce83c6aa43d8060e",
+          "contentType": "application/octet-stream",
+          "part": 1,
+          "releaseUrl": "https://github.com/sideralmeteorologia/sideral-web/releases/download/sideral-data-brasil-wrf-21km-wrf-ecmwf-latest/wrf-publish--fields--f003.json-b19bf4ea37.gz",
+          "url": "https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/sideral-data-brasil-wrf-21km-wrf-ecmwf-latest/assets/wrf-publish--fields--f003.json-b19bf4ea37.gz"
+        }
+      ],
+      "asset": "wrf-publish--fields--f003.json-b19bf4ea37.gz"
+    },
+    {
+      "path": "wrf_publish/fields/f004.json.gz",
+      "size": 5149514,
+      "sha256": "8ac104985728bbd49c835c033aaaa1808fc11b7e80e84b88c96c0e3582532333",
+      "contentType": "application/octet-stream",
+      "parts": [
+        {
+          "name": "wrf-publish--fields--f004.json-5ad3fc0023.gz",
+          "size": 5149514,
+          "sha256": "8ac104985728bbd49c835c033aaaa1808fc11b7e80e84b88c96c0e3582532333",
+          "contentType": "application/octet-stream",
+          "part": 1,
+          "releaseUrl": "https://github.com/sideralmeteorologia/sideral-web/releases/download/sideral-data-brasil-wrf-21km-wrf-ecmwf-latest/wrf-publish--fields--f004.json-5ad3fc0023.gz",
+          "url": "https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/sideral-data-brasil-wrf-21km-wrf-ecmwf-latest/assets/wrf-publish--fields--f004.json-5ad3fc0023.gz"
+        }
+      ],
+      "asset": "wrf-publish--fields--f004.json-5ad3fc0023.gz"
+    },
+    {
+      "path": "wrf_publish/fields/f005.json.gz",
+      "size": 5155833,
+      "sha256": "2c89b8aec4897a7239b6a66eef54b72fe4ca21e8ee2153d666a5793232923f80",
+      "contentType": "application/octet-stream",
+      "parts": [
+        {
+          "name": "wrf-publish--fields--f005.json-c1b40c611e.gz",
+          "size": 5155833,
+          "sha256": "2c89b8aec4897a7239b6a66eef54b72fe4ca21e8ee2153d666a5793232923f80",
+          "contentType": "application/octet-stream",
+          "part": 1,
+          "releaseUrl": "https://github.com/sideralmeteorologia/sideral-web/releases/download/sideral-data-brasil-wrf-21km-wrf-ecmwf-latest/wrf-publish--fields--f005.json-c1b40c611e.gz",
+          "url": "https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/sideral-data-brasil-wrf-21km-wrf-ecmwf-latest/assets/wrf-publish--fields--f005.json-c1b40c611e.gz"
+        }
+      ],
+      "asset": "wrf-publish--fields--f005.json-c1b40c611e.gz"
+    },
+    {
+      "path": "wrf_publish/fields/f006.json.gz",
+      "size": 5189829,
+      "sha256": "d5b3889c9e9b3b65e590a981f30912d43748e47c31e473d4f2266bd999e70ac5",
+      "contentType": "application/octet-stream",
+      "parts": [
+        {
+          "name": "wrf-publish--fields--f006.json-b6e26f6b38.gz",
+          "size": 5189829,
+          "sha256": "d5b3889c9e9b3b65e590a981f30912d43748e47c31e473d4f2266bd999e70ac5",
+          "contentType": "application/octet-stream",
+          "part": 1,
+          "releaseUrl": "https://github.com/sideralmeteorologia/sideral-web/releases/download/sideral-data-brasil-wrf-21km-wrf-ecmwf-latest/wrf-publish--fields--f006.json-b6e26f6b38.gz",
+          "url": "https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/sideral-data-brasil-wrf-21km-wrf-ecmwf-latest/assets/wrf-publish--fields--f006.json-b6e26f6b38.gz"
+        }
+      ],
+      "asset": "wrf-publish--fields--f006.json-b6e26f6b38.gz"
+    },
+    {
+      "path": "wrf_publish/fields/f007.json.gz",
+      "size": 5204098,
+      "sha256": "9c39844734d56b02e03ef516e292af8f6896e5127297b257f3a972596ef5ef4a",
+      "contentType": "application/octet-stream",
+      "parts": [
+        {
+          "name": "wrf-publish--fields--f007.json-10b2cffc2a.gz",
+          "size": 5204098,
+          "sha256": "9c39844734d56b02e03ef516e292af8f6896e5127297b257f3a972596ef5ef4a",
+          "contentType": "application/octet-stream",
+          "part": 1,
+          "releaseUrl": "https://github.com/sideralmeteorologia/sideral-web/releases/download/sideral-data-brasil-wrf-21km-wrf-ecmwf-latest/wrf-publish--fields--f007.json-10b2cffc2a.gz",
+          "url": "https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/sideral-data-brasil-wrf-21km-wrf-ecmwf-latest/assets/wrf-publish--fields--f007.json-10b2cffc2a.gz"
+        }
+      ],
+      "asset": "wrf-publish--fields--f007.json-10b2cffc2a.gz"
+    },
+    {
+      "path": "wrf_publish/fields/f008.json.gz",
+      "size": 5230287,
+      "sha256": "c61c086de739691cd49e7acaa14edfdf01613c158044ae4648456ee9e72d0e2d",
+      "contentType": "application/octet-stream",
+      "parts": [
+        {
+          "name": "wrf-publish--fields--f008.json-d6baef1c45.gz",
+          "size": 5230287,
+          "sha256": "c61c086de739691cd49e7acaa14edfdf01613c158044ae4648456ee9e72d0e2d",
+          "contentType": "application/octet-stream",
+          "part": 1,
+          "releaseUrl": "https://github.com/sideralmeteorologia/sideral-web/releases/download/sideral-data-brasil-wrf-21km-wrf-ecmwf-latest/wrf-publish--fields--f008.json-d6baef1c45.gz",
+          "url": "https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/sideral-data-brasil-wrf-21km-wrf-ecmwf-latest/assets/wrf-publish--fields--f008.json-d6baef1c45.gz"
+        }
+      ],
+      "asset": "wrf-publish--fields--f008.json-d6baef1c45.gz"
+    },
+    {
+      "path": "wrf_publish/fields/f009.json.gz",
+      "size": 5275987,
+      "sha256": "9eed44667147922cf156d3ee280c15310944d159e6396012b27efee2531e82cd",
+      "contentType": "application/octet-stream",
+      "parts": [
+        {
+          "name": "wrf-publish--fields--f009.json-de846052df.gz",
+          "size": 5275987,
+          "sha256": "9eed44667147922cf156d3ee280c15310944d159e6396012b27efee2531e82cd",
+          "contentType": "application/octet-stream",
+          "part": 1,
+          "releaseUrl": "https://github.com/sideralmeteorologia/sideral-web/releases/download/sideral-data-brasil-wrf-21km-wrf-ecmwf-latest/wrf-publish--fields--f009.json-de846052df.gz",
+          "url": "https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/sideral-data-brasil-wrf-21km-wrf-ecmwf-latest/assets/wrf-publish--fields--f009.json-de846052df.gz"
+        }
+      ],
+      "asset": "wrf-publish--fields--f009.json-de846052df.gz"
+    },
+    {
+      "path": "wrf_publish/fields/f010.json.gz",
+      "size": 5331676,
+      "sha256": "270d3aa870ee0c719d9e920f77641bd63b0dbf48f6eaf8cffc6b3f4ab12f20b8",
+      "contentType": "application/octet-stream",
+      "parts": [
+        {
+          "name": "wrf-publish--fields--f010.json-f83b98106e.gz",
+          "size": 5331676,
+          "sha256": "270d3aa870ee0c719d9e920f77641bd63b0dbf48f6eaf8cffc6b3f4ab12f20b8",
+          "contentType": "application/octet-stream",
+          "part": 1,
+          "releaseUrl": "https://github.com/sideralmeteorologia/sideral-web/releases/download/sideral-data-brasil-wrf-21km-wrf-ecmwf-latest/wrf-publish--fields--f010.json-f83b98106e.gz",
+          "url": "https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/sideral-data-brasil-wrf-21km-wrf-ecmwf-latest/assets/wrf-publish--fields--f010.json-f83b98106e.gz"
+        }
+      ],
+      "asset": "wrf-publish--fields--f010.json-f83b98106e.gz"
+    },
+    {
+      "path": "wrf_publish/fields/f011.json.gz",
+      "size": 5409612,
+      "sha256": "51733f505fa20cf0f68646b9c3441db7acd17f364ca8ef59db82b82cd6e62a62",
+      "contentType": "application/octet-stream",
+      "parts": [
+        {
+          "name": "wrf-publish--fields--f011.json-649c70565f.gz",
+          "size": 5409612,
+          "sha256": "51733f505fa20cf0f68646b9c3441db7acd17f364ca8ef59db82b82cd6e62a62",
+          "contentType": "application/octet-stream",
+          "part": 1,
+          "releaseUrl": "https://github.com/sideralmeteorologia/sideral-web/releases/download/sideral-data-brasil-wrf-21km-wrf-ecmwf-latest/wrf-publish--fields--f011.json-649c70565f.gz",
+          "url": "https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/sideral-data-brasil-wrf-21km-wrf-ecmwf-latest/assets/wrf-publish--fields--f011.json-649c70565f.gz"
+        }
+      ],
+      "asset": "wrf-publish--fields--f011.json-649c70565f.gz"
+    },
+    {
+      "path": "wrf_publish/fields/f012.json.gz",
+      "size": 5506793,
+      "sha256": "57ac0c578186921527f6ba66ed30668e830676fe0a0563eaae5cad17c3b0413b",
+      "contentType": "application/octet-stream",
+      "parts": [
+        {
+          "name": "wrf-publish--fields--f012.json-b96de3f36f.gz",
+          "size": 5506793,
+          "sha256": "57ac0c578186921527f6ba66ed30668e830676fe0a0563eaae5cad17c3b0413b",
+          "contentType": "application/octet-stream",
+          "part": 1,
+          "releaseUrl": "https://github.com/sideralmeteorologia/sideral-web/releases/download/sideral-data-brasil-wrf-21km-wrf-ecmwf-latest/wrf-publish--fields--f012.json-b96de3f36f.gz",
+          "url": "https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/sideral-data-brasil-wrf-21km-wrf-ecmwf-latest/assets/wrf-publish--fields--f012.json-b96de3f36f.gz"
+        }
+      ],
+      "asset": "wrf-publish--fields--f012.json-b96de3f36f.gz"
+    },
+    {
+      "path": "wrf_publish/fields/f013.json.gz",
+      "size": 5591779,
+      "sha256": "5f4e175c7369b6c5431f969dd1385f1e415a5e3d31ee5d13df3aa54d39c7bfec",
+      "contentType": "application/octet-stream",
+      "parts": [
+        {
+          "name": "wrf-publish--fields--f013.json-b30ec667ef.gz",
+          "size": 5591779,
+          "sha256": "5f4e175c7369b6c5431f969dd1385f1e415a5e3d31ee5d13df3aa54d39c7bfec",
+          "contentType": "application/octet-stream",
+          "part": 1,
+          "releaseUrl": "https://github.com/sideralmeteorologia/sideral-web/releases/download/sideral-data-brasil-wrf-21km-wrf-ecmwf-latest/wrf-publish--fields--f013.json-b30ec667ef.gz",
+          "url": "https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/sideral-data-brasil-wrf-21km-wrf-ecmwf-latest/assets/wrf-publish--fields--f013.json-b30ec667ef.gz"
+        }
+      ],
+      "asset": "wrf-publish--fields--f013.json-b30ec667ef.gz"
+    },
+    {
+      "path": "wrf_publish/fields/f014.json.gz",
+      "size": 5655877,
+      "sha256": "87e61594fd2518e05e721a2550e8d88fcc4696e0afca3868ac0e504b3537ea37",
+      "contentType": "application/octet-stream",
+      "parts": [
+        {
+          "name": "wrf-publish--fields--f014.json-dd14435985.gz",
+          "size": 5655877,
+          "sha256": "87e61594fd2518e05e721a2550e8d88fcc4696e0afca3868ac0e504b3537ea37",
+          "contentType": "application/octet-stream",
+          "part": 1,
+          "releaseUrl": "https://github.com/sideralmeteorologia/sideral-web/releases/download/sideral-data-brasil-wrf-21km-wrf-ecmwf-latest/wrf-publish--fields--f014.json-dd14435985.gz",
+          "url": "https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/sideral-data-brasil-wrf-21km-wrf-ecmwf-latest/assets/wrf-publish--fields--f014.json-dd14435985.gz"
+        }
+      ],
+      "asset": "wrf-publish--fields--f014.json-dd14435985.gz"
+    },
+    {
+      "path": "wrf_publish/fields/f015.json.gz",
+      "size": 5720225,
+      "sha256": "eed7353581437fa95372b48fe9babba736fb364e67de1098d93d21b415235e2d",
+      "contentType": "application/octet-stream",
+      "parts": [
+        {
+          "name": "wrf-publish--fields--f015.json-a356e5e502.gz",
+          "size": 5720225,
+          "sha256": "eed7353581437fa95372b48fe9babba736fb364e67de1098d93d21b415235e2d",
+          "contentType": "application/octet-stream",
+          "part": 1,
+          "releaseUrl": "https://github.com/sideralmeteorologia/sideral-web/releases/download/sideral-data-brasil-wrf-21km-wrf-ecmwf-latest/wrf-publish--fields--f015.json-a356e5e502.gz",
+          "url": "https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/sideral-data-brasil-wrf-21km-wrf-ecmwf-latest/assets/wrf-publish--fields--f015.json-a356e5e502.gz"
+        }
+      ],
+      "asset": "wrf-publish--fields--f015.json-a356e5e502.gz"
+    },
+    {
+      "path": "wrf_publish/fields/f016.json.gz",
+      "size": 5732234,
+      "sha256": "ca7619c0f7f35262011eedc787cadbe2865eddb805c26d9eca2cf9aa1959f4e5",
+      "contentType": "application/octet-stream",
+      "parts": [
+        {
+          "name": "wrf-publish--fields--f016.json-3221590181.gz",
+          "size": 5732234,
+          "sha256": "ca7619c0f7f35262011eedc787cadbe2865eddb805c26d9eca2cf9aa1959f4e5",
+          "contentType": "application/octet-stream",
+          "part": 1,
+          "releaseUrl": "https://github.com/sideralmeteorologia/sideral-web/releases/download/sideral-data-brasil-wrf-21km-wrf-ecmwf-latest/wrf-publish--fields--f016.json-3221590181.gz",
+          "url": "https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/sideral-data-brasil-wrf-21km-wrf-ecmwf-latest/assets/wrf-publish--fields--f016.json-3221590181.gz"
+        }
+      ],
+      "asset": "wrf-publish--fields--f016.json-3221590181.gz"
+    },
+    {
+      "path": "wrf_publish/fields/f017.json.gz",
+      "size": 5723495,
+      "sha256": "d3476d73c9f96825a48862651cdcb9d2252f7c0addd31471dd4f233da165a226",
+      "contentType": "application/octet-stream",
+      "parts": [
+        {
+          "name": "wrf-publish--fields--f017.json-3ae55c3df3.gz",
+          "size": 5723495,
+          "sha256": "d3476d73c9f96825a48862651cdcb9d2252f7c0addd31471dd4f233da165a226",
+          "contentType": "application/octet-stream",
+          "part": 1,
+          "releaseUrl": "https://github.com/sideralmeteorologia/sideral-web/releases/download/sideral-data-brasil-wrf-21km-wrf-ecmwf-latest/wrf-publish--fields--f017.json-3ae55c3df3.gz",
+          "url": "https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/sideral-data-brasil-wrf-21km-wrf-ecmwf-latest/assets/wrf-publish--fields--f017.json-3ae55c3df3.gz"
+        }
+      ],
+      "asset": "wrf-publish--fields--f017.json-3ae55c3df3.gz"
+    },
+    {
+      "path": "wrf_publish/fields/f018.json.gz",
+      "size": 5717256,
+      "sha256": "98b43c90e79d4d763a104886cbe0dad84a0fa4fd3149e26c09e700cc80dce0a8",
+      "contentType": "application/octet-stream",
+      "parts": [
+        {
+          "name": "wrf-publish--fields--f018.json-7a5e700301.gz",
+          "size": 5717256,
+          "sha256": "98b43c90e79d4d763a104886cbe0dad84a0fa4fd3149e26c09e700cc80dce0a8",
+          "contentType": "application/octet-stream",
+          "part": 1,
+          "releaseUrl": "https://github.com/sideralmeteorologia/sideral-web/releases/download/sideral-data-brasil-wrf-21km-wrf-ecmwf-latest/wrf-publish--fields--f018.json-7a5e700301.gz",
+          "url": "https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/sideral-data-brasil-wrf-21km-wrf-ecmwf-latest/assets/wrf-publish--fields--f018.json-7a5e700301.gz"
+        }
+      ],
+      "asset": "wrf-publish--fields--f018.json-7a5e700301.gz"
+    },
+    {
+      "path": "wrf_publish/fields/f019.json.gz",
+      "size": 5685372,
+      "sha256": "72ed59b6a40e4bbdfd289726a7a31e93f13edd7f806fb70cfec4245f1539f143",
+      "contentType": "application/octet-stream",
+      "parts": [
+        {
+          "name": "wrf-publish--fields--f019.json-897b0a8434.gz",
+          "size": 5685372,
+          "sha256": "72ed59b6a40e4bbdfd289726a7a31e93f13edd7f806fb70cfec4245f1539f143",
+          "contentType": "application/octet-stream",
+          "part": 1,
+          "releaseUrl": "https://github.com/sideralmeteorologia/sideral-web/releases/download/sideral-data-brasil-wrf-21km-wrf-ecmwf-latest/wrf-publish--fields--f019.json-897b0a8434.gz",
+          "url": "https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/sideral-data-brasil-wrf-21km-wrf-ecmwf-latest/assets/wrf-publish--fields--f019.json-897b0a8434.gz"
+        }
+      ],
+      "asset": "wrf-publish--fields--f019.json-897b0a8434.gz"
+    },
+    {
+      "path": "wrf_publish/fields/f020.json.gz",
+      "size": 5654435,
+      "sha256": "4279951b391e14c17815630a83496243421b73167f41bc18fa453c6be9dba588",
+      "contentType": "application/octet-stream",
+      "parts": [
+        {
+          "name": "wrf-publish--fields--f020.json-6991ca45cc.gz",
+          "size": 5654435,
+          "sha256": "4279951b391e14c17815630a83496243421b73167f41bc18fa453c6be9dba588",
+          "contentType": "application/octet-stream",
+          "part": 1,
+          "releaseUrl": "https://github.com/sideralmeteorologia/sideral-web/releases/download/sideral-data-brasil-wrf-21km-wrf-ecmwf-latest/wrf-publish--fields--f020.json-6991ca45cc.gz",
+          "url": "https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/sideral-data-brasil-wrf-21km-wrf-ecmwf-latest/assets/wrf-publish--fields--f020.json-6991ca45cc.gz"
+        }
+      ],
+      "asset": "wrf-publish--fields--f020.json-6991ca45cc.gz"
+    },
+    {
+      "path": "wrf_publish/fields/f021.json.gz",
+      "size": 5636886,
+      "sha256": "75f7ab609ba9ef9ff7c7b02ab7dfc22a7355af23a6b7ff6fca0983775d2c74fd",
+      "contentType": "application/octet-stream",
+      "parts": [
+        {
+          "name": "wrf-publish--fields--f021.json-3af780ea00.gz",
+          "size": 5636886,
+          "sha256": "75f7ab609ba9ef9ff7c7b02ab7dfc22a7355af23a6b7ff6fca0983775d2c74fd",
+          "contentType": "application/octet-stream",
+          "part": 1,
+          "releaseUrl": "https://github.com/sideralmeteorologia/sideral-web/releases/download/sideral-data-brasil-wrf-21km-wrf-ecmwf-latest/wrf-publish--fields--f021.json-3af780ea00.gz",
+          "url": "https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/sideral-data-brasil-wrf-21km-wrf-ecmwf-latest/assets/wrf-publish--fields--f021.json-3af780ea00.gz"
+        }
+      ],
+      "asset": "wrf-publish--fields--f021.json-3af780ea00.gz"
+    },
+    {
+      "path": "wrf_publish/fields/f022.json.gz",
+      "size": 5612621,
+      "sha256": "f685a3de9b053b2c2861c7b4dd46213826dbd105cdea2d8860829a385a369143",
+      "contentType": "application/octet-stream",
+      "parts": [
+        {
+          "name": "wrf-publish--fields--f022.json-0e98c63c1c.gz",
+          "size": 5612621,
+          "sha256": "f685a3de9b053b2c2861c7b4dd46213826dbd105cdea2d8860829a385a369143",
+          "contentType": "application/octet-stream",
+          "part": 1,
+          "releaseUrl": "https://github.com/sideralmeteorologia/sideral-web/releases/download/sideral-data-brasil-wrf-21km-wrf-ecmwf-latest/wrf-publish--fields--f022.json-0e98c63c1c.gz",
+          "url": "https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/sideral-data-brasil-wrf-21km-wrf-ecmwf-latest/assets/wrf-publish--fields--f022.json-0e98c63c1c.gz"
+        }
+      ],
+      "asset": "wrf-publish--fields--f022.json-0e98c63c1c.gz"
+    },
+    {
+      "path": "wrf_publish/fields/f023.json.gz",
+      "size": 5587336,
+      "sha256": "182d1a9783b1c6bdd5750dd9203f6a7703d818671d12c9eeed3530d4a2666c23",
+      "contentType": "application/octet-stream",
+      "parts": [
+        {
+          "name": "wrf-publish--fields--f023.json-ccb06061a6.gz",
+          "size": 5587336,
+          "sha256": "182d1a9783b1c6bdd5750dd9203f6a7703d818671d12c9eeed3530d4a2666c23",
+          "contentType": "application/octet-stream",
+          "part": 1,
+          "releaseUrl": "https://github.com/sideralmeteorologia/sideral-web/releases/download/sideral-data-brasil-wrf-21km-wrf-ecmwf-latest/wrf-publish--fields--f023.json-ccb06061a6.gz",
+          "url": "https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/sideral-data-brasil-wrf-21km-wrf-ecmwf-latest/assets/wrf-publish--fields--f023.json-ccb06061a6.gz"
+        }
+      ],
+      "asset": "wrf-publish--fields--f023.json-ccb06061a6.gz"
+    },
+    {
+      "path": "wrf_publish/fields/f024.json.gz",
+      "size": 5581319,
+      "sha256": "e4e2bea551cdbeb66ece732b56e9fe75b071946705d2cafb777491941725d35a",
+      "contentType": "application/octet-stream",
+      "parts": [
+        {
+          "name": "wrf-publish--fields--f024.json-c431398e0b.gz",
+          "size": 5581319,
+          "sha256": "e4e2bea551cdbeb66ece732b56e9fe75b071946705d2cafb777491941725d35a",
+          "contentType": "application/octet-stream",
+          "part": 1,
+          "releaseUrl": "https://github.com/sideralmeteorologia/sideral-web/releases/download/sideral-data-brasil-wrf-21km-wrf-ecmwf-latest/wrf-publish--fields--f024.json-c431398e0b.gz",
+          "url": "https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/sideral-data-brasil-wrf-21km-wrf-ecmwf-latest/assets/wrf-publish--fields--f024.json-c431398e0b.gz"
+        }
+      ],
+      "asset": "wrf-publish--fields--f024.json-c431398e0b.gz"
+    },
+    {
+      "path": "wrf_publish/fields/f025.json.gz",
+      "size": 5557360,
+      "sha256": "62cff2c3065570daf1cbcac9f2daad18b18a4256ec897708938158ff0fa248a9",
+      "contentType": "application/octet-stream",
+      "parts": [
+        {
+          "name": "wrf-publish--fields--f025.json-46824dad7f.gz",
+          "size": 5557360,
+          "sha256": "62cff2c3065570daf1cbcac9f2daad18b18a4256ec897708938158ff0fa248a9",
+          "contentType": "application/octet-stream",
+          "part": 1,
+          "releaseUrl": "https://github.com/sideralmeteorologia/sideral-web/releases/download/sideral-data-brasil-wrf-21km-wrf-ecmwf-latest/wrf-publish--fields--f025.json-46824dad7f.gz",
+          "url": "https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/sideral-data-brasil-wrf-21km-wrf-ecmwf-latest/assets/wrf-publish--fields--f025.json-46824dad7f.gz"
+        }
+      ],
+      "asset": "wrf-publish--fields--f025.json-46824dad7f.gz"
+    },
+    {
+      "path": "wrf_publish/fields/f026.json.gz",
+      "size": 5539687,
+      "sha256": "f2d0b1713c6ff997e01bca9ecf3bde845ce2a5c051d6800542a82344a1984eb8",
+      "contentType": "application/octet-stream",
+      "parts": [
+        {
+          "name": "wrf-publish--fields--f026.json-89be67ec4c.gz",
+          "size": 5539687,
+          "sha256": "f2d0b1713c6ff997e01bca9ecf3bde845ce2a5c051d6800542a82344a1984eb8",
+          "contentType": "application/octet-stream",
+          "part": 1,
+          "releaseUrl": "https://github.com/sideralmeteorologia/sideral-web/releases/download/sideral-data-brasil-wrf-21km-wrf-ecmwf-latest/wrf-publish--fields--f026.json-89be67ec4c.gz",
+          "url": "https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/sideral-data-brasil-wrf-21km-wrf-ecmwf-latest/assets/wrf-publish--fields--f026.json-89be67ec4c.gz"
+        }
+      ],
+      "asset": "wrf-publish--fields--f026.json-89be67ec4c.gz"
+    },
+    {
+      "path": "wrf_publish/fields/f027.json.gz",
+      "size": 5530173,
+      "sha256": "2c51772c57f928db321af46ddb866e4e3d54607e8bc2a949be8bf2eb13c45fb5",
+      "contentType": "application/octet-stream",
+      "parts": [
+        {
+          "name": "wrf-publish--fields--f027.json-e37a3148fe.gz",
+          "size": 5530173,
+          "sha256": "2c51772c57f928db321af46ddb866e4e3d54607e8bc2a949be8bf2eb13c45fb5",
+          "contentType": "application/octet-stream",
+          "part": 1,
+          "releaseUrl": "https://github.com/sideralmeteorologia/sideral-web/releases/download/sideral-data-brasil-wrf-21km-wrf-ecmwf-latest/wrf-publish--fields--f027.json-e37a3148fe.gz",
+          "url": "https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/sideral-data-brasil-wrf-21km-wrf-ecmwf-latest/assets/wrf-publish--fields--f027.json-e37a3148fe.gz"
+        }
+      ],
+      "asset": "wrf-publish--fields--f027.json-e37a3148fe.gz"
+    },
+    {
+      "path": "wrf_publish/fields/f028.json.gz",
+      "size": 5511255,
+      "sha256": "088dc0765bd5c4fa4f7f0310ca89756ce3c38fa6e2b8ecdeace8b855e70c9254",
+      "contentType": "application/octet-stream",
+      "parts": [
+        {
+          "name": "wrf-publish--fields--f028.json-ea28cbef6b.gz",
+          "size": 5511255,
+          "sha256": "088dc0765bd5c4fa4f7f0310ca89756ce3c38fa6e2b8ecdeace8b855e70c9254",
+          "contentType": "application/octet-stream",
+          "part": 1,
+          "releaseUrl": "https://github.com/sideralmeteorologia/sideral-web/releases/download/sideral-data-brasil-wrf-21km-wrf-ecmwf-latest/wrf-publish--fields--f028.json-ea28cbef6b.gz",
+          "url": "https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/sideral-data-brasil-wrf-21km-wrf-ecmwf-latest/assets/wrf-publish--fields--f028.json-ea28cbef6b.gz"
+        }
+      ],
+      "asset": "wrf-publish--fields--f028.json-ea28cbef6b.gz"
+    },
+    {
+      "path": "wrf_publish/fields/f029.json.gz",
+      "size": 5491272,
+      "sha256": "46e26bccab24a740fb27ff212c2a72a0c97cbba655a7b9f3d8ea560e29c094d4",
+      "contentType": "application/octet-stream",
+      "parts": [
+        {
+          "name": "wrf-publish--fields--f029.json-226e772f41.gz",
+          "size": 5491272,
+          "sha256": "46e26bccab24a740fb27ff212c2a72a0c97cbba655a7b9f3d8ea560e29c094d4",
+          "contentType": "application/octet-stream",
+          "part": 1,
+          "releaseUrl": "https://github.com/sideralmeteorologia/sideral-web/releases/download/sideral-data-brasil-wrf-21km-wrf-ecmwf-latest/wrf-publish--fields--f029.json-226e772f41.gz",
+          "url": "https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/sideral-data-brasil-wrf-21km-wrf-ecmwf-latest/assets/wrf-publish--fields--f029.json-226e772f41.gz"
+        }
+      ],
+      "asset": "wrf-publish--fields--f029.json-226e772f41.gz"
+    },
+    {
+      "path": "wrf_publish/fields/f030.json.gz",
+      "size": 5483940,
+      "sha256": "88b19bea40824a149ab722ac475f8db8340dcd176214343c60429a0ce5a4b4e4",
+      "contentType": "application/octet-stream",
+      "parts": [
+        {
+          "name": "wrf-publish--fields--f030.json-e16c4fa7cd.gz",
+          "size": 5483940,
+          "sha256": "88b19bea40824a149ab722ac475f8db8340dcd176214343c60429a0ce5a4b4e4",
+          "contentType": "application/octet-stream",
+          "part": 1,
+          "releaseUrl": "https://github.com/sideralmeteorologia/sideral-web/releases/download/sideral-data-brasil-wrf-21km-wrf-ecmwf-latest/wrf-publish--fields--f030.json-e16c4fa7cd.gz",
+          "url": "https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/sideral-data-brasil-wrf-21km-wrf-ecmwf-latest/assets/wrf-publish--fields--f030.json-e16c4fa7cd.gz"
+        }
+      ],
+      "asset": "wrf-publish--fields--f030.json-e16c4fa7cd.gz"
+    },
+    {
+      "path": "wrf_publish/fields/f031.json.gz",
+      "size": 5462740,
+      "sha256": "ed48dcf224294810a7e73d0a4ec4028810b6c1e8bd0be4d3801b575ed48d071a",
+      "contentType": "application/octet-stream",
+      "parts": [
+        {
+          "name": "wrf-publish--fields--f031.json-c24cac4906.gz",
+          "size": 5462740,
+          "sha256": "ed48dcf224294810a7e73d0a4ec4028810b6c1e8bd0be4d3801b575ed48d071a",
+          "contentType": "application/octet-stream",
+          "part": 1,
+          "releaseUrl": "https://github.com/sideralmeteorologia/sideral-web/releases/download/sideral-data-brasil-wrf-21km-wrf-ecmwf-latest/wrf-publish--fields--f031.json-c24cac4906.gz",
+          "url": "https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/sideral-data-brasil-wrf-21km-wrf-ecmwf-latest/assets/wrf-publish--fields--f031.json-c24cac4906.gz"
+        }
+      ],
+      "asset": "wrf-publish--fields--f031.json-c24cac4906.gz"
+    },
+    {
+      "path": "wrf_publish/fields/f032.json.gz",
+      "size": 5460030,
+      "sha256": "e9f63c6787004bb371f025dec537a8c683dbb19758340653cb8f68bc1bc4a023",
+      "contentType": "application/octet-stream",
+      "parts": [
+        {
+          "name": "wrf-publish--fields--f032.json-052434b3e4.gz",
+          "size": 5460030,
+          "sha256": "e9f63c6787004bb371f025dec537a8c683dbb19758340653cb8f68bc1bc4a023",
+          "contentType": "application/octet-stream",
+          "part": 1,
+          "releaseUrl": "https://github.com/sideralmeteorologia/sideral-web/releases/download/sideral-data-brasil-wrf-21km-wrf-ecmwf-latest/wrf-publish--fields--f032.json-052434b3e4.gz",
+          "url": "https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/sideral-data-brasil-wrf-21km-wrf-ecmwf-latest/assets/wrf-publish--fields--f032.json-052434b3e4.gz"
+        }
+      ],
+      "asset": "wrf-publish--fields--f032.json-052434b3e4.gz"
+    },
+    {
+      "path": "wrf_publish/fields/f033.json.gz",
+      "size": 5489718,
+      "sha256": "56d4d1661284b2b8de0f379b6d08ebed25e30062dd6a683f2a52a92e2ab9e0b2",
+      "contentType": "application/octet-stream",
+      "parts": [
+        {
+          "name": "wrf-publish--fields--f033.json-398d50b010.gz",
+          "size": 5489718,
+          "sha256": "56d4d1661284b2b8de0f379b6d08ebed25e30062dd6a683f2a52a92e2ab9e0b2",
+          "contentType": "application/octet-stream",
+          "part": 1,
+          "releaseUrl": "https://github.com/sideralmeteorologia/sideral-web/releases/download/sideral-data-brasil-wrf-21km-wrf-ecmwf-latest/wrf-publish--fields--f033.json-398d50b010.gz",
+          "url": "https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/sideral-data-brasil-wrf-21km-wrf-ecmwf-latest/assets/wrf-publish--fields--f033.json-398d50b010.gz"
+        }
+      ],
+      "asset": "wrf-publish--fields--f033.json-398d50b010.gz"
+    },
+    {
+      "path": "wrf_publish/fields/f034.json.gz",
+      "size": 5531135,
+      "sha256": "37f6fb4638f510175d1fa0e23431f17609edf8b7cc6452703969312603cdf43c",
+      "contentType": "application/octet-stream",
+      "parts": [
+        {
+          "name": "wrf-publish--fields--f034.json-ffee46d239.gz",
+          "size": 5531135,
+          "sha256": "37f6fb4638f510175d1fa0e23431f17609edf8b7cc6452703969312603cdf43c",
+          "contentType": "application/octet-stream",
+          "part": 1,
+          "releaseUrl": "https://github.com/sideralmeteorologia/sideral-web/releases/download/sideral-data-brasil-wrf-21km-wrf-ecmwf-latest/wrf-publish--fields--f034.json-ffee46d239.gz",
+          "url": "https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/sideral-data-brasil-wrf-21km-wrf-ecmwf-latest/assets/wrf-publish--fields--f034.json-ffee46d239.gz"
+        }
+      ],
+      "asset": "wrf-publish--fields--f034.json-ffee46d239.gz"
+    },
+    {
+      "path": "wrf_publish/fields/f035.json.gz",
+      "size": 5596567,
+      "sha256": "e072974fcb14516c89ea7abbb7f59c3d9cb79e02c1ab1dcdd9192f6440e7527e",
+      "contentType": "application/octet-stream",
+      "parts": [
+        {
+          "name": "wrf-publish--fields--f035.json-ba187c2864.gz",
+          "size": 5596567,
+          "sha256": "e072974fcb14516c89ea7abbb7f59c3d9cb79e02c1ab1dcdd9192f6440e7527e",
+          "contentType": "application/octet-stream",
+          "part": 1,
+          "releaseUrl": "https://github.com/sideralmeteorologia/sideral-web/releases/download/sideral-data-brasil-wrf-21km-wrf-ecmwf-latest/wrf-publish--fields--f035.json-ba187c2864.gz",
+          "url": "https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/sideral-data-brasil-wrf-21km-wrf-ecmwf-latest/assets/wrf-publish--fields--f035.json-ba187c2864.gz"
+        }
+      ],
+      "asset": "wrf-publish--fields--f035.json-ba187c2864.gz"
+    },
+    {
+      "path": "wrf_publish/fields/f036.json.gz",
+      "size": 5681376,
+      "sha256": "44061632176fdc0fe3cf09ed113e8c6cab65a8220f88192128cd5f94379d758e",
+      "contentType": "application/octet-stream",
+      "parts": [
+        {
+          "name": "wrf-publish--fields--f036.json-22c5d93af2.gz",
+          "size": 5681376,
+          "sha256": "44061632176fdc0fe3cf09ed113e8c6cab65a8220f88192128cd5f94379d758e",
+          "contentType": "application/octet-stream",
+          "part": 1,
+          "releaseUrl": "https://github.com/sideralmeteorologia/sideral-web/releases/download/sideral-data-brasil-wrf-21km-wrf-ecmwf-latest/wrf-publish--fields--f036.json-22c5d93af2.gz",
+          "url": "https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/sideral-data-brasil-wrf-21km-wrf-ecmwf-latest/assets/wrf-publish--fields--f036.json-22c5d93af2.gz"
+        }
+      ],
+      "asset": "wrf-publish--fields--f036.json-22c5d93af2.gz"
+    },
+    {
+      "path": "wrf_publish/fields/f037.json.gz",
+      "size": 5734915,
+      "sha256": "c93689b8eeb3415d79298a15c2d4da85bd36f14d8efb2030be7cdf8a2bbe4f78",
+      "contentType": "application/octet-stream",
+      "parts": [
+        {
+          "name": "wrf-publish--fields--f037.json-c2960b79d7.gz",
+          "size": 5734915,
+          "sha256": "c93689b8eeb3415d79298a15c2d4da85bd36f14d8efb2030be7cdf8a2bbe4f78",
+          "contentType": "application/octet-stream",
+          "part": 1,
+          "releaseUrl": "https://github.com/sideralmeteorologia/sideral-web/releases/download/sideral-data-brasil-wrf-21km-wrf-ecmwf-latest/wrf-publish--fields--f037.json-c2960b79d7.gz",
+          "url": "https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/sideral-data-brasil-wrf-21km-wrf-ecmwf-latest/assets/wrf-publish--fields--f037.json-c2960b79d7.gz"
+        }
+      ],
+      "asset": "wrf-publish--fields--f037.json-c2960b79d7.gz"
+    },
+    {
+      "path": "wrf_publish/fields/f038.json.gz",
+      "size": 5780270,
+      "sha256": "3b1fcf3f1bd7f6f03bdd864b1d50b9dbdd088a212b2587a17fc2efa3704e9402",
+      "contentType": "application/octet-stream",
+      "parts": [
+        {
+          "name": "wrf-publish--fields--f038.json-ce083c35ae.gz",
+          "size": 5780270,
+          "sha256": "3b1fcf3f1bd7f6f03bdd864b1d50b9dbdd088a212b2587a17fc2efa3704e9402",
+          "contentType": "application/octet-stream",
+          "part": 1,
+          "releaseUrl": "https://github.com/sideralmeteorologia/sideral-web/releases/download/sideral-data-brasil-wrf-21km-wrf-ecmwf-latest/wrf-publish--fields--f038.json-ce083c35ae.gz",
+          "url": "https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/sideral-data-brasil-wrf-21km-wrf-ecmwf-latest/assets/wrf-publish--fields--f038.json-ce083c35ae.gz"
+        }
+      ],
+      "asset": "wrf-publish--fields--f038.json-ce083c35ae.gz"
+    },
+    {
+      "path": "wrf_publish/fields/f039.json.gz",
+      "size": 5834372,
+      "sha256": "275bcff12fbfa42c429a1a3c01a27dd67b800e11857f796e246c2f759aef6213",
+      "contentType": "application/octet-stream",
+      "parts": [
+        {
+          "name": "wrf-publish--fields--f039.json-d62efde90f.gz",
+          "size": 5834372,
+          "sha256": "275bcff12fbfa42c429a1a3c01a27dd67b800e11857f796e246c2f759aef6213",
+          "contentType": "application/octet-stream",
+          "part": 1,
+          "releaseUrl": "https://github.com/sideralmeteorologia/sideral-web/releases/download/sideral-data-brasil-wrf-21km-wrf-ecmwf-latest/wrf-publish--fields--f039.json-d62efde90f.gz",
+          "url": "https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/sideral-data-brasil-wrf-21km-wrf-ecmwf-latest/assets/wrf-publish--fields--f039.json-d62efde90f.gz"
+        }
+      ],
+      "asset": "wrf-publish--fields--f039.json-d62efde90f.gz"
+    },
+    {
+      "path": "wrf_publish/fields/f040.json.gz",
+      "size": 5834343,
+      "sha256": "34dcf3f50dd534467d53f7672179bf51b1db4e83f405eea24fd1b23f63aa40c8",
+      "contentType": "application/octet-stream",
+      "parts": [
+        {
+          "name": "wrf-publish--fields--f040.json-6eacc62d6c.gz",
+          "size": 5834343,
+          "sha256": "34dcf3f50dd534467d53f7672179bf51b1db4e83f405eea24fd1b23f63aa40c8",
+          "contentType": "application/octet-stream",
+          "part": 1,
+          "releaseUrl": "https://github.com/sideralmeteorologia/sideral-web/releases/download/sideral-data-brasil-wrf-21km-wrf-ecmwf-latest/wrf-publish--fields--f040.json-6eacc62d6c.gz",
+          "url": "https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/sideral-data-brasil-wrf-21km-wrf-ecmwf-latest/assets/wrf-publish--fields--f040.json-6eacc62d6c.gz"
+        }
+      ],
+      "asset": "wrf-publish--fields--f040.json-6eacc62d6c.gz"
+    },
+    {
+      "path": "wrf_publish/fields/f041.json.gz",
+      "size": 5814769,
+      "sha256": "b2d9566b1a679afdc683ef7927068bb02bf5e5a0d867cd60a4f5fc1a531e683f",
+      "contentType": "application/octet-stream",
+      "parts": [
+        {
+          "name": "wrf-publish--fields--f041.json-9ae4707351.gz",
+          "size": 5814769,
+          "sha256": "b2d9566b1a679afdc683ef7927068bb02bf5e5a0d867cd60a4f5fc1a531e683f",
+          "contentType": "application/octet-stream",
+          "part": 1,
+          "releaseUrl": "https://github.com/sideralmeteorologia/sideral-web/releases/download/sideral-data-brasil-wrf-21km-wrf-ecmwf-latest/wrf-publish--fields--f041.json-9ae4707351.gz",
+          "url": "https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/sideral-data-brasil-wrf-21km-wrf-ecmwf-latest/assets/wrf-publish--fields--f041.json-9ae4707351.gz"
+        }
+      ],
+      "asset": "wrf-publish--fields--f041.json-9ae4707351.gz"
+    },
+    {
+      "path": "wrf_publish/fields/f042.json.gz",
+      "size": 5797924,
+      "sha256": "e97fee93be2fdb0af99d62b3b65ff70a537a91c934fcd8ae750011326159d1e1",
+      "contentType": "application/octet-stream",
+      "parts": [
+        {
+          "name": "wrf-publish--fields--f042.json-d54d8946cc.gz",
+          "size": 5797924,
+          "sha256": "e97fee93be2fdb0af99d62b3b65ff70a537a91c934fcd8ae750011326159d1e1",
+          "contentType": "application/octet-stream",
+          "part": 1,
+          "releaseUrl": "https://github.com/sideralmeteorologia/sideral-web/releases/download/sideral-data-brasil-wrf-21km-wrf-ecmwf-latest/wrf-publish--fields--f042.json-d54d8946cc.gz",
+          "url": "https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/sideral-data-brasil-wrf-21km-wrf-ecmwf-latest/assets/wrf-publish--fields--f042.json-d54d8946cc.gz"
+        }
+      ],
+      "asset": "wrf-publish--fields--f042.json-d54d8946cc.gz"
+    },
+    {
+      "path": "wrf_publish/fields/f043.json.gz",
+      "size": 5762450,
+      "sha256": "a28b08b255c9410a232bd2a122b129c8760751cc61e2c59ee8e869ab35aea2f7",
+      "contentType": "application/octet-stream",
+      "parts": [
+        {
+          "name": "wrf-publish--fields--f043.json-414c761ed4.gz",
+          "size": 5762450,
+          "sha256": "a28b08b255c9410a232bd2a122b129c8760751cc61e2c59ee8e869ab35aea2f7",
+          "contentType": "application/octet-stream",
+          "part": 1,
+          "releaseUrl": "https://github.com/sideralmeteorologia/sideral-web/releases/download/sideral-data-brasil-wrf-21km-wrf-ecmwf-latest/wrf-publish--fields--f043.json-414c761ed4.gz",
+          "url": "https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/sideral-data-brasil-wrf-21km-wrf-ecmwf-latest/assets/wrf-publish--fields--f043.json-414c761ed4.gz"
+        }
+      ],
+      "asset": "wrf-publish--fields--f043.json-414c761ed4.gz"
+    },
+    {
+      "path": "wrf_publish/fields/f044.json.gz",
+      "size": 5737501,
+      "sha256": "e0a60d4d2b288f8a27bb6b79a941f5ac477db674e369a8b2183f324da0a3d9c6",
+      "contentType": "application/octet-stream",
+      "parts": [
+        {
+          "name": "wrf-publish--fields--f044.json-0ac2ce5153.gz",
+          "size": 5737501,
+          "sha256": "e0a60d4d2b288f8a27bb6b79a941f5ac477db674e369a8b2183f324da0a3d9c6",
+          "contentType": "application/octet-stream",
+          "part": 1,
+          "releaseUrl": "https://github.com/sideralmeteorologia/sideral-web/releases/download/sideral-data-brasil-wrf-21km-wrf-ecmwf-latest/wrf-publish--fields--f044.json-0ac2ce5153.gz",
+          "url": "https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/sideral-data-brasil-wrf-21km-wrf-ecmwf-latest/assets/wrf-publish--fields--f044.json-0ac2ce5153.gz"
+        }
+      ],
+      "asset": "wrf-publish--fields--f044.json-0ac2ce5153.gz"
+    },
+    {
+      "path": "wrf_publish/fields/f045.json.gz",
+      "size": 5717714,
+      "sha256": "f5cb373970f00bce5f14b49c60516fa022596225a76fdcb12dec808f62dfdb4a",
+      "contentType": "application/octet-stream",
+      "parts": [
+        {
+          "name": "wrf-publish--fields--f045.json-5754061332.gz",
+          "size": 5717714,
+          "sha256": "f5cb373970f00bce5f14b49c60516fa022596225a76fdcb12dec808f62dfdb4a",
+          "contentType": "application/octet-stream",
+          "part": 1,
+          "releaseUrl": "https://github.com/sideralmeteorologia/sideral-web/releases/download/sideral-data-brasil-wrf-21km-wrf-ecmwf-latest/wrf-publish--fields--f045.json-5754061332.gz",
+          "url": "https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/sideral-data-brasil-wrf-21km-wrf-ecmwf-latest/assets/wrf-publish--fields--f045.json-5754061332.gz"
+        }
+      ],
+      "asset": "wrf-publish--fields--f045.json-5754061332.gz"
+    },
+    {
+      "path": "wrf_publish/fields/f046.json.gz",
+      "size": 5692775,
+      "sha256": "d68ad1e8cf89353d8ca18aac2f624b1ac46871af0e679124e48a1eab54281270",
+      "contentType": "application/octet-stream",
+      "parts": [
+        {
+          "name": "wrf-publish--fields--f046.json-91ff581ae9.gz",
+          "size": 5692775,
+          "sha256": "d68ad1e8cf89353d8ca18aac2f624b1ac46871af0e679124e48a1eab54281270",
+          "contentType": "application/octet-stream",
+          "part": 1,
+          "releaseUrl": "https://github.com/sideralmeteorologia/sideral-web/releases/download/sideral-data-brasil-wrf-21km-wrf-ecmwf-latest/wrf-publish--fields--f046.json-91ff581ae9.gz",
+          "url": "https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/sideral-data-brasil-wrf-21km-wrf-ecmwf-latest/assets/wrf-publish--fields--f046.json-91ff581ae9.gz"
+        }
+      ],
+      "asset": "wrf-publish--fields--f046.json-91ff581ae9.gz"
+    },
+    {
+      "path": "wrf_publish/fields/f047.json.gz",
+      "size": 5680995,
+      "sha256": "735f7de53fbb4a536cc3c6cf05bd2ed5c9a65b83e9abf844d2be7c241144f984",
+      "contentType": "application/octet-stream",
+      "parts": [
+        {
+          "name": "wrf-publish--fields--f047.json-7029bd6594.gz",
+          "size": 5680995,
+          "sha256": "735f7de53fbb4a536cc3c6cf05bd2ed5c9a65b83e9abf844d2be7c241144f984",
+          "contentType": "application/octet-stream",
+          "part": 1,
+          "releaseUrl": "https://github.com/sideralmeteorologia/sideral-web/releases/download/sideral-data-brasil-wrf-21km-wrf-ecmwf-latest/wrf-publish--fields--f047.json-7029bd6594.gz",
+          "url": "https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/sideral-data-brasil-wrf-21km-wrf-ecmwf-latest/assets/wrf-publish--fields--f047.json-7029bd6594.gz"
+        }
+      ],
+      "asset": "wrf-publish--fields--f047.json-7029bd6594.gz"
+    },
+    {
+      "path": "wrf_publish/fields/f048.json.gz",
+      "size": 5675587,
+      "sha256": "d45f80c3564b6c1cb3e672239306c38d4001183ca47a0c70df2fb8edbdbcc5eb",
+      "contentType": "application/octet-stream",
+      "parts": [
+        {
+          "name": "wrf-publish--fields--f048.json-5b6a96994b.gz",
+          "size": 5675587,
+          "sha256": "d45f80c3564b6c1cb3e672239306c38d4001183ca47a0c70df2fb8edbdbcc5eb",
+          "contentType": "application/octet-stream",
+          "part": 1,
+          "releaseUrl": "https://github.com/sideralmeteorologia/sideral-web/releases/download/sideral-data-brasil-wrf-21km-wrf-ecmwf-latest/wrf-publish--fields--f048.json-5b6a96994b.gz",
+          "url": "https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/sideral-data-brasil-wrf-21km-wrf-ecmwf-latest/assets/wrf-publish--fields--f048.json-5b6a96994b.gz"
+        }
+      ],
+      "asset": "wrf-publish--fields--f048.json-5b6a96994b.gz"
+    },
+    {
+      "path": "wrf_publish/metadata.json",
+      "size": 579,
+      "sha256": "00810bd314165ea049cc2f140a1478f6fa4471d55ee48c9ec547aec039e7da29",
+      "contentType": "application/json",
+      "parts": [
+        {
+          "name": "wrf-publish--metadata-86f0a73304.json",
+          "size": 579,
+          "sha256": "00810bd314165ea049cc2f140a1478f6fa4471d55ee48c9ec547aec039e7da29",
+          "contentType": "application/json",
+          "part": 1,
+          "releaseUrl": "https://github.com/sideralmeteorologia/sideral-web/releases/download/sideral-data-brasil-wrf-21km-wrf-ecmwf-latest/wrf-publish--metadata-86f0a73304.json",
+          "url": "https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/sideral-data-brasil-wrf-21km-wrf-ecmwf-latest/assets/wrf-publish--metadata-86f0a73304.json"
+        }
+      ],
+      "asset": "wrf-publish--metadata-86f0a73304.json"
+    },
+    {
+      "path": "wrf_publish/wrf_brasil_21km.json",
+      "size": 59829060,
+      "sha256": "9aecf149ab530fc6273a27a94fd19432e47d4148ee3f64c65eff92f7db31ca50",
+      "contentType": "application/json",
+      "parts": [
+        {
+          "name": "wrf-publish--wrf_brasil_21km-00b46cc21e.json.part001",
+          "size": 47185920,
+          "sha256": "110237549a8d7d2e3fd5757e5ad290e07bf38c5606f92b97e8f0db9840197007",
+          "contentType": "application/json",
+          "part": 1,
+          "releaseUrl": "https://github.com/sideralmeteorologia/sideral-web/releases/download/sideral-data-brasil-wrf-21km-wrf-ecmwf-latest/wrf-publish--wrf_brasil_21km-00b46cc21e.json.part001",
+          "url": "https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/sideral-data-brasil-wrf-21km-wrf-ecmwf-latest/assets/wrf-publish--wrf_brasil_21km-00b46cc21e.json.part001"
+        },
+        {
+          "name": "wrf-publish--wrf_brasil_21km-00b46cc21e.json.part002",
+          "size": 12643140,
+          "sha256": "99d44536a615962b4653caf8f405d268a14698e441bbc0795c0d2ad6d17d8911",
+          "contentType": "application/json",
+          "part": 2,
+          "releaseUrl": "https://github.com/sideralmeteorologia/sideral-web/releases/download/sideral-data-brasil-wrf-21km-wrf-ecmwf-latest/wrf-publish--wrf_brasil_21km-00b46cc21e.json.part002",
+          "url": "https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/sideral-data-brasil-wrf-21km-wrf-ecmwf-latest/assets/wrf-publish--wrf_brasil_21km-00b46cc21e.json.part002"
+        }
+      ],
+      "chunked": true,
+      "reassemble": "Concatenate parts in ascending part order to reconstruct the original file."
+    },
+    {
+      "path": "wrf_work/geog.tar.gz",
+      "size": 149872777,
+      "sha256": "cbdbcc43554d946a38cbce658b7d563afd7a2889f2c0735b8aa3f2206c7256e7",
+      "contentType": "application/octet-stream",
+      "parts": [
+        {
+          "name": "wrf-work--geog.tar-df3e282130.gz.part001",
+          "size": 47185920,
+          "sha256": "c17d41a819d9860e5ce3539532aa6de16649fa59dcd5c79e88892e94d93aafc4",
+          "contentType": "application/octet-stream",
+          "part": 1,
+          "releaseUrl": "https://github.com/sideralmeteorologia/sideral-web/releases/download/sideral-data-brasil-wrf-21km-wrf-ecmwf-latest/wrf-work--geog.tar-df3e282130.gz.part001",
+          "url": "https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/sideral-data-brasil-wrf-21km-wrf-ecmwf-latest/assets/wrf-work--geog.tar-df3e282130.gz.part001"
+        },
+        {
+          "name": "wrf-work--geog.tar-df3e282130.gz.part002",
+          "size": 47185920,
+          "sha256": "2920e1cbafee628a71e83c91597682a4649684990d6c505b6d1ebe0976d9be1c",
+          "contentType": "application/octet-stream",
+          "part": 2,
+          "releaseUrl": "https://github.com/sideralmeteorologia/sideral-web/releases/download/sideral-data-brasil-wrf-21km-wrf-ecmwf-latest/wrf-work--geog.tar-df3e282130.gz.part002",
+          "url": "https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/sideral-data-brasil-wrf-21km-wrf-ecmwf-latest/assets/wrf-work--geog.tar-df3e282130.gz.part002"
+        },
+        {
+          "name": "wrf-work--geog.tar-df3e282130.gz.part003",
+          "size": 47185920,
+          "sha256": "f4a944d58807a8a0059aef529f23ee984594d2382a4b5f1d0b0fa14baf18df47",
+          "contentType": "application/octet-stream",
+          "part": 3,
+          "releaseUrl": "https://github.com/sideralmeteorologia/sideral-web/releases/download/sideral-data-brasil-wrf-21km-wrf-ecmwf-latest/wrf-work--geog.tar-df3e282130.gz.part003",
+          "url": "https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/sideral-data-brasil-wrf-21km-wrf-ecmwf-latest/assets/wrf-work--geog.tar-df3e282130.gz.part003"
+        },
+        {
+          "name": "wrf-work--geog.tar-df3e282130.gz.part004",
+          "size": 8315017,
+          "sha256": "eed3b8dacd80bfa997274142836769b628ca22743b2803980238b7d549e4b768",
+          "contentType": "application/octet-stream",
+          "part": 4,
+          "releaseUrl": "https://github.com/sideralmeteorologia/sideral-web/releases/download/sideral-data-brasil-wrf-21km-wrf-ecmwf-latest/wrf-work--geog.tar-df3e282130.gz.part004",
+          "url": "https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/sideral-data-brasil-wrf-21km-wrf-ecmwf-latest/assets/wrf-work--geog.tar-df3e282130.gz.part004"
+        }
+      ],
+      "chunked": true,
+      "reassemble": "Concatenate parts in ascending part order to reconstruct the original file."
+    }
+  ],
+  "notes": [
+    "Os arquivos finais são publicados em uma GitHub Release pública.",
+    "Para fetch() no navegador, use os URLs raw.githubusercontent.com presentes em parts.",
+    "Os nomes dos ativos são seguros para Windows; timestamps WRF originais ficam dentro dos arquivos.",
+    "Arquivos grandes são divididos em partes de até 45 MiB, descritas em parts.",
+    "A branch de dados é específica para este produto e mantém apenas a versão mais recente."
+  ],
+  "storage": "raw.githubusercontent.com",
+  "rawBaseUrl": "https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/sideral-data-brasil-wrf-21km-wrf-ecmwf-latest",
+  "manifestUrl": "https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/sideral-data-brasil-wrf-21km-wrf-ecmwf-latest/manifest.json"
+}
