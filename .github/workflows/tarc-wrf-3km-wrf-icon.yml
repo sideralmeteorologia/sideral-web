@@ -41,7 +41,12 @@ jobs:
           fetch-depth: 1
       - name: Restore WRF artifacts after checkout (1)
         shell: bash
-        run: echo 'Artifacts already restored in Register step'
+        run: |
+          if [[ -f ".github/scripts/wrf_artifact_bundle.py" ]]; then
+            python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
+              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
+              --workspace "$GITHUB_WORKSPACE"
+          fi
       - name: Restore WRF runtime files from runners catalog
         shell: bash
         run: python3 .github/scripts/restore_wrf_runtime.py
@@ -169,7 +174,7 @@ jobs:
         with:
           name: wrf-tarc3-wrf-icon-seg00-${{ github.run_id }}
           path: ${{ runner.temp }}/wrf-downloads/d001
-      - name: Register WRF artifact restore target (1)
+      - name: Register WRF artifact restore target
         shell: bash
         env:
           WRF_ARTIFACT_DOWNLOAD_DIR: ${{ runner.temp }}/wrf-downloads/d001
@@ -177,26 +182,18 @@ jobs:
         run: |
           mkdir -p "$WRF_ARTIFACT_DOWNLOAD_DIR"
           printf '%s\n' "$WRF_ARTIFACT_RESTORE_TO" > "$WRF_ARTIFACT_DOWNLOAD_DIR/.restore-to"
-          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
-            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
-            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
-            --workspace "$GITHUB_WORKSPACE"
-          python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
-            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
-            --workspace "$GITHUB_WORKSPACE"
-          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
-            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
-              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
-              --workspace "$GITHUB_WORKSPACE"
-          fi
-          fi
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 1
       - name: Restore WRF artifacts after checkout (2)
         shell: bash
-        run: echo 'Artifacts already restored in Register step'
+        run: |
+          if [[ -f ".github/scripts/wrf_artifact_bundle.py" ]]; then
+            python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
+              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
+              --workspace "$GITHUB_WORKSPACE"
+          fi
       - name: Restore WRF runtime files from runners catalog
         shell: bash
         run: python3 .github/scripts/restore_wrf_runtime.py
@@ -277,7 +274,7 @@ jobs:
         with:
           name: wrf-tarc3-wrf-icon-seg01-${{ github.run_id }}
           path: ${{ runner.temp }}/wrf-downloads/d002
-      - name: Register WRF artifact restore target (2)
+      - name: Register WRF artifact restore target
         shell: bash
         env:
           WRF_ARTIFACT_DOWNLOAD_DIR: ${{ runner.temp }}/wrf-downloads/d002
@@ -285,26 +282,18 @@ jobs:
         run: |
           mkdir -p "$WRF_ARTIFACT_DOWNLOAD_DIR"
           printf '%s\n' "$WRF_ARTIFACT_RESTORE_TO" > "$WRF_ARTIFACT_DOWNLOAD_DIR/.restore-to"
-          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
-            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
-            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
-            --workspace "$GITHUB_WORKSPACE"
-          python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
-            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
-            --workspace "$GITHUB_WORKSPACE"
-          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
-            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
-              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
-              --workspace "$GITHUB_WORKSPACE"
-          fi
-          fi
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 1
       - name: Restore WRF artifacts after checkout (3)
         shell: bash
-        run: echo 'Artifacts already restored in Register step'
+        run: |
+          if [[ -f ".github/scripts/wrf_artifact_bundle.py" ]]; then
+            python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
+              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
+              --workspace "$GITHUB_WORKSPACE"
+          fi
       - name: Restore WRF runtime files from runners catalog
         shell: bash
         run: python3 .github/scripts/restore_wrf_runtime.py
@@ -385,7 +374,7 @@ jobs:
         with:
           name: wrf-tarc3-wrf-icon-seg02-${{ github.run_id }}
           path: ${{ runner.temp }}/wrf-downloads/d003
-      - name: Register WRF artifact restore target (3)
+      - name: Register WRF artifact restore target
         shell: bash
         env:
           WRF_ARTIFACT_DOWNLOAD_DIR: ${{ runner.temp }}/wrf-downloads/d003
@@ -393,26 +382,18 @@ jobs:
         run: |
           mkdir -p "$WRF_ARTIFACT_DOWNLOAD_DIR"
           printf '%s\n' "$WRF_ARTIFACT_RESTORE_TO" > "$WRF_ARTIFACT_DOWNLOAD_DIR/.restore-to"
-          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
-            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
-            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
-            --workspace "$GITHUB_WORKSPACE"
-          python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
-            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
-            --workspace "$GITHUB_WORKSPACE"
-          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
-            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
-              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
-              --workspace "$GITHUB_WORKSPACE"
-          fi
-          fi
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 1
       - name: Restore WRF artifacts after checkout (4)
         shell: bash
-        run: echo 'Artifacts already restored in Register step'
+        run: |
+          if [[ -f ".github/scripts/wrf_artifact_bundle.py" ]]; then
+            python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
+              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
+              --workspace "$GITHUB_WORKSPACE"
+          fi
       - name: Restore WRF runtime files from runners catalog
         shell: bash
         run: python3 .github/scripts/restore_wrf_runtime.py
@@ -493,7 +474,7 @@ jobs:
         with:
           name: wrf-tarc3-wrf-icon-seg03-${{ github.run_id }}
           path: ${{ runner.temp }}/wrf-downloads/d004
-      - name: Register WRF artifact restore target (4)
+      - name: Register WRF artifact restore target
         shell: bash
         env:
           WRF_ARTIFACT_DOWNLOAD_DIR: ${{ runner.temp }}/wrf-downloads/d004
@@ -501,26 +482,18 @@ jobs:
         run: |
           mkdir -p "$WRF_ARTIFACT_DOWNLOAD_DIR"
           printf '%s\n' "$WRF_ARTIFACT_RESTORE_TO" > "$WRF_ARTIFACT_DOWNLOAD_DIR/.restore-to"
-          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
-            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
-            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
-            --workspace "$GITHUB_WORKSPACE"
-          python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
-            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
-            --workspace "$GITHUB_WORKSPACE"
-          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
-            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
-              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
-              --workspace "$GITHUB_WORKSPACE"
-          fi
-          fi
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 1
       - name: Restore WRF artifacts after checkout (5)
         shell: bash
-        run: echo 'Artifacts already restored in Register step'
+        run: |
+          if [[ -f ".github/scripts/wrf_artifact_bundle.py" ]]; then
+            python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
+              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
+              --workspace "$GITHUB_WORKSPACE"
+          fi
       - name: Restore WRF runtime files from runners catalog
         shell: bash
         run: python3 .github/scripts/restore_wrf_runtime.py
@@ -601,7 +574,7 @@ jobs:
         with:
           name: wrf-tarc3-wrf-icon-seg04-${{ github.run_id }}
           path: ${{ runner.temp }}/wrf-downloads/d005
-      - name: Register WRF artifact restore target (5)
+      - name: Register WRF artifact restore target
         shell: bash
         env:
           WRF_ARTIFACT_DOWNLOAD_DIR: ${{ runner.temp }}/wrf-downloads/d005
@@ -609,26 +582,18 @@ jobs:
         run: |
           mkdir -p "$WRF_ARTIFACT_DOWNLOAD_DIR"
           printf '%s\n' "$WRF_ARTIFACT_RESTORE_TO" > "$WRF_ARTIFACT_DOWNLOAD_DIR/.restore-to"
-          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
-            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
-            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
-            --workspace "$GITHUB_WORKSPACE"
-          python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
-            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
-            --workspace "$GITHUB_WORKSPACE"
-          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
-            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
-              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
-              --workspace "$GITHUB_WORKSPACE"
-          fi
-          fi
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 1
       - name: Restore WRF artifacts after checkout (6)
         shell: bash
-        run: echo 'Artifacts already restored in Register step'
+        run: |
+          if [[ -f ".github/scripts/wrf_artifact_bundle.py" ]]; then
+            python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
+              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
+              --workspace "$GITHUB_WORKSPACE"
+          fi
       - name: Restore WRF runtime files from runners catalog
         shell: bash
         run: python3 .github/scripts/restore_wrf_runtime.py
@@ -709,7 +674,7 @@ jobs:
         with:
           name: wrf-tarc3-wrf-icon-seg05-${{ github.run_id }}
           path: ${{ runner.temp }}/wrf-downloads/d006
-      - name: Register WRF artifact restore target (6)
+      - name: Register WRF artifact restore target
         shell: bash
         env:
           WRF_ARTIFACT_DOWNLOAD_DIR: ${{ runner.temp }}/wrf-downloads/d006
@@ -717,26 +682,18 @@ jobs:
         run: |
           mkdir -p "$WRF_ARTIFACT_DOWNLOAD_DIR"
           printf '%s\n' "$WRF_ARTIFACT_RESTORE_TO" > "$WRF_ARTIFACT_DOWNLOAD_DIR/.restore-to"
-          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
-            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
-            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
-            --workspace "$GITHUB_WORKSPACE"
-          python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
-            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
-            --workspace "$GITHUB_WORKSPACE"
-          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
-            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
-              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
-              --workspace "$GITHUB_WORKSPACE"
-          fi
-          fi
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 1
       - name: Restore WRF artifacts after checkout (7)
         shell: bash
-        run: echo 'Artifacts already restored in Register step'
+        run: |
+          if [[ -f ".github/scripts/wrf_artifact_bundle.py" ]]; then
+            python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
+              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
+              --workspace "$GITHUB_WORKSPACE"
+          fi
       - name: Restore WRF runtime files from runners catalog
         shell: bash
         run: python3 .github/scripts/restore_wrf_runtime.py
@@ -817,7 +774,7 @@ jobs:
         with:
           name: wrf-tarc3-wrf-icon-seg06-${{ github.run_id }}
           path: ${{ runner.temp }}/wrf-downloads/d007
-      - name: Register WRF artifact restore target (7)
+      - name: Register WRF artifact restore target
         shell: bash
         env:
           WRF_ARTIFACT_DOWNLOAD_DIR: ${{ runner.temp }}/wrf-downloads/d007
@@ -825,26 +782,18 @@ jobs:
         run: |
           mkdir -p "$WRF_ARTIFACT_DOWNLOAD_DIR"
           printf '%s\n' "$WRF_ARTIFACT_RESTORE_TO" > "$WRF_ARTIFACT_DOWNLOAD_DIR/.restore-to"
-          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
-            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
-            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
-            --workspace "$GITHUB_WORKSPACE"
-          python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
-            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
-            --workspace "$GITHUB_WORKSPACE"
-          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
-            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
-              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
-              --workspace "$GITHUB_WORKSPACE"
-          fi
-          fi
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 1
       - name: Restore WRF artifacts after checkout (8)
         shell: bash
-        run: echo 'Artifacts already restored in Register step'
+        run: |
+          if [[ -f ".github/scripts/wrf_artifact_bundle.py" ]]; then
+            python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
+              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
+              --workspace "$GITHUB_WORKSPACE"
+          fi
       - name: Restore WRF runtime files from runners catalog
         shell: bash
         run: python3 .github/scripts/restore_wrf_runtime.py
@@ -925,7 +874,7 @@ jobs:
         with:
           name: wrf-tarc3-wrf-icon-seg07-${{ github.run_id }}
           path: ${{ runner.temp }}/wrf-downloads/d008
-      - name: Register WRF artifact restore target (8)
+      - name: Register WRF artifact restore target
         shell: bash
         env:
           WRF_ARTIFACT_DOWNLOAD_DIR: ${{ runner.temp }}/wrf-downloads/d008
@@ -933,26 +882,18 @@ jobs:
         run: |
           mkdir -p "$WRF_ARTIFACT_DOWNLOAD_DIR"
           printf '%s\n' "$WRF_ARTIFACT_RESTORE_TO" > "$WRF_ARTIFACT_DOWNLOAD_DIR/.restore-to"
-          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
-            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
-            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
-            --workspace "$GITHUB_WORKSPACE"
-          python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
-            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
-            --workspace "$GITHUB_WORKSPACE"
-          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
-            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
-              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
-              --workspace "$GITHUB_WORKSPACE"
-          fi
-          fi
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 1
       - name: Restore WRF artifacts after checkout (9)
         shell: bash
-        run: echo 'Artifacts already restored in Register step'
+        run: |
+          if [[ -f ".github/scripts/wrf_artifact_bundle.py" ]]; then
+            python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
+              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
+              --workspace "$GITHUB_WORKSPACE"
+          fi
       - name: Restore WRF runtime files from runners catalog
         shell: bash
         run: python3 .github/scripts/restore_wrf_runtime.py
@@ -1033,7 +974,7 @@ jobs:
         with:
           name: wrf-tarc3-wrf-icon-seg08-${{ github.run_id }}
           path: ${{ runner.temp }}/wrf-downloads/d009
-      - name: Register WRF artifact restore target (9)
+      - name: Register WRF artifact restore target
         shell: bash
         env:
           WRF_ARTIFACT_DOWNLOAD_DIR: ${{ runner.temp }}/wrf-downloads/d009
@@ -1041,26 +982,18 @@ jobs:
         run: |
           mkdir -p "$WRF_ARTIFACT_DOWNLOAD_DIR"
           printf '%s\n' "$WRF_ARTIFACT_RESTORE_TO" > "$WRF_ARTIFACT_DOWNLOAD_DIR/.restore-to"
-          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
-            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
-            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
-            --workspace "$GITHUB_WORKSPACE"
-          python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
-            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
-            --workspace "$GITHUB_WORKSPACE"
-          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
-            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
-              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
-              --workspace "$GITHUB_WORKSPACE"
-          fi
-          fi
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 1
       - name: Restore WRF artifacts after checkout (10)
         shell: bash
-        run: echo 'Artifacts already restored in Register step'
+        run: |
+          if [[ -f ".github/scripts/wrf_artifact_bundle.py" ]]; then
+            python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
+              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
+              --workspace "$GITHUB_WORKSPACE"
+          fi
       - name: Restore WRF runtime files from runners catalog
         shell: bash
         run: python3 .github/scripts/restore_wrf_runtime.py
@@ -1141,7 +1074,7 @@ jobs:
         with:
           name: wrf-tarc3-wrf-icon-seg09-${{ github.run_id }}
           path: ${{ runner.temp }}/wrf-downloads/d010
-      - name: Register WRF artifact restore target (10)
+      - name: Register WRF artifact restore target
         shell: bash
         env:
           WRF_ARTIFACT_DOWNLOAD_DIR: ${{ runner.temp }}/wrf-downloads/d010
@@ -1149,26 +1082,18 @@ jobs:
         run: |
           mkdir -p "$WRF_ARTIFACT_DOWNLOAD_DIR"
           printf '%s\n' "$WRF_ARTIFACT_RESTORE_TO" > "$WRF_ARTIFACT_DOWNLOAD_DIR/.restore-to"
-          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
-            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
-            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
-            --workspace "$GITHUB_WORKSPACE"
-          python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
-            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
-            --workspace "$GITHUB_WORKSPACE"
-          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
-            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
-              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
-              --workspace "$GITHUB_WORKSPACE"
-          fi
-          fi
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 1
       - name: Restore WRF artifacts after checkout (11)
         shell: bash
-        run: echo 'Artifacts already restored in Register step'
+        run: |
+          if [[ -f ".github/scripts/wrf_artifact_bundle.py" ]]; then
+            python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
+              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
+              --workspace "$GITHUB_WORKSPACE"
+          fi
       - name: Restore WRF runtime files from runners catalog
         shell: bash
         run: python3 .github/scripts/restore_wrf_runtime.py
@@ -1249,7 +1174,7 @@ jobs:
         with:
           name: wrf-tarc3-wrf-icon-seg10-${{ github.run_id }}
           path: ${{ runner.temp }}/wrf-downloads/d011
-      - name: Register WRF artifact restore target (11)
+      - name: Register WRF artifact restore target
         shell: bash
         env:
           WRF_ARTIFACT_DOWNLOAD_DIR: ${{ runner.temp }}/wrf-downloads/d011
@@ -1257,26 +1182,18 @@ jobs:
         run: |
           mkdir -p "$WRF_ARTIFACT_DOWNLOAD_DIR"
           printf '%s\n' "$WRF_ARTIFACT_RESTORE_TO" > "$WRF_ARTIFACT_DOWNLOAD_DIR/.restore-to"
-          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
-            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
-            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
-            --workspace "$GITHUB_WORKSPACE"
-          python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
-            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
-            --workspace "$GITHUB_WORKSPACE"
-          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
-            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
-              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
-              --workspace "$GITHUB_WORKSPACE"
-          fi
-          fi
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 1
       - name: Restore WRF artifacts after checkout (12)
         shell: bash
-        run: echo 'Artifacts already restored in Register step'
+        run: |
+          if [[ -f ".github/scripts/wrf_artifact_bundle.py" ]]; then
+            python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
+              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
+              --workspace "$GITHUB_WORKSPACE"
+          fi
       - name: Restore WRF runtime files from runners catalog
         shell: bash
         run: python3 .github/scripts/restore_wrf_runtime.py
@@ -1357,7 +1274,7 @@ jobs:
         with:
           name: wrf-tarc3-wrf-icon-seg11-${{ github.run_id }}
           path: ${{ runner.temp }}/wrf-downloads/d012
-      - name: Register WRF artifact restore target (12)
+      - name: Register WRF artifact restore target
         shell: bash
         env:
           WRF_ARTIFACT_DOWNLOAD_DIR: ${{ runner.temp }}/wrf-downloads/d012
@@ -1365,26 +1282,18 @@ jobs:
         run: |
           mkdir -p "$WRF_ARTIFACT_DOWNLOAD_DIR"
           printf '%s\n' "$WRF_ARTIFACT_RESTORE_TO" > "$WRF_ARTIFACT_DOWNLOAD_DIR/.restore-to"
-          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
-            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
-            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
-            --workspace "$GITHUB_WORKSPACE"
-          python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
-            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
-            --workspace "$GITHUB_WORKSPACE"
-          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
-            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
-              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
-              --workspace "$GITHUB_WORKSPACE"
-          fi
-          fi
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 1
       - name: Restore WRF artifacts after checkout (13)
         shell: bash
-        run: echo 'Artifacts already restored in Register step'
+        run: |
+          if [[ -f ".github/scripts/wrf_artifact_bundle.py" ]]; then
+            python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
+              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
+              --workspace "$GITHUB_WORKSPACE"
+          fi
       - name: Restore WRF runtime files from runners catalog
         shell: bash
         run: python3 .github/scripts/restore_wrf_runtime.py
@@ -1465,7 +1374,7 @@ jobs:
         with:
           name: wrf-tarc3-wrf-icon-seg12-${{ github.run_id }}
           path: ${{ runner.temp }}/wrf-downloads/d013
-      - name: Register WRF artifact restore target (13)
+      - name: Register WRF artifact restore target
         shell: bash
         env:
           WRF_ARTIFACT_DOWNLOAD_DIR: ${{ runner.temp }}/wrf-downloads/d013
@@ -1473,26 +1382,18 @@ jobs:
         run: |
           mkdir -p "$WRF_ARTIFACT_DOWNLOAD_DIR"
           printf '%s\n' "$WRF_ARTIFACT_RESTORE_TO" > "$WRF_ARTIFACT_DOWNLOAD_DIR/.restore-to"
-          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
-            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
-            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
-            --workspace "$GITHUB_WORKSPACE"
-          python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
-            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
-            --workspace "$GITHUB_WORKSPACE"
-          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
-            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
-              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
-              --workspace "$GITHUB_WORKSPACE"
-          fi
-          fi
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 1
       - name: Restore WRF artifacts after checkout (14)
         shell: bash
-        run: echo 'Artifacts already restored in Register step'
+        run: |
+          if [[ -f ".github/scripts/wrf_artifact_bundle.py" ]]; then
+            python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
+              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
+              --workspace "$GITHUB_WORKSPACE"
+          fi
       - name: Restore WRF runtime files from runners catalog
         shell: bash
         run: python3 .github/scripts/restore_wrf_runtime.py
@@ -1573,7 +1474,7 @@ jobs:
         with:
           name: wrf-tarc3-wrf-icon-seg13-${{ github.run_id }}
           path: ${{ runner.temp }}/wrf-downloads/d014
-      - name: Register WRF artifact restore target (14)
+      - name: Register WRF artifact restore target
         shell: bash
         env:
           WRF_ARTIFACT_DOWNLOAD_DIR: ${{ runner.temp }}/wrf-downloads/d014
@@ -1581,26 +1482,18 @@ jobs:
         run: |
           mkdir -p "$WRF_ARTIFACT_DOWNLOAD_DIR"
           printf '%s\n' "$WRF_ARTIFACT_RESTORE_TO" > "$WRF_ARTIFACT_DOWNLOAD_DIR/.restore-to"
-          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
-            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
-            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
-            --workspace "$GITHUB_WORKSPACE"
-          python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
-            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
-            --workspace "$GITHUB_WORKSPACE"
-          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
-            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
-              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
-              --workspace "$GITHUB_WORKSPACE"
-          fi
-          fi
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 1
       - name: Restore WRF artifacts after checkout (15)
         shell: bash
-        run: echo 'Artifacts already restored in Register step'
+        run: |
+          if [[ -f ".github/scripts/wrf_artifact_bundle.py" ]]; then
+            python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
+              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
+              --workspace "$GITHUB_WORKSPACE"
+          fi
       - name: Restore WRF runtime files from runners catalog
         shell: bash
         run: python3 .github/scripts/restore_wrf_runtime.py
@@ -1681,7 +1574,7 @@ jobs:
         with:
           name: wrf-tarc3-wrf-icon-seg14-${{ github.run_id }}
           path: ${{ runner.temp }}/wrf-downloads/d015
-      - name: Register WRF artifact restore target (15)
+      - name: Register WRF artifact restore target
         shell: bash
         env:
           WRF_ARTIFACT_DOWNLOAD_DIR: ${{ runner.temp }}/wrf-downloads/d015
@@ -1689,26 +1582,18 @@ jobs:
         run: |
           mkdir -p "$WRF_ARTIFACT_DOWNLOAD_DIR"
           printf '%s\n' "$WRF_ARTIFACT_RESTORE_TO" > "$WRF_ARTIFACT_DOWNLOAD_DIR/.restore-to"
-          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
-            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
-            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
-            --workspace "$GITHUB_WORKSPACE"
-          python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
-            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
-            --workspace "$GITHUB_WORKSPACE"
-          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
-            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
-              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
-              --workspace "$GITHUB_WORKSPACE"
-          fi
-          fi
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 1
       - name: Restore WRF artifacts after checkout (16)
         shell: bash
-        run: echo 'Artifacts already restored in Register step'
+        run: |
+          if [[ -f ".github/scripts/wrf_artifact_bundle.py" ]]; then
+            python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
+              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
+              --workspace "$GITHUB_WORKSPACE"
+          fi
       - name: Restore WRF runtime files from runners catalog
         shell: bash
         run: python3 .github/scripts/restore_wrf_runtime.py
@@ -1789,7 +1674,7 @@ jobs:
         with:
           name: wrf-tarc3-wrf-icon-seg15-${{ github.run_id }}
           path: ${{ runner.temp }}/wrf-downloads/d016
-      - name: Register WRF artifact restore target (16)
+      - name: Register WRF artifact restore target
         shell: bash
         env:
           WRF_ARTIFACT_DOWNLOAD_DIR: ${{ runner.temp }}/wrf-downloads/d016
@@ -1797,26 +1682,18 @@ jobs:
         run: |
           mkdir -p "$WRF_ARTIFACT_DOWNLOAD_DIR"
           printf '%s\n' "$WRF_ARTIFACT_RESTORE_TO" > "$WRF_ARTIFACT_DOWNLOAD_DIR/.restore-to"
-          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
-            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
-            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
-            --workspace "$GITHUB_WORKSPACE"
-          python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
-            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
-            --workspace "$GITHUB_WORKSPACE"
-          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
-            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
-              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
-              --workspace "$GITHUB_WORKSPACE"
-          fi
-          fi
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 1
       - name: Restore WRF artifacts after checkout (17)
         shell: bash
-        run: echo 'Artifacts already restored in Register step'
+        run: |
+          if [[ -f ".github/scripts/wrf_artifact_bundle.py" ]]; then
+            python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
+              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
+              --workspace "$GITHUB_WORKSPACE"
+          fi
       - name: Restore WRF runtime files from runners catalog
         shell: bash
         run: python3 .github/scripts/restore_wrf_runtime.py
@@ -1897,7 +1774,7 @@ jobs:
         with:
           name: wrf-tarc3-wrf-icon-seg16-${{ github.run_id }}
           path: ${{ runner.temp }}/wrf-downloads/d017
-      - name: Register WRF artifact restore target (17)
+      - name: Register WRF artifact restore target
         shell: bash
         env:
           WRF_ARTIFACT_DOWNLOAD_DIR: ${{ runner.temp }}/wrf-downloads/d017
@@ -1905,26 +1782,18 @@ jobs:
         run: |
           mkdir -p "$WRF_ARTIFACT_DOWNLOAD_DIR"
           printf '%s\n' "$WRF_ARTIFACT_RESTORE_TO" > "$WRF_ARTIFACT_DOWNLOAD_DIR/.restore-to"
-          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
-            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
-            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
-            --workspace "$GITHUB_WORKSPACE"
-          python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
-            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
-            --workspace "$GITHUB_WORKSPACE"
-          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
-            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
-              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
-              --workspace "$GITHUB_WORKSPACE"
-          fi
-          fi
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 1
       - name: Restore WRF artifacts after checkout (18)
         shell: bash
-        run: echo 'Artifacts already restored in Register step'
+        run: |
+          if [[ -f ".github/scripts/wrf_artifact_bundle.py" ]]; then
+            python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
+              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
+              --workspace "$GITHUB_WORKSPACE"
+          fi
       - name: Restore WRF runtime files from runners catalog
         shell: bash
         run: python3 .github/scripts/restore_wrf_runtime.py
@@ -2005,7 +1874,7 @@ jobs:
         with:
           name: wrf-tarc3-wrf-icon-seg17-${{ github.run_id }}
           path: ${{ runner.temp }}/wrf-downloads/d018
-      - name: Register WRF artifact restore target (18)
+      - name: Register WRF artifact restore target
         shell: bash
         env:
           WRF_ARTIFACT_DOWNLOAD_DIR: ${{ runner.temp }}/wrf-downloads/d018
@@ -2013,26 +1882,18 @@ jobs:
         run: |
           mkdir -p "$WRF_ARTIFACT_DOWNLOAD_DIR"
           printf '%s\n' "$WRF_ARTIFACT_RESTORE_TO" > "$WRF_ARTIFACT_DOWNLOAD_DIR/.restore-to"
-          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
-            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
-            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
-            --workspace "$GITHUB_WORKSPACE"
-          python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
-            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
-            --workspace "$GITHUB_WORKSPACE"
-          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
-            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
-              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
-              --workspace "$GITHUB_WORKSPACE"
-          fi
-          fi
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 1
       - name: Restore WRF artifacts after checkout (19)
         shell: bash
-        run: echo 'Artifacts already restored in Register step'
+        run: |
+          if [[ -f ".github/scripts/wrf_artifact_bundle.py" ]]; then
+            python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
+              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
+              --workspace "$GITHUB_WORKSPACE"
+          fi
       - name: Restore WRF runtime files from runners catalog
         shell: bash
         run: python3 .github/scripts/restore_wrf_runtime.py
@@ -2113,7 +1974,7 @@ jobs:
         with:
           name: wrf-tarc3-wrf-icon-seg18-${{ github.run_id }}
           path: ${{ runner.temp }}/wrf-downloads/d019
-      - name: Register WRF artifact restore target (19)
+      - name: Register WRF artifact restore target
         shell: bash
         env:
           WRF_ARTIFACT_DOWNLOAD_DIR: ${{ runner.temp }}/wrf-downloads/d019
@@ -2121,26 +1982,18 @@ jobs:
         run: |
           mkdir -p "$WRF_ARTIFACT_DOWNLOAD_DIR"
           printf '%s\n' "$WRF_ARTIFACT_RESTORE_TO" > "$WRF_ARTIFACT_DOWNLOAD_DIR/.restore-to"
-          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
-            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
-            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
-            --workspace "$GITHUB_WORKSPACE"
-          python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
-            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
-            --workspace "$GITHUB_WORKSPACE"
-          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
-            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
-              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
-              --workspace "$GITHUB_WORKSPACE"
-          fi
-          fi
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 1
       - name: Restore WRF artifacts after checkout (20)
         shell: bash
-        run: echo 'Artifacts already restored in Register step'
+        run: |
+          if [[ -f ".github/scripts/wrf_artifact_bundle.py" ]]; then
+            python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
+              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
+              --workspace "$GITHUB_WORKSPACE"
+          fi
       - name: Restore WRF runtime files from runners catalog
         shell: bash
         run: python3 .github/scripts/restore_wrf_runtime.py
@@ -2221,7 +2074,7 @@ jobs:
         with:
           name: wrf-tarc3-wrf-icon-seg19-${{ github.run_id }}
           path: ${{ runner.temp }}/wrf-downloads/d020
-      - name: Register WRF artifact restore target (20)
+      - name: Register WRF artifact restore target
         shell: bash
         env:
           WRF_ARTIFACT_DOWNLOAD_DIR: ${{ runner.temp }}/wrf-downloads/d020
@@ -2229,26 +2082,18 @@ jobs:
         run: |
           mkdir -p "$WRF_ARTIFACT_DOWNLOAD_DIR"
           printf '%s\n' "$WRF_ARTIFACT_RESTORE_TO" > "$WRF_ARTIFACT_DOWNLOAD_DIR/.restore-to"
-          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
-            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
-            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
-            --workspace "$GITHUB_WORKSPACE"
-          python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
-            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
-            --workspace "$GITHUB_WORKSPACE"
-          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
-            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
-              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
-              --workspace "$GITHUB_WORKSPACE"
-          fi
-          fi
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 1
       - name: Restore WRF artifacts after checkout (21)
         shell: bash
-        run: echo 'Artifacts already restored in Register step'
+        run: |
+          if [[ -f ".github/scripts/wrf_artifact_bundle.py" ]]; then
+            python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
+              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
+              --workspace "$GITHUB_WORKSPACE"
+          fi
       - name: Restore WRF runtime files from runners catalog
         shell: bash
         run: python3 .github/scripts/restore_wrf_runtime.py
@@ -2329,7 +2174,7 @@ jobs:
         with:
           name: wrf-tarc3-wrf-icon-seg20-${{ github.run_id }}
           path: ${{ runner.temp }}/wrf-downloads/d021
-      - name: Register WRF artifact restore target (21)
+      - name: Register WRF artifact restore target
         shell: bash
         env:
           WRF_ARTIFACT_DOWNLOAD_DIR: ${{ runner.temp }}/wrf-downloads/d021
@@ -2337,26 +2182,18 @@ jobs:
         run: |
           mkdir -p "$WRF_ARTIFACT_DOWNLOAD_DIR"
           printf '%s\n' "$WRF_ARTIFACT_RESTORE_TO" > "$WRF_ARTIFACT_DOWNLOAD_DIR/.restore-to"
-          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
-            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
-            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
-            --workspace "$GITHUB_WORKSPACE"
-          python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
-            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
-            --workspace "$GITHUB_WORKSPACE"
-          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
-            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
-              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
-              --workspace "$GITHUB_WORKSPACE"
-          fi
-          fi
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 1
       - name: Restore WRF artifacts after checkout (22)
         shell: bash
-        run: echo 'Artifacts already restored in Register step'
+        run: |
+          if [[ -f ".github/scripts/wrf_artifact_bundle.py" ]]; then
+            python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
+              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
+              --workspace "$GITHUB_WORKSPACE"
+          fi
       - name: Restore WRF runtime files from runners catalog
         shell: bash
         run: python3 .github/scripts/restore_wrf_runtime.py
@@ -2437,7 +2274,7 @@ jobs:
         with:
           name: wrf-tarc3-wrf-icon-seg21-${{ github.run_id }}
           path: ${{ runner.temp }}/wrf-downloads/d022
-      - name: Register WRF artifact restore target (22)
+      - name: Register WRF artifact restore target
         shell: bash
         env:
           WRF_ARTIFACT_DOWNLOAD_DIR: ${{ runner.temp }}/wrf-downloads/d022
@@ -2445,26 +2282,18 @@ jobs:
         run: |
           mkdir -p "$WRF_ARTIFACT_DOWNLOAD_DIR"
           printf '%s\n' "$WRF_ARTIFACT_RESTORE_TO" > "$WRF_ARTIFACT_DOWNLOAD_DIR/.restore-to"
-          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
-            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
-            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
-            --workspace "$GITHUB_WORKSPACE"
-          python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
-            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
-            --workspace "$GITHUB_WORKSPACE"
-          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
-            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
-              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
-              --workspace "$GITHUB_WORKSPACE"
-          fi
-          fi
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 1
       - name: Restore WRF artifacts after checkout (23)
         shell: bash
-        run: echo 'Artifacts already restored in Register step'
+        run: |
+          if [[ -f ".github/scripts/wrf_artifact_bundle.py" ]]; then
+            python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
+              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
+              --workspace "$GITHUB_WORKSPACE"
+          fi
       - name: Restore WRF runtime files from runners catalog
         shell: bash
         run: python3 .github/scripts/restore_wrf_runtime.py
@@ -2545,7 +2374,7 @@ jobs:
         with:
           name: wrf-tarc3-wrf-icon-seg22-${{ github.run_id }}
           path: ${{ runner.temp }}/wrf-downloads/d023
-      - name: Register WRF artifact restore target (23)
+      - name: Register WRF artifact restore target
         shell: bash
         env:
           WRF_ARTIFACT_DOWNLOAD_DIR: ${{ runner.temp }}/wrf-downloads/d023
@@ -2553,26 +2382,18 @@ jobs:
         run: |
           mkdir -p "$WRF_ARTIFACT_DOWNLOAD_DIR"
           printf '%s\n' "$WRF_ARTIFACT_RESTORE_TO" > "$WRF_ARTIFACT_DOWNLOAD_DIR/.restore-to"
-          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
-            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
-            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
-            --workspace "$GITHUB_WORKSPACE"
-          python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
-            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
-            --workspace "$GITHUB_WORKSPACE"
-          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
-            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
-              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
-              --workspace "$GITHUB_WORKSPACE"
-          fi
-          fi
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 1
       - name: Restore WRF artifacts after checkout (24)
         shell: bash
-        run: echo 'Artifacts already restored in Register step'
+        run: |
+          if [[ -f ".github/scripts/wrf_artifact_bundle.py" ]]; then
+            python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
+              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
+              --workspace "$GITHUB_WORKSPACE"
+          fi
       - name: Restore WRF runtime files from runners catalog
         shell: bash
         run: python3 .github/scripts/restore_wrf_runtime.py
@@ -2653,7 +2474,7 @@ jobs:
         with:
           name: wrf-tarc3-wrf-icon-seg23-${{ github.run_id }}
           path: ${{ runner.temp }}/wrf-downloads/d024
-      - name: Register WRF artifact restore target (24)
+      - name: Register WRF artifact restore target
         shell: bash
         env:
           WRF_ARTIFACT_DOWNLOAD_DIR: ${{ runner.temp }}/wrf-downloads/d024
@@ -2661,26 +2482,18 @@ jobs:
         run: |
           mkdir -p "$WRF_ARTIFACT_DOWNLOAD_DIR"
           printf '%s\n' "$WRF_ARTIFACT_RESTORE_TO" > "$WRF_ARTIFACT_DOWNLOAD_DIR/.restore-to"
-          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
-            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
-            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
-            --workspace "$GITHUB_WORKSPACE"
-          python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
-            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
-            --workspace "$GITHUB_WORKSPACE"
-          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
-            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
-              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
-              --workspace "$GITHUB_WORKSPACE"
-          fi
-          fi
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 1
       - name: Restore WRF artifacts after checkout (25)
         shell: bash
-        run: echo 'Artifacts already restored in Register step'
+        run: |
+          if [[ -f ".github/scripts/wrf_artifact_bundle.py" ]]; then
+            python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
+              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
+              --workspace "$GITHUB_WORKSPACE"
+          fi
       - name: Restore WRF runtime files from runners catalog
         shell: bash
         run: python3 .github/scripts/restore_wrf_runtime.py
@@ -2761,7 +2574,7 @@ jobs:
         with:
           name: wrf-tarc3-wrf-icon-seg24-${{ github.run_id }}
           path: ${{ runner.temp }}/wrf-downloads/d025
-      - name: Register WRF artifact restore target (25)
+      - name: Register WRF artifact restore target
         shell: bash
         env:
           WRF_ARTIFACT_DOWNLOAD_DIR: ${{ runner.temp }}/wrf-downloads/d025
@@ -2769,26 +2582,18 @@ jobs:
         run: |
           mkdir -p "$WRF_ARTIFACT_DOWNLOAD_DIR"
           printf '%s\n' "$WRF_ARTIFACT_RESTORE_TO" > "$WRF_ARTIFACT_DOWNLOAD_DIR/.restore-to"
-          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
-            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
-            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
-            --workspace "$GITHUB_WORKSPACE"
-          python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
-            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
-            --workspace "$GITHUB_WORKSPACE"
-          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
-            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
-              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
-              --workspace "$GITHUB_WORKSPACE"
-          fi
-          fi
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 1
       - name: Restore WRF artifacts after checkout (26)
         shell: bash
-        run: echo 'Artifacts already restored in Register step'
+        run: |
+          if [[ -f ".github/scripts/wrf_artifact_bundle.py" ]]; then
+            python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
+              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
+              --workspace "$GITHUB_WORKSPACE"
+          fi
       - name: Restore WRF runtime files from runners catalog
         shell: bash
         run: python3 .github/scripts/restore_wrf_runtime.py
@@ -2869,7 +2674,7 @@ jobs:
         with:
           name: wrf-tarc3-wrf-icon-seg25-${{ github.run_id }}
           path: ${{ runner.temp }}/wrf-downloads/d026
-      - name: Register WRF artifact restore target (26)
+      - name: Register WRF artifact restore target
         shell: bash
         env:
           WRF_ARTIFACT_DOWNLOAD_DIR: ${{ runner.temp }}/wrf-downloads/d026
@@ -2877,26 +2682,18 @@ jobs:
         run: |
           mkdir -p "$WRF_ARTIFACT_DOWNLOAD_DIR"
           printf '%s\n' "$WRF_ARTIFACT_RESTORE_TO" > "$WRF_ARTIFACT_DOWNLOAD_DIR/.restore-to"
-          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
-            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
-            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
-            --workspace "$GITHUB_WORKSPACE"
-          python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
-            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
-            --workspace "$GITHUB_WORKSPACE"
-          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
-            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
-              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
-              --workspace "$GITHUB_WORKSPACE"
-          fi
-          fi
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 1
       - name: Restore WRF artifacts after checkout (27)
         shell: bash
-        run: echo 'Artifacts already restored in Register step'
+        run: |
+          if [[ -f ".github/scripts/wrf_artifact_bundle.py" ]]; then
+            python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
+              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
+              --workspace "$GITHUB_WORKSPACE"
+          fi
       - name: Restore WRF runtime files from runners catalog
         shell: bash
         run: python3 .github/scripts/restore_wrf_runtime.py
@@ -2977,7 +2774,7 @@ jobs:
         with:
           name: wrf-tarc3-wrf-icon-seg26-${{ github.run_id }}
           path: ${{ runner.temp }}/wrf-downloads/d027
-      - name: Register WRF artifact restore target (27)
+      - name: Register WRF artifact restore target
         shell: bash
         env:
           WRF_ARTIFACT_DOWNLOAD_DIR: ${{ runner.temp }}/wrf-downloads/d027
@@ -2985,26 +2782,18 @@ jobs:
         run: |
           mkdir -p "$WRF_ARTIFACT_DOWNLOAD_DIR"
           printf '%s\n' "$WRF_ARTIFACT_RESTORE_TO" > "$WRF_ARTIFACT_DOWNLOAD_DIR/.restore-to"
-          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
-            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
-            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
-            --workspace "$GITHUB_WORKSPACE"
-          python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
-            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
-            --workspace "$GITHUB_WORKSPACE"
-          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
-            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
-              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
-              --workspace "$GITHUB_WORKSPACE"
-          fi
-          fi
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 1
       - name: Restore WRF artifacts after checkout (28)
         shell: bash
-        run: echo 'Artifacts already restored in Register step'
+        run: |
+          if [[ -f ".github/scripts/wrf_artifact_bundle.py" ]]; then
+            python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
+              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
+              --workspace "$GITHUB_WORKSPACE"
+          fi
       - name: Restore WRF runtime files from runners catalog
         shell: bash
         run: python3 .github/scripts/restore_wrf_runtime.py
@@ -3085,7 +2874,7 @@ jobs:
         with:
           name: wrf-tarc3-wrf-icon-seg27-${{ github.run_id }}
           path: ${{ runner.temp }}/wrf-downloads/d028
-      - name: Register WRF artifact restore target (28)
+      - name: Register WRF artifact restore target
         shell: bash
         env:
           WRF_ARTIFACT_DOWNLOAD_DIR: ${{ runner.temp }}/wrf-downloads/d028
@@ -3093,26 +2882,18 @@ jobs:
         run: |
           mkdir -p "$WRF_ARTIFACT_DOWNLOAD_DIR"
           printf '%s\n' "$WRF_ARTIFACT_RESTORE_TO" > "$WRF_ARTIFACT_DOWNLOAD_DIR/.restore-to"
-          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
-            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
-            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
-            --workspace "$GITHUB_WORKSPACE"
-          python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
-            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
-            --workspace "$GITHUB_WORKSPACE"
-          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
-            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
-              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
-              --workspace "$GITHUB_WORKSPACE"
-          fi
-          fi
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 1
       - name: Restore WRF artifacts after checkout (29)
         shell: bash
-        run: echo 'Artifacts already restored in Register step'
+        run: |
+          if [[ -f ".github/scripts/wrf_artifact_bundle.py" ]]; then
+            python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
+              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
+              --workspace "$GITHUB_WORKSPACE"
+          fi
       - name: Restore WRF runtime files from runners catalog
         shell: bash
         run: python3 .github/scripts/restore_wrf_runtime.py
@@ -3193,7 +2974,7 @@ jobs:
         with:
           name: wrf-tarc3-wrf-icon-seg28-${{ github.run_id }}
           path: ${{ runner.temp }}/wrf-downloads/d029
-      - name: Register WRF artifact restore target (29)
+      - name: Register WRF artifact restore target
         shell: bash
         env:
           WRF_ARTIFACT_DOWNLOAD_DIR: ${{ runner.temp }}/wrf-downloads/d029
@@ -3201,26 +2982,18 @@ jobs:
         run: |
           mkdir -p "$WRF_ARTIFACT_DOWNLOAD_DIR"
           printf '%s\n' "$WRF_ARTIFACT_RESTORE_TO" > "$WRF_ARTIFACT_DOWNLOAD_DIR/.restore-to"
-          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
-            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
-            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
-            --workspace "$GITHUB_WORKSPACE"
-          python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
-            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
-            --workspace "$GITHUB_WORKSPACE"
-          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
-            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
-              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
-              --workspace "$GITHUB_WORKSPACE"
-          fi
-          fi
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 1
       - name: Restore WRF artifacts after checkout (30)
         shell: bash
-        run: echo 'Artifacts already restored in Register step'
+        run: |
+          if [[ -f ".github/scripts/wrf_artifact_bundle.py" ]]; then
+            python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
+              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
+              --workspace "$GITHUB_WORKSPACE"
+          fi
       - name: Restore WRF runtime files from runners catalog
         shell: bash
         run: python3 .github/scripts/restore_wrf_runtime.py
@@ -3301,7 +3074,7 @@ jobs:
         with:
           name: wrf-tarc3-wrf-icon-seg29-${{ github.run_id }}
           path: ${{ runner.temp }}/wrf-downloads/d030
-      - name: Register WRF artifact restore target (30)
+      - name: Register WRF artifact restore target
         shell: bash
         env:
           WRF_ARTIFACT_DOWNLOAD_DIR: ${{ runner.temp }}/wrf-downloads/d030
@@ -3309,26 +3082,18 @@ jobs:
         run: |
           mkdir -p "$WRF_ARTIFACT_DOWNLOAD_DIR"
           printf '%s\n' "$WRF_ARTIFACT_RESTORE_TO" > "$WRF_ARTIFACT_DOWNLOAD_DIR/.restore-to"
-          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
-            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
-            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
-            --workspace "$GITHUB_WORKSPACE"
-          python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
-            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
-            --workspace "$GITHUB_WORKSPACE"
-          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
-            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
-              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
-              --workspace "$GITHUB_WORKSPACE"
-          fi
-          fi
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 1
       - name: Restore WRF artifacts after checkout (31)
         shell: bash
-        run: echo 'Artifacts already restored in Register step'
+        run: |
+          if [[ -f ".github/scripts/wrf_artifact_bundle.py" ]]; then
+            python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
+              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
+              --workspace "$GITHUB_WORKSPACE"
+          fi
       - name: Restore WRF runtime files from runners catalog
         shell: bash
         run: python3 .github/scripts/restore_wrf_runtime.py
@@ -3409,7 +3174,7 @@ jobs:
         with:
           name: wrf-tarc3-wrf-icon-seg30-${{ github.run_id }}
           path: ${{ runner.temp }}/wrf-downloads/d031
-      - name: Register WRF artifact restore target (31)
+      - name: Register WRF artifact restore target
         shell: bash
         env:
           WRF_ARTIFACT_DOWNLOAD_DIR: ${{ runner.temp }}/wrf-downloads/d031
@@ -3417,26 +3182,18 @@ jobs:
         run: |
           mkdir -p "$WRF_ARTIFACT_DOWNLOAD_DIR"
           printf '%s\n' "$WRF_ARTIFACT_RESTORE_TO" > "$WRF_ARTIFACT_DOWNLOAD_DIR/.restore-to"
-          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
-            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
-            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
-            --workspace "$GITHUB_WORKSPACE"
-          python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
-            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
-            --workspace "$GITHUB_WORKSPACE"
-          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
-            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
-              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
-              --workspace "$GITHUB_WORKSPACE"
-          fi
-          fi
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 1
       - name: Restore WRF artifacts after checkout (32)
         shell: bash
-        run: echo 'Artifacts already restored in Register step'
+        run: |
+          if [[ -f ".github/scripts/wrf_artifact_bundle.py" ]]; then
+            python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
+              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
+              --workspace "$GITHUB_WORKSPACE"
+          fi
       - name: Restore WRF runtime files from runners catalog
         shell: bash
         run: python3 .github/scripts/restore_wrf_runtime.py
@@ -3517,7 +3274,7 @@ jobs:
         with:
           name: wrf-tarc3-wrf-icon-seg31-${{ github.run_id }}
           path: ${{ runner.temp }}/wrf-downloads/d032
-      - name: Register WRF artifact restore target (32)
+      - name: Register WRF artifact restore target
         shell: bash
         env:
           WRF_ARTIFACT_DOWNLOAD_DIR: ${{ runner.temp }}/wrf-downloads/d032
@@ -3525,26 +3282,18 @@ jobs:
         run: |
           mkdir -p "$WRF_ARTIFACT_DOWNLOAD_DIR"
           printf '%s\n' "$WRF_ARTIFACT_RESTORE_TO" > "$WRF_ARTIFACT_DOWNLOAD_DIR/.restore-to"
-          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
-            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
-            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
-            --workspace "$GITHUB_WORKSPACE"
-          python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
-            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
-            --workspace "$GITHUB_WORKSPACE"
-          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
-            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
-              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
-              --workspace "$GITHUB_WORKSPACE"
-          fi
-          fi
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 1
       - name: Restore WRF artifacts after checkout (33)
         shell: bash
-        run: echo 'Artifacts already restored in Register step'
+        run: |
+          if [[ -f ".github/scripts/wrf_artifact_bundle.py" ]]; then
+            python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
+              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
+              --workspace "$GITHUB_WORKSPACE"
+          fi
       - name: Restore WRF runtime files from runners catalog
         shell: bash
         run: python3 .github/scripts/restore_wrf_runtime.py
@@ -3625,7 +3374,7 @@ jobs:
         with:
           name: wrf-tarc3-wrf-icon-seg32-${{ github.run_id }}
           path: ${{ runner.temp }}/wrf-downloads/d033
-      - name: Register WRF artifact restore target (33)
+      - name: Register WRF artifact restore target
         shell: bash
         env:
           WRF_ARTIFACT_DOWNLOAD_DIR: ${{ runner.temp }}/wrf-downloads/d033
@@ -3633,26 +3382,18 @@ jobs:
         run: |
           mkdir -p "$WRF_ARTIFACT_DOWNLOAD_DIR"
           printf '%s\n' "$WRF_ARTIFACT_RESTORE_TO" > "$WRF_ARTIFACT_DOWNLOAD_DIR/.restore-to"
-          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
-            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
-            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
-            --workspace "$GITHUB_WORKSPACE"
-          python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
-            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
-            --workspace "$GITHUB_WORKSPACE"
-          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
-            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
-              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
-              --workspace "$GITHUB_WORKSPACE"
-          fi
-          fi
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 1
       - name: Restore WRF artifacts after checkout (34)
         shell: bash
-        run: echo 'Artifacts already restored in Register step'
+        run: |
+          if [[ -f ".github/scripts/wrf_artifact_bundle.py" ]]; then
+            python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
+              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
+              --workspace "$GITHUB_WORKSPACE"
+          fi
       - name: Restore WRF runtime files from runners catalog
         shell: bash
         run: python3 .github/scripts/restore_wrf_runtime.py
@@ -3733,7 +3474,7 @@ jobs:
         with:
           name: wrf-tarc3-wrf-icon-seg33-${{ github.run_id }}
           path: ${{ runner.temp }}/wrf-downloads/d034
-      - name: Register WRF artifact restore target (34)
+      - name: Register WRF artifact restore target
         shell: bash
         env:
           WRF_ARTIFACT_DOWNLOAD_DIR: ${{ runner.temp }}/wrf-downloads/d034
@@ -3741,26 +3482,18 @@ jobs:
         run: |
           mkdir -p "$WRF_ARTIFACT_DOWNLOAD_DIR"
           printf '%s\n' "$WRF_ARTIFACT_RESTORE_TO" > "$WRF_ARTIFACT_DOWNLOAD_DIR/.restore-to"
-          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
-            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
-            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
-            --workspace "$GITHUB_WORKSPACE"
-          python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
-            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
-            --workspace "$GITHUB_WORKSPACE"
-          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
-            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
-              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
-              --workspace "$GITHUB_WORKSPACE"
-          fi
-          fi
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 1
       - name: Restore WRF artifacts after checkout (35)
         shell: bash
-        run: echo 'Artifacts already restored in Register step'
+        run: |
+          if [[ -f ".github/scripts/wrf_artifact_bundle.py" ]]; then
+            python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
+              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
+              --workspace "$GITHUB_WORKSPACE"
+          fi
       - name: Restore WRF runtime files from runners catalog
         shell: bash
         run: python3 .github/scripts/restore_wrf_runtime.py
@@ -3841,7 +3574,7 @@ jobs:
         with:
           name: wrf-tarc3-wrf-icon-seg34-${{ github.run_id }}
           path: ${{ runner.temp }}/wrf-downloads/d035
-      - name: Register WRF artifact restore target (35)
+      - name: Register WRF artifact restore target
         shell: bash
         env:
           WRF_ARTIFACT_DOWNLOAD_DIR: ${{ runner.temp }}/wrf-downloads/d035
@@ -3849,26 +3582,18 @@ jobs:
         run: |
           mkdir -p "$WRF_ARTIFACT_DOWNLOAD_DIR"
           printf '%s\n' "$WRF_ARTIFACT_RESTORE_TO" > "$WRF_ARTIFACT_DOWNLOAD_DIR/.restore-to"
-          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
-            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
-            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
-            --workspace "$GITHUB_WORKSPACE"
-          python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
-            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
-            --workspace "$GITHUB_WORKSPACE"
-          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
-            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
-              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
-              --workspace "$GITHUB_WORKSPACE"
-          fi
-          fi
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 1
       - name: Restore WRF artifacts after checkout (36)
         shell: bash
-        run: echo 'Artifacts already restored in Register step'
+        run: |
+          if [[ -f ".github/scripts/wrf_artifact_bundle.py" ]]; then
+            python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
+              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
+              --workspace "$GITHUB_WORKSPACE"
+          fi
       - name: Restore WRF runtime files from runners catalog
         shell: bash
         run: python3 .github/scripts/restore_wrf_runtime.py
@@ -3949,7 +3674,7 @@ jobs:
         with:
           name: wrf-tarc3-wrf-icon-seg35-${{ github.run_id }}
           path: ${{ runner.temp }}/wrf-downloads/d036
-      - name: Register WRF artifact restore target (36)
+      - name: Register WRF artifact restore target
         shell: bash
         env:
           WRF_ARTIFACT_DOWNLOAD_DIR: ${{ runner.temp }}/wrf-downloads/d036
@@ -3957,26 +3682,18 @@ jobs:
         run: |
           mkdir -p "$WRF_ARTIFACT_DOWNLOAD_DIR"
           printf '%s\n' "$WRF_ARTIFACT_RESTORE_TO" > "$WRF_ARTIFACT_DOWNLOAD_DIR/.restore-to"
-          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
-            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
-            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
-            --workspace "$GITHUB_WORKSPACE"
-          python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
-            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
-            --workspace "$GITHUB_WORKSPACE"
-          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
-            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
-              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
-              --workspace "$GITHUB_WORKSPACE"
-          fi
-          fi
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 1
       - name: Restore WRF artifacts after checkout (37)
         shell: bash
-        run: echo 'Artifacts already restored in Register step'
+        run: |
+          if [[ -f ".github/scripts/wrf_artifact_bundle.py" ]]; then
+            python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
+              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
+              --workspace "$GITHUB_WORKSPACE"
+          fi
       - name: Restore WRF runtime files from runners catalog
         shell: bash
         run: python3 .github/scripts/restore_wrf_runtime.py
@@ -4057,7 +3774,7 @@ jobs:
         with:
           name: wrf-tarc3-wrf-icon-seg36-${{ github.run_id }}
           path: ${{ runner.temp }}/wrf-downloads/d037
-      - name: Register WRF artifact restore target (37)
+      - name: Register WRF artifact restore target
         shell: bash
         env:
           WRF_ARTIFACT_DOWNLOAD_DIR: ${{ runner.temp }}/wrf-downloads/d037
@@ -4065,26 +3782,18 @@ jobs:
         run: |
           mkdir -p "$WRF_ARTIFACT_DOWNLOAD_DIR"
           printf '%s\n' "$WRF_ARTIFACT_RESTORE_TO" > "$WRF_ARTIFACT_DOWNLOAD_DIR/.restore-to"
-          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
-            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
-            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
-            --workspace "$GITHUB_WORKSPACE"
-          python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
-            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
-            --workspace "$GITHUB_WORKSPACE"
-          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
-            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
-              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
-              --workspace "$GITHUB_WORKSPACE"
-          fi
-          fi
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 1
       - name: Restore WRF artifacts after checkout (38)
         shell: bash
-        run: echo 'Artifacts already restored in Register step'
+        run: |
+          if [[ -f ".github/scripts/wrf_artifact_bundle.py" ]]; then
+            python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
+              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
+              --workspace "$GITHUB_WORKSPACE"
+          fi
       - name: Restore WRF runtime files from runners catalog
         shell: bash
         run: python3 .github/scripts/restore_wrf_runtime.py
@@ -4165,7 +3874,7 @@ jobs:
         with:
           name: wrf-tarc3-wrf-icon-seg37-${{ github.run_id }}
           path: ${{ runner.temp }}/wrf-downloads/d038
-      - name: Register WRF artifact restore target (38)
+      - name: Register WRF artifact restore target
         shell: bash
         env:
           WRF_ARTIFACT_DOWNLOAD_DIR: ${{ runner.temp }}/wrf-downloads/d038
@@ -4173,26 +3882,18 @@ jobs:
         run: |
           mkdir -p "$WRF_ARTIFACT_DOWNLOAD_DIR"
           printf '%s\n' "$WRF_ARTIFACT_RESTORE_TO" > "$WRF_ARTIFACT_DOWNLOAD_DIR/.restore-to"
-          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
-            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
-            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
-            --workspace "$GITHUB_WORKSPACE"
-          python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
-            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
-            --workspace "$GITHUB_WORKSPACE"
-          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
-            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
-              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
-              --workspace "$GITHUB_WORKSPACE"
-          fi
-          fi
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 1
       - name: Restore WRF artifacts after checkout (39)
         shell: bash
-        run: echo 'Artifacts already restored in Register step'
+        run: |
+          if [[ -f ".github/scripts/wrf_artifact_bundle.py" ]]; then
+            python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
+              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
+              --workspace "$GITHUB_WORKSPACE"
+          fi
       - name: Restore WRF runtime files from runners catalog
         shell: bash
         run: python3 .github/scripts/restore_wrf_runtime.py
@@ -4273,7 +3974,7 @@ jobs:
         with:
           name: wrf-tarc3-wrf-icon-seg38-${{ github.run_id }}
           path: ${{ runner.temp }}/wrf-downloads/d039
-      - name: Register WRF artifact restore target (39)
+      - name: Register WRF artifact restore target
         shell: bash
         env:
           WRF_ARTIFACT_DOWNLOAD_DIR: ${{ runner.temp }}/wrf-downloads/d039
@@ -4281,26 +3982,18 @@ jobs:
         run: |
           mkdir -p "$WRF_ARTIFACT_DOWNLOAD_DIR"
           printf '%s\n' "$WRF_ARTIFACT_RESTORE_TO" > "$WRF_ARTIFACT_DOWNLOAD_DIR/.restore-to"
-          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
-            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
-            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
-            --workspace "$GITHUB_WORKSPACE"
-          python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
-            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
-            --workspace "$GITHUB_WORKSPACE"
-          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
-            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
-              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
-              --workspace "$GITHUB_WORKSPACE"
-          fi
-          fi
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 1
       - name: Restore WRF artifacts after checkout (40)
         shell: bash
-        run: echo 'Artifacts already restored in Register step'
+        run: |
+          if [[ -f ".github/scripts/wrf_artifact_bundle.py" ]]; then
+            python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
+              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
+              --workspace "$GITHUB_WORKSPACE"
+          fi
       - name: Restore WRF runtime files from runners catalog
         shell: bash
         run: python3 .github/scripts/restore_wrf_runtime.py
@@ -4381,7 +4074,7 @@ jobs:
         with:
           name: wrf-tarc3-wrf-icon-seg39-${{ github.run_id }}
           path: ${{ runner.temp }}/wrf-downloads/d040
-      - name: Register WRF artifact restore target (40)
+      - name: Register WRF artifact restore target
         shell: bash
         env:
           WRF_ARTIFACT_DOWNLOAD_DIR: ${{ runner.temp }}/wrf-downloads/d040
@@ -4389,26 +4082,18 @@ jobs:
         run: |
           mkdir -p "$WRF_ARTIFACT_DOWNLOAD_DIR"
           printf '%s\n' "$WRF_ARTIFACT_RESTORE_TO" > "$WRF_ARTIFACT_DOWNLOAD_DIR/.restore-to"
-          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
-            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
-            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
-            --workspace "$GITHUB_WORKSPACE"
-          python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
-            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
-            --workspace "$GITHUB_WORKSPACE"
-          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
-            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
-              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
-              --workspace "$GITHUB_WORKSPACE"
-          fi
-          fi
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 1
       - name: Restore WRF artifacts after checkout (41)
         shell: bash
-        run: echo 'Artifacts already restored in Register step'
+        run: |
+          if [[ -f ".github/scripts/wrf_artifact_bundle.py" ]]; then
+            python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
+              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
+              --workspace "$GITHUB_WORKSPACE"
+          fi
       - name: Restore WRF runtime files from runners catalog
         shell: bash
         run: python3 .github/scripts/restore_wrf_runtime.py
@@ -4489,7 +4174,7 @@ jobs:
         with:
           name: wrf-tarc3-wrf-icon-seg40-${{ github.run_id }}
           path: ${{ runner.temp }}/wrf-downloads/d041
-      - name: Register WRF artifact restore target (41)
+      - name: Register WRF artifact restore target
         shell: bash
         env:
           WRF_ARTIFACT_DOWNLOAD_DIR: ${{ runner.temp }}/wrf-downloads/d041
@@ -4497,26 +4182,18 @@ jobs:
         run: |
           mkdir -p "$WRF_ARTIFACT_DOWNLOAD_DIR"
           printf '%s\n' "$WRF_ARTIFACT_RESTORE_TO" > "$WRF_ARTIFACT_DOWNLOAD_DIR/.restore-to"
-          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
-            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
-            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
-            --workspace "$GITHUB_WORKSPACE"
-          python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
-            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
-            --workspace "$GITHUB_WORKSPACE"
-          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
-            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
-              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
-              --workspace "$GITHUB_WORKSPACE"
-          fi
-          fi
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 1
       - name: Restore WRF artifacts after checkout (42)
         shell: bash
-        run: echo 'Artifacts already restored in Register step'
+        run: |
+          if [[ -f ".github/scripts/wrf_artifact_bundle.py" ]]; then
+            python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
+              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
+              --workspace "$GITHUB_WORKSPACE"
+          fi
       - name: Restore WRF runtime files from runners catalog
         shell: bash
         run: python3 .github/scripts/restore_wrf_runtime.py
@@ -4597,7 +4274,7 @@ jobs:
         with:
           name: wrf-tarc3-wrf-icon-seg41-${{ github.run_id }}
           path: ${{ runner.temp }}/wrf-downloads/d042
-      - name: Register WRF artifact restore target (42)
+      - name: Register WRF artifact restore target
         shell: bash
         env:
           WRF_ARTIFACT_DOWNLOAD_DIR: ${{ runner.temp }}/wrf-downloads/d042
@@ -4605,26 +4282,18 @@ jobs:
         run: |
           mkdir -p "$WRF_ARTIFACT_DOWNLOAD_DIR"
           printf '%s\n' "$WRF_ARTIFACT_RESTORE_TO" > "$WRF_ARTIFACT_DOWNLOAD_DIR/.restore-to"
-          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
-            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
-            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
-            --workspace "$GITHUB_WORKSPACE"
-          python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
-            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
-            --workspace "$GITHUB_WORKSPACE"
-          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
-            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
-              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
-              --workspace "$GITHUB_WORKSPACE"
-          fi
-          fi
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 1
       - name: Restore WRF artifacts after checkout (43)
         shell: bash
-        run: echo 'Artifacts already restored in Register step'
+        run: |
+          if [[ -f ".github/scripts/wrf_artifact_bundle.py" ]]; then
+            python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
+              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
+              --workspace "$GITHUB_WORKSPACE"
+          fi
       - name: Restore WRF runtime files from runners catalog
         shell: bash
         run: python3 .github/scripts/restore_wrf_runtime.py
@@ -4705,7 +4374,7 @@ jobs:
         with:
           name: wrf-tarc3-wrf-icon-seg42-${{ github.run_id }}
           path: ${{ runner.temp }}/wrf-downloads/d043
-      - name: Register WRF artifact restore target (43)
+      - name: Register WRF artifact restore target
         shell: bash
         env:
           WRF_ARTIFACT_DOWNLOAD_DIR: ${{ runner.temp }}/wrf-downloads/d043
@@ -4713,26 +4382,18 @@ jobs:
         run: |
           mkdir -p "$WRF_ARTIFACT_DOWNLOAD_DIR"
           printf '%s\n' "$WRF_ARTIFACT_RESTORE_TO" > "$WRF_ARTIFACT_DOWNLOAD_DIR/.restore-to"
-          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
-            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
-            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
-            --workspace "$GITHUB_WORKSPACE"
-          python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
-            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
-            --workspace "$GITHUB_WORKSPACE"
-          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
-            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
-              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
-              --workspace "$GITHUB_WORKSPACE"
-          fi
-          fi
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 1
       - name: Restore WRF artifacts after checkout (44)
         shell: bash
-        run: echo 'Artifacts already restored in Register step'
+        run: |
+          if [[ -f ".github/scripts/wrf_artifact_bundle.py" ]]; then
+            python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
+              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
+              --workspace "$GITHUB_WORKSPACE"
+          fi
       - name: Restore WRF runtime files from runners catalog
         shell: bash
         run: python3 .github/scripts/restore_wrf_runtime.py
@@ -4813,7 +4474,7 @@ jobs:
         with:
           name: wrf-tarc3-wrf-icon-seg43-${{ github.run_id }}
           path: ${{ runner.temp }}/wrf-downloads/d044
-      - name: Register WRF artifact restore target (44)
+      - name: Register WRF artifact restore target
         shell: bash
         env:
           WRF_ARTIFACT_DOWNLOAD_DIR: ${{ runner.temp }}/wrf-downloads/d044
@@ -4821,26 +4482,18 @@ jobs:
         run: |
           mkdir -p "$WRF_ARTIFACT_DOWNLOAD_DIR"
           printf '%s\n' "$WRF_ARTIFACT_RESTORE_TO" > "$WRF_ARTIFACT_DOWNLOAD_DIR/.restore-to"
-          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
-            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
-            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
-            --workspace "$GITHUB_WORKSPACE"
-          python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
-            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
-            --workspace "$GITHUB_WORKSPACE"
-          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
-            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
-              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
-              --workspace "$GITHUB_WORKSPACE"
-          fi
-          fi
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 1
       - name: Restore WRF artifacts after checkout (45)
         shell: bash
-        run: echo 'Artifacts already restored in Register step'
+        run: |
+          if [[ -f ".github/scripts/wrf_artifact_bundle.py" ]]; then
+            python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
+              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
+              --workspace "$GITHUB_WORKSPACE"
+          fi
       - name: Restore WRF runtime files from runners catalog
         shell: bash
         run: python3 .github/scripts/restore_wrf_runtime.py
@@ -4921,7 +4574,7 @@ jobs:
         with:
           name: wrf-tarc3-wrf-icon-seg44-${{ github.run_id }}
           path: ${{ runner.temp }}/wrf-downloads/d045
-      - name: Register WRF artifact restore target (45)
+      - name: Register WRF artifact restore target
         shell: bash
         env:
           WRF_ARTIFACT_DOWNLOAD_DIR: ${{ runner.temp }}/wrf-downloads/d045
@@ -4929,26 +4582,18 @@ jobs:
         run: |
           mkdir -p "$WRF_ARTIFACT_DOWNLOAD_DIR"
           printf '%s\n' "$WRF_ARTIFACT_RESTORE_TO" > "$WRF_ARTIFACT_DOWNLOAD_DIR/.restore-to"
-          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
-            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
-            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
-            --workspace "$GITHUB_WORKSPACE"
-          python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
-            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
-            --workspace "$GITHUB_WORKSPACE"
-          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
-            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
-              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
-              --workspace "$GITHUB_WORKSPACE"
-          fi
-          fi
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 1
       - name: Restore WRF artifacts after checkout (46)
         shell: bash
-        run: echo 'Artifacts already restored in Register step'
+        run: |
+          if [[ -f ".github/scripts/wrf_artifact_bundle.py" ]]; then
+            python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
+              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
+              --workspace "$GITHUB_WORKSPACE"
+          fi
       - name: Restore WRF runtime files from runners catalog
         shell: bash
         run: python3 .github/scripts/restore_wrf_runtime.py
@@ -5029,7 +4674,7 @@ jobs:
         with:
           name: wrf-tarc3-wrf-icon-seg45-${{ github.run_id }}
           path: ${{ runner.temp }}/wrf-downloads/d046
-      - name: Register WRF artifact restore target (46)
+      - name: Register WRF artifact restore target
         shell: bash
         env:
           WRF_ARTIFACT_DOWNLOAD_DIR: ${{ runner.temp }}/wrf-downloads/d046
@@ -5037,26 +4682,18 @@ jobs:
         run: |
           mkdir -p "$WRF_ARTIFACT_DOWNLOAD_DIR"
           printf '%s\n' "$WRF_ARTIFACT_RESTORE_TO" > "$WRF_ARTIFACT_DOWNLOAD_DIR/.restore-to"
-          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
-            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
-            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
-            --workspace "$GITHUB_WORKSPACE"
-          python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
-            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
-            --workspace "$GITHUB_WORKSPACE"
-          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
-            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
-              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
-              --workspace "$GITHUB_WORKSPACE"
-          fi
-          fi
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 1
       - name: Restore WRF artifacts after checkout (47)
         shell: bash
-        run: echo 'Artifacts already restored in Register step'
+        run: |
+          if [[ -f ".github/scripts/wrf_artifact_bundle.py" ]]; then
+            python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
+              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
+              --workspace "$GITHUB_WORKSPACE"
+          fi
       - name: Restore WRF runtime files from runners catalog
         shell: bash
         run: python3 .github/scripts/restore_wrf_runtime.py
@@ -5137,7 +4774,7 @@ jobs:
         with:
           name: wrf-tarc3-wrf-icon-seg46-${{ github.run_id }}
           path: ${{ runner.temp }}/wrf-downloads/d047
-      - name: Register WRF artifact restore target (47)
+      - name: Register WRF artifact restore target
         shell: bash
         env:
           WRF_ARTIFACT_DOWNLOAD_DIR: ${{ runner.temp }}/wrf-downloads/d047
@@ -5145,26 +4782,18 @@ jobs:
         run: |
           mkdir -p "$WRF_ARTIFACT_DOWNLOAD_DIR"
           printf '%s\n' "$WRF_ARTIFACT_RESTORE_TO" > "$WRF_ARTIFACT_DOWNLOAD_DIR/.restore-to"
-          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
-            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
-            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
-            --workspace "$GITHUB_WORKSPACE"
-          python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
-            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
-            --workspace "$GITHUB_WORKSPACE"
-          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
-            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
-              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
-              --workspace "$GITHUB_WORKSPACE"
-          fi
-          fi
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 1
       - name: Restore WRF artifacts after checkout (48)
         shell: bash
-        run: echo 'Artifacts already restored in Register step'
+        run: |
+          if [[ -f ".github/scripts/wrf_artifact_bundle.py" ]]; then
+            python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
+              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
+              --workspace "$GITHUB_WORKSPACE"
+          fi
       - name: Restore WRF runtime files from runners catalog
         shell: bash
         run: python3 .github/scripts/restore_wrf_runtime.py
@@ -5246,23 +4875,43 @@ jobs:
           fetch-depth: 1
       - name: Restore WRF artifacts after checkout (complete)
         shell: bash
-        run: echo 'Artifacts already restored in Register step'
+        run: |
+          if [[ -f ".github/scripts/wrf_artifact_bundle.py" ]]; then
+            python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
+              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
+              --workspace "$GITHUB_WORKSPACE"
+          fi
       - name: Restore WRF artifacts after checkout (complete)
         shell: bash
-        run: echo 'Artifacts already restored in Register step'
+        run: |
+          if [[ -f ".github/scripts/wrf_artifact_bundle.py" ]]; then
+            python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
+              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
+              --workspace "$GITHUB_WORKSPACE"
+          fi
       - name: Restore WRF artifacts after checkout (complete)
         shell: bash
-        run: echo 'Artifacts already restored in Register step'
+        run: |
+          if [[ -f ".github/scripts/wrf_artifact_bundle.py" ]]; then
+            python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
+              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
+              --workspace "$GITHUB_WORKSPACE"
+          fi
       - name: Restore WRF artifacts after checkout (complete)
         shell: bash
-        run: echo 'Artifacts already restored in Register step'
+        run: |
+          if [[ -f ".github/scripts/wrf_artifact_bundle.py" ]]; then
+            python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
+              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
+              --workspace "$GITHUB_WORKSPACE"
+          fi
       - name: Baixar artifacts dos 48 segmentos WRF
         uses: actions/download-artifact@v4
         with:
           pattern: wrf-tarc3-${{ env.MODEL_VARIANT }}-${{ env.SOURCE_MODEL }}-seg??-${{ github.run_id }}
           path: ${{ runner.temp }}/wrf-downloads/d048
           merge-multiple: false
-      - name: Register WRF artifact restore target (48)
+      - name: Register WRF artifact restore target
         shell: bash
         env:
           WRF_ARTIFACT_DOWNLOAD_DIR: ${{ runner.temp }}/wrf-downloads/d048
@@ -5270,17 +4919,14 @@ jobs:
         run: |
           mkdir -p "$WRF_ARTIFACT_DOWNLOAD_DIR"
           printf '%s\n' "$WRF_ARTIFACT_RESTORE_TO" > "$WRF_ARTIFACT_DOWNLOAD_DIR/.restore-to"
-          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
-            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
-            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
-            --workspace "$GITHUB_WORKSPACE"
-          python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
-            --downloads-root "$WRF_ARTIFACT_DOWNLOAD_DIR" \
-            --workspace "$GITHUB_WORKSPACE"
-          fi
       - name: Restore WRF artifacts after checkout (49)
         shell: bash
-        run: echo 'Artifacts already restored in Register step'
+        run: |
+          if [[ -f ".github/scripts/wrf_artifact_bundle.py" ]]; then
+            python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
+              --downloads-root "$RUNNER_TEMP/wrf-downloads" \
+              --workspace "$GITHUB_WORKSPACE"
+          fi
       - name: Restore WRF runtime files from runners catalog
         shell: bash
         run: python3 .github/scripts/restore_wrf_runtime.py

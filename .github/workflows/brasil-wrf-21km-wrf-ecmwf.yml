@@ -57,8 +57,8 @@ jobs:
       - name: Restore WRF artifacts after checkout (1)
         shell: bash
         run: |
-          if [[ -f "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" ]]; then
-            python3 "$GITHUB_WORKSPACE/.github/scripts/wrf_artifact_bundle.py" unpack-downloads \
+          if [[ -f ".github/scripts/wrf_artifact_bundle.py" ]]; then
+            python3 .github/scripts/wrf_artifact_bundle.py unpack-downloads \
               --downloads-root "$RUNNER_TEMP/wrf-downloads" \
               --workspace "$GITHUB_WORKSPACE"
           fi
