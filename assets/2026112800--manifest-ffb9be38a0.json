@@ -1,0 +1,1752 @@
+{
+  "product": "SIDERAL MULTIMODELS 0.5",
+  "version": "0.1.1",
+  "status": "complete_with_qc",
+  "runDate": "20261128",
+  "runCycle": "00Z",
+  "initTime": "2026-11-28T00:00:00Z",
+  "resolutionDegrees": 0.5,
+  "grid": {
+    "latitudes": 361,
+    "longitudes": 720,
+    "latitudeRange": [
+      -90.0,
+      90.0
+    ],
+    "longitudeRange": [
+      -180.0,
+      179.5
+    ]
+  },
+  "forecastHours": [
+    0,
+    6,
+    12,
+    18,
+    24,
+    30,
+    36,
+    42,
+    48,
+    54,
+    60,
+    66,
+    72,
+    78,
+    84,
+    90,
+    96,
+    102,
+    108,
+    114,
+    120,
+    126,
+    132,
+    138,
+    144,
+    150,
+    156,
+    162,
+    168
+  ],
+  "models": [
+    "ecmwf",
+    "gfs",
+    "icon"
+  ],
+  "minimumModelsPerCell": 2,
+  "variables": {
+    "t2m": {
+      "units": "degC",
+      "label": "t2m",
+      "agreementScale": 4.0,
+      "sourceAvailability": [
+        "ecmwf",
+        "gfs",
+        "icon"
+      ]
+    },
+    "d2m": {
+      "units": "degC",
+      "label": "d2m",
+      "agreementScale": 5.0,
+      "sourceAvailability": [
+        "ecmwf",
+        "gfs",
+        "icon"
+      ]
+    },
+    "u10": {
+      "units": "m s-1",
+      "label": "u10",
+      "agreementScale": 5.0,
+      "sourceAvailability": [
+        "ecmwf",
+        "gfs",
+        "icon"
+      ]
+    },
+    "v10": {
+      "units": "m s-1",
+      "label": "v10",
+      "agreementScale": 5.0,
+      "sourceAvailability": [
+        "ecmwf",
+        "gfs",
+        "icon"
+      ]
+    },
+    "msl": {
+      "units": "hPa",
+      "label": "msl",
+      "agreementScale": 8.0,
+      "sourceAvailability": [
+        "ecmwf",
+        "gfs",
+        "icon"
+      ]
+    },
+    "tp6h": {
+      "units": "mm",
+      "label": "tp6h",
+      "agreementScale": 8.0,
+      "sourceAvailability": [
+        "ecmwf",
+        "icon",
+        "gfs"
+      ]
+    }
+  },
+  "qualityControl": {
+    "t2m": {
+      "hours": {
+        "0": {
+          "contributing_models": 3,
+          "finite_cells_per_source": [
+            259920,
+            259920,
+            259920
+          ],
+          "cells_with_minimum_models": 259920
+        },
+        "6": {
+          "contributing_models": 3,
+          "finite_cells_per_source": [
+            259920,
+            259920,
+            259920
+          ],
+          "cells_with_minimum_models": 259920
+        },
+        "12": {
+          "contributing_models": 3,
+          "finite_cells_per_source": [
+            259920,
+            259920,
+            259920
+          ],
+          "cells_with_minimum_models": 259920
+        },
+        "18": {
+          "contributing_models": 3,
+          "finite_cells_per_source": [
+            259920,
+            259920,
+            259920
+          ],
+          "cells_with_minimum_models": 259920
+        },
+        "24": {
+          "contributing_models": 3,
+          "finite_cells_per_source": [
+            259920,
+            259920,
+            259920
+          ],
+          "cells_with_minimum_models": 259920
+        },
+        "30": {
+          "contributing_models": 3,
+          "finite_cells_per_source": [
+            259920,
+            259920,
+            259920
+          ],
+          "cells_with_minimum_models": 259920
+        },
+        "36": {
+          "contributing_models": 3,
+          "finite_cells_per_source": [
+            259920,
+            259920,
+            259920
+          ],
+          "cells_with_minimum_models": 259920
+        },
+        "42": {
+          "contributing_models": 3,
+          "finite_cells_per_source": [
+            259920,
+            259920,
+            259920
+          ],
+          "cells_with_minimum_models": 259920
+        },
+        "48": {
+          "contributing_models": 3,
+          "finite_cells_per_source": [
+            259920,
+            259920,
+            259920
+          ],
+          "cells_with_minimum_models": 259920
+        },
+        "54": {
+          "contributing_models": 3,
+          "finite_cells_per_source": [
+            259920,
+            259920,
+            259920
+          ],
+          "cells_with_minimum_models": 259920
+        },
+        "60": {
+          "contributing_models": 3,
+          "finite_cells_per_source": [
+            259920,
+            259920,
+            259920
+          ],
+          "cells_with_minimum_models": 259920
+        },
+        "66": {
+          "contributing_models": 3,
+          "finite_cells_per_source": [
+            259920,
+            259920,
+            259920
+          ],
+          "cells_with_minimum_models": 259920
+        },
+        "72": {
+          "contributing_models": 3,
+          "finite_cells_per_source": [
+            259920,
+            259920,
+            259920
+          ],
+          "cells_with_minimum_models": 259920
+        },
+        "78": {
+          "contributing_models": 3,
+          "finite_cells_per_source": [
+            259920,
+            259920,
+            259920
+          ],
+          "cells_with_minimum_models": 259920
+        },
+        "84": {
+          "contributing_models": 3,
+          "finite_cells_per_source": [
+            259920,
+            259920,
+            259920
+          ],
+          "cells_with_minimum_models": 259920
+        },
+        "90": {
+          "contributing_models": 3,
+          "finite_cells_per_source": [
+            259920,
+            259920,
+            259920
+          ],
+          "cells_with_minimum_models": 259920
+        },
+        "96": {
+          "contributing_models": 3,
+          "finite_cells_per_source": [
+            259920,
+            259920,
+            259920
+          ],
+          "cells_with_minimum_models": 259920
+        },
+        "102": {
+          "contributing_models": 3,
+          "finite_cells_per_source": [
+            259920,
+            259920,
+            259920
+          ],
+          "cells_with_minimum_models": 259920
+        },
+        "108": {
+          "contributing_models": 3,
+          "finite_cells_per_source": [
+            259920,
+            259920,
+            259920
+          ],
+          "cells_with_minimum_models": 259920
+        },
+        "114": {
+          "contributing_models": 3,
+          "finite_cells_per_source": [
+            259920,
+            259920,
+            259920
+          ],
+          "cells_with_minimum_models": 259920
+        },
+        "120": {
+          "contributing_models": 3,
+          "finite_cells_per_source": [
+            259920,
+            259920,
+            259920
+          ],
+          "cells_with_minimum_models": 259920
+        },
+        "126": {
+          "contributing_models": 3,
+          "finite_cells_per_source": [
+            259920,
+            259920,
+            259920
+          ],
+          "cells_with_minimum_models": 259920
+        },
+        "132": {
+          "contributing_models": 3,
+          "finite_cells_per_source": [
+            259920,
+            259920,
+            259920
+          ],
+          "cells_with_minimum_models": 259920
+        },
+        "138": {
+          "contributing_models": 3,
+          "finite_cells_per_source": [
+            259920,
+            259920,
+            259920
+          ],
+          "cells_with_minimum_models": 259920
+        },
+        "144": {
+          "contributing_models": 3,
+          "finite_cells_per_source": [
+            259920,
+            259920,
+            259920
+          ],
+          "cells_with_minimum_models": 259920
+        },
+        "150": {
+          "contributing_models": 3,
+          "finite_cells_per_source": [
+            259920,
+            259920,
+            259920
+          ],
+          "cells_with_minimum_models": 259920
+        },
+        "156": {
+          "contributing_models": 3,
+          "finite_cells_per_source": [
+            259920,
+            259920,
+            259920
+          ],
+          "cells_with_minimum_models": 259920
+        },
+        "162": {
+          "contributing_models": 3,
+          "finite_cells_per_source": [
+            259920,
+            259920,
+            259920
+          ],
+          "cells_with_minimum_models": 259920
+        },
+        "168": {
+          "contributing_models": 3,
+          "finite_cells_per_source": [
+            259920,
+            259920,
+            259920
+          ],
+          "cells_with_minimum_models": 259920
+        }
+      },
+      "available_models": [
+        "ecmwf",
+        "gfs",
+        "icon"
+      ]
+    },
+    "d2m": {
+      "hours": {
+        "0": {
+          "contributing_models": 3,
+          "finite_cells_per_source": [
+            259920,
+            259920,
+            259920
+          ],
+          "cells_with_minimum_models": 259920
+        },
+        "6": {
+          "contributing_models": 3,
+          "finite_cells_per_source": [
+            259920,
+            259920,
+            259920
+          ],
+          "cells_with_minimum_models": 259920
+        },
+        "12": {
+          "contributing_models": 3,
+          "finite_cells_per_source": [
+            259920,
+            259920,
+            259920
+          ],
+          "cells_with_minimum_models": 259920
+        },
+        "18": {
+          "contributing_models": 3,
+          "finite_cells_per_source": [
+            259920,
+            259920,
+            259920
+          ],
+          "cells_with_minimum_models": 259920
+        },
+        "24": {
+          "contributing_models": 3,
+          "finite_cells_per_source": [
+            259920,
+            259920,
+            259920
+          ],
+          "cells_with_minimum_models": 259920
+        },
+        "30": {
+          "contributing_models": 3,
+          "finite_cells_per_source": [
+            259920,
+            259920,
+            259920
+          ],
+          "cells_with_minimum_models": 259920
+        },
+        "36": {
+          "contributing_models": 3,
+          "finite_cells_per_source": [
+            259920,
+            259920,
+            259920
+          ],
+          "cells_with_minimum_models": 259920
+        },
+        "42": {
+          "contributing_models": 3,
+          "finite_cells_per_source": [
+            259920,
+            259920,
+            259920
+          ],
+          "cells_with_minimum_models": 259920
+        },
+        "48": {
+          "contributing_models": 3,
+          "finite_cells_per_source": [
+            259920,
+            259920,
+            259920
+          ],
+          "cells_with_minimum_models": 259920
+        },
+        "54": {
+          "contributing_models": 3,
+          "finite_cells_per_source": [
+            259920,
+            259920,
+            259920
+          ],
+          "cells_with_minimum_models": 259920
+        },
+        "60": {
+          "contributing_models": 3,
+          "finite_cells_per_source": [
+            259920,
+            259920,
+            259920
+          ],
+          "cells_with_minimum_models": 259920
+        },
+        "66": {
+          "contributing_models": 3,
+          "finite_cells_per_source": [
+            259920,
+            259920,
+            259920
+          ],
+          "cells_with_minimum_models": 259920
+        },
+        "72": {
+          "contributing_models": 3,
+          "finite_cells_per_source": [
+            259920,
+            259920,
+            259920
+          ],
+          "cells_with_minimum_models": 259920
+        },
+        "78": {
+          "contributing_models": 3,
+          "finite_cells_per_source": [
+            259920,
+            259920,
+            259920
+          ],
+          "cells_with_minimum_models": 259920
+        },
+        "84": {
+          "contributing_models": 3,
+          "finite_cells_per_source": [
+            259920,
+            259920,
+            259920
+          ],
+          "cells_with_minimum_models": 259920
+        },
+        "90": {
+          "contributing_models": 3,
+          "finite_cells_per_source": [
+            259920,
+            259920,
+            259920
+          ],
+          "cells_with_minimum_models": 259920
+        },
+        "96": {
+          "contributing_models": 3,
+          "finite_cells_per_source": [
+            259920,
+            259920,
+            259920
+          ],
+          "cells_with_minimum_models": 259920
+        },
+        "102": {
+          "contributing_models": 3,
+          "finite_cells_per_source": [
+            259920,
+            259920,
+            259920
+          ],
+          "cells_with_minimum_models": 259920
+        },
+        "108": {
+          "contributing_models": 3,
+          "finite_cells_per_source": [
+            259920,
+            259920,
+            259920
+          ],
+          "cells_with_minimum_models": 259920
+        },
+        "114": {
+          "contributing_models": 3,
+          "finite_cells_per_source": [
+            259920,
+            259920,
+            259920
+          ],
+          "cells_with_minimum_models": 259920
+        },
+        "120": {
+          "contributing_models": 3,
+          "finite_cells_per_source": [
+            259920,
+            259920,
+            259920
+          ],
+          "cells_with_minimum_models": 259920
+        },
+        "126": {
+          "contributing_models": 3,
+          "finite_cells_per_source": [
+            259920,
+            259920,
+            259920
+          ],
+          "cells_with_minimum_models": 259920
+        },
+        "132": {
+          "contributing_models": 3,
+          "finite_cells_per_source": [
+            259920,
+            259920,
+            259920
+          ],
+          "cells_with_minimum_models": 259920
+        },
+        "138": {
+          "contributing_models": 3,
+          "finite_cells_per_source": [
+            259920,
+            259920,
+            259920
+          ],
+          "cells_with_minimum_models": 259920
+        },
+        "144": {
+          "contributing_models": 3,
+          "finite_cells_per_source": [
+            259920,
+            259920,
+            259920
+          ],
+          "cells_with_minimum_models": 259920
+        },
+        "150": {
+          "contributing_models": 3,
+          "finite_cells_per_source": [
+            259920,
+            259920,
+            259920
+          ],
+          "cells_with_minimum_models": 259920
+        },
+        "156": {
+          "contributing_models": 3,
+          "finite_cells_per_source": [
+            259920,
+            259920,
+            259920
+          ],
+          "cells_with_minimum_models": 259920
+        },
+        "162": {
+          "contributing_models": 3,
+          "finite_cells_per_source": [
+            259920,
+            259920,
+            259920
+          ],
+          "cells_with_minimum_models": 259920
+        },
+        "168": {
+          "contributing_models": 3,
+          "finite_cells_per_source": [
+            259920,
+            259920,
+            259920
+          ],
+          "cells_with_minimum_models": 259920
+        }
+      },
+      "available_models": [
+        "ecmwf",
+        "gfs",
+        "icon"
+      ]
+    },
+    "u10": {
+      "hours": {
+        "0": {
+          "contributing_models": 3,
+          "finite_cells_per_source": [
+            259920,
+            259920,
+            259920
+          ],
+          "cells_with_minimum_models": 259920
+        },
+        "6": {
+          "contributing_models": 3,
+          "finite_cells_per_source": [
+            259920,
+            259920,
+            259920
+          ],
+          "cells_with_minimum_models": 259920
+        },
+        "12": {
+          "contributing_models": 3,
+          "finite_cells_per_source": [
+            259920,
+            259920,
+            259920
+          ],
+          "cells_with_minimum_models": 259920
+        },
+        "18": {
+          "contributing_models": 3,
+          "finite_cells_per_source": [
+            259920,
+            259920,
+            259920
+          ],
+          "cells_with_minimum_models": 259920
+        },
+        "24": {
+          "contributing_models": 3,
+          "finite_cells_per_source": [
+            259920,
+            259920,
+            259920
+          ],
+          "cells_with_minimum_models": 259920
+        },
+        "30": {
+          "contributing_models": 3,
+          "finite_cells_per_source": [
+            259920,
+            259920,
+            259920
+          ],
+          "cells_with_minimum_models": 259920
+        },
+        "36": {
+          "contributing_models": 3,
+          "finite_cells_per_source": [
+            259920,
+            259920,
+            259920
+          ],
+          "cells_with_minimum_models": 259920
+        },
+        "42": {
+          "contributing_models": 3,
+          "finite_cells_per_source": [
+            259920,
+            259920,
+            259920
+          ],
+          "cells_with_minimum_models": 259920
+        },
+        "48": {
+          "contributing_models": 3,
+          "finite_cells_per_source": [
+            259920,
+            259920,
+            259920
+          ],
+          "cells_with_minimum_models": 259920
+        },
+        "54": {
+          "contributing_models": 3,
+          "finite_cells_per_source": [
+            259920,
+            259920,
+            259920
+          ],
+          "cells_with_minimum_models": 259920
+        },
+        "60": {
+          "contributing_models": 3,
+          "finite_cells_per_source": [
+            259920,
+            259920,
+            259920
+          ],
+          "cells_with_minimum_models": 259920
+        },
+        "66": {
+          "contributing_models": 3,
+          "finite_cells_per_source": [
+            259920,
+            259920,
+            259920
+          ],
+          "cells_with_minimum_models": 259920
+        },
+        "72": {
+          "contributing_models": 3,
+          "finite_cells_per_source": [
+            259920,
+            259920,
+            259920
+          ],
+          "cells_with_minimum_models": 259920
+        },
+        "78": {
+          "contributing_models": 3,
+          "finite_cells_per_source": [
+            259920,
+            259920,
+            259920
+          ],
+          "cells_with_minimum_models": 259920
+        },
+        "84": {
+          "contributing_models": 3,
+          "finite_cells_per_source": [
+            259920,
+            259920,
+            259920
+          ],
+          "cells_with_minimum_models": 259920
+        },
+        "90": {
+          "contributing_models": 3,
+          "finite_cells_per_source": [
+            259920,
+            259920,
+            259920
+          ],
+          "cells_with_minimum_models": 259920
+        },
+        "96": {
+          "contributing_models": 3,
+          "finite_cells_per_source": [
+            259920,
+            259920,
+            259920
+          ],
+          "cells_with_minimum_models": 259920
+        },
+        "102": {
+          "contributing_models": 3,
+          "finite_cells_per_source": [
+            259920,
+            259920,
+            259920
+          ],
+          "cells_with_minimum_models": 259920
+        },
+        "108": {
+          "contributing_models": 3,
+          "finite_cells_per_source": [
+            259920,
+            259920,
+            259920
+          ],
+          "cells_with_minimum_models": 259920
+        },
+        "114": {
+          "contributing_models": 3,
+          "finite_cells_per_source": [
+            259920,
+            259920,
+            259920
+          ],
+          "cells_with_minimum_models": 259920
+        },
+        "120": {
+          "contributing_models": 3,
+          "finite_cells_per_source": [
+            259920,
+            259920,
+            259920
+          ],
+          "cells_with_minimum_models": 259920
+        },
+        "126": {
+          "contributing_models": 3,
+          "finite_cells_per_source": [
+            259920,
+            259920,
+            259920
+          ],
+          "cells_with_minimum_models": 259920
+        },
+        "132": {
+          "contributing_models": 3,
+          "finite_cells_per_source": [
+            259920,
+            259920,
+            259920
+          ],
+          "cells_with_minimum_models": 259920
+        },
+        "138": {
+          "contributing_models": 3,
+          "finite_cells_per_source": [
+            259920,
+            259920,
+            259920
+          ],
+          "cells_with_minimum_models": 259920
+        },
+        "144": {
+          "contributing_models": 3,
+          "finite_cells_per_source": [
+            259920,
+            259920,
+            259920
+          ],
+          "cells_with_minimum_models": 259920
+        },
+        "150": {
+          "contributing_models": 3,
+          "finite_cells_per_source": [
+            259920,
+            259920,
+            259920
+          ],
+          "cells_with_minimum_models": 259920
+        },
+        "156": {
+          "contributing_models": 3,
+          "finite_cells_per_source": [
+            259920,
+            259920,
+            259920
+          ],
+          "cells_with_minimum_models": 259920
+        },
+        "162": {
+          "contributing_models": 3,
+          "finite_cells_per_source": [
+            259920,
+            259920,
+            259920
+          ],
+          "cells_with_minimum_models": 259920
+        },
+        "168": {
+          "contributing_models": 3,
+          "finite_cells_per_source": [
+            259920,
+            259920,
+            259920
+          ],
+          "cells_with_minimum_models": 259920
+        }
+      },
+      "available_models": [
+        "ecmwf",
+        "gfs",
+        "icon"
+      ]
+    },
+    "v10": {
+      "hours": {
+        "0": {
+          "contributing_models": 3,
+          "finite_cells_per_source": [
+            259920,
+            259920,
+            259920
+          ],
+          "cells_with_minimum_models": 259920
+        },
+        "6": {
+          "contributing_models": 3,
+          "finite_cells_per_source": [
+            259920,
+            259920,
+            259920
+          ],
+          "cells_with_minimum_models": 259920
+        },
+        "12": {
+          "contributing_models": 3,
+          "finite_cells_per_source": [
+            259920,
+            259920,
+            259920
+          ],
+          "cells_with_minimum_models": 259920
+        },
+        "18": {
+          "contributing_models": 3,
+          "finite_cells_per_source": [
+            259920,
+            259920,
+            259920
+          ],
+          "cells_with_minimum_models": 259920
+        },
+        "24": {
+          "contributing_models": 3,
+          "finite_cells_per_source": [
+            259920,
+            259920,
+            259920
+          ],
+          "cells_with_minimum_models": 259920
+        },
+        "30": {
+          "contributing_models": 3,
+          "finite_cells_per_source": [
+            259920,
+            259920,
+            259920
+          ],
+          "cells_with_minimum_models": 259920
+        },
+        "36": {
+          "contributing_models": 3,
+          "finite_cells_per_source": [
+            259920,
+            259920,
+            259920
+          ],
+          "cells_with_minimum_models": 259920
+        },
+        "42": {
+          "contributing_models": 3,
+          "finite_cells_per_source": [
+            259920,
+            259920,
+            259920
+          ],
+          "cells_with_minimum_models": 259920
+        },
+        "48": {
+          "contributing_models": 3,
+          "finite_cells_per_source": [
+            259920,
+            259920,
+            259920
+          ],
+          "cells_with_minimum_models": 259920
+        },
+        "54": {
+          "contributing_models": 3,
+          "finite_cells_per_source": [
+            259920,
+            259920,
+            259920
+          ],
+          "cells_with_minimum_models": 259920
+        },
+        "60": {
+          "contributing_models": 3,
+          "finite_cells_per_source": [
+            259920,
+            259920,
+            259920
+          ],
+          "cells_with_minimum_models": 259920
+        },
+        "66": {
+          "contributing_models": 3,
+          "finite_cells_per_source": [
+            259920,
+            259920,
+            259920
+          ],
+          "cells_with_minimum_models": 259920
+        },
+        "72": {
+          "contributing_models": 3,
+          "finite_cells_per_source": [
+            259920,
+            259920,
+            259920
+          ],
+          "cells_with_minimum_models": 259920
+        },
+        "78": {
+          "contributing_models": 3,
+          "finite_cells_per_source": [
+            259920,
+            259920,
+            259920
+          ],
+          "cells_with_minimum_models": 259920
+        },
+        "84": {
+          "contributing_models": 3,
+          "finite_cells_per_source": [
+            259920,
+            259920,
+            259920
+          ],
+          "cells_with_minimum_models": 259920
+        },
+        "90": {
+          "contributing_models": 3,
+          "finite_cells_per_source": [
+            259920,
+            259920,
+            259920
+          ],
+          "cells_with_minimum_models": 259920
+        },
+        "96": {
+          "contributing_models": 3,
+          "finite_cells_per_source": [
+            259920,
+            259920,
+            259920
+          ],
+          "cells_with_minimum_models": 259920
+        },
+        "102": {
+          "contributing_models": 3,
+          "finite_cells_per_source": [
+            259920,
+            259920,
+            259920
+          ],
+          "cells_with_minimum_models": 259920
+        },
+        "108": {
+          "contributing_models": 3,
+          "finite_cells_per_source": [
+            259920,
+            259920,
+            259920
+          ],
+          "cells_with_minimum_models": 259920
+        },
+        "114": {
+          "contributing_models": 3,
+          "finite_cells_per_source": [
+            259920,
+            259920,
+            259920
+          ],
+          "cells_with_minimum_models": 259920
+        },
+        "120": {
+          "contributing_models": 3,
+          "finite_cells_per_source": [
+            259920,
+            259920,
+            259920
+          ],
+          "cells_with_minimum_models": 259920
+        },
+        "126": {
+          "contributing_models": 3,
+          "finite_cells_per_source": [
+            259920,
+            259920,
+            259920
+          ],
+          "cells_with_minimum_models": 259920
+        },
+        "132": {
+          "contributing_models": 3,
+          "finite_cells_per_source": [
+            259920,
+            259920,
+            259920
+          ],
+          "cells_with_minimum_models": 259920
+        },
+        "138": {
+          "contributing_models": 3,
+          "finite_cells_per_source": [
+            259920,
+            259920,
+            259920
+          ],
+          "cells_with_minimum_models": 259920
+        },
+        "144": {
+          "contributing_models": 3,
+          "finite_cells_per_source": [
+            259920,
+            259920,
+            259920
+          ],
+          "cells_with_minimum_models": 259920
+        },
+        "150": {
+          "contributing_models": 3,
+          "finite_cells_per_source": [
+            259920,
+            259920,
+            259920
+          ],
+          "cells_with_minimum_models": 259920
+        },
+        "156": {
+          "contributing_models": 3,
+          "finite_cells_per_source": [
+            259920,
+            259920,
+            259920
+          ],
+          "cells_with_minimum_models": 259920
+        },
+        "162": {
+          "contributing_models": 3,
+          "finite_cells_per_source": [
+            259920,
+            259920,
+            259920
+          ],
+          "cells_with_minimum_models": 259920
+        },
+        "168": {
+          "contributing_models": 3,
+          "finite_cells_per_source": [
+            259920,
+            259920,
+            259920
+          ],
+          "cells_with_minimum_models": 259920
+        }
+      },
+      "available_models": [
+        "ecmwf",
+        "gfs",
+        "icon"
+      ]
+    },
+    "msl": {
+      "hours": {
+        "0": {
+          "contributing_models": 3,
+          "finite_cells_per_source": [
+            259920,
+            259920,
+            259920
+          ],
+          "cells_with_minimum_models": 259920
+        },
+        "6": {
+          "contributing_models": 3,
+          "finite_cells_per_source": [
+            259920,
+            259920,
+            259920
+          ],
+          "cells_with_minimum_models": 259920
+        },
+        "12": {
+          "contributing_models": 3,
+          "finite_cells_per_source": [
+            259920,
+            259920,
+            259920
+          ],
+          "cells_with_minimum_models": 259920
+        },
+        "18": {
+          "contributing_models": 3,
+          "finite_cells_per_source": [
+            259920,
+            259920,
+            259920
+          ],
+          "cells_with_minimum_models": 259920
+        },
+        "24": {
+          "contributing_models": 3,
+          "finite_cells_per_source": [
+            259920,
+            259920,
+            259920
+          ],
+          "cells_with_minimum_models": 259920
+        },
+        "30": {
+          "contributing_models": 3,
+          "finite_cells_per_source": [
+            259920,
+            259920,
+            259920
+          ],
+          "cells_with_minimum_models": 259920
+        },
+        "36": {
+          "contributing_models": 3,
+          "finite_cells_per_source": [
+            259920,
+            259920,
+            259920
+          ],
+          "cells_with_minimum_models": 259920
+        },
+        "42": {
+          "contributing_models": 3,
+          "finite_cells_per_source": [
+            259920,
+            259920,
+            259920
+          ],
+          "cells_with_minimum_models": 259920
+        },
+        "48": {
+          "contributing_models": 3,
+          "finite_cells_per_source": [
+            259920,
+            259920,
+            259920
+          ],
+          "cells_with_minimum_models": 259920
+        },
+        "54": {
+          "contributing_models": 3,
+          "finite_cells_per_source": [
+            259920,
+            259920,
+            259920
+          ],
+          "cells_with_minimum_models": 259920
+        },
+        "60": {
+          "contributing_models": 3,
+          "finite_cells_per_source": [
+            259920,
+            259920,
+            259920
+          ],
+          "cells_with_minimum_models": 259920
+        },
+        "66": {
+          "contributing_models": 3,
+          "finite_cells_per_source": [
+            259920,
+            259920,
+            259920
+          ],
+          "cells_with_minimum_models": 259920
+        },
+        "72": {
+          "contributing_models": 3,
+          "finite_cells_per_source": [
+            259920,
+            259920,
+            259920
+          ],
+          "cells_with_minimum_models": 259920
+        },
+        "78": {
+          "contributing_models": 3,
+          "finite_cells_per_source": [
+            259920,
+            259920,
+            259920
+          ],
+          "cells_with_minimum_models": 259920
+        },
+        "84": {
+          "contributing_models": 3,
+          "finite_cells_per_source": [
+            259920,
+            259920,
+            259920
+          ],
+          "cells_with_minimum_models": 259920
+        },
+        "90": {
+          "contributing_models": 3,
+          "finite_cells_per_source": [
+            259920,
+            259920,
+            259920
+          ],
+          "cells_with_minimum_models": 259920
+        },
+        "96": {
+          "contributing_models": 3,
+          "finite_cells_per_source": [
+            259920,
+            259920,
+            259920
+          ],
+          "cells_with_minimum_models": 259920
+        },
+        "102": {
+          "contributing_models": 3,
+          "finite_cells_per_source": [
+            259920,
+            259920,
+            259920
+          ],
+          "cells_with_minimum_models": 259920
+        },
+        "108": {
+          "contributing_models": 3,
+          "finite_cells_per_source": [
+            259920,
+            259920,
+            259920
+          ],
+          "cells_with_minimum_models": 259920
+        },
+        "114": {
+          "contributing_models": 3,
+          "finite_cells_per_source": [
+            259920,
+            259920,
+            259920
+          ],
+          "cells_with_minimum_models": 259920
+        },
+        "120": {
+          "contributing_models": 3,
+          "finite_cells_per_source": [
+            259920,
+            259920,
+            259920
+          ],
+          "cells_with_minimum_models": 259920
+        },
+        "126": {
+          "contributing_models": 3,
+          "finite_cells_per_source": [
+            259920,
+            259920,
+            259920
+          ],
+          "cells_with_minimum_models": 259920
+        },
+        "132": {
+          "contributing_models": 3,
+          "finite_cells_per_source": [
+            259920,
+            259920,
+            259920
+          ],
+          "cells_with_minimum_models": 259920
+        },
+        "138": {
+          "contributing_models": 3,
+          "finite_cells_per_source": [
+            259920,
+            259920,
+            259920
+          ],
+          "cells_with_minimum_models": 259920
+        },
+        "144": {
+          "contributing_models": 3,
+          "finite_cells_per_source": [
+            259920,
+            259920,
+            259920
+          ],
+          "cells_with_minimum_models": 259920
+        },
+        "150": {
+          "contributing_models": 3,
+          "finite_cells_per_source": [
+            259920,
+            259920,
+            259920
+          ],
+          "cells_with_minimum_models": 259920
+        },
+        "156": {
+          "contributing_models": 3,
+          "finite_cells_per_source": [
+            259920,
+            259920,
+            259920
+          ],
+          "cells_with_minimum_models": 259920
+        },
+        "162": {
+          "contributing_models": 3,
+          "finite_cells_per_source": [
+            259920,
+            259920,
+            259920
+          ],
+          "cells_with_minimum_models": 259920
+        },
+        "168": {
+          "contributing_models": 3,
+          "finite_cells_per_source": [
+            259920,
+            259920,
+            259920
+          ],
+          "cells_with_minimum_models": 259920
+        }
+      },
+      "available_models": [
+        "ecmwf",
+        "gfs",
+        "icon"
+      ]
+    },
+    "tp6h": {
+      "hours": {
+        "0": {
+          "contributing_models": 2,
+          "finite_cells_per_source": [
+            259920,
+            259920
+          ],
+          "cells_with_minimum_models": 259920
+        },
+        "6": {
+          "contributing_models": 3,
+          "finite_cells_per_source": [
+            259920,
+            0,
+            259920
+          ],
+          "cells_with_minimum_models": 259920
+        },
+        "12": {
+          "contributing_models": 3,
+          "finite_cells_per_source": [
+            259920,
+            259920,
+            259920
+          ],
+          "cells_with_minimum_models": 259920
+        },
+        "18": {
+          "contributing_models": 3,
+          "finite_cells_per_source": [
+            259920,
+            259920,
+            259920
+          ],
+          "cells_with_minimum_models": 259920
+        },
+        "24": {
+          "contributing_models": 3,
+          "finite_cells_per_source": [
+            259920,
+            259920,
+            259920
+          ],
+          "cells_with_minimum_models": 259920
+        },
+        "30": {
+          "contributing_models": 3,
+          "finite_cells_per_source": [
+            259920,
+            259920,
+            259920
+          ],
+          "cells_with_minimum_models": 259920
+        },
+        "36": {
+          "contributing_models": 3,
+          "finite_cells_per_source": [
+            259920,
+            259920,
+            259920
+          ],
+          "cells_with_minimum_models": 259920
+        },
+        "42": {
+          "contributing_models": 3,
+          "finite_cells_per_source": [
+            259920,
+            259920,
+            259920
+          ],
+          "cells_with_minimum_models": 259920
+        },
+        "48": {
+          "contributing_models": 3,
+          "finite_cells_per_source": [
+            259920,
+            259920,
+            259920
+          ],
+          "cells_with_minimum_models": 259920
+        },
+        "54": {
+          "contributing_models": 3,
+          "finite_cells_per_source": [
+            259920,
+            259920,
+            259920
+          ],
+          "cells_with_minimum_models": 259920
+        },
+        "60": {
+          "contributing_models": 3,
+          "finite_cells_per_source": [
+            259920,
+            259920,
+            259920
+          ],
+          "cells_with_minimum_models": 259920
+        },
+        "66": {
+          "contributing_models": 3,
+          "finite_cells_per_source": [
+            259920,
+            259920,
+            259920
+          ],
+          "cells_with_minimum_models": 259920
+        },
+        "72": {
+          "contributing_models": 3,
+          "finite_cells_per_source": [
+            259920,
+            259920,
+            259920
+          ],
+          "cells_with_minimum_models": 259920
+        },
+        "78": {
+          "contributing_models": 3,
+          "finite_cells_per_source": [
+            259920,
+            259920,
+            259920
+          ],
+          "cells_with_minimum_models": 259920
+        },
+        "84": {
+          "contributing_models": 3,
+          "finite_cells_per_source": [
+            259920,
+            259920,
+            259920
+          ],
+          "cells_with_minimum_models": 259920
+        },
+        "90": {
+          "contributing_models": 3,
+          "finite_cells_per_source": [
+            259920,
+            259920,
+            259920
+          ],
+          "cells_with_minimum_models": 259920
+        },
+        "96": {
+          "contributing_models": 3,
+          "finite_cells_per_source": [
+            259920,
+            259920,
+            259920
+          ],
+          "cells_with_minimum_models": 259920
+        },
+        "102": {
+          "contributing_models": 3,
+          "finite_cells_per_source": [
+            259920,
+            259920,
+            259920
+          ],
+          "cells_with_minimum_models": 259920
+        },
+        "108": {
+          "contributing_models": 3,
+          "finite_cells_per_source": [
+            259920,
+            259920,
+            259920
+          ],
+          "cells_with_minimum_models": 259920
+        },
+        "114": {
+          "contributing_models": 3,
+          "finite_cells_per_source": [
+            259920,
+            259920,
+            259920
+          ],
+          "cells_with_minimum_models": 259920
+        },
+        "120": {
+          "contributing_models": 3,
+          "finite_cells_per_source": [
+            259920,
+            259920,
+            259920
+          ],
+          "cells_with_minimum_models": 259920
+        },
+        "126": {
+          "contributing_models": 3,
+          "finite_cells_per_source": [
+            259920,
+            259920,
+            259920
+          ],
+          "cells_with_minimum_models": 259920
+        },
+        "132": {
+          "contributing_models": 3,
+          "finite_cells_per_source": [
+            259920,
+            259920,
+            259920
+          ],
+          "cells_with_minimum_models": 259920
+        },
+        "138": {
+          "contributing_models": 3,
+          "finite_cells_per_source": [
+            259920,
+            259920,
+            259920
+          ],
+          "cells_with_minimum_models": 259920
+        },
+        "144": {
+          "contributing_models": 3,
+          "finite_cells_per_source": [
+            259920,
+            259920,
+            259920
+          ],
+          "cells_with_minimum_models": 259920
+        },
+        "150": {
+          "contributing_models": 3,
+          "finite_cells_per_source": [
+            259920,
+            259920,
+            259920
+          ],
+          "cells_with_minimum_models": 259920
+        },
+        "156": {
+          "contributing_models": 3,
+          "finite_cells_per_source": [
+            259920,
+            259920,
+            259920
+          ],
+          "cells_with_minimum_models": 259920
+        },
+        "162": {
+          "contributing_models": 3,
+          "finite_cells_per_source": [
+            259920,
+            259920,
+            259920
+          ],
+          "cells_with_minimum_models": 259920
+        },
+        "168": {
+          "contributing_models": 3,
+          "finite_cells_per_source": [
+            259920,
+            259920,
+            259920
+          ],
+          "cells_with_minimum_models": 259920
+        }
+      },
+      "available_models": [
+        "ecmwf",
+        "icon",
+        "gfs"
+      ]
+    }
+  },
+  "outputs": [
+    "consensus.nc",
+    "manifest.json",
+    "qc.json"
+  ],
+  "methodNotes": [
+    "Regrade linear para grades regulares; vizinho mais próximo para grades irregulares, incluindo ICON global.",
+    "Média simples não é um ensemble probabilístico calibrado.",
+    "Índice de concordância deriva do spread e não deve ser interpretado como probabilidade de ocorrência.",
+    "Precipitação é normalizada para janela de 6 h somente quando o stepRange permite estimar a janela; dados sem intervalo comparável são marcados como ausentes."
+  ]
+}

@@ -1,0 +1,330 @@
+{
+  "schema": "sideral-model-release-v1",
+  "productId": "multimodels-05",
+  "releaseTag": "sideral-data-multimodels-05-latest",
+  "releaseUrl": "https://github.com/sideralmeteorologia/sideral-web/releases/tag/sideral-data-multimodels-05-latest",
+  "releaseApiUrl": "https://api.github.com/repos/sideralmeteorologia/sideral-web/releases/tags/sideral-data-multimodels-05-latest",
+  "rawBranch": "sideral-data-multimodels-05-latest",
+  "workflow": {
+    "name": "SIDERAL MULTIMODELS 0.5 - YAML único",
+    "path": ".github/workflows/SIDERAL_MULTIMODELS_05_ICON_HORIZON_FIX (1).yml",
+    "runId": "46153676598",
+    "runUrl": "https://github.com/sideralmeteorologia/sideral-web/actions/runs/46153676598",
+    "branch": "main",
+    "commit": "45c8e7adfae9b98a623b7280a5760941c4143bdc",
+    "completedAt": "2026-11-28T14:23:50Z"
+  },
+  "publishedAt": "2026-11-28T14:23:51.306202+00:00",
+  "fileCount": 13,
+  "assetCount": 20,
+  "files": [
+    {
+      "path": "2026112800/consensus.nc",
+      "size": 364482222,
+      "sha256": "838fa9306cfec3d05e4fefaed65fb7e018506e080905af2f8f6cff0fd5a254d1",
+      "contentType": "application/x-netcdf",
+      "parts": [
+        {
+          "name": "2026112800--consensus-1bb00d4466.nc.part001",
+          "size": 47185920,
+          "sha256": "9a08fcc069ca980cb7ec07d0c25b164e92152b7d99961801fa59399007970b0e",
+          "contentType": "application/x-netcdf",
+          "part": 1,
+          "releaseUrl": "https://github.com/sideralmeteorologia/sideral-web/releases/download/sideral-data-multimodels-05-latest/2026112800--consensus-1bb00d4466.nc.part001",
+          "url": "https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/sideral-data-multimodels-05-latest/assets/2026112800--consensus-1bb00d4466.nc.part001"
+        },
+        {
+          "name": "2026112800--consensus-1bb00d4466.nc.part002",
+          "size": 47185920,
+          "sha256": "56245a19a60c503c4561cfc8f562be77341243a42f4e75b27b4e0592c952027d",
+          "contentType": "application/x-netcdf",
+          "part": 2,
+          "releaseUrl": "https://github.com/sideralmeteorologia/sideral-web/releases/download/sideral-data-multimodels-05-latest/2026112800--consensus-1bb00d4466.nc.part002",
+          "url": "https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/sideral-data-multimodels-05-latest/assets/2026112800--consensus-1bb00d4466.nc.part002"
+        },
+        {
+          "name": "2026112800--consensus-1bb00d4466.nc.part003",
+          "size": 47185920,
+          "sha256": "7ddfb69bcf5877fdae533ad761f9cfa02a1e70363a91823b4011fbfa852ff3d5",
+          "contentType": "application/x-netcdf",
+          "part": 3,
+          "releaseUrl": "https://github.com/sideralmeteorologia/sideral-web/releases/download/sideral-data-multimodels-05-latest/2026112800--consensus-1bb00d4466.nc.part003",
+          "url": "https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/sideral-data-multimodels-05-latest/assets/2026112800--consensus-1bb00d4466.nc.part003"
+        },
+        {
+          "name": "2026112800--consensus-1bb00d4466.nc.part004",
+          "size": 47185920,
+          "sha256": "7b89fb7008368c192849166ea4d1b5de5c2f880a38cafeebb70669ee0d36cf53",
+          "contentType": "application/x-netcdf",
+          "part": 4,
+          "releaseUrl": "https://github.com/sideralmeteorologia/sideral-web/releases/download/sideral-data-multimodels-05-latest/2026112800--consensus-1bb00d4466.nc.part004",
+          "url": "https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/sideral-data-multimodels-05-latest/assets/2026112800--consensus-1bb00d4466.nc.part004"
+        },
+        {
+          "name": "2026112800--consensus-1bb00d4466.nc.part005",
+          "size": 47185920,
+          "sha256": "cbb2af302ba99304c0d8e7aaec589706c06293bbb19c799b474d80d609e21ae2",
+          "contentType": "application/x-netcdf",
+          "part": 5,
+          "releaseUrl": "https://github.com/sideralmeteorologia/sideral-web/releases/download/sideral-data-multimodels-05-latest/2026112800--consensus-1bb00d4466.nc.part005",
+          "url": "https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/sideral-data-multimodels-05-latest/assets/2026112800--consensus-1bb00d4466.nc.part005"
+        },
+        {
+          "name": "2026112800--consensus-1bb00d4466.nc.part006",
+          "size": 47185920,
+          "sha256": "201363425310308a8747673d70ab7c3625eebebad1d911bffdfb192091e389e7",
+          "contentType": "application/x-netcdf",
+          "part": 6,
+          "releaseUrl": "https://github.com/sideralmeteorologia/sideral-web/releases/download/sideral-data-multimodels-05-latest/2026112800--consensus-1bb00d4466.nc.part006",
+          "url": "https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/sideral-data-multimodels-05-latest/assets/2026112800--consensus-1bb00d4466.nc.part006"
+        },
+        {
+          "name": "2026112800--consensus-1bb00d4466.nc.part007",
+          "size": 47185920,
+          "sha256": "038ca011388e9c851fa5fbb35a2f6df34ba0a34b1b4f06a408cf9575686eed8c",
+          "contentType": "application/x-netcdf",
+          "part": 7,
+          "releaseUrl": "https://github.com/sideralmeteorologia/sideral-web/releases/download/sideral-data-multimodels-05-latest/2026112800--consensus-1bb00d4466.nc.part007",
+          "url": "https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/sideral-data-multimodels-05-latest/assets/2026112800--consensus-1bb00d4466.nc.part007"
+        },
+        {
+          "name": "2026112800--consensus-1bb00d4466.nc.part008",
+          "size": 34180782,
+          "sha256": "fa80380673051612c4c21e833b2ab20648f01574c5d87ffa97e2790ba7eb0d72",
+          "contentType": "application/x-netcdf",
+          "part": 8,
+          "releaseUrl": "https://github.com/sideralmeteorologia/sideral-web/releases/download/sideral-data-multimodels-05-latest/2026112800--consensus-1bb00d4466.nc.part008",
+          "url": "https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/sideral-data-multimodels-05-latest/assets/2026112800--consensus-1bb00d4466.nc.part008"
+        }
+      ],
+      "chunked": true,
+      "reassemble": "Concatenate parts in ascending part order to reconstruct the original file."
+    },
+    {
+      "path": "2026112800/manifest.json",
+      "size": 41501,
+      "sha256": "b90fdc3739ded093302a7f1854379abeaa70850e29e67712726f21315105e21f",
+      "contentType": "application/json",
+      "parts": [
+        {
+          "name": "2026112800--manifest-ffb9be38a0.json",
+          "size": 41501,
+          "sha256": "b90fdc3739ded093302a7f1854379abeaa70850e29e67712726f21315105e21f",
+          "contentType": "application/json",
+          "part": 1,
+          "releaseUrl": "https://github.com/sideralmeteorologia/sideral-web/releases/download/sideral-data-multimodels-05-latest/2026112800--manifest-ffb9be38a0.json",
+          "url": "https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/sideral-data-multimodels-05-latest/assets/2026112800--manifest-ffb9be38a0.json"
+        }
+      ],
+      "asset": "2026112800--manifest-ffb9be38a0.json"
+    },
+    {
+      "path": "2026112800/plots/t2m_f006.png",
+      "size": 276454,
+      "sha256": "d7a40ff11071e2191171486dfac723246fb59826cb295be333a056e03d581230",
+      "contentType": "image/png",
+      "parts": [
+        {
+          "name": "2026112800--plots--t2m_f006-e3ef945b03.png",
+          "size": 276454,
+          "sha256": "d7a40ff11071e2191171486dfac723246fb59826cb295be333a056e03d581230",
+          "contentType": "image/png",
+          "part": 1,
+          "releaseUrl": "https://github.com/sideralmeteorologia/sideral-web/releases/download/sideral-data-multimodels-05-latest/2026112800--plots--t2m_f006-e3ef945b03.png",
+          "url": "https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/sideral-data-multimodels-05-latest/assets/2026112800--plots--t2m_f006-e3ef945b03.png"
+        }
+      ],
+      "asset": "2026112800--plots--t2m_f006-e3ef945b03.png"
+    },
+    {
+      "path": "2026112800/plots/t2m_f024.png",
+      "size": 287594,
+      "sha256": "7a18a3622133c9ea10b4aba88cf825a2b63b625119d1267e6dcfd93a80337de0",
+      "contentType": "image/png",
+      "parts": [
+        {
+          "name": "2026112800--plots--t2m_f024-58aa838196.png",
+          "size": 287594,
+          "sha256": "7a18a3622133c9ea10b4aba88cf825a2b63b625119d1267e6dcfd93a80337de0",
+          "contentType": "image/png",
+          "part": 1,
+          "releaseUrl": "https://github.com/sideralmeteorologia/sideral-web/releases/download/sideral-data-multimodels-05-latest/2026112800--plots--t2m_f024-58aa838196.png",
+          "url": "https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/sideral-data-multimodels-05-latest/assets/2026112800--plots--t2m_f024-58aa838196.png"
+        }
+      ],
+      "asset": "2026112800--plots--t2m_f024-58aa838196.png"
+    },
+    {
+      "path": "2026112800/plots/t2m_f072.png",
+      "size": 285976,
+      "sha256": "d8681ba0dcdcfcf09bfb50338e0d930bb4293a2ec9042bcb44d79afad2a55da3",
+      "contentType": "image/png",
+      "parts": [
+        {
+          "name": "2026112800--plots--t2m_f072-579cb1b548.png",
+          "size": 285976,
+          "sha256": "d8681ba0dcdcfcf09bfb50338e0d930bb4293a2ec9042bcb44d79afad2a55da3",
+          "contentType": "image/png",
+          "part": 1,
+          "releaseUrl": "https://github.com/sideralmeteorologia/sideral-web/releases/download/sideral-data-multimodels-05-latest/2026112800--plots--t2m_f072-579cb1b548.png",
+          "url": "https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/sideral-data-multimodels-05-latest/assets/2026112800--plots--t2m_f072-579cb1b548.png"
+        }
+      ],
+      "asset": "2026112800--plots--t2m_f072-579cb1b548.png"
+    },
+    {
+      "path": "2026112800/plots/t2m_f120.png",
+      "size": 289146,
+      "sha256": "cafbe256e37c75626be6791b967fc0e7877a73d072dddf52558b5015f83e6d52",
+      "contentType": "image/png",
+      "parts": [
+        {
+          "name": "2026112800--plots--t2m_f120-a9c1b761b6.png",
+          "size": 289146,
+          "sha256": "cafbe256e37c75626be6791b967fc0e7877a73d072dddf52558b5015f83e6d52",
+          "contentType": "image/png",
+          "part": 1,
+          "releaseUrl": "https://github.com/sideralmeteorologia/sideral-web/releases/download/sideral-data-multimodels-05-latest/2026112800--plots--t2m_f120-a9c1b761b6.png",
+          "url": "https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/sideral-data-multimodels-05-latest/assets/2026112800--plots--t2m_f120-a9c1b761b6.png"
+        }
+      ],
+      "asset": "2026112800--plots--t2m_f120-a9c1b761b6.png"
+    },
+    {
+      "path": "2026112800/plots/t2m_f168.png",
+      "size": 284981,
+      "sha256": "999642f7942ea605488d6d39529a496db9929c634183c5d0657754484cb9ac5a",
+      "contentType": "image/png",
+      "parts": [
+        {
+          "name": "2026112800--plots--t2m_f168-df16a36fdd.png",
+          "size": 284981,
+          "sha256": "999642f7942ea605488d6d39529a496db9929c634183c5d0657754484cb9ac5a",
+          "contentType": "image/png",
+          "part": 1,
+          "releaseUrl": "https://github.com/sideralmeteorologia/sideral-web/releases/download/sideral-data-multimodels-05-latest/2026112800--plots--t2m_f168-df16a36fdd.png",
+          "url": "https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/sideral-data-multimodels-05-latest/assets/2026112800--plots--t2m_f168-df16a36fdd.png"
+        }
+      ],
+      "asset": "2026112800--plots--t2m_f168-df16a36fdd.png"
+    },
+    {
+      "path": "2026112800/plots/tp6h_f006.png",
+      "size": 153273,
+      "sha256": "a2bda1bb11b63dc9819fa0a05b1fbd30c8863139c23d2e08eaa5d1ad176f315a",
+      "contentType": "image/png",
+      "parts": [
+        {
+          "name": "2026112800--plots--tp6h_f006-559bf01ebc.png",
+          "size": 153273,
+          "sha256": "a2bda1bb11b63dc9819fa0a05b1fbd30c8863139c23d2e08eaa5d1ad176f315a",
+          "contentType": "image/png",
+          "part": 1,
+          "releaseUrl": "https://github.com/sideralmeteorologia/sideral-web/releases/download/sideral-data-multimodels-05-latest/2026112800--plots--tp6h_f006-559bf01ebc.png",
+          "url": "https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/sideral-data-multimodels-05-latest/assets/2026112800--plots--tp6h_f006-559bf01ebc.png"
+        }
+      ],
+      "asset": "2026112800--plots--tp6h_f006-559bf01ebc.png"
+    },
+    {
+      "path": "2026112800/plots/tp6h_f024.png",
+      "size": 170778,
+      "sha256": "d8c1bf79fc847475e46b11aec8a92bf5bb6bd6ba00d034fac1bbc82615fe0e4a",
+      "contentType": "image/png",
+      "parts": [
+        {
+          "name": "2026112800--plots--tp6h_f024-be043447f3.png",
+          "size": 170778,
+          "sha256": "d8c1bf79fc847475e46b11aec8a92bf5bb6bd6ba00d034fac1bbc82615fe0e4a",
+          "contentType": "image/png",
+          "part": 1,
+          "releaseUrl": "https://github.com/sideralmeteorologia/sideral-web/releases/download/sideral-data-multimodels-05-latest/2026112800--plots--tp6h_f024-be043447f3.png",
+          "url": "https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/sideral-data-multimodels-05-latest/assets/2026112800--plots--tp6h_f024-be043447f3.png"
+        }
+      ],
+      "asset": "2026112800--plots--tp6h_f024-be043447f3.png"
+    },
+    {
+      "path": "2026112800/plots/tp6h_f072.png",
+      "size": 190344,
+      "sha256": "d0ade63390b9f2727338c8ddddea6e9ad1eed5db0fb76d2b52c33ae608192a10",
+      "contentType": "image/png",
+      "parts": [
+        {
+          "name": "2026112800--plots--tp6h_f072-805fe5355f.png",
+          "size": 190344,
+          "sha256": "d0ade63390b9f2727338c8ddddea6e9ad1eed5db0fb76d2b52c33ae608192a10",
+          "contentType": "image/png",
+          "part": 1,
+          "releaseUrl": "https://github.com/sideralmeteorologia/sideral-web/releases/download/sideral-data-multimodels-05-latest/2026112800--plots--tp6h_f072-805fe5355f.png",
+          "url": "https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/sideral-data-multimodels-05-latest/assets/2026112800--plots--tp6h_f072-805fe5355f.png"
+        }
+      ],
+      "asset": "2026112800--plots--tp6h_f072-805fe5355f.png"
+    },
+    {
+      "path": "2026112800/plots/tp6h_f120.png",
+      "size": 169981,
+      "sha256": "299181abe8a4bc9302ad55d13099a1ab266a7c00e944ed0e91d9857a3ddafdfc",
+      "contentType": "image/png",
+      "parts": [
+        {
+          "name": "2026112800--plots--tp6h_f120-3956d96619.png",
+          "size": 169981,
+          "sha256": "299181abe8a4bc9302ad55d13099a1ab266a7c00e944ed0e91d9857a3ddafdfc",
+          "contentType": "image/png",
+          "part": 1,
+          "releaseUrl": "https://github.com/sideralmeteorologia/sideral-web/releases/download/sideral-data-multimodels-05-latest/2026112800--plots--tp6h_f120-3956d96619.png",
+          "url": "https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/sideral-data-multimodels-05-latest/assets/2026112800--plots--tp6h_f120-3956d96619.png"
+        }
+      ],
+      "asset": "2026112800--plots--tp6h_f120-3956d96619.png"
+    },
+    {
+      "path": "2026112800/plots/tp6h_f168.png",
+      "size": 184820,
+      "sha256": "1f95462b9113aac3e896738d8075d0471ff21dc811196718232459ccb713693b",
+      "contentType": "image/png",
+      "parts": [
+        {
+          "name": "2026112800--plots--tp6h_f168-183b7432e4.png",
+          "size": 184820,
+          "sha256": "1f95462b9113aac3e896738d8075d0471ff21dc811196718232459ccb713693b",
+          "contentType": "image/png",
+          "part": 1,
+          "releaseUrl": "https://github.com/sideralmeteorologia/sideral-web/releases/download/sideral-data-multimodels-05-latest/2026112800--plots--tp6h_f168-183b7432e4.png",
+          "url": "https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/sideral-data-multimodels-05-latest/assets/2026112800--plots--tp6h_f168-183b7432e4.png"
+        }
+      ],
+      "asset": "2026112800--plots--tp6h_f168-183b7432e4.png"
+    },
+    {
+      "path": "2026112800/qc.json",
+      "size": 35848,
+      "sha256": "8240a7ea95927b9212e8641483a4a9e8f7332cdbd60235661448e839647c1b3c",
+      "contentType": "application/json",
+      "parts": [
+        {
+          "name": "2026112800--qc-07065d4795.json",
+          "size": 35848,
+          "sha256": "8240a7ea95927b9212e8641483a4a9e8f7332cdbd60235661448e839647c1b3c",
+          "contentType": "application/json",
+          "part": 1,
+          "releaseUrl": "https://github.com/sideralmeteorologia/sideral-web/releases/download/sideral-data-multimodels-05-latest/2026112800--qc-07065d4795.json",
+          "url": "https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/sideral-data-multimodels-05-latest/assets/2026112800--qc-07065d4795.json"
+        }
+      ],
+      "asset": "2026112800--qc-07065d4795.json"
+    }
+  ],
+  "notes": [
+    "Os arquivos finais são publicados em uma GitHub Release pública.",
+    "Para fetch() no navegador, use os URLs raw.githubusercontent.com presentes em parts.",
+    "Os nomes dos ativos são seguros para Windows; timestamps WRF originais ficam dentro dos arquivos.",
+    "Arquivos grandes são divididos em partes de até 45 MiB, descritas em parts.",
+    "A branch de dados é específica para este produto e mantém apenas a versão mais recente."
+  ],
+  "storage": "raw.githubusercontent.com",
+  "rawBaseUrl": "https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/sideral-data-multimodels-05-latest",
+  "manifestUrl": "https://raw.githubusercontent.com/sideralmeteorologia/sideral-web/sideral-data-multimodels-05-latest/manifest.json"
+}
